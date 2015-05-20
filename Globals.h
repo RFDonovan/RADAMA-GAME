@@ -8,4 +8,6 @@
 #define METERS_PER_PIXEL UNRATIO
 //formula to convert radians to degrees = (radians * (pi/180))
 #define RADTODEG (b2_pi / 180.0)
+
+
 #endif // GLOBALS_H_INCLUDED

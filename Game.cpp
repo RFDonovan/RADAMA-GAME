@@ -35,8 +35,10 @@ void Game::processInput()
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
                 int MouseX = sf::Mouse::getPosition(mWindow).x;
                 int MouseY = sf::Mouse::getPosition(mWindow).y;
+                sf::Vector2f MousePos = mWorld.getMousePos();
+                //mWorld.createBox(mWorld.getWorld(), MouseX, MouseY);
 
-                mWorld.createBox(mWorld.getWorld(), MouseX, MouseY);
+                mWorld.createBox(mWorld.getWorld(), MousePos.x, MousePos.y);
                 //mWorld.updateView(sf::Vector2f(MouseX, MouseY));
             }
     }

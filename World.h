@@ -41,6 +41,7 @@ public:
     void buildScene ();
     void adaptViewToPlayer();
     b2World& getWorld();
+    sf::Vector2f getMousePos();
 
     void updateView(sf::Vector2f view);
     void processInput(sf::Event);

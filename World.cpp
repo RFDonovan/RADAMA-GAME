@@ -26,13 +26,13 @@ void World::processInput(sf::Event e)
         {
             std::cout<<mWorldView.getCenter().x;
             std::cout<<mWorldView.getCenter().y;
-            updateView(sf::Vector2f(-10, 0));
+            updateView(sf::Vector2f(-2, 0));
         }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
             std::cout<<mWorldView.getCenter().x;
             std::cout<<mWorldView.getCenter().y;
-            updateView(sf::Vector2f(10, 0));
+            updateView(sf::Vector2f(2, 0));
         }
 }
 
@@ -69,10 +69,11 @@ void World::draw()
     for (b2Body* BodyIterator = p_world.GetBodyList();
     BodyIterator; BodyIterator = BodyIterator->GetNext() )
     {
-        if(BodyIterator->GetType() == b2_staticBody)
+        /*if(BodyIterator->GetType() == b2_staticBody)
         {
             GroundSprite.setTexture(t_ground);
             GroundSprite.setOrigin(400.f, 8.f);
+            GroundSprite.setScale(.5f,0.0f);
 
             GroundSprite.setPosition(BodyIterator->GetPosition().x * RATIO,
                                      BodyIterator->GetPosition().y * RATIO);
@@ -83,7 +84,7 @@ void World::draw()
         else
         {
 
-        }
+        }*/
     }
 
 
@@ -94,6 +95,7 @@ void World::loadTextures()
     /**Load the animated sprites & more**/
     //mTextures.load(Textues::Radama, "/path/to/tex")
     t_ground.loadFromFile("ground.png");
+
 }
 
 void World::buildScene()
@@ -117,6 +119,11 @@ b2World& World::getWorld()
     return p_world;
 }
 
+sf::Vector2f World::getMousePos()
+{
+
+    return mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
+}
 ///>>>>>>>>>>>>>>>->>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ///>>>>>>>>>CREATING THINGS>>>>>>>>>>
 
