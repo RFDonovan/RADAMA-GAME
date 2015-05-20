@@ -1,3 +1,8 @@
+#include<SFML/Graphics.hpp>
+#include<Box2D/Box2D.h>
+#include<iostream>
+#include<functional>
+
 #include "debugDraw.hpp"
 #include "TextureHolder.h"
 //#include "CommandQueue.h"
@@ -9,6 +14,12 @@ class World
 public:
 
     sf::RenderWindow& mWindow;
+    ///>>>Physic World init
+    b2Vec2      gravity;
+    b2World     p_world;
+    b2Body* Body1;
+
+
     //DebugDraw debugDrawInstance;
     sf::View mWorldView;
     TextureHolder mTextures;
@@ -16,6 +27,9 @@ public:
     //CommandQueue mCommandQueue;
     //float mScrollSpeed;
     sf::Vector2f mPlayerPosition;
+
+    sf::Texture t_ground;
+    sf::Sprite GroundSprite;
     // Operations
 public:
     explicit World (sf::RenderWindow& window);
@@ -24,5 +38,10 @@ public:
     void loadTextures ();
     void buildScene ();
     void adaptViewToPlayer();
+    b2World& getWorld();
+
+    /**CREATING SOMETHINGS*/
+    void createGround(b2World& world, float X, float Y);
+    void createBox(b2World& world, int MouseX, int MouseY);
 };
 

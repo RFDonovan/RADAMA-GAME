@@ -1,8 +1,5 @@
 
-#include<SFML/Graphics.hpp>
-#include<Box2D/Box2D.h>
-#include<iostream>
-#include<functional>
+
 //#include "Animation.hpp"
 #include "AnimatedSprite.hpp"
 //#include "Command.hpp"
@@ -27,5 +24,6 @@ public:
     void processInput();
     void update ();
     void render (sf::Time frameTime);
+    void loadAllPhysics();
 };
 
