@@ -19,6 +19,8 @@ public:
     b2World     p_world;
     b2Body* Body1;
 
+    DebugDraw debugDrawInstance;
+
 
     //DebugDraw debugDrawInstance;
     sf::View mWorldView;
@@ -39,6 +41,9 @@ public:
     void buildScene ();
     void adaptViewToPlayer();
     b2World& getWorld();
+
+    void updateView(sf::Vector2f view);
+    void processInput(sf::Event);
 
     /**CREATING SOMETHINGS*/
     void createGround(b2World& world, float X, float Y);

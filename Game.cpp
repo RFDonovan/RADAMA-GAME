@@ -37,8 +37,11 @@ void Game::processInput()
                 int MouseY = sf::Mouse::getPosition(mWindow).y;
 
                 mWorld.createBox(mWorld.getWorld(), MouseX, MouseY);
+                //mWorld.updateView(sf::Vector2f(MouseX, MouseY));
             }
     }
+    mWorld.processInput(event);
+
 }
 
 void Game::update()

@@ -4,11 +4,11 @@ World::World(sf::RenderWindow& window)
 : mWindow(window)
 , gravity(0.f,9.8f)
 , p_world(gravity, true)
+, debugDrawInstance(window)
 , mWorldView(window.getDefaultView())
 //, mPlayerPosition(mWorldView.getSize().x/2.f, )
 {
     window.setVerticalSyncEnabled(true);
-    DebugDraw debugDrawInstance(window);
     p_world.SetDebugDraw(&debugDrawInstance);
 
     debugDrawInstance.SetFlags(b2Draw::e_shapeBit);
@@ -20,9 +20,30 @@ World::World(sf::RenderWindow& window)
 
 }
 
+void World::processInput(sf::Event e)
+{
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        {
+            std::cout<<mWorldView.getCenter().x;
+            std::cout<<mWorldView.getCenter().y;
+            updateView(sf::Vector2f(-10, 0));
+        }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        {
+            std::cout<<mWorldView.getCenter().x;
+            std::cout<<mWorldView.getCenter().y;
+            updateView(sf::Vector2f(10, 0));
+        }
+}
+
+void World::updateView(sf::Vector2f view)
+{
+    mWorldView.move(view);
+}
+
 void World::update()
 {
-    /*
+    //*
     sf::Vector2f playerPosition(0.0f,0.0f);
     mWorldView.move(playerPosition);
     adaptViewToPlayer();
@@ -40,6 +61,7 @@ void World::draw()
     p_world.Step(1/60.f,6,2);
     p_world.ClearForces();
     p_world.DrawDebugData();
+
     mWindow.setView(mWorldView);
     /*mWindow.draw(sprites);*/
     /*mWincow.draw(player)*/
@@ -58,6 +80,10 @@ void World::draw()
             GroundSprite.setRotation(BodyIterator->GetAngle() * 180/b2_pi);
             mWindow.draw(GroundSprite);
         }
+        else
+        {
+
+        }
     }
 
 
@@ -75,8 +101,8 @@ void World::buildScene()
     /**prepare layers*/
     /**add background*/
     /**add player*/
-    createBox(p_world, 10, 10);
-    //createGround(p_world, 400.f, 500.f);
+    //createBox(p_world, 10, 10);
+    createGround(p_world, 400.f, 500.f);
 
 }
 
