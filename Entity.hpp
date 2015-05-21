@@ -23,12 +23,16 @@ public:
     //animation control
     sf::Texture* texture;
     bool noKeyWasPressed = true;
+    b2World *p_world;
 
 public:
             Entity(b2World* world, float radius, float32 x, float32 y);
     void    render(sf::RenderWindow& mWindow, TextureHolder* Textures);
     void    onCommand(sf::Event e);
-            //~Entity();
+    int     getY();
+
+
+            ~Entity();
 };
 
 #endif // ENTITY_HPP_INCLUDED

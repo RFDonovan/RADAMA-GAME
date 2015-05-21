@@ -65,7 +65,24 @@ void World::draw()
     mWindow.setView(mWorldView);
 
     for (int i = 0 ;i < entities.size() ; i++ )
-        entities[i]->render(mWindow, &Textures);
+    {
+
+        ///teste une suppression d'Entité morts: ASSEZ BIEN!!!
+        if(entities[i]->getY() > mWindow.getSize().y)
+        {
+            std::cout<< "ito suppr";
+            delete entities[i];
+            entities.erase(entities.begin()+i);
+            continue;
+
+        }
+        else
+            entities[i]->render(mWindow, &Textures);
+    }
+
+
+
+    ///
     /*mWindow.draw(sprites);*/
     /*mWincow.draw(player)*/
 

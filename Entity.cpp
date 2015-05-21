@@ -1,6 +1,7 @@
 #include "Entity.hpp"
 
 Entity::Entity(b2World* world, float radius, float32 x, float32 y)
+: p_world(world)
 {
     kind = Entity::Player;
 
@@ -30,11 +31,9 @@ Entity::Entity(b2World* world, float radius, float32 x, float32 y)
 void Entity::render(sf::RenderWindow& mWindow, TextureHolder* Textures)
 {
 //*
-    //Type c = Entity::Player;
     switch(kind){
     case Entity::Player:
         {
-            //free(texture);
             texture = Textures->getTexture(TextureHolder::Player);
             Animation walkingAnimationLeft;
             walkingAnimationLeft.setSpriteSheet(*texture);
@@ -63,7 +62,6 @@ void Entity::render(sf::RenderWindow& mWindow, TextureHolder* Textures)
             if (noKeyWasPressed)
             {
                 animatedSprite.stop();
-                //Body1->ApplyForceToCenter(b2Vec2(0.0f,0.f));
             }
             noKeyWasPressed = true;
 
@@ -93,4 +91,16 @@ void Entity::render(sf::RenderWindow& mWindow, TextureHolder* Textures)
 void onCommand(sf::Event e)
 {
 
+}
+
+int Entity::getY()
+{
+    return (int)m_body->GetPosition().y * RATIO;
+}
+
+Entity::~Entity()
+{
+    p_world->DestroyBody(m_body);
+
+    std::cout<< "fini";
 }

@@ -33,8 +33,6 @@ void Game::processInput()
             mWindow.close();
 
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-                /*int MouseX = sf::Mouse::getPosition(mWindow).x;
-                int MouseY = sf::Mouse::getPosition(mWindow).y;*/
                 sf::Vector2f MousePos = mWorld.getMousePos();
 
                 //mWorld.createBox(mWorld.getWorld(), MousePos.x, MousePos.y);
@@ -63,5 +61,4 @@ void Game::render(sf::Time frameTime)
 void Game::loadAllPhysics()
 {
     mWorld.buildScene();
-    //mWorld.createBox(mWorld.getWorld(), 10, 10);
 }
