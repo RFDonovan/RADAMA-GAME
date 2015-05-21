@@ -17,7 +17,7 @@ public:
     ///>>>Physic World init
     b2Vec2      gravity;
     b2World     p_world;
-    b2Body* Body1;
+    //b2Body* Body1;
 
     DebugDraw debugDrawInstance;
 

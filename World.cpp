@@ -151,8 +151,9 @@ void World::createBox(b2World& world, int MouseX, int MouseY)
     b2BodyDef BodyDef;
     BodyDef.position.Set(MouseX/RATIO, MouseY/RATIO);
     BodyDef.type = b2_dynamicBody;
-    //b2Body* Body1 = world.CreateBody(&BodyDef);
-    Body1 = world.CreateBody(&BodyDef);
+    b2Body* Body1 = world.CreateBody(&BodyDef);
+    //b2Body *Body1;
+    //Body1 = world.CreateBody(&BodyDef);
 
     b2PolygonShape Shape;
     Shape.SetAsBox((32.f/2)/RATIO, (32.f/2)/RATIO);
