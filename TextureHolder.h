@@ -17,7 +17,7 @@ public:
 public:
     TextureHolder();
      void            loadFromFile(TexName type, std::string filename);
-     sf::Texture     getTexture(TexName type);
+     sf::Texture*     getTexture(TexName type);
 
 
 };

@@ -27,23 +27,24 @@ Entity::Entity(b2World* world, float radius, float32 x, float32 y)
     m_body->CreateFixture(&FixtureDef);
 }
 
-void Entity::render(sf::RenderWindow& mWindow, TextureHolder Textures)
+void Entity::render(sf::RenderWindow& mWindow, TextureHolder* Textures)
 {
-    sf::Texture texture;
+//*
     //Type c = Entity::Player;
     switch(kind){
     case Entity::Player:
         {
-            texture = Textures.getTexture(TextureHolder::Player);
+            //free(texture);
+            texture = Textures->getTexture(TextureHolder::Player);
             Animation walkingAnimationLeft;
-            walkingAnimationLeft.setSpriteSheet(texture);
+            walkingAnimationLeft.setSpriteSheet(*texture);
             walkingAnimationLeft.addFrame(sf::IntRect(32, 32, 32, 32));
             walkingAnimationLeft.addFrame(sf::IntRect(64, 32, 32, 32));
             walkingAnimationLeft.addFrame(sf::IntRect(32, 32, 32, 32));
             walkingAnimationLeft.addFrame(sf::IntRect( 0, 32, 32, 32));
 
             Animation walkingAnimationRight;
-            walkingAnimationRight.setSpriteSheet(texture);
+            walkingAnimationRight.setSpriteSheet(*texture);
             walkingAnimationRight.addFrame(sf::IntRect(32, 64, 32, 32));
             walkingAnimationRight.addFrame(sf::IntRect(64, 64, 32, 32));
             walkingAnimationRight.addFrame(sf::IntRect(32, 64, 32, 32));
@@ -73,6 +74,7 @@ void Entity::render(sf::RenderWindow& mWindow, TextureHolder Textures)
             animatedSprite.setRotation(m_body->GetAngle() * 180/b2_pi);
             ///Draw:
             mWindow.draw(animatedSprite);
+
         }
 
         break;
@@ -85,7 +87,7 @@ void Entity::render(sf::RenderWindow& mWindow, TextureHolder Textures)
         break;
 
     }
-
+//*/
 }
 
 void onCommand(sf::Event e)
