@@ -63,17 +63,21 @@ void World::draw()
     p_world.DrawDebugData();
 
     mWindow.setView(mWorldView);
+
+    for (int i = 0 ;i < entities.size() ; i++ )
+        entities[i]->render();
     /*mWindow.draw(sprites);*/
     /*mWincow.draw(player)*/
 
+    /*
     for (b2Body* BodyIterator = p_world.GetBodyList();
     BodyIterator; BodyIterator = BodyIterator->GetNext() )
     {
-        /*if(BodyIterator->GetType() == b2_staticBody)
+        if(BodyIterator->GetType() == b2_staticBody)
         {
             GroundSprite.setTexture(t_ground);
+            GroundSprite.setScale(.5f,0.5f);
             GroundSprite.setOrigin(400.f, 8.f);
-            GroundSprite.setScale(.5f,0.0f);
 
             GroundSprite.setPosition(BodyIterator->GetPosition().x * RATIO,
                                      BodyIterator->GetPosition().y * RATIO);
@@ -84,8 +88,9 @@ void World::draw()
         else
         {
 
-        }*/
-    }
+        }
+
+    }*/
 
 
 }
@@ -167,4 +172,10 @@ void World::createBox(b2World& world, int MouseX, int MouseY)
 
 
     Body1->CreateFixture(&FixtureDef);
+}
+
+void World::createEntity(b2World& world, int MouseX, int MouseY)
+{
+    Entity* e = new Entity(&world, 1.f , (float32)MouseX, (float32)MouseY);
+    entities.push_back(e);
 }

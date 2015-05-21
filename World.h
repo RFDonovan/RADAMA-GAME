@@ -2,9 +2,11 @@
 #include<Box2D/Box2D.h>
 #include<iostream>
 #include<functional>
+#include<vector>
 
 #include "debugDraw.hpp"
 #include "TextureHolder.h"
+#include "Entity.hpp"
 //#include "CommandQueue.h"
 
 /// class World - recevra une reference du RenderWindow depuis Game, c'est cette classe qui va s'
@@ -24,6 +26,14 @@ public:
 
     //DebugDraw debugDrawInstance;
     sf::View mWorldView;
+
+
+
+    std::vector<Entity*> entities;
+
+
+
+
     TextureHolder mTextures;
     //Layers mSceneLayers;
     //CommandQueue mCommandQueue;
@@ -49,5 +59,6 @@ public:
     /**CREATING SOMETHINGS*/
     void createGround(b2World& world, float X, float Y);
     void createBox(b2World& world, int MouseX, int MouseY);
+    void createEntity(b2World& world, int MouseX, int MouseY);
 };
 
