@@ -16,6 +16,7 @@ class World
 public:
 
     sf::RenderWindow& mWindow;
+    TextureHolder Textures;
     ///>>>Physic World init
     b2Vec2      gravity;
     b2World     p_world;
@@ -55,6 +56,8 @@ public:
 
     void updateView(sf::Vector2f view);
     void processInput(sf::Event);
+
+    //TextureHolder World::getTextureMap();
 
     /**CREATING SOMETHINGS*/
     void createGround(b2World& world, float X, float Y);

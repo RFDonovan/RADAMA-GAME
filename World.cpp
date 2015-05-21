@@ -65,7 +65,7 @@ void World::draw()
     mWindow.setView(mWorldView);
 
     for (int i = 0 ;i < entities.size() ; i++ )
-        entities[i]->render();
+        entities[i]->render(mWindow, Textures);
     /*mWindow.draw(sprites);*/
     /*mWincow.draw(player)*/
 
@@ -99,9 +99,13 @@ void World::loadTextures()
 {
     /**Load the animated sprites & more**/
     //mTextures.load(Textues::Radama, "/path/to/tex")
-    t_ground.loadFromFile("ground.png");
+    //t_ground.loadFromFile("ground.png");
+    Textures.loadFromFile(TextureHolder::Player, "player.png");
+    Textures.loadFromFile(TextureHolder::Ground1, "ground.png");
 
 }
+
+
 
 void World::buildScene()
 {
