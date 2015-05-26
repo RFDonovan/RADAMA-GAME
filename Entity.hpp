@@ -24,6 +24,7 @@ public:
     sf::Texture* texture;
     bool noKeyWasPressed = true;
     b2World *p_world;
+    b2Vec2 vel;
 
     sf::Clock frameClock;
     Animation* currentAnimation;

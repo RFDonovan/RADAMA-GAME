@@ -133,12 +133,15 @@ void Entity::onCommand(sf::Event e)
 
 void Entity::processLogic()
 {
-    b2Vec2 vel = m_body->GetLinearVelocity();
+    ///*
+    if(noKeyWasPressed)
+        return;
+    vel = m_body->GetLinearVelocity();
     //desiredVel = 0;
     float velChange = desiredVel - vel.x;
     float force = m_body->GetMass() * velChange / (1/60.0);// f = mv/t
     m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter());
-
+//*/
 }
 
 int Entity::getY()
