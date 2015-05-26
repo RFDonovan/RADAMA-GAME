@@ -54,7 +54,7 @@ void World::update()
     //*
     for (int i = 0 ;i < entities.size() ; i++ )
     {
-        entities[i]->processLogic();
+        ///entities[i]->processLogic();
 
     }
 //*/

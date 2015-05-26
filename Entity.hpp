@@ -25,9 +25,11 @@ public:
     bool noKeyWasPressed = true;
     b2World *p_world;
 
+    sf::Clock frameClock;
     Animation* currentAnimation;
     Animation walkingAnimationLeft, walkingAnimationRight;
     float desiredVel;
+    AnimatedSprite animatedSprite;
 
 public:
             Entity(b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y);

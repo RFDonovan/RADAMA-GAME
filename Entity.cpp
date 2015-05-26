@@ -3,6 +3,7 @@
 Entity::Entity(b2World* world,TextureHolder* Textures, float radius, float32 x, float32 y)
 : p_world(world)
 , desiredVel(0)
+,animatedSprite(sf::seconds(0.2), true, false)
 {
     kind = Entity::Player;
 
@@ -49,6 +50,7 @@ void Entity::loadPlayerSprite(TextureHolder* Textures)
     walkingAnimationRight.addFrame(sf::IntRect(64, 64, 32, 32));
     walkingAnimationRight.addFrame(sf::IntRect(32, 64, 32, 32));
     walkingAnimationRight.addFrame(sf::IntRect( 0, 64, 32, 32));
+    noKeyWasPressed = true;
 }
 
 void Entity::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder* Textures)
@@ -61,12 +63,9 @@ void Entity::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
 
             //loadPlayerSprite(Textures);
 
-            ///currentAnimation = &walkingAnimationLeft;///POUR LE STANDBY ANIMATION
-            /// set up AnimatedSprite
-            sf::Vector2i screenDimensions(800,600);
-            AnimatedSprite animatedSprite(sf::seconds(0.2), true, false);
+            sf::Time frameTime1 = frameClock.restart();
 
-            animatedSprite.setPosition(sf::Vector2f(screenDimensions / 2));
+            sf::Vector2i screenDimensions(800,600);
 
             //start animation:
             animatedSprite.play(*currentAnimation);
@@ -77,7 +76,9 @@ void Entity::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
                 m_body->ApplyForceToCenter(b2Vec2(0.0f,0.f));
             }
             noKeyWasPressed = true;
-            animatedSprite.update(frameTime);
+            animatedSprite.update(frameTime1);
+
+
             ///emplacement:
             animatedSprite.setOrigin(16,16);
             animatedSprite.setPosition(m_body->GetPosition().x * RATIO,
