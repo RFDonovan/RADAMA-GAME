@@ -38,6 +38,10 @@ public:
     void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures);
     void    onCommand(sf::Event e);
     int     getY();
+    bool    isGrounded();
+
+    void    startContact();
+    void    endContact();
 
 
             ~Entity();

@@ -16,6 +16,8 @@ Entity::Entity(b2World* world,TextureHolder* Textures, float radius, float32 x, 
     myBodyDef.position.Set(x/RATIO, y/RATIO);
     m_body = world->CreateBody(&myBodyDef);
 
+    m_body->SetUserData(this);
+
     //set fixture:
     b2PolygonShape Shape;
     Shape.SetAsBox((32.f/2)/RATIO, (32.f/2)/RATIO);
@@ -78,6 +80,8 @@ void Entity::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
                     desiredVel = desiredVel - 0.2f;
                 if(desiredVel<0)
                     desiredVel = desiredVel + 0.2f;
+
+                desiredVel = 0;
             }
             noKeyWasPressed = true;
             animatedSprite.update(frameTime1);
@@ -141,6 +145,21 @@ int Entity::getY()
 {
     return (int)m_body->GetPosition().y * RATIO;
 }
+
+bool Entity::isGrounded()
+{
+
+}
+
+void Entity::startContact()
+{
+    std::cout<< "CONTACT BEGIN";
+}
+void Entity::endContact()
+{
+    std::cout<< "CONTACT END";
+}
+
 
 Entity::~Entity()
 {

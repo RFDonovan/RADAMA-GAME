@@ -16,6 +16,8 @@ World::World(sf::RenderWindow& window)
     loadTextures();
     buildScene();
 
+    p_world.SetContactListener(&CL_Instance);
+
     //mWorldView.setCenter(mPlayerPosition);
 
 }

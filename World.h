@@ -7,6 +7,7 @@
 #include "debugDraw.hpp"
 #include "TextureHolder.h"
 #include "Entity.hpp"
+#include "ContactListener.inl"
 //#include "CommandQueue.h"
 
 /// class World - recevra une reference du RenderWindow depuis Game, c'est cette classe qui va s'
@@ -43,6 +44,10 @@ public:
 
     sf::Texture t_ground;
     sf::Sprite GroundSprite;
+
+    ///contact listener
+    ContactListener CL_Instance;
+
     // Operations
 public:
     explicit World (sf::RenderWindow& window);
