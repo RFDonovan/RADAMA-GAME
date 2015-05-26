@@ -105,7 +105,8 @@ void World::loadTextures()
     //mTextures.load(Textues::Radama, "/path/to/tex")
     //t_ground.loadFromFile("ground.png");
     //*
-    Textures.loadFromFile(TextureHolder::Player, "player.png");
+    //Textures.loadFromFile(TextureHolder::Player, "player.png");
+    Textures.loadFromFile(TextureHolder::Player, "pGGbv.png");
     Textures.loadFromFile(TextureHolder::Ground1, "ground.png");
     //*/
 
@@ -186,6 +187,6 @@ void World::createBox(b2World& world, int MouseX, int MouseY)
 
 void World::createEntity(b2World& world, int MouseX, int MouseY)
 {
-    Entity* e = new Entity(&world, &Textures, 1.f , (float32)MouseX, (float32)MouseY);
+    Entity* e = new Entity(&world, &Textures, 1.f , (float32)MouseX, (float32)MouseY, BOXSIZE_W, BOXSIZE_H);
     entities.push_back(e);
 }

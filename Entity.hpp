@@ -33,7 +33,7 @@ public:
     AnimatedSprite animatedSprite;
 
 public:
-            Entity(b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y);
+            Entity(b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
     void    loadPlayerSprite(TextureHolder* Textures);
     void    processLogic();
     void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures);

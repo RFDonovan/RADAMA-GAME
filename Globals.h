@@ -8,6 +8,7 @@
 #define METERS_PER_PIXEL UNRATIO
 //formula to convert radians to degrees = (radians * (pi/180))
 #define RADTODEG (b2_pi / 180.0)
-
+#define BOXSIZE_W 74.f
+#define BOXSIZE_H 150.f
 
 #endif // GLOBALS_H_INCLUDED
