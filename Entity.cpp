@@ -74,6 +74,7 @@ void Entity::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
 
                 animatedSprite.stop();
                 m_body->ApplyForceToCenter(b2Vec2(0.0f,0.f));
+                desiredVel = 0;
             }
             noKeyWasPressed = true;
             animatedSprite.update(frameTime1);
