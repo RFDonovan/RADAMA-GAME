@@ -34,6 +34,11 @@ void World::processInput(sf::Event e)
             std::cout<<mWorldView.getCenter().y;
             updateView(sf::Vector2f(2, 0));
         }
+    for (int i = 0 ;i < entities.size() ; i++ )
+    {
+        entities[i]->onCommand(e);
+
+    }
 }
 
 void World::updateView(sf::Vector2f view)
@@ -45,9 +50,19 @@ void World::update()
 {
     //*
     sf::Vector2f playerPosition(0.0f,0.0f);
+
+    //*
+    for (int i = 0 ;i < entities.size() ; i++ )
+    {
+        entities[i]->processLogic();
+
+    }
+//*/
     mWorldView.move(playerPosition);
     adaptViewToPlayer();
+    //delete playerPosition;
 //*/
+
     ///depiler commandes
     /*while(!mCommandQueue.isEmpty())
         player.onCommand(mCommandQueue.pop(), dt);
@@ -55,7 +70,7 @@ void World::update()
 
 }
 
-void World::draw()
+void World::draw(sf::Time frameTime)
 {
 
     p_world.Step(1/60.f,6,2);
@@ -77,38 +92,8 @@ void World::draw()
 
         }
         else
-            entities[i]->render(mWindow, &Textures);
+            entities[i]->render(mWindow, frameTime, &Textures);
     }
-
-
-
-    ///
-    /*mWindow.draw(sprites);*/
-    /*mWincow.draw(player)*/
-
-    /*
-    for (b2Body* BodyIterator = p_world.GetBodyList();
-    BodyIterator; BodyIterator = BodyIterator->GetNext() )
-    {
-        if(BodyIterator->GetType() == b2_staticBody)
-        {
-            GroundSprite.setTexture(t_ground);
-            GroundSprite.setScale(.5f,0.5f);
-            GroundSprite.setOrigin(400.f, 8.f);
-
-            GroundSprite.setPosition(BodyIterator->GetPosition().x * RATIO,
-                                     BodyIterator->GetPosition().y * RATIO);
-
-            GroundSprite.setRotation(BodyIterator->GetAngle() * 180/b2_pi);
-            mWindow.draw(GroundSprite);
-        }
-        else
-        {
-
-        }
-
-    }*/
-
 
 }
 
@@ -199,6 +184,6 @@ void World::createBox(b2World& world, int MouseX, int MouseY)
 
 void World::createEntity(b2World& world, int MouseX, int MouseY)
 {
-    Entity* e = new Entity(&world, 1.f , (float32)MouseX, (float32)MouseY);
+    Entity* e = new Entity(&world, &Textures, 1.f , (float32)MouseX, (float32)MouseY);
     entities.push_back(e);
 }

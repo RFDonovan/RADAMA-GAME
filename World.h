@@ -47,7 +47,7 @@ public:
 public:
     explicit World (sf::RenderWindow& window);
     void update (/*sf::Time dt*/);
-    void draw ();
+    void draw (sf::Time frameTime);
     void loadTextures ();
     void buildScene ();
     void adaptViewToPlayer();

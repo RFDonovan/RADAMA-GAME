@@ -52,7 +52,7 @@ void Game::render(sf::Time frameTime)
 {
     mWindow.clear(sf::Color::Blue);
 
-    mWorld.draw();
+    mWorld.draw(frameTime);
 
     //mWindow.setView(mWindow.getDefaultView());
     mWindow.display();

@@ -25,9 +25,15 @@ public:
     bool noKeyWasPressed = true;
     b2World *p_world;
 
+    Animation* currentAnimation;
+    Animation walkingAnimationLeft, walkingAnimationRight;
+    float desiredVel;
+
 public:
-            Entity(b2World* world, float radius, float32 x, float32 y);
-    void    render(sf::RenderWindow& mWindow, TextureHolder* Textures);
+            Entity(b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y);
+    void    loadPlayerSprite(TextureHolder* Textures);
+    void    processLogic();
+    void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures);
     void    onCommand(sf::Event e);
     int     getY();
 
