@@ -60,5 +60,5 @@ void Game::render(sf::Time frameTime)
 
 void Game::loadAllPhysics()
 {
-    mWorld.buildScene();
+    //mWorld.buildScene();
 }

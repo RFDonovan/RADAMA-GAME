@@ -156,6 +156,7 @@ void Entity::onCommand(sf::Event e)
         currentAnimation = &walkingAnimationLeft;
         desiredVel = -5.0f;
         noKeyWasPressed = false;
+
     }
     if (sf::Keyboard::isKeyPressed(K_RIGHT))
     {
@@ -212,6 +213,16 @@ void Entity::processLogic()
 int Entity::getY()
 {
     return (int)m_body->GetPosition().y * RATIO;
+}
+
+int Entity::getX()
+{
+    return (int)m_body->GetPosition().x * RATIO;
+}
+
+b2Vec2 Entity::getVelocity()
+{
+    return m_body->GetLinearVelocity();
 }
 
 bool Entity::isGrounded()

@@ -41,6 +41,7 @@ public:
     //CommandQueue mCommandQueue;
     //float mScrollSpeed;
     sf::Vector2f            mPlayerPosition;
+    Entity                  *ePlayer;
 
     sf::Sprite   BG;
     sf::Vector2f            mBGPosition;

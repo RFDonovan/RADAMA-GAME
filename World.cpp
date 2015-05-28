@@ -27,21 +27,25 @@ World::World(sf::RenderWindow& window)
 
 void World::processInput(sf::Event e)
 {
+    //if(sf::Keyboard::isKeyPressed(K_LEFT))
+    //    updateView(sf::Vector2f(mWorldView.getCenter().x - ePlayer->getX(),300));
+    //*
     if(sf::Keyboard::isKeyPressed(K_LEFT))
         {
             std::cout<<mWorldView.getCenter().x;
             std::cout<<mWorldView.getCenter().y;
-            updateView(sf::Vector2f(-2, 0));
+            ///updateView(sf::Vector2f(-2, 0));
             //BG.setPosition(sf::Vector2f(-2, 0))
-            BG.move(sf::Vector2f(-1.5f, 0));
+            ///BG.move(sf::Vector2f(-1.8f, 0));
         }
     if(sf::Keyboard::isKeyPressed(K_RIGHT))
         {
             std::cout<<mWorldView.getCenter().x;
             std::cout<<mWorldView.getCenter().y;
-            updateView(sf::Vector2f(2, 0));
-            BG.move(sf::Vector2f(1.5f, 0));
+            ///updateView(sf::Vector2f(2, 0));
+            ///BG.move(sf::Vector2f(1.8f, 0));
         }
+    //*/
     for (int i = 0 ;i < entities.size() ; i++ )
     {
         entities[i]->onCommand(e);
@@ -131,12 +135,23 @@ void World::buildScene()
     //createBox(p_world, 10, 10);
     createGround(p_world, 400.f, 500.f);
 
+    ePlayer = new Entity(&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
+    entities.push_back(ePlayer);
+
+
+
 }
 
 void World::adaptViewToPlayer()
 {
     /**player always at 2/3 of scren*/
     /**except at the begining or at the end of the level*/
+    //mPlayerPosition = sf::Vector2f(ePlayer->getX(), ePlayer->getY());
+    //updateView(sf::Vector2f(ePlayer->getX()-mWorldView.getCenter().x,300));
+    b2Vec2 vel = ePlayer->getVelocity();
+    std::cout<< "vel x:"<<vel.x;
+    updateView(sf::Vector2f(vel.x/2,0));
+    BG.move(sf::Vector2f((vel.x)/2.5, 0));
 }
 
 b2World& World::getWorld()

@@ -41,7 +41,9 @@ public:
     void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures);
     void    onCommand(sf::Event e);
     int     getY();
+    int     getX();
     bool    isGrounded();
+    b2Vec2  getVelocity();
 
     void    startContact();
     void    endContact();
