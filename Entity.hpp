@@ -23,8 +23,10 @@ public:
     //animation control
     sf::Texture* texture;
     bool noKeyWasPressed = true;
+    bool grounded = false;
     b2World *p_world;
     b2Vec2 vel;
+    int jump = 0;
 
     sf::Clock frameClock;
     Animation* currentAnimation;

@@ -24,13 +24,13 @@ World::World(sf::RenderWindow& window)
 
 void World::processInput(sf::Event e)
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    if(sf::Keyboard::isKeyPressed(K_LEFT))
         {
             std::cout<<mWorldView.getCenter().x;
             std::cout<<mWorldView.getCenter().y;
             updateView(sf::Vector2f(-2, 0));
         }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    if(sf::Keyboard::isKeyPressed(K_RIGHT))
         {
             std::cout<<mWorldView.getCenter().x;
             std::cout<<mWorldView.getCenter().y;

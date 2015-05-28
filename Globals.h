@@ -11,4 +11,7 @@
 #define BOXSIZE_W 74.f
 #define BOXSIZE_H 150.f
 
+#define K_LEFT sf::Keyboard::Q
+#define K_RIGHT sf::Keyboard::D
+
 #endif // GLOBALS_H_INCLUDED

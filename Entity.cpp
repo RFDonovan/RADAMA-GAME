@@ -22,11 +22,11 @@ Entity::Entity(b2World* world,TextureHolder* Textures, float radius, float32 x, 
     b2PolygonShape Shape;
     Shape.SetAsBox((w/2)/RATIO, (h/2)/RATIO);
     b2FixtureDef FixtureDef;
-    FixtureDef.density = 0.5f;
+    //FixtureDef.density = 0.5f;
     //FixtureDef.density = 1.f;
     //FixtureDef.friction = 1.0f;
     FixtureDef.friction = 0.7f;
-    FixtureDef.restitution = .3f;
+    //FixtureDef.restitution = .3f;
     FixtureDef.shape = &Shape;
 
     //attach to body:
@@ -45,7 +45,6 @@ void Entity::loadPlayerSprite(TextureHolder* Textures)
     walkingAnimationLeft.addFrame(sf::IntRect(9, 163, 74, 149));
     walkingAnimationLeft.addFrame(sf::IntRect(107, 162, 74, 150));
     walkingAnimationLeft.addFrame(sf::IntRect(210, 163, 68, 149));
-
     walkingAnimationLeft.addFrame(sf::IntRect( 319, 160, 42, 152));
     walkingAnimationLeft.addFrame(sf::IntRect( 413, 160, 44, 153));
     walkingAnimationLeft.addFrame(sf::IntRect( 494, 161, 57, 150));
@@ -58,19 +57,18 @@ void Entity::loadPlayerSprite(TextureHolder* Textures)
 
     //Animation walkingAnimationRight;
     walkingAnimationRight.setSpriteSheet(*texture);
-    walkingAnimationRight.addFrame(sf::IntRect(10; 324; 75; 148));
-    walkingAnimationRight.addFrame(sf::IntRect(100; 325; 76; 150));
-    walkingAnimationRight.addFrame(sf::IntRect(196; 325; 68; 149));
-
-    walkingAnimationRight.addFrame(sf::IntRect( 304; 323; 41; 152));
-    walkingAnimationRight.addFrame(sf::IntRect( 399; 323; 44; 152));
-    walkingAnimationRight.addFrame(sf::IntRect( 496; 324; 57; 150));
-    walkingAnimationRight.addFrame(sf::IntRect(583; 323; 77; 150));
-    walkingAnimationRight.addFrame(sf::IntRect(668; 325; 78; 147));
-    walkingAnimationRight.addFrame(sf::IntRect( 764; 323; 71; 149));
-    walkingAnimationRight.addFrame(sf::IntRect(877; 323; 44; 148));
-    walkingAnimationRight.addFrame(sf::IntRect(976; 324; 39; 147));
-    walkingAnimationRight.addFrame(sf::IntRect(1067; 323; 63; 148));
+    walkingAnimationRight.addFrame(sf::IntRect(10, 324, 75, 148));
+    walkingAnimationRight.addFrame(sf::IntRect(100, 325, 76, 150));
+    walkingAnimationRight.addFrame(sf::IntRect(196, 325, 68, 149));
+    walkingAnimationRight.addFrame(sf::IntRect( 304, 323, 41, 152));
+    walkingAnimationRight.addFrame(sf::IntRect( 399, 323, 44, 152));
+    walkingAnimationRight.addFrame(sf::IntRect( 496, 324, 57, 150));
+    walkingAnimationRight.addFrame(sf::IntRect(583, 323, 77, 150));
+    walkingAnimationRight.addFrame(sf::IntRect(668, 325, 78, 147));
+    walkingAnimationRight.addFrame(sf::IntRect( 764, 323, 71, 149));
+    walkingAnimationRight.addFrame(sf::IntRect(877, 323, 44, 148));
+    walkingAnimationRight.addFrame(sf::IntRect(976, 324, 39, 147));
+    walkingAnimationRight.addFrame(sf::IntRect(1067, 323, 63, 148));
 
     noKeyWasPressed = true;
 }
@@ -114,11 +112,11 @@ void Entity::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
             {
 
                 animatedSprite.stop();
-                m_body->ApplyForceToCenter(b2Vec2(0.0f,0.f));
-                if(desiredVel>0)
-                    desiredVel = desiredVel - 0.2f;
-                if(desiredVel<0)
-                    desiredVel = desiredVel + 0.2f;
+//                m_body->ApplyForceToCenter(b2Vec2(0.0f,0.f));
+//                if(desiredVel>0)
+//                    desiredVel = desiredVel - 0.2f;
+//                if(desiredVel<0)
+//                    desiredVel = desiredVel + 0.2f;
 
                 desiredVel = 0;
             }
@@ -139,7 +137,8 @@ void Entity::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
         break;
     case Entity::Other:
         {
-
+/** TODO (dno#1#05/27/15):
+Ajouter des actions pour les autres types d'entitEs autre que player */
         }
         break;
     default:
@@ -153,32 +152,61 @@ void Entity::onCommand(sf::Event e)
 {
     if(kind != Entity::Player)
         return;
+    if(!grounded)
+        return;
     //std::cout<< "ON COMMAND RUNNING";
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    if(sf::Keyboard::isKeyPressed(K_LEFT))
     {
         currentAnimation = &walkingAnimationLeft;
         desiredVel = -5.0f;
         noKeyWasPressed = false;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    if (sf::Keyboard::isKeyPressed(K_RIGHT))
     {
         currentAnimation = &walkingAnimationRight;
         desiredVel = 5.0f;
         noKeyWasPressed = false;
     }
 
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    {
+        jump ++;
+    }
+
+    if(!grounded)
+    {
+        desiredVel = 0.f;
+    }
 }
 
 void Entity::processLogic()
 {
+    vel = m_body->GetLinearVelocity();
+    float velChange = desiredVel - vel.x;
+
+    while(jump>0)
+    {
+        if(!grounded)
+            break;
+        m_body->ApplyLinearImpulse(b2Vec2(velChange, -5), m_body->GetWorldCenter());
+        jump--;
+    }
+
 
     if(noKeyWasPressed)
-        vel = b2Vec2(desiredVel,.0f);
-    else
-        vel = m_body->GetLinearVelocity();
+    {
+        if(grounded)
+            m_body->ApplyForce(b2Vec2(0, 150), m_body->GetWorldCenter());
+
+        return;
+    }
+
+
     //desiredVel = 0;
-    float velChange = desiredVel - vel.x;
+
+    if (noKeyWasPressed)
+        velChange = -velChange;
     float force = m_body->GetMass() * velChange / (1/60.0);// f = mv/t
     m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter());
 //*/
@@ -191,16 +219,18 @@ int Entity::getY()
 
 bool Entity::isGrounded()
 {
-
+ return grounded;
 }
 
 void Entity::startContact()
 {
     std::cout<< "CONTACT BEGIN";
+    grounded = true;
 }
 void Entity::endContact()
 {
     std::cout<< "CONTACT END";
+    grounded = false;
 }
 
 
