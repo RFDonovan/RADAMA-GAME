@@ -23,27 +23,30 @@ public:
     b2World     p_world;
     //b2Body* Body1;
 
-    DebugDraw debugDrawInstance;
+    DebugDraw   debugDrawInstance;
 
 
     //DebugDraw debugDrawInstance;
-    sf::View mWorldView;
+    sf::View    mWorldView;
 
 
 
-    std::vector<Entity*> entities;
+    std::vector<Entity*>    entities;
 
 
 
 
-    TextureHolder mTextures;
+    TextureHolder           mTextures;
     //Layers mSceneLayers;
     //CommandQueue mCommandQueue;
     //float mScrollSpeed;
-    sf::Vector2f mPlayerPosition;
+    sf::Vector2f            mPlayerPosition;
+
+    sf::Sprite   BG;
+    sf::Vector2f            mBGPosition;
 
     sf::Texture t_ground;
-    sf::Sprite GroundSprite;
+    sf::Sprite  GroundSprite;
 
     ///contact listener
     ContactListener CL_Instance;

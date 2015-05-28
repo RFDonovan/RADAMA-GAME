@@ -6,6 +6,7 @@ World::World(sf::RenderWindow& window)
 , p_world(gravity, true)
 , debugDrawInstance(window)
 , mWorldView(window.getDefaultView())
+
 //, mPlayerPosition(mWorldView.getSize().x/2.f, )
 {
     window.setVerticalSyncEnabled(true);
@@ -15,6 +16,8 @@ World::World(sf::RenderWindow& window)
 
     loadTextures();
     buildScene();
+    BG = sf::Sprite(*Textures.getTexture(TextureHolder::Background1));
+    BG.scale(.5f,.5f);
 
     p_world.SetContactListener(&CL_Instance);
 
@@ -29,12 +32,15 @@ void World::processInput(sf::Event e)
             std::cout<<mWorldView.getCenter().x;
             std::cout<<mWorldView.getCenter().y;
             updateView(sf::Vector2f(-2, 0));
+            //BG.setPosition(sf::Vector2f(-2, 0))
+            BG.move(sf::Vector2f(-1.5f, 0));
         }
     if(sf::Keyboard::isKeyPressed(K_RIGHT))
         {
             std::cout<<mWorldView.getCenter().x;
             std::cout<<mWorldView.getCenter().y;
             updateView(sf::Vector2f(2, 0));
+            BG.move(sf::Vector2f(1.5f, 0));
         }
     for (int i = 0 ;i < entities.size() ; i++ )
     {
@@ -74,6 +80,7 @@ void World::update()
 
 void World::draw(sf::Time frameTime)
 {
+    mWindow.draw(BG);
 
     p_world.Step(1/60.f,6,2);
     p_world.ClearForces();
@@ -108,6 +115,8 @@ void World::loadTextures()
     //Textures.loadFromFile(TextureHolder::Player, "player.png");
     Textures.loadFromFile(TextureHolder::Player, "pGGbv.png");
     Textures.loadFromFile(TextureHolder::Ground1, "ground.png");
+    Textures.loadFromFile(TextureHolder::Background1, "background.png");
+
     //*/
 
 }

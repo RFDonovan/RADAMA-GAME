@@ -11,6 +11,7 @@ public:
     {
         Player,
         Ground1,
+        Background1,
         Other,
     };
      std::map<TexName, sf::Texture>  mTextureMap;

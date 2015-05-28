@@ -112,11 +112,6 @@ void Entity::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
             {
 
                 animatedSprite.stop();
-//                m_body->ApplyForceToCenter(b2Vec2(0.0f,0.f));
-//                if(desiredVel>0)
-//                    desiredVel = desiredVel - 0.2f;
-//                if(desiredVel<0)
-//                    desiredVel = desiredVel + 0.2f;
 
                 desiredVel = 0;
             }
@@ -184,12 +179,16 @@ void Entity::processLogic()
 {
     vel = m_body->GetLinearVelocity();
     float velChange = desiredVel - vel.x;
+    if (noKeyWasPressed)
+        velChange = -velChange;
 
+    float force = m_body->GetMass() * velChange / (1/60.0);// f = mv/t
     while(jump>0)
     {
         if(!grounded)
             break;
-        m_body->ApplyLinearImpulse(b2Vec2(velChange, -5), m_body->GetWorldCenter());
+        force = m_body->GetMass() * 5;
+        m_body->ApplyLinearImpulse(b2Vec2(velChange/2, -force), m_body->GetWorldCenter());
         jump--;
     }
 
@@ -205,9 +204,7 @@ void Entity::processLogic()
 
     //desiredVel = 0;
 
-    if (noKeyWasPressed)
-        velChange = -velChange;
-    float force = m_body->GetMass() * velChange / (1/60.0);// f = mv/t
+
     m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter());
 //*/
 }
