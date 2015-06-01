@@ -1,7 +1,7 @@
 #include "Game.h"
 
 Game::Game()
-: mWindow(sf::VideoMode(800, 600), "Prototype RADAMA", sf::Style::Close)
+: mWindow(sf::VideoMode(WINDOW_W, WINDOW_H), "Prototype RADAMA", sf::Style::Close)
 , mWorld (mWindow)
 //, mPlayer()
 {

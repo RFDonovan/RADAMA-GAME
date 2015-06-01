@@ -120,7 +120,7 @@ void Entity::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
 
 
             ///emplacement:
-            animatedSprite.setOrigin((BOXSIZE_W/2),(BOXSIZE_H/2));
+            animatedSprite.setOrigin((BOXSIZE_W),(BOXSIZE_H/2));
             animatedSprite.setPosition(m_body->GetPosition().x * RATIO,
                                         m_body->GetPosition().y * RATIO);
             animatedSprite.setRotation(m_body->GetAngle() * 180/b2_pi);

@@ -8,7 +8,11 @@
 #define METERS_PER_PIXEL UNRATIO
 //formula to convert radians to degrees = (radians * (pi/180))
 #define RADTODEG (b2_pi / 180.0)
-#define BOXSIZE_W 74.f
+
+#define WINDOW_W    800
+#define WINDOW_H    600
+
+#define BOXSIZE_W 36.f //74
 #define BOXSIZE_H 150.f
 
 #define K_LEFT sf::Keyboard::Q

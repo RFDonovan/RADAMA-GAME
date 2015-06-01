@@ -2,7 +2,8 @@
 
 World::World(sf::RenderWindow& window)
 : mWindow(window)
-, gravity(0.f,9.8f)
+, gravity(0.f,12.f)
+//, gravity(0.f,9.8f)
 , p_world(gravity, true)
 , debugDrawInstance(window)
 , mWorldView(window.getDefaultView())
@@ -125,7 +126,7 @@ void World::draw(sf::Time frameTime)
             entities[i]->render(mWindow, frameTime, &Textures);
     }
 
-    //p_world.DrawDebugData();
+    p_world.DrawDebugData();
 }
 
 void World::loadTextures()
@@ -168,10 +169,14 @@ void World::adaptViewToPlayer()
     //mPlayerPosition = sf::Vector2f(ePlayer->getX(), ePlayer->getY());
     //updateView(sf::Vector2f(ePlayer->getX()-mWorldView.getCenter().x,300));
     //*
+    if(ePlayer->getX() < WINDOW_W/3)
+        return;
+
+
     try
     {
         b2Vec2 vel = ePlayer->getVelocity();
-        std::cout<< "vel x:"<<vel.x; //RA VO LAVA BE LE VELX DE MIPLANTE LE APP
+        //std::cout<< "vel x:"<<vel.x; //RA VO LAVA BE LE VELX DE MIPLANTE LE APP
         updateView(sf::Vector2f(vel.x/2,0));
         BG.move(sf::Vector2f((vel.x)/2.5, 0));
     }
