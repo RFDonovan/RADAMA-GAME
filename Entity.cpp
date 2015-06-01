@@ -147,7 +147,7 @@ void Entity::onCommand(sf::Event e)
 {
     if(kind != Entity::Player)
         return;
-    if(!grounded)
+    if(nb_contacts<=0)
         return;
     //std::cout<< "ON COMMAND RUNNING";
 
@@ -170,7 +170,7 @@ void Entity::onCommand(sf::Event e)
         jump ++;
     }
 
-    if(!grounded)
+    if(nb_contacts<=0)
     {
         desiredVel = 0.f;
     }
@@ -186,7 +186,7 @@ void Entity::processLogic()
     float force = m_body->GetMass() * velChange / (1/60.0);// f = mv/t
     while(jump>0)
     {
-        if(!grounded)
+        if(nb_contacts<=0)
             break;
         force = m_body->GetMass() * 5;
         m_body->ApplyLinearImpulse(b2Vec2(velChange/2, -force), m_body->GetWorldCenter());
@@ -196,7 +196,7 @@ void Entity::processLogic()
 
     if(noKeyWasPressed)
     {
-        if(grounded)
+        if(nb_contacts > 0)
             m_body->ApplyForce(b2Vec2(0, 150), m_body->GetWorldCenter());
 
         return;
@@ -233,12 +233,14 @@ bool Entity::isGrounded()
 void Entity::startContact()
 {
     std::cout<< "CONTACT BEGIN";
+    nb_contacts++;
     grounded = true;
 }
 void Entity::endContact()
 {
     std::cout<< "CONTACT END";
     grounded = false;
+    nb_contacts--;
 }
 
 

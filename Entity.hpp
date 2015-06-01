@@ -24,6 +24,7 @@ public:
     sf::Texture* texture;
     bool noKeyWasPressed = true;
     bool grounded = false;
+    int  nb_contacts = 0;
     b2World *p_world;
     b2Vec2 vel;
     int jump = 0;
