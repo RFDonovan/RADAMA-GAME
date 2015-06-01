@@ -7,6 +7,7 @@
 #include "debugDraw.hpp"
 #include "TextureHolder.h"
 #include "Entity.hpp"
+#include "Ground.hpp"
 #include "ContactListener.inl"
 //#include "CommandQueue.h"
 
@@ -32,6 +33,7 @@ public:
 
 
     std::vector<Entity*>    entities;
+    std::vector<Ground*>    grounds;
 
 
 

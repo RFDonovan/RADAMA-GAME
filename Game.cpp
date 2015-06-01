@@ -36,7 +36,7 @@ void Game::processInput()
                 sf::Vector2f MousePos = mWorld.getMousePos();
 
                 //mWorld.createBox(mWorld.getWorld(), MousePos.x, MousePos.y);
-                mWorld.createEntity(mWorld.getWorld(), MousePos.x, MousePos.y);
+                ///mWorld.createEntity(mWorld.getWorld(), MousePos.x, MousePos.y); ON VA ENLEVER CA POUR LE MOMENT
             }
     }
     mWorld.processInput(event);

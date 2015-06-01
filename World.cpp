@@ -17,7 +17,7 @@ World::World(sf::RenderWindow& window)
     loadTextures();
     buildScene();
     BG = sf::Sprite(*Textures.getTexture(TextureHolder::Background1));
-    BG.scale(.5f,.5f);
+    BG.scale(.6f,.6f);
 
     p_world.SetContactListener(&CL_Instance);
 
@@ -88,9 +88,26 @@ void World::draw(sf::Time frameTime)
 
     p_world.Step(1/60.f,6,2);
     p_world.ClearForces();
-    p_world.DrawDebugData();
+
 
     mWindow.setView(mWorldView);
+
+    /************
+    sf::Sprite s_ground;
+    sf::Texture* t_ground;
+    for (int i = 0; i < grounds.size(); i++)
+    {
+        t_ground = Textures.getTexture(TextureHolder::Ground1);
+        s_ground.setTexture(*t_ground);
+        s_ground.setOrigin(t_ground->getSize().x/2, t_ground->getSize().y/1.5f);
+        s_ground.setPosition(grounds[i]->GetPosition().x * RATIO,
+                             grounds[i]->GetPosition().y * RATIO);
+        mWindow.draw(s_ground);
+    }
+    *************/
+
+    for (int i = 0; i < grounds.size(); i++)
+        grounds[i]->render(mWindow);
 
     for (int i = 0 ;i < entities.size() ; i++ )
     {
@@ -108,6 +125,7 @@ void World::draw(sf::Time frameTime)
             entities[i]->render(mWindow, frameTime, &Textures);
     }
 
+    //p_world.DrawDebugData();
 }
 
 void World::loadTextures()
@@ -133,7 +151,8 @@ void World::buildScene()
     /**add background*/
     /**add player*/
     //createBox(p_world, 10, 10);
-    createGround(p_world, 400.f, 500.f);
+    createGround(p_world, 400.f, 600.f);
+    createGround(p_world, 1000.f, 500.f);
 
     ePlayer = new Entity(&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
     entities.push_back(ePlayer);
@@ -148,10 +167,20 @@ void World::adaptViewToPlayer()
     /**except at the begining or at the end of the level*/
     //mPlayerPosition = sf::Vector2f(ePlayer->getX(), ePlayer->getY());
     //updateView(sf::Vector2f(ePlayer->getX()-mWorldView.getCenter().x,300));
-    b2Vec2 vel = ePlayer->getVelocity();
-    std::cout<< "vel x:"<<vel.x;
-    updateView(sf::Vector2f(vel.x/2,0));
-    BG.move(sf::Vector2f((vel.x)/2.5, 0));
+    //*
+    try
+    {
+        b2Vec2 vel = ePlayer->getVelocity();
+        std::cout<< "vel x:"<<vel.x; //RA VO LAVA BE LE VELX DE MIPLANTE LE APP
+        updateView(sf::Vector2f(vel.x/2,0));
+        BG.move(sf::Vector2f((vel.x)/2.5, 0));
+    }
+    catch(int e)
+    {
+        std::cout<< "ePlayer deleted";
+        return;
+    }
+//*/
 }
 
 b2World& World::getWorld()
@@ -169,6 +198,7 @@ sf::Vector2f World::getMousePos()
 
 void World::createGround(b2World& world, float X, float Y)
 {
+    /**
     b2BodyDef BodyDef;
     BodyDef.position.Set(X/RATIO, Y/RATIO);
     BodyDef.type = b2_staticBody;
@@ -182,6 +212,12 @@ void World::createGround(b2World& world, float X, float Y)
 
     FixtureDef.shape = &Shape;
     Body->CreateFixture(&FixtureDef);
+
+    grounds.push_back(Body);
+    **/
+
+    Ground* g = new Ground(&world, &Textures, X, Y);
+    grounds.push_back(g);
 }
 
 void World::createBox(b2World& world, int MouseX, int MouseY)
