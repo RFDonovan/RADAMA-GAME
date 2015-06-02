@@ -71,7 +71,7 @@ public:
     //TextureHolder World::getTextureMap();
 
     /**CREATING SOMETHINGS*/
-    void createGround(b2World& world, float X, float Y);
+    void createGround(b2World& world, float X, float Y, float W = 600.f, float H = 16.f);
     void createBox(b2World& world, int MouseX, int MouseY);
     void createEntity(b2World& world, int MouseX, int MouseY);
 };

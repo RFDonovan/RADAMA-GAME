@@ -154,8 +154,8 @@ void World::buildScene()
     /**add background*/
     /**add player*/
     //createBox(p_world, 10, 10);
-    createGround(p_world, 400.f, 600.f);
-    createGround(p_world, 1000.f, 500.f);
+    createGround(p_world, 40.f, 600.f);
+    createGround(p_world, 800.f, 500.f, 200.f,16.f);
 
     ePlayer = new Entity(&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
     entities.push_back(ePlayer);
@@ -203,10 +203,10 @@ sf::Vector2f World::getMousePos()
 ///>>>>>>>>>>>>>>>->>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ///>>>>>>>>>CREATING THINGS>>>>>>>>>>
 
-void World::createGround(b2World& world, float X, float Y, )
+void World::createGround(b2World& world, float X, float Y, float W, float H)
 {
-    int sizeSide = 10;
-    Ground* g = new Ground(&world, &Textures, X, Y);
+    //int sizeSide = 10;
+    Ground* g = new Ground(&world, &Textures, X, Y, W, H);
     //Ground* g1 = new Ground(&world, &Textures, (X-g->getW()/2)-sizeSide/2, Y, sizeSide);
     //Ground* g2 = new Ground(&world, &Textures, (X+g->getW()/2)+sizeSide/2, Y, sizeSide);
     grounds.push_back(g);

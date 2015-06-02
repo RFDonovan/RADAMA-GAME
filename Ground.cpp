@@ -8,7 +8,7 @@ Ground::Ground(b2World* world, TextureHolder* Textures, float32 x, float32 y, fl
     kind = Type::Default;
 
     b2BodyDef BodyDef;
-    BodyDef.position.Set(x/RATIO, y/RATIO);
+    BodyDef.position.Set(x/RATIO+(w/2/RATIO), y/RATIO);
     BodyDef.type = b2_staticBody;
     m_body = world->CreateBody(&BodyDef);
 

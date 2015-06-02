@@ -189,6 +189,8 @@ void Entity::processLogic()
         if(nb_contacts<=0)
             break;
         force = m_body->GetMass() * 5;
+        if(velChange==0.0f)
+            force = force*1.5;
         m_body->ApplyLinearImpulse(b2Vec2(velChange/2, -force), m_body->GetWorldCenter());
         jump--;
     }
