@@ -21,7 +21,9 @@ public:
     b2Body*     m_body;
     Type        kind;
     sf::Texture*    Texture;
+    sf::Texture    *Tex1, *Tex2;
     sf::Sprite      groundSprite;
+    sf::Sprite      gs1,gs2;
     sf::Vector2f    groundSize;
     sf::Vector2f    groundPosition;
 
@@ -33,6 +35,9 @@ public:
 
     int     getY();
     int     getX();
+
+    int     getW();
+    int     getH();
 
     void    startContact();
     void    endContact();

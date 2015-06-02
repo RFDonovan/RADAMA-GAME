@@ -10,7 +10,9 @@ public:
     enum TexName
     {
         Player,
+        Ground,
         Ground1,
+        Ground2,
         Background1,
         Other,
     };

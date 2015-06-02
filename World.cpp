@@ -126,7 +126,7 @@ void World::draw(sf::Time frameTime)
             entities[i]->render(mWindow, frameTime, &Textures);
     }
 
-    p_world.DrawDebugData();
+    ///p_world.DrawDebugData();
 }
 
 void World::loadTextures()
@@ -137,7 +137,9 @@ void World::loadTextures()
     //*
     //Textures.loadFromFile(TextureHolder::Player, "player.png");
     Textures.loadFromFile(TextureHolder::Player, "pGGbv.png");
-    Textures.loadFromFile(TextureHolder::Ground1, "ground.png");
+    Textures.loadFromFile(TextureHolder::Ground, "ground.png");
+    Textures.loadFromFile(TextureHolder::Ground1, "ground1.png");
+    Textures.loadFromFile(TextureHolder::Ground2, "ground2.png");
     Textures.loadFromFile(TextureHolder::Background1, "background.png");
 
     //*/
@@ -201,28 +203,15 @@ sf::Vector2f World::getMousePos()
 ///>>>>>>>>>>>>>>>->>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ///>>>>>>>>>CREATING THINGS>>>>>>>>>>
 
-void World::createGround(b2World& world, float X, float Y)
+void World::createGround(b2World& world, float X, float Y, )
 {
-    /**
-    b2BodyDef BodyDef;
-    BodyDef.position.Set(X/RATIO, Y/RATIO);
-    BodyDef.type = b2_staticBody;
-    b2Body* Body = world.CreateBody(&BodyDef);
-
-    b2PolygonShape Shape;
-    Shape.SetAsBox((800.f/2)/RATIO, (16.f/2)/RATIO);
-
-    b2FixtureDef FixtureDef;
-    FixtureDef.density = 1.f;
-
-    FixtureDef.shape = &Shape;
-    Body->CreateFixture(&FixtureDef);
-
-    grounds.push_back(Body);
-    **/
-
+    int sizeSide = 10;
     Ground* g = new Ground(&world, &Textures, X, Y);
+    //Ground* g1 = new Ground(&world, &Textures, (X-g->getW()/2)-sizeSide/2, Y, sizeSide);
+    //Ground* g2 = new Ground(&world, &Textures, (X+g->getW()/2)+sizeSide/2, Y, sizeSide);
     grounds.push_back(g);
+    //grounds.push_back(g1);
+    //grounds.push_back(g2);
 }
 
 void World::createBox(b2World& world, int MouseX, int MouseY)

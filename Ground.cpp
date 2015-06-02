@@ -31,11 +31,15 @@ void Ground::loadSprites(TextureHolder* Textures)
     switch (kind)
     {
     case Type::Default:
-        Texture = Textures->getTexture(TextureHolder::Ground1);
+        Texture = Textures->getTexture(TextureHolder::Ground);
+        Tex1 = Textures->getTexture(TextureHolder::Ground1);
+        Tex2 = Textures->getTexture(TextureHolder::Ground2);
         break;
 
     default:
-        Texture = Textures->getTexture(TextureHolder::Ground1);
+        Texture = Textures->getTexture(TextureHolder::Ground);
+        Tex1 = Textures->getTexture(TextureHolder::Ground1);
+        Tex2 = Textures->getTexture(TextureHolder::Ground2);
         break;
     }
     //Texture->setSmooth(true);
@@ -43,6 +47,8 @@ void Ground::loadSprites(TextureHolder* Textures)
 
     //groundSprite.setTextureRect(new sf::Rect(groundPosition,groundSize));
     groundSprite.setTexture(*Texture);
+    gs1.setTexture(*Tex1);
+    gs2.setTexture(*Tex2);
 
     sf::IntRect i(0,0,(int)groundSize.x, Texture->getSize().y);
     groundSprite.setTextureRect(i);
@@ -57,7 +63,13 @@ void Ground::render(sf::RenderWindow& mWindow)
     groundSprite.setOrigin(groundSize.x/2, Texture->getSize().y/1.3);///LE 1.3 EST UN BRICOLAGE A MAIN POUR AJUSTER LA TEXTURE DU SOL
     groundSprite.setPosition(m_body->GetPosition().x * RATIO,
                              m_body->GetPosition().y * RATIO);
+    ///PUISQU IL N Y A PAS DE SETORIGIN, ON ADAPTE LA POSITION COMME LE SETORIGIN PRECEDENT:
+    gs1.setPosition(groundSprite.getPosition().x - groundSize.x/2 - Tex1->getSize().x, groundSprite.getPosition().y - Tex1->getSize().y/1.35);// - Texture->getSize().y/1.3);
+    gs2.setPosition(groundSprite.getPosition().x + groundSize.x/2, groundSprite.getPosition().y - Tex1->getSize().y/1.35);
+
     mWindow.draw(groundSprite);
+    mWindow.draw(gs1);
+    mWindow.draw(gs2);
 }
 
 int     Ground::getY()
@@ -67,6 +79,15 @@ int     Ground::getY()
 int     Ground::getX()
 {
     return (int)m_body->GetPosition().x * RATIO;
+}
+
+int     Ground::getW()
+{
+    return (int)groundSize.x;
+}
+int     Ground::getH()
+{
+    return (int)groundSize.y;
 }
 
 void    Ground::startContact()
