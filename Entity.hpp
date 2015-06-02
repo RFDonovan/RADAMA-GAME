@@ -27,6 +27,7 @@ public:
     int  nb_contacts = 0;
     b2World *p_world;
     b2Vec2 vel;
+    b2Fixture   *basFixture;
     int jump = 0;
 
     sf::Clock frameClock;
@@ -46,8 +47,8 @@ public:
     bool    isGrounded();
     b2Vec2  getVelocity();
 
-    void    startContact();
-    void    endContact();
+    void    startContact(b2Fixture   *fixture);
+    void    endContact(b2Fixture   *fixture);
 
 
             ~Entity();

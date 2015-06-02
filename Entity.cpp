@@ -32,6 +32,10 @@ Entity::Entity(b2World* world,TextureHolder* Textures, float radius, float32 x, 
     //attach to body:
     m_body->CreateFixture(&FixtureDef);
 
+    b2Vec2 pos(0,(h/RATIO)/2);
+    Shape.SetAsBox((w/2)/RATIO, (1/2)/RATIO, pos, 0);///1 PIXEL SUFFIT
+    basFixture = m_body->CreateFixture(&FixtureDef);
+
 
     loadPlayerSprite(Textures);
     currentAnimation = &walkingAnimationLeft;///POUR LE STANDBY ANIMATION
@@ -232,16 +236,27 @@ bool Entity::isGrounded()
  return grounded;
 }
 
-void Entity::startContact()
+void Entity::startContact(b2Fixture   *fixture)
 {
     std::cout<< "CONTACT BEGIN";
     nb_contacts++;
-    grounded = true;
+    if(fixture == basFixture)
+    {
+        grounded = true;
+        std::cout<< "fixture ok";
+    }
+
+
 }
-void Entity::endContact()
+void Entity::endContact(b2Fixture   *fixture)
 {
     std::cout<< "CONTACT END";
-    grounded = false;
+    if(fixture == basFixture)
+    {
+        grounded = false;
+        std::cout<< "fixture ko";
+    }
+
     nb_contacts--;
 }
 

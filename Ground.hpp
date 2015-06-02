@@ -39,8 +39,8 @@ public:
     int     getW();
     int     getH();
 
-    void    startContact();
-    void    endContact();
+    void    startContact(b2Fixture   *fixture);
+    void    endContact(b2Fixture   *fixture);
 
             ~Ground();
 

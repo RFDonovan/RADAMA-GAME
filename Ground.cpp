@@ -90,11 +90,11 @@ int     Ground::getH()
     return (int)groundSize.y;
 }
 
-void    Ground::startContact()
+void    Ground::startContact(b2Fixture   *fixture)
 {
 
 }
-void    Ground::endContact()
+void    Ground::endContact(b2Fixture   *fixture)
 {
 
 }
