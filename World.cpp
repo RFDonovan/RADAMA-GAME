@@ -8,7 +8,6 @@ World::World(sf::RenderWindow& window)
 , debugDrawInstance(window)
 , mWorldView(window.getDefaultView())
 
-//, mPlayerPosition(mWorldView.getSize().x/2.f, )
 {
     window.setVerticalSyncEnabled(true);
     p_world.SetDebugDraw(&debugDrawInstance);
@@ -22,36 +21,35 @@ World::World(sf::RenderWindow& window)
 
     p_world.SetContactListener(&CL_Instance);
 
-    //mWorldView.setCenter(mPlayerPosition);
-
 }
 
 void World::processInput(sf::Event e)
 {
-    //if(sf::Keyboard::isKeyPressed(K_LEFT))
-    //    updateView(sf::Vector2f(mWorldView.getCenter().x - ePlayer->getX(),300));
-    //*
-    if(sf::Keyboard::isKeyPressed(K_LEFT))
-        {
-            //std::cout<<mWorldView.getCenter().x;
-            //std::cout<<mWorldView.getCenter().y;
-            ///updateView(sf::Vector2f(-2, 0));
-            //BG.setPosition(sf::Vector2f(-2, 0))
-            ///BG.move(sf::Vector2f(-1.8f, 0));
-        }
-    if(sf::Keyboard::isKeyPressed(K_RIGHT))
-        {
-            //std::cout<<mWorldView.getCenter().x;
-            //std::cout<<mWorldView.getCenter().y;
-            ///updateView(sf::Vector2f(2, 0));
-            ///BG.move(sf::Vector2f(1.8f, 0));
-        }
-    //*/
-    for (int i = 0 ;i < entities.size() ; i++ )
+    /*if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        paused = !paused;*/
+    switch(e.type)
     {
-        entities[i]->onCommand(e);
+    case sf::Event::KeyReleased:
+        if(e.key.code == sf::Keyboard::Escape)
+        {
+            paused = !paused;
+        }
 
+        break;
     }
+
+    if (e.type == sf::Event::LostFocus)
+            pause();
+
+    if (e.type == sf::Event::GainedFocus)
+            resume();
+
+    if(!paused) /// ******************************************************************>>>>PAUSE
+        for (int i = 0 ;i < entities.size() ; i++ )
+        {
+            entities[i]->onCommand(e);
+
+        }
 }
 
 void World::updateView(sf::Vector2f view)
@@ -62,6 +60,10 @@ void World::updateView(sf::Vector2f view)
 void World::update()
 {
     //*
+
+    if(paused)/// ******************************************************************>>>>PAUSE
+        return;
+
     sf::Vector2f playerPosition(0.0f,0.0f);
 
     //*
@@ -74,39 +76,29 @@ void World::update()
 //*/
     mWorldView.move(playerPosition);
     adaptViewToPlayer();
-    //delete playerPosition;
-//*/
 
-    ///depiler commandes
-    /*while(!mCommandQueue.isEmpty())
-        player.onCommand(mCommandQueue.pop(), dt);
-    */
 
 }
 
 void World::draw(sf::Time frameTime)
 {
+
     mWindow.draw(BG);
+    //if(paused)
+      //  return;
 
-    p_world.Step(1/60.f,6,2);
-    p_world.ClearForces();
-
+    if(!paused)/// ******************************************************************>>>>PAUSE
+    {
+        p_world.Step(1/60.f,6,2);
+        p_world.ClearForces();
+    }
+    else
+    {
+        ///DRAW SOME STUFF (PAUSE SCREEN)
+    }
 
     mWindow.setView(mWorldView);
 
-    /************
-    sf::Sprite s_ground;
-    sf::Texture* t_ground;
-    for (int i = 0; i < grounds.size(); i++)
-    {
-        t_ground = Textures.getTexture(TextureHolder::Ground1);
-        s_ground.setTexture(*t_ground);
-        s_ground.setOrigin(t_ground->getSize().x/2, t_ground->getSize().y/1.5f);
-        s_ground.setPosition(grounds[i]->GetPosition().x * RATIO,
-                             grounds[i]->GetPosition().y * RATIO);
-        mWindow.draw(s_ground);
-    }
-    *************/
 
     for (int i = 0; i < grounds.size(); i++)
         grounds[i]->render(mWindow);
@@ -133,10 +125,6 @@ void World::draw(sf::Time frameTime)
 void World::loadTextures()
 {
     /**Load the animated sprites & more**/
-    //mTextures.load(Textues::Radama, "/path/to/tex")
-    //t_ground.loadFromFile("ground.png");
-    //*
-    //Textures.loadFromFile(TextureHolder::Player, "player.png");
     Textures.loadFromFile(TextureHolder::Player, "pGGbv.png");
     Textures.loadFromFile(TextureHolder::Ground, "ground.png");
     Textures.loadFromFile(TextureHolder::Ground1, "ground1.png");
@@ -170,9 +158,7 @@ void World::adaptViewToPlayer()
 {
     /**player always at 2/3 of scren*/
     /**except at the begining or at the end of the level*/
-    //mPlayerPosition = sf::Vector2f(ePlayer->getX(), ePlayer->getY());
-    //updateView(sf::Vector2f(ePlayer->getX()-mWorldView.getCenter().x,300));
-    //*
+
     if(ePlayer->getX() < WINDOW_W/3)
         return;
 
@@ -209,11 +195,7 @@ void World::createGround(b2World& world, float X, float Y, float W, float H)
 {
     //int sizeSide = 10;
     Ground* g = new Ground(&world, &Textures, X, Y, W, H);
-    //Ground* g1 = new Ground(&world, &Textures, (X-g->getW()/2)-sizeSide/2, Y, sizeSide);
-    //Ground* g2 = new Ground(&world, &Textures, (X+g->getW()/2)+sizeSide/2, Y, sizeSide);
     grounds.push_back(g);
-    //grounds.push_back(g1);
-    //grounds.push_back(g2);
 }
 
 void World::createBox(b2World& world, int MouseX, int MouseY)
@@ -245,4 +227,15 @@ void World::createEntity(b2World& world, int MouseX, int MouseY)
 {
     Entity* e = new Entity(mWindow,&world, &Textures, 1.f , (float32)MouseX, (float32)MouseY, BOXSIZE_W, BOXSIZE_H);
     entities.push_back(e);
+}
+
+void World::pause()
+{
+    paused = true;
+}
+
+void World::resume()
+{
+    paused = false;
+    std::cout<<"resume";
 }

@@ -201,7 +201,13 @@ void Entity::onCommand(sf::Event e)
     case sf::Event::MouseButtonReleased:
         std::cout<< "End";
         break;
+    case sf::Event::KeyReleased:
+        if(e.key.code == sf::Keyboard::Space)
+        {
+            //jump++;
+        }
 
+        break;
     }
 
     if(nb_contacts<=0)
@@ -250,7 +256,7 @@ void Entity::processLogic()
 
     if(nb_contacts>0)
         m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter());
-    else if(vel.x != 0)
+    else if(vel.y < -1.0f) //|| vel.y > 2.0f)//vel.x != 0 &&
         m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter());
 //*/
 }
