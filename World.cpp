@@ -33,16 +33,16 @@ void World::processInput(sf::Event e)
     //*
     if(sf::Keyboard::isKeyPressed(K_LEFT))
         {
-            std::cout<<mWorldView.getCenter().x;
-            std::cout<<mWorldView.getCenter().y;
+            //std::cout<<mWorldView.getCenter().x;
+            //std::cout<<mWorldView.getCenter().y;
             ///updateView(sf::Vector2f(-2, 0));
             //BG.setPosition(sf::Vector2f(-2, 0))
             ///BG.move(sf::Vector2f(-1.8f, 0));
         }
     if(sf::Keyboard::isKeyPressed(K_RIGHT))
         {
-            std::cout<<mWorldView.getCenter().x;
-            std::cout<<mWorldView.getCenter().y;
+            //std::cout<<mWorldView.getCenter().x;
+            //std::cout<<mWorldView.getCenter().y;
             ///updateView(sf::Vector2f(2, 0));
             ///BG.move(sf::Vector2f(1.8f, 0));
         }
@@ -126,7 +126,7 @@ void World::draw(sf::Time frameTime)
             entities[i]->render(mWindow, frameTime, &Textures);
     }
 
-    ///p_world.DrawDebugData();
+    p_world.DrawDebugData();
 }
 
 void World::loadTextures()
@@ -156,6 +156,7 @@ void World::buildScene()
     //createBox(p_world, 10, 10);
     createGround(p_world, 40.f, 600.f);
     createGround(p_world, 800.f, 500.f, 200.f,16.f);
+    createGround(p_world, 500.f, 500.f, 200.f,16.f);
 
     ePlayer = new Entity(&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
     entities.push_back(ePlayer);

@@ -33,7 +33,7 @@ Entity::Entity(b2World* world,TextureHolder* Textures, float radius, float32 x, 
     m_body->CreateFixture(&FixtureDef);
 
     b2Vec2 pos(0,(h/RATIO)/2);
-    Shape.SetAsBox((w/2)/RATIO, (1/2)/RATIO, pos, 0);///1 PIXEL SUFFIT
+    Shape.SetAsBox((w/2/2)/RATIO, (1/2)/RATIO, pos, 0);///1 PIXEL SUFFIT
     basFixture = m_body->CreateFixture(&FixtureDef);
 
 
@@ -239,11 +239,12 @@ bool Entity::isGrounded()
 void Entity::startContact(b2Fixture   *fixture)
 {
     std::cout<< "CONTACT BEGIN";
-    nb_contacts++;
+
     if(fixture == basFixture)
     {
         grounded = true;
-        std::cout<< "fixture ok";
+        nb_contacts++;
+        //std::cout<< "fixture ok";
     }
 
 
@@ -254,10 +255,11 @@ void Entity::endContact(b2Fixture   *fixture)
     if(fixture == basFixture)
     {
         grounded = false;
-        std::cout<< "fixture ko";
+        nb_contacts--;
+        //std::cout<< "fixture ko";
     }
 
-    nb_contacts--;
+
 }
 
 
