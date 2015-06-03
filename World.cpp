@@ -68,6 +68,7 @@ void World::update()
     for (int i = 0 ;i < entities.size() ; i++ )
     {
         entities[i]->processLogic();
+        //entities[i]->processLogic(mWindow);
 
     }
 //*/
@@ -158,7 +159,7 @@ void World::buildScene()
     createGround(p_world, 800.f, 500.f, 200.f,16.f);
     createGround(p_world, 500.f, 500.f, 200.f,16.f);
 
-    ePlayer = new Entity(&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
+    ePlayer = new Entity(mWindow,&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
     entities.push_back(ePlayer);
 
 
@@ -242,6 +243,6 @@ void World::createBox(b2World& world, int MouseX, int MouseY)
 
 void World::createEntity(b2World& world, int MouseX, int MouseY)
 {
-    Entity* e = new Entity(&world, &Textures, 1.f , (float32)MouseX, (float32)MouseY, BOXSIZE_W, BOXSIZE_H);
+    Entity* e = new Entity(mWindow,&world, &Textures, 1.f , (float32)MouseX, (float32)MouseY, BOXSIZE_W, BOXSIZE_H);
     entities.push_back(e);
 }

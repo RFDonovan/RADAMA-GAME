@@ -20,6 +20,8 @@ public:
     float   m_radius;
     Type    kind;
 
+    sf::RenderWindow& mWindow;
+
     //animation control
     sf::Texture* texture;
     bool noKeyWasPressed = true;
@@ -36,10 +38,16 @@ public:
     float desiredVel;
     AnimatedSprite animatedSprite;
 
+    sf::Vector2f mouseInit, mousePos, playerPos, velocityForce;
+
+    float velocityLimit = 5.f;
+    float jumpLimit = 5.f;
+
 public:
-            Entity(b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
+            Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
     void    loadPlayerSprite(TextureHolder* Textures);
     void    processLogic();
+    void    processLogic(sf::RenderWindow& mWindow);
     void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures);
     void    onCommand(sf::Event e);
     int     getY();

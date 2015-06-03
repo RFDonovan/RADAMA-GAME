@@ -1,7 +1,8 @@
 #include "Entity.hpp"
 
-Entity::Entity(b2World* world,TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h)
+Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h)
 : p_world(world)
+, mWindow(mWindow)
 , desiredVel(0)
 ,animatedSprite(sf::seconds(0.08), true, false)
 {
@@ -33,7 +34,7 @@ Entity::Entity(b2World* world,TextureHolder* Textures, float radius, float32 x, 
     m_body->CreateFixture(&FixtureDef);
 
     b2Vec2 pos(0,(h/RATIO)/2);
-    Shape.SetAsBox((w/2/2)/RATIO, (1/2)/RATIO, pos, 0);///1 PIXEL SUFFIT
+    Shape.SetAsBox(((w-2)/2)/RATIO, (1/2)/RATIO, pos, 0);///1 PIXEL SUFFIT
     basFixture = m_body->CreateFixture(&FixtureDef);
 
 
@@ -76,26 +77,7 @@ void Entity::loadPlayerSprite(TextureHolder* Textures)
 
     noKeyWasPressed = true;
 }
-/*
-void Entity::loadPlayerSprite(TextureHolder* Textures)
-{
-    texture = Textures->getTexture(TextureHolder::Player);
 
-    walkingAnimationLeft.setSpriteSheet(*texture);
-    walkingAnimationLeft.addFrame(sf::IntRect(32, 32, 32, 32));
-    walkingAnimationLeft.addFrame(sf::IntRect(64, 32, 32, 32));
-    walkingAnimationLeft.addFrame(sf::IntRect(32, 32, 32, 32));
-    walkingAnimationLeft.addFrame(sf::IntRect( 0, 32, 32, 32));
-
-    //Animation walkingAnimationRight;
-    walkingAnimationRight.setSpriteSheet(*texture);
-    walkingAnimationRight.addFrame(sf::IntRect(32, 64, 32, 32));
-    walkingAnimationRight.addFrame(sf::IntRect(64, 64, 32, 32));
-    walkingAnimationRight.addFrame(sf::IntRect(32, 64, 32, 32));
-    walkingAnimationRight.addFrame(sf::IntRect( 0, 64, 32, 32));
-    noKeyWasPressed = true;
-}
-*/
 void Entity::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder* Textures)
 {
 //*
@@ -112,13 +94,15 @@ void Entity::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
 
             //start animation:
             animatedSprite.play(*currentAnimation);
-            if (noKeyWasPressed)
+            if (noKeyWasPressed || nb_contacts<=0)
             {
+/// AJOUTER UNE ANIMATION EN FONCTION DE L'ACTUEL AU LIEU DE FAIRE UN STOP
 
                 animatedSprite.stop();
 
-                desiredVel = 0;
+                //desiredVel = 0;
             }
+
             noKeyWasPressed = true;
             animatedSprite.update(frameTime1);
 
@@ -151,8 +135,8 @@ void Entity::onCommand(sf::Event e)
 {
     if(kind != Entity::Player)
         return;
-    if(nb_contacts<=0)
-        return;
+    //if(nb_contacts<=0)
+        //return;
     //std::cout<< "ON COMMAND RUNNING";
 
     if(sf::Keyboard::isKeyPressed(K_LEFT))
@@ -171,13 +155,60 @@ void Entity::onCommand(sf::Event e)
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
-        jump ++;
+        if(nb_contacts>0)
+            jump ++;
+    }
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        //std::cout<< "click";
+        mousePos = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
+        playerPos = animatedSprite.getPosition();
+        desiredVel = (mousePos.x - mouseInit.x )/20.f;
+
+        //PROPRIETE DE PYTHAGORE
+        //float force = std::pow(mouseInit.x - mousePos.x, 2.0f) + std::pow(mouseInit.y - mousePos.y, 2.0f);
+        //force = std::sqrt(force);
+        velocityForce = sf::Vector2f();
+
+        if (desiredVel > velocityLimit)
+            desiredVel = velocityLimit;
+        if (desiredVel <- velocityLimit)
+            desiredVel = -velocityLimit;
+
+        if(mousePos.x > playerPos.x)
+        {
+            if (desiredVel > 0)
+                currentAnimation = &walkingAnimationRight;
+        }
+
+        else
+            if(mousePos.x < playerPos.x)
+                if(desiredVel < 0)
+                    currentAnimation = &walkingAnimationLeft;
+
+
+        noKeyWasPressed = false;
+        //sf::Vector2i newPosition((int)(e.MouseButtonEvent.x),(int)e.MouseButtonEvent.x);
+        //sf::Mouse::setPosition(newPosition, mWindow);
+    }
+
+    switch(e.type)
+    {
+    case sf::Event::MouseButtonPressed:
+        mouseInit = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
+        break;
+    case sf::Event::MouseButtonReleased:
+        std::cout<< "End";
+        break;
+
     }
 
     if(nb_contacts<=0)
     {
-        desiredVel = 0.f;
+        //qdesiredVel = 0.f;
     }
+
 }
 
 void Entity::processLogic()
@@ -185,7 +216,8 @@ void Entity::processLogic()
     vel = m_body->GetLinearVelocity();
     float velChange = desiredVel - vel.x;
     if (noKeyWasPressed)
-        velChange = -velChange;
+        //velChange = -velChange;
+        velChange = 0.f;
 
     float force = m_body->GetMass() * velChange / (1/60.0);// f = mv/t
     while(jump>0)
@@ -196,6 +228,11 @@ void Entity::processLogic()
         if(velChange==0.0f)
             force = force*1.5;
         m_body->ApplyLinearImpulse(b2Vec2(velChange/2, -force), m_body->GetWorldCenter());
+        /*force = m_body->GetMass() * (mouseInit.y - mousePos.y)/RATIO;
+        //std::cout<<"force:"<< force;
+        if (force > jumpLimit)
+            force = jumpLimit;
+        m_body->ApplyLinearImpulse(b2Vec2(velChange/2, -force), m_body->GetWorldCenter());*/
         jump--;
     }
 
@@ -211,10 +248,13 @@ void Entity::processLogic()
 
     //desiredVel = 0;
 
-
-    m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter());
+    if(nb_contacts>0)
+        m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter());
+    else if(vel.x != 0)
+        m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter());
 //*/
 }
+
 
 int Entity::getY()
 {
