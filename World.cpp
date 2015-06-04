@@ -7,6 +7,7 @@ World::World(sf::RenderWindow& window)
 , p_world(gravity, true)
 , debugDrawInstance(window)
 , mWorldView(window.getDefaultView())
+, pauseLayer(sf::Vector2f(WINDOW_W, WINDOW_H))
 
 {
     window.setVerticalSyncEnabled(true);
@@ -17,9 +18,19 @@ World::World(sf::RenderWindow& window)
     loadTextures();
     buildScene();
     BG = sf::Sprite(*Textures.getTexture(TextureHolder::Background1));
+    BG_pause = sf::Sprite(*Textures.getTexture(TextureHolder::Pause));
     BG.scale(.6f,.6f);
+    BG_pause.setPosition(0.0f, 0.0f);
+    //BG_pause.scale(.9f,.9f);
 
     p_world.SetContactListener(&CL_Instance);
+
+    if(!sf::Shader::isAvailable())
+    {
+        std::cout<< "SHADER NOT AVAILABLE!!!\n";
+
+        exit(EXIT_FAILURE);
+    }
 
 }
 
@@ -92,10 +103,6 @@ void World::draw(sf::Time frameTime)
         p_world.Step(1/60.f,6,2);
         p_world.ClearForces();
     }
-    else
-    {
-        ///DRAW SOME STUFF (PAUSE SCREEN)
-    }
 
     mWindow.setView(mWorldView);
 
@@ -120,6 +127,16 @@ void World::draw(sf::Time frameTime)
     }
 
     p_world.DrawDebugData();
+    if(paused)
+    {
+
+        pauseLayer.setFillColor(sf::Color(0, 0, 0, 150));
+
+        mWindow.draw(pauseLayer);
+        mWindow.draw(BG_pause);
+    }
+
+
 }
 
 void World::loadTextures()
@@ -130,6 +147,7 @@ void World::loadTextures()
     Textures.loadFromFile(TextureHolder::Ground1, "ground1.png");
     Textures.loadFromFile(TextureHolder::Ground2, "ground2.png");
     Textures.loadFromFile(TextureHolder::Background1, "background.png");
+    Textures.loadFromFile(TextureHolder::Pause, "pause.png");
 
     //*/
 
@@ -168,6 +186,8 @@ void World::adaptViewToPlayer()
         b2Vec2 vel = ePlayer->getVelocity();
         //std::cout<< "vel x:"<<vel.x; //RA VO LAVA BE LE VELX DE MIPLANTE LE APP
         updateView(sf::Vector2f(vel.x/2,0));
+        BG_pause.move(sf::Vector2f(vel.x/2,0));
+        pauseLayer.move(sf::Vector2f(vel.x/2,0));
         BG.move(sf::Vector2f((vel.x)/2.5, 0));
     }
     catch(int e)

@@ -46,6 +46,7 @@ public:
     Entity                  *ePlayer;
 
     sf::Sprite   BG;
+    sf::Sprite   BG_pause;
     sf::Vector2f            mBGPosition;
 
     sf::Texture t_ground;
@@ -53,7 +54,7 @@ public:
 
     ///contact listener
     ContactListener CL_Instance;
-    bool paused = false;
+
 
     // Operations
 public:
@@ -76,6 +77,9 @@ public:
     void createBox(b2World& world, int MouseX, int MouseY);
     void createEntity(b2World& world, int MouseX, int MouseY);
 
+    /**PAUSE STUFF**/
+    sf::RectangleShape pauseLayer;
+    bool paused = false;
     void pause();
     void resume();
 };
