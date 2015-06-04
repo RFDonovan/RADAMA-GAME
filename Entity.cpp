@@ -27,7 +27,7 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
     //FixtureDef.density = 1.f;
     //FixtureDef.friction = 1.0f;
     FixtureDef.friction = 0.7f;
-    //FixtureDef.restitution = .3f;
+    //FixtureDef.restitution = .5f;
     FixtureDef.shape = &Shape;
 
     //attach to body:
@@ -35,6 +35,7 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
 
     b2Vec2 pos(0,(h/RATIO)/2);
     Shape.SetAsBox(((w-2)/2)/RATIO, (1/2)/RATIO, pos, 0);///1 PIXEL SUFFIT
+    //FixtureDef.restitution = 1.f;
     basFixture = m_body->CreateFixture(&FixtureDef);
 
 

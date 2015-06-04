@@ -55,6 +55,15 @@ public:
     ///contact listener
     ContactListener CL_Instance;
 
+    /**SHADERS STUFF**/
+    sf::Texture objectTexture, distortionMap;
+    sf::Sprite object, sprite;
+    sf::RenderTexture renderTexture;
+    sf::Shader shader;
+    float distortionFactor = .01f;
+    float riseFactor = .5f;
+    sf::Clock clock;
+
 
     // Operations
 public:
@@ -82,5 +91,7 @@ public:
     bool paused = false;
     void pause();
     void resume();
+
+
 };
 

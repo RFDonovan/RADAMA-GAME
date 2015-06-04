@@ -32,6 +32,34 @@ World::World(sf::RenderWindow& window)
         exit(EXIT_FAILURE);
     }
 
+    /**SHADER STUFF**/
+    /*if(!objectTexture.loadFromFile("logo.png"))
+        return;
+    object.setTexture(objectTexture);
+    object.setScale(.5f, .5f);
+    */
+    if(!distortionMap.loadFromFile("shade.png"))
+        return;
+    distortionMap.setRepeated(true);
+    distortionMap.setSmooth(true);
+    //objectTexture.setSmooth(true);
+
+    /*renderTexture.create(640, 480);
+
+    //sf::Sprite sprite;
+    sprite.setTexture(renderTexture.getTexture());
+    //sprite.setPosition(0, 0);
+*/
+    if (!shader.loadFromFile("heat_shader.vs", "heat_shader.fs"))
+    {
+        sf::err() << "Failed to load shader, exiting..." << std::endl;
+        return;
+    }
+
+    shader.setParameter("currentTexture", sf::Shader::CurrentTexture);
+    shader.setParameter("distortionMapTexture", distortionMap);
+
+    ///***********************************
 }
 
 void World::processInput(sf::Event e)
@@ -66,6 +94,7 @@ void World::processInput(sf::Event e)
 void World::updateView(sf::Vector2f view)
 {
     mWorldView.move(view);
+
 }
 
 void World::update()
@@ -95,13 +124,16 @@ void World::draw(sf::Time frameTime)
 {
 
     mWindow.draw(BG);
-    //if(paused)
-      //  return;
 
     if(!paused)/// ******************************************************************>>>>PAUSE
     {
         p_world.Step(1/60.f,6,2);
         p_world.ClearForces();
+
+    }
+
+    else{
+
     }
 
     mWindow.setView(mWorldView);
@@ -129,11 +161,22 @@ void World::draw(sf::Time frameTime)
     p_world.DrawDebugData();
     if(paused)
     {
-
         pauseLayer.setFillColor(sf::Color(0, 0, 0, 150));
 
         mWindow.draw(pauseLayer);
-        mWindow.draw(BG_pause);
+        mWindow.draw(BG_pause, &shader);
+        //
+        shader.setParameter("time", clock.getElapsedTime().asSeconds());
+        shader.setParameter("distortionFactor", distortionFactor);
+        shader.setParameter("riseFactor", riseFactor);
+/*
+        //renderTexture.clear(sf::Color(0, 0, 0, 150));
+
+        //renderTexture.draw(BG_pause);
+        //renderTexture.draw(object);
+        //renderTexture.display();
+*/
+        //mWindow.draw(sprite, &shader);
     }
 
 
@@ -189,6 +232,11 @@ void World::adaptViewToPlayer()
         BG_pause.move(sf::Vector2f(vel.x/2,0));
         pauseLayer.move(sf::Vector2f(vel.x/2,0));
         BG.move(sf::Vector2f((vel.x)/2.5, 0));
+        sf::View v = renderTexture.getView();
+        v.move(sf::Vector2f(vel.x/2,0));
+        //renderTexture.
+//        sprite.move(sf::Vector2f((vel.x)/5, 0));
+
     }
     catch(int e)
     {
