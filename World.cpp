@@ -33,23 +33,10 @@ World::World(sf::RenderWindow& window)
     }
 
     /**SHADER STUFF**/
-    /*if(!objectTexture.loadFromFile("logo.png"))
-        return;
-    object.setTexture(objectTexture);
-    object.setScale(.5f, .5f);
-    */
-    if(!distortionMap.loadFromFile("shade.png"))
+    if(!distortionMap.loadFromFile("perlin_noise.jpg"/*"shade.png"*/))
         return;
     distortionMap.setRepeated(true);
     distortionMap.setSmooth(true);
-    //objectTexture.setSmooth(true);
-
-    /*renderTexture.create(640, 480);
-
-    //sf::Sprite sprite;
-    sprite.setTexture(renderTexture.getTexture());
-    //sprite.setPosition(0, 0);
-*/
     if (!shader.loadFromFile("heat_shader.vs", "heat_shader.fs"))
     {
         sf::err() << "Failed to load shader, exiting..." << std::endl;
@@ -58,6 +45,12 @@ World::World(sf::RenderWindow& window)
 
     shader.setParameter("currentTexture", sf::Shader::CurrentTexture);
     shader.setParameter("distortionMapTexture", distortionMap);
+    if(!fogShader.loadFromFile("fog_shader.fs", sf::Shader::Fragment))
+    {
+        sf::err() << "Failed to load shader, exiting..." << std::endl;
+        return;
+    }
+
 
     ///***********************************
 }
@@ -123,17 +116,25 @@ void World::update()
 void World::draw(sf::Time frameTime)
 {
 
+    fogShader.setParameter("time",clock.getElapsedTime().asSeconds());
+    //fogShader.setParameter("mouse",400.f, 300.f);
+    fogShader.setParameter("resolution",800.f, 600.f);
+    //BG.setColor(sf::Color(0, 0, 0, 255));
+    //mWindow.draw(BG, &fogShader);
+
+    //BG.setColor(sf::Color(0, 0, 0, 200));
     mWindow.draw(BG);
 
     if(!paused)/// ******************************************************************>>>>PAUSE
     {
         p_world.Step(1/60.f,6,2);
         p_world.ClearForces();
+        mWindow.setMouseCursorVisible(false);
 
     }
 
     else{
-
+        mWindow.setMouseCursorVisible(true);
     }
 
     mWindow.setView(mWorldView);
@@ -156,11 +157,13 @@ void World::draw(sf::Time frameTime)
         }
         else
             entities[i]->render(mWindow, frameTime, &Textures);
+        std::cout<<"\n draw- after render\n";
     }
 
     p_world.DrawDebugData();
     if(paused)
     {
+
         pauseLayer.setFillColor(sf::Color(0, 0, 0, 150));
 
         mWindow.draw(pauseLayer);
@@ -169,6 +172,9 @@ void World::draw(sf::Time frameTime)
         shader.setParameter("time", clock.getElapsedTime().asSeconds());
         shader.setParameter("distortionFactor", distortionFactor);
         shader.setParameter("riseFactor", riseFactor);
+
+
+
 /*
         //renderTexture.clear(sf::Color(0, 0, 0, 150));
 
@@ -178,6 +184,7 @@ void World::draw(sf::Time frameTime)
 */
         //mWindow.draw(sprite, &shader);
     }
+
 
 
 }
@@ -191,6 +198,7 @@ void World::loadTextures()
     Textures.loadFromFile(TextureHolder::Ground2, "ground2.png");
     Textures.loadFromFile(TextureHolder::Background1, "background.png");
     Textures.loadFromFile(TextureHolder::Pause, "pause.png");
+    Textures.loadFromFile(TextureHolder::Fire, "fire.png");
 
     //*/
 
@@ -209,7 +217,12 @@ void World::buildScene()
     createGround(p_world, 500.f, 500.f, 200.f,16.f);
 
     ePlayer = new Entity(mWindow,&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
+    Entity* eBib;
+    std::cout<<"creation d'une deuxieme entite";
+    //eBib = new Entity(mWindow,&p_world, &Textures, 1.f , (float32)500, (float32)150, BOXSIZE_W, BOXSIZE_H);
     entities.push_back(ePlayer);
+    //entities.push_back(eBib);
+    ePlayer->attachStuff(&shader, TextureHolder::Fire);
 
 
 
@@ -232,10 +245,7 @@ void World::adaptViewToPlayer()
         BG_pause.move(sf::Vector2f(vel.x/2,0));
         pauseLayer.move(sf::Vector2f(vel.x/2,0));
         BG.move(sf::Vector2f((vel.x)/2.5, 0));
-        sf::View v = renderTexture.getView();
-        v.move(sf::Vector2f(vel.x/2,0));
-        //renderTexture.
-//        sprite.move(sf::Vector2f((vel.x)/5, 0));
+
 
     }
     catch(int e)

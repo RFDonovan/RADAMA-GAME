@@ -1,5 +1,6 @@
 #ifndef ENTITY_HPP_INCLUDED
 #define ENTITY_HPP_INCLUDED
+#include <random>
 #include<SFML/Graphics.hpp>
 #include<Box2D/Box2D.h>
 #include<iostream>
@@ -24,6 +25,11 @@ public:
 
     //animation control
     sf::Texture* texture;
+    TextureHolder* textureHolder;
+
+    sf::Sprite stuffSprite;
+    sf::Shader *Shader;
+
     bool noKeyWasPressed = true;
     bool grounded = false;
     int  nb_contacts = 0;
@@ -43,6 +49,10 @@ public:
     float velocityLimit = 5.f;
     float jumpLimit = 5.f;
 
+    float distortionFactor = .2f;
+    float riseFactor = .5f;
+    sf::Clock clock;
+
 public:
             Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
     void    loadPlayerSprite(TextureHolder* Textures);
@@ -57,6 +67,8 @@ public:
 
     void    startContact(b2Fixture   *fixture);
     void    endContact(b2Fixture   *fixture);
+
+    void    attachStuff(sf::Shader* shader, TextureHolder::TexName tex);
 
 
             ~Entity();

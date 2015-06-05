@@ -58,8 +58,8 @@ public:
     /**SHADERS STUFF**/
     sf::Texture objectTexture, distortionMap;
     sf::Sprite object, sprite;
-    sf::RenderTexture renderTexture;
-    sf::Shader shader;
+    //sf::RenderTexture renderTexture;
+    sf::Shader shader, fogShader;
     float distortionFactor = .01f;
     float riseFactor = .5f;
     sf::Clock clock;

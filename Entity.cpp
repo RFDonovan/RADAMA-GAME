@@ -3,6 +3,7 @@
 Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h)
 : p_world(world)
 , mWindow(mWindow)
+, textureHolder(Textures)
 , desiredVel(0)
 ,animatedSprite(sf::seconds(0.08), true, false)
 {
@@ -38,8 +39,8 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
     //FixtureDef.restitution = 1.f;
     basFixture = m_body->CreateFixture(&FixtureDef);
 
-
-    loadPlayerSprite(Textures);
+    if(kind == Entity::Player)
+        loadPlayerSprite(Textures);
     currentAnimation = &walkingAnimationLeft;///POUR LE STANDBY ANIMATION
 }
 
@@ -79,12 +80,38 @@ void Entity::loadPlayerSprite(TextureHolder* Textures)
     noKeyWasPressed = true;
 }
 
+void Entity::attachStuff(sf::Shader* shader, TextureHolder::TexName tex)
+{
+    Shader = shader;
+    sf::Texture* stuffTex = textureHolder->getTexture(tex);
+    stuffSprite.setTexture(*stuffTex);
+    //stuffSprite.setPosition(mousePos.x, mousePos.y);
+    //stuffSprite.setPosition(50.f, 200.f);
+    stuffSprite.setScale(.1f,.1f);
+
+}
+
 void Entity::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder* Textures)
 {
 //*
     switch(kind){
     case Entity::Player:
         {
+            /**GOD S HAND**/
+
+            sf::Vector2f tmousePos = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
+            Shader->setParameter("time", clock.getElapsedTime().asSeconds());
+            Shader->setParameter("distortionFactor", distortionFactor);
+            Shader->setParameter("riseFactor", riseFactor);
+            stuffSprite.setOrigin((stuffSprite.getTexture()->getSize().x/2), (stuffSprite.getTexture()->getSize().x/2));
+            stuffSprite.setPosition(tmousePos.x-(stuffSprite.getTexture()->getSize().x*stuffSprite.getScale().x/2), tmousePos.y-(stuffSprite.getTexture()->getSize().y*stuffSprite.getScale().y/2));
+
+            std::random_device rd;
+            std::mt19937 mt(rd());
+            std::uniform_real_distribution<double> dist(1, 10);
+            stuffSprite.setRotation(stuffSprite.getRotation()+dist(mt));
+            mWindow.draw(stuffSprite,Shader);
+            /***************/
             /*Animation* */
 
             //loadPlayerSprite(Textures);
@@ -116,9 +143,13 @@ void Entity::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
             ///Draw:
             mWindow.draw(animatedSprite);
 
+
+
+
         }
 
         break;
+
     case Entity::Other:
         {
 /** TODO (dno#1#05/27/15):
@@ -136,9 +167,6 @@ void Entity::onCommand(sf::Event e)
 {
     if(kind != Entity::Player)
         return;
-    //if(nb_contacts<=0)
-        //return;
-    //std::cout<< "ON COMMAND RUNNING";
 
     if(sf::Keyboard::isKeyPressed(K_LEFT))
     {
@@ -220,10 +248,12 @@ void Entity::onCommand(sf::Event e)
 
 void Entity::processLogic()
 {
+    if(kind != Entity::Player)
+        return;
+
     vel = m_body->GetLinearVelocity();
     float velChange = desiredVel - vel.x;
     if (noKeyWasPressed)
-        //velChange = -velChange;
         velChange = 0.f;
 
     float force = m_body->GetMass() * velChange / (1/60.0);// f = mv/t
@@ -235,11 +265,6 @@ void Entity::processLogic()
         if(velChange==0.0f)
             force = force*1.5;
         m_body->ApplyLinearImpulse(b2Vec2(velChange/2, -force), m_body->GetWorldCenter());
-        /*force = m_body->GetMass() * (mouseInit.y - mousePos.y)/RATIO;
-        //std::cout<<"force:"<< force;
-        if (force > jumpLimit)
-            force = jumpLimit;
-        m_body->ApplyLinearImpulse(b2Vec2(velChange/2, -force), m_body->GetWorldCenter());*/
         jump--;
     }
 
@@ -253,13 +278,11 @@ void Entity::processLogic()
     }
 
 
-    //desiredVel = 0;
-
     if(nb_contacts>0)
         m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter());
     else if(vel.y < -1.0f) //|| vel.y > 2.0f)//vel.x != 0 &&
         m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter());
-//*/
+
 }
 
 

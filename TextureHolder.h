@@ -15,6 +15,9 @@ public:
         Ground2,
         Background1,
         Pause,
+
+        Fire,
+
         Other,
     };
      std::map<TexName, sf::Texture>  mTextureMap;
