@@ -77,11 +77,13 @@ void World::processInput(sf::Event e)
             resume();
 
     if(!paused) /// ******************************************************************>>>>PAUSE
-        for (int i = 0 ;i < entities.size() ; i++ )
+        /*for (int i = 0 ;i < entities.size() ; i++ )
         {
-            entities[i]->onCommand(e);
+            if(entities[i]->kind == Entity::Player)
+                ((Player*)entities[i])->onCommand(e);
 
-        }
+        }*/
+        ePlayer->onCommand(e);
 }
 
 void World::updateView(sf::Vector2f view)
@@ -99,14 +101,16 @@ void World::update()
 
     sf::Vector2f playerPosition(0.0f,0.0f);
 
-    //*
+    /*
     for (int i = 0 ;i < entities.size() ; i++ )
     {
-        entities[i]->processLogic();
+        if(entities[i]->kind == Entity::Player)
+            ((Player*)entities[i])->processLogic();
         //entities[i]->processLogic(mWindow);
 
     }
 //*/
+    ePlayer->processLogic();
     mWorldView.move(playerPosition);
     adaptViewToPlayer();
 
@@ -138,25 +142,31 @@ void World::draw(sf::Time frameTime)
     }
 
     mWindow.setView(mWorldView);
-
+///RENDU DU JOUEUR
+    ePlayer->render(mWindow, frameTime, &Textures);
 
     for (int i = 0; i < grounds.size(); i++)
         grounds[i]->render(mWindow);
 
-    for (int i = 0 ;i < entities.size() ; i++ )
+
+
+    for (int i = 0 ;i < humans.size() ; i++ )
     {
 
         ///teste une suppression d'Entité morts: ASSEZ BIEN!!!
-        if(entities[i]->getY() > mWindow.getSize().y)
+        if(humans[i]->getY() > mWindow.getSize().y)
         {
             std::cout<< "ito suppr";
-            delete entities[i];
-            entities.erase(entities.begin()+i);
+            delete humans[i];
+            humans.erase(humans.begin()+i);
             continue;
 
         }
         else
-            entities[i]->render(mWindow, frameTime, &Textures);
+        {
+            humans[i]->render(mWindow, frameTime, &Textures);
+
+        }
         std::cout<<"\n draw- after render\n";
     }
 
@@ -216,13 +226,10 @@ void World::buildScene()
     createGround(p_world, 800.f, 500.f, 200.f,16.f);
     createGround(p_world, 500.f, 500.f, 200.f,16.f);
 
-    ePlayer = new Entity(mWindow,&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
-    Entity* eBib;
+    ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
     std::cout<<"creation d'une deuxieme entite";
-    //eBib = new Entity(mWindow,&p_world, &Textures, 1.f , (float32)500, (float32)150, BOXSIZE_W, BOXSIZE_H);
-    entities.push_back(ePlayer);
-    //entities.push_back(eBib);
-    ePlayer->attachStuff(&shader, TextureHolder::Fire);
+    Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H-20);
+    humans.push_back(e);
 
 
 
@@ -303,8 +310,8 @@ void World::createBox(b2World& world, int MouseX, int MouseY)
 
 void World::createEntity(b2World& world, int MouseX, int MouseY)
 {
-    Entity* e = new Entity(mWindow,&world, &Textures, 1.f , (float32)MouseX, (float32)MouseY, BOXSIZE_W, BOXSIZE_H);
-    entities.push_back(e);
+    Human* e = new Human(mWindow,&world, &Textures, 1.f , (float32)MouseX, (float32)MouseY, BOXSIZE_W, BOXSIZE_H);
+    humans.push_back(e);
 }
 
 void World::pause()

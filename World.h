@@ -7,8 +7,11 @@
 #include "debugDraw.hpp"
 #include "TextureHolder.h"
 #include "Entity.hpp"
+#include "Human.hpp"
+#include "Player.h"
 #include "Ground.hpp"
 #include "ContactListener.inl"
+
 //#include "CommandQueue.h"
 
 /// class World - recevra une reference du RenderWindow depuis Game, c'est cette classe qui va s'
@@ -32,7 +35,7 @@ public:
 
 
 
-    std::vector<Entity*>    entities;
+    std::vector<Human*>    humans;
     std::vector<Ground*>    grounds;
 
 
@@ -43,7 +46,7 @@ public:
     //CommandQueue mCommandQueue;
     //float mScrollSpeed;
     sf::Vector2f            mPlayerPosition;
-    Entity                  *ePlayer;
+    Player                  *ePlayer;
 
     sf::Sprite   BG;
     sf::Sprite   BG_pause;

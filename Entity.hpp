@@ -13,6 +13,7 @@ class Entity {
 public:
     enum Type{
         Player,
+        Human,
         Other,
     };
     //class member variables
@@ -27,10 +28,6 @@ public:
     sf::Texture* texture;
     TextureHolder* textureHolder;
 
-    sf::Sprite stuffSprite;
-    sf::Shader *Shader;
-
-    bool noKeyWasPressed = true;
     bool grounded = false;
     int  nb_contacts = 0;
     b2World *p_world;
@@ -41,7 +38,6 @@ public:
     sf::Clock frameClock;
     Animation* currentAnimation;
     Animation walkingAnimationLeft, walkingAnimationRight;
-    float desiredVel;
     AnimatedSprite animatedSprite;
 
     sf::Vector2f mouseInit, mousePos, playerPos, velocityForce;
@@ -49,17 +45,15 @@ public:
     float velocityLimit = 5.f;
     float jumpLimit = 5.f;
 
-    float distortionFactor = .2f;
-    float riseFactor = .5f;
     sf::Clock clock;
 
 public:
             Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
-    void    loadPlayerSprite(TextureHolder* Textures);
-    void    processLogic();
-    void    processLogic(sf::RenderWindow& mWindow);
-    void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures);
-    void    onCommand(sf::Event e);
+    //void    loadPlayerSprite(TextureHolder* Textures);
+    //void    processLogic();
+    //void    processLogic(sf::RenderWindow& mWindow);
+    //void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures){}
+    //void    onCommand(sf::Event e);
     int     getY();
     int     getX();
     bool    isGrounded();
@@ -68,7 +62,7 @@ public:
     void    startContact(b2Fixture   *fixture);
     void    endContact(b2Fixture   *fixture);
 
-    void    attachStuff(sf::Shader* shader, TextureHolder::TexName tex);
+    //void    attachStuff(sf::Shader* shader, TextureHolder::TexName tex);
 
 
             ~Entity();
