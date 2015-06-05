@@ -8,7 +8,7 @@ Human::Human(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures, 
     std::cout<< "creation*******";
 
     loadSprite(Textures);
-    currentAnimation = &walkingAnimationLeft;///POUR LE STANDBY ANIMATION
+    currentAnimation = &stopLeft;///POUR LE STANDBY ANIMATION
 }
 
 void Human::loadSprite(TextureHolder* Textures)
@@ -44,6 +44,11 @@ void Human::loadSprite(TextureHolder* Textures)
     walkingAnimationRight.addFrame(sf::IntRect(976, 324, 39, 147));
     walkingAnimationRight.addFrame(sf::IntRect(1067, 323, 63, 148));
 
+    stopRight.setSpriteSheet(*texture);
+    stopRight.addFrame(sf::IntRect(877, 323, 44, 148));
+    stopLeft.setSpriteSheet(*texture);
+    stopLeft.addFrame(sf::IntRect(891, 160, 43, 149));
+
 }
 
 void Human::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder* Textures)
@@ -54,6 +59,18 @@ void Human::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder*
             sf::Vector2i screenDimensions(800,600);
 
             //start animation:
+            if(nb_contacts>0)
+                if (getVelocity().x>0)
+                    currentAnimation = &walkingAnimationRight;
+                else if (getVelocity().x<0)
+                    currentAnimation = &walkingAnimationLeft;
+                    else
+                    {
+                        if(currentAnimation == &walkingAnimationLeft)
+                            currentAnimation = &stopLeft;
+                        if(currentAnimation == &walkingAnimationRight)
+                            currentAnimation = &stopRight;
+                    }
             animatedSprite.play(*currentAnimation);
 
             animatedSprite.update(frameTime1);

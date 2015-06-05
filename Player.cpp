@@ -8,7 +8,7 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
     std::cout<< "creation*******";
 
     loadPlayerSprite(Textures);
-    currentAnimation = &walkingAnimationLeft;///POUR LE STANDBY ANIMATION
+    currentAnimation = &stopRight;///POUR LE STANDBY ANIMATION
 }
 
 void Player::loadPlayerSprite(TextureHolder* Textures)
@@ -43,6 +43,11 @@ void Player::loadPlayerSprite(TextureHolder* Textures)
     walkingAnimationRight.addFrame(sf::IntRect(877, 323, 44, 148));
     walkingAnimationRight.addFrame(sf::IntRect(976, 324, 39, 147));
     walkingAnimationRight.addFrame(sf::IntRect(1067, 323, 63, 148));
+
+    stopRight.setSpriteSheet(*texture);
+    stopRight.addFrame(sf::IntRect(877, 323, 44, 148));
+    stopLeft.setSpriteSheet(*texture);
+    stopLeft.addFrame(sf::IntRect(891, 160, 43, 149));
 
     noKeyWasPressed = true;
 }
@@ -80,10 +85,28 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
             {
 /// AJOUTER UNE ANIMATION EN FONCTION DE L'ACTUEL AU LIEU DE FAIRE UN STOP
 
-                animatedSprite.stop();
-
-                //desiredVel = 0;
             }
+            if(nb_contacts>0)
+                if (getVelocity().x>0)
+                    currentAnimation = &walkingAnimationRight;
+                else if (getVelocity().x<0)
+                    currentAnimation = &walkingAnimationLeft;
+                else
+                {
+                    if(currentAnimation == &walkingAnimationLeft)
+                        currentAnimation = &stopLeft;
+                    if(currentAnimation == &walkingAnimationRight)
+                        currentAnimation = &stopRight;
+                }
+            else///QUAND IL SAUTE
+                {
+                    if(currentAnimation == &walkingAnimationLeft)
+                        currentAnimation = &stopLeft;
+                    if(currentAnimation == &walkingAnimationRight)
+                        currentAnimation = &stopRight;
+                }
+
+
 
             noKeyWasPressed = true;
             animatedSprite.update(frameTime1);
@@ -105,14 +128,14 @@ void Player::onCommand(sf::Event e)
 {
     if(sf::Keyboard::isKeyPressed(K_LEFT))
     {
-        currentAnimation = &walkingAnimationLeft;
+        //currentAnimation = &walkingAnimationLeft;
         desiredVel = -5.0f;
         noKeyWasPressed = false;
 
     }
     if (sf::Keyboard::isKeyPressed(K_RIGHT))
     {
-        currentAnimation = &walkingAnimationRight;
+        //currentAnimation = &walkingAnimationRight;
         desiredVel = 5.0f;
         noKeyWasPressed = false;
     }
@@ -140,7 +163,7 @@ void Player::onCommand(sf::Event e)
         if (desiredVel <- velocityLimit)
             desiredVel = -velocityLimit;
 
-        if(mousePos.x > playerPos.x)
+        /*if(mousePos.x > playerPos.x)
         {
             if (desiredVel > 0)
                 currentAnimation = &walkingAnimationRight;
@@ -151,7 +174,7 @@ void Player::onCommand(sf::Event e)
                 if(desiredVel < 0)
                     currentAnimation = &walkingAnimationLeft;
 
-
+*/
         noKeyWasPressed = false;
         //sf::Vector2i newPosition((int)(e.MouseButtonEvent.x),(int)e.MouseButtonEvent.x);
         //sf::Mouse::setPosition(newPosition, mWindow);
@@ -199,7 +222,7 @@ void Player::processLogic()
             break;
         force = m_body->GetMass() * 5;
         if(velChange==0.0f)
-            force = force*1.5;
+            force = force*1.7;
         m_body->ApplyLinearImpulse(b2Vec2(velChange/2, -force), m_body->GetWorldCenter());
         jump--;
     }

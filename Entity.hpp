@@ -37,7 +37,7 @@ public:
 
     sf::Clock frameClock;
     Animation* currentAnimation;
-    Animation walkingAnimationLeft, walkingAnimationRight;
+    Animation walkingAnimationLeft, walkingAnimationRight, stopLeft, stopRight;
     AnimatedSprite animatedSprite;
 
     sf::Vector2f mouseInit, mousePos, playerPos, velocityForce;
