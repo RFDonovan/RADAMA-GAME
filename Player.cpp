@@ -9,6 +9,7 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
 
     loadPlayerSprite(Textures);
     currentAnimation = &stopRight;///POUR LE STANDBY ANIMATION
+    createWeapons();
 }
 
 void Player::loadPlayerSprite(TextureHolder* Textures)
@@ -55,25 +56,7 @@ void Player::loadPlayerSprite(TextureHolder* Textures)
 void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder* Textures)
 {
 
-            //std::cout<< "rendu*******";
             /**GOD S HAND**/
-/*
-            sf::Vector2f tmousePos = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
-            Shader->setParameter("time", clock.getElapsedTime().asSeconds());
-            Shader->setParameter("distortionFactor", distortionFactor);
-            Shader->setParameter("riseFactor", riseFactor);
-            stuffSprite.setOrigin((stuffSprite.getTexture()->getSize().x/2), (stuffSprite.getTexture()->getSize().x/2));
-            stuffSprite.setPosition(tmousePos.x-(stuffSprite.getTexture()->getSize().x*stuffSprite.getScale().x/2), tmousePos.y-(stuffSprite.getTexture()->getSize().y*stuffSprite.getScale().y/2));
-
-            std::random_device rd;
-            std::mt19937 mt(rd());
-            std::uniform_real_distribution<double> dist(1, 10);
-            stuffSprite.setRotation(stuffSprite.getRotation()+dist(mt));
-            mWindow.draw(stuffSprite,Shader);
-            /***************/
-            /*Animation* */
-
-            //loadPlayerSprite(Textures);
 
             sf::Time frameTime1 = frameClock.restart();
 
@@ -145,6 +128,25 @@ void Player::onCommand(sf::Event e)
         if(nb_contacts>0)
             jump ++;
     }
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Middle))
+    {
+        /*if(noWeapons)
+            attack();
+        else*/
+            //weaponsMap[currentProjectile]->SetTransform(b2Vec2(m_body->GetPosition().x, m_body->GetPosition().y-10), angle);
+            //position.Set(m_body->GetPosition().y-1)
+            //fire(currentProjectile);
+        mousePos = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
+        int posX = (int)m_body->GetPosition().x * RATIO;
+        int posY = (int)m_body->GetPosition().y * RATIO;
+
+        //angle = std::atan(mousePos.y-posY/mousePos.x-posX);
+        angle = std::atan2(mousePos.y-posY,mousePos.x-posX);
+
+        weaponsMap[currentProjectile]->SetTransform(b2Vec2(m_body->GetPosition().x, m_body->GetPosition().y-3), angle);
+        std::cout<<mousePos.x<<";"<<mousePos.y<<";"<<angle<<";\n";
+
+    }
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
@@ -163,29 +165,25 @@ void Player::onCommand(sf::Event e)
         if (desiredVel <- velocityLimit)
             desiredVel = -velocityLimit;
 
-        /*if(mousePos.x > playerPos.x)
-        {
-            if (desiredVel > 0)
-                currentAnimation = &walkingAnimationRight;
-        }
-
-        else
-            if(mousePos.x < playerPos.x)
-                if(desiredVel < 0)
-                    currentAnimation = &walkingAnimationLeft;
-
-*/
         noKeyWasPressed = false;
-        //sf::Vector2i newPosition((int)(e.MouseButtonEvent.x),(int)e.MouseButtonEvent.x);
-        //sf::Mouse::setPosition(newPosition, mWindow);
     }
 
     switch(e.type)
     {
     case sf::Event::MouseButtonPressed:
+        {
+
         mouseInit = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
+
+        weaponsMap[currentProjectile]->SetLinearVelocity(b2Vec2(0,0));
+        /*if(e.mouseButton.button == sf::Mouse::Middle)
+            weaponsMap[currentProjectile]->SetTransform(b2Vec2(m_body->GetPosition().x, m_body->GetPosition().y-10), angle);
+*/
+        }
         break;
     case sf::Event::MouseButtonReleased:
+        if(e.mouseButton.button == sf::Mouse::Middle)
+            fire(currentProjectile);
         std::cout<< "End";
         break;
     case sf::Event::KeyReleased:
@@ -193,6 +191,9 @@ void Player::onCommand(sf::Event e)
         {
             //jump++;
         }
+
+        break;
+    case sf::Event::MouseMoved:
 
         break;
     }
@@ -220,9 +221,9 @@ void Player::processLogic()
     {
         if(nb_contacts<=0)
             break;
-        force = m_body->GetMass() * 5;
+        force = m_body->GetMass() * 6;
         if(velChange==0.0f)
-            force = force*1.7;
+            force = force*1.5;
         m_body->ApplyLinearImpulse(b2Vec2(velChange/2, -force), m_body->GetWorldCenter());
         jump--;
     }
@@ -242,6 +243,67 @@ void Player::processLogic()
     else if(vel.y < -1.0f) //|| vel.y > 2.0f)//vel.x != 0 &&
         m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter());
 
+}
+
+void Player::attack()
+{
+    if(isAttacked)
+        return;
+
+
+
+}
+
+void Player::fire(Projectile projectile)
+{
+
+    switch (projectile)
+    {
+    case lefona:
+        {
+            std::cout<< "lefona be!"<<projectile;
+            weaponsMap[currentProjectile]->ApplyLinearImpulse(b2Vec2(500, 0), m_body->GetWorldCenter());
+
+        }
+
+        break;
+
+    default:
+        break;
+    }
+
+    if(currentAnimation == &walkingAnimationRight)
+    {
+
+    }
+
+}
+
+void Player::createWeapons()
+{
+    b2Body* lefona;
+    b2BodyDef myBodyDef;
+
+    myBodyDef.type = b2_dynamicBody;
+    myBodyDef.position.Set(0.f, 0.f);
+
+    lefona = p_world->CreateBody(&myBodyDef);
+
+    //set fixture:
+    b2PolygonShape Shape;
+    Shape.SetAsBox(100.f/RATIO, 5.f/RATIO);
+    b2FixtureDef FixtureDef;
+    //FixtureDef.density = 0.5f;
+    //FixtureDef.density = 10.f;
+    //FixtureDef.friction = 1.0f;
+    FixtureDef.friction = 0.7f;
+    //FixtureDef.restitution = .5f;
+    FixtureDef.shape = &Shape;
+
+    //attach to body:
+    lefona->CreateFixture(&FixtureDef);
+
+    weaponsMap[Projectile::lefona] = lefona;
 }
 
 

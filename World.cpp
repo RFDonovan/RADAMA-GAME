@@ -146,7 +146,7 @@ void World::draw(sf::Time frameTime)
     ePlayer->render(mWindow, frameTime, &Textures);
 
     for (int i = 0; i < grounds.size(); i++)
-        grounds[i]->render(mWindow);
+        grounds[i]->render(mWindow, &shader);
 
 
 
@@ -167,7 +167,7 @@ void World::draw(sf::Time frameTime)
             humans[i]->render(mWindow, frameTime, &Textures);
 
         }
-        std::cout<<"\n draw- after render\n";
+        //std::cout<<"\n draw- after render\n";
     }
 
     p_world.DrawDebugData();
@@ -177,11 +177,14 @@ void World::draw(sf::Time frameTime)
         pauseLayer.setFillColor(sf::Color(0, 0, 0, 150));
 
         mWindow.draw(pauseLayer);
-        mWindow.draw(BG_pause, &shader);
-        //
+        distortionFactor = .01f;
+        riseFactor = .5f;
         shader.setParameter("time", clock.getElapsedTime().asSeconds());
         shader.setParameter("distortionFactor", distortionFactor);
         shader.setParameter("riseFactor", riseFactor);
+        mWindow.draw(BG_pause, &shader);
+        //
+
 
 
 
@@ -194,6 +197,7 @@ void World::draw(sf::Time frameTime)
 */
         //mWindow.draw(sprite, &shader);
     }
+
 
 
 

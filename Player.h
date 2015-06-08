@@ -9,6 +9,12 @@ public:
 
 
     //animation control
+    enum Projectile{
+        lefona,
+        vato,
+        afo,
+        sokina,
+    };
 
     sf::Sprite stuffSprite;
     sf::Shader *Shader;
@@ -17,9 +23,16 @@ public:
     float desiredVel;
     float jumpLimit = 5.f;
 
+    std::vector<b2Body*>    weapons;
+    std::map<Projectile, b2Body*>  weaponsMap;
+    Projectile currentProjectile = Projectile::lefona;
+    float angle;
+
     float distortionFactor = .2f;
     float riseFactor = .5f;
     sf::Clock clock;
+
+
 
 public:
             Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
@@ -28,6 +41,10 @@ public:
     void    processLogic(sf::RenderWindow& mWindow);
     void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures);
     void    onCommand(sf::Event e);
+    void    attack();
+    void    fire(Projectile projectile);
+
+    void    createWeapons();
 
 };
 

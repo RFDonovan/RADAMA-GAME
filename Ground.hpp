@@ -27,11 +27,17 @@ public:
     sf::Vector2f    groundSize;
     sf::Vector2f    groundPosition;
 
+    sf::Shader      hotShade;
+    float distortionFactor = .1f;
+    float riseFactor = .5f;
+    sf::Clock clock;
+
 public:
 
             Ground(b2World* world, TextureHolder* Textures, float32 x, float32 y, float w = 600.f , float h = 16.f);
     void    loadSprites(TextureHolder* Textures);
     void    render(sf::RenderWindow& mWindow);
+    void    render(sf::RenderWindow& mWindow, sf::Shader* shader);
 
     int     getY();
     int     getX();

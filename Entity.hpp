@@ -4,9 +4,14 @@
 #include<SFML/Graphics.hpp>
 #include<Box2D/Box2D.h>
 #include<iostream>
+#include<cmath>
 #include "Globals.h"
 #include "AnimatedSprite.hpp"
 #include "TextureHolder.h"
+
+struct bodyUserData {
+      int bodyKind;
+  };
 
 class Entity {
 
@@ -46,6 +51,9 @@ public:
     float jumpLimit = 5.f;
 
     sf::Clock clock;
+
+    ///ATTACK DEF INTERACTION
+    bool isAttacked = false;
 
 public:
             Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);

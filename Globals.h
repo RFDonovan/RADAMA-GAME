@@ -18,4 +18,10 @@
 #define K_LEFT sf::Keyboard::Q
 #define K_RIGHT sf::Keyboard::D
 
+enum objectType{
+    Ground,
+    Human,
+    Player,
+};
+
 #endif // GLOBALS_H_INCLUDED

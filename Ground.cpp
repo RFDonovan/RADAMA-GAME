@@ -56,7 +56,7 @@ void Ground::loadSprites(TextureHolder* Textures)
 
 }
 
-void Ground::render(sf::RenderWindow& mWindow)
+void Ground::render(sf::RenderWindow& mWindow, sf::Shader* shader)
 {
     ///groundSprite.setScale(groundSize.x/Texture->getSize().x,1);
     //groundSprite.setOrigin(Texture->getSize().x/2, Texture->getSize().y/1.5f);
@@ -67,9 +67,26 @@ void Ground::render(sf::RenderWindow& mWindow)
     gs1.setPosition(groundSprite.getPosition().x - groundSize.x/2 - Tex1->getSize().x, groundSprite.getPosition().y - Tex1->getSize().y/1.35);// - Texture->getSize().y/1.3);
     gs2.setPosition(groundSprite.getPosition().x + groundSize.x/2, groundSprite.getPosition().y - Tex1->getSize().y/1.35);
 
-    mWindow.draw(groundSprite);
-    mWindow.draw(gs1);
-    mWindow.draw(gs2);
+
+    distortionFactor = .01f;
+    riseFactor = .5f;
+    shader->setParameter("time", clock.getElapsedTime().asSeconds());
+    shader->setParameter("distortionFactor", distortionFactor);
+    shader->setParameter("riseFactor", riseFactor);
+
+    mWindow.draw(groundSprite, shader);
+    {
+        distortionFactor = .1f;
+        riseFactor = .5f;
+        shader->setParameter("time", clock.getElapsedTime().asSeconds());
+        shader->setParameter("distortionFactor", distortionFactor);
+        shader->setParameter("riseFactor", riseFactor);
+    }
+    mWindow.draw(gs1, shader);
+    mWindow.draw(gs2, shader);
+
+    ///POUR UN TEXTURE D EAU, ON BOOSTE LA DISTORTIONFACTOR A .5F ET ON REMPLACE GS1 ET GS2 PAR AUTRE CHOSE (UN RECIPIENT PAR EXEMPLE)
+    ///PCQ CA MARCHE PAS BIEN SI LA TEXTURE EST PETITE
 }
 
 int     Ground::getY()
