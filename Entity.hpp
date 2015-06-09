@@ -78,6 +78,7 @@ public:
     int     getObjectType(){return ENTITY;}
 
 
+
             ~Entity();
 };
 

@@ -49,6 +49,7 @@ public:
     void    endContact(b2Fixture   *fixture);
 
     int     getObjectType(){return GROUND;}
+    int     getClassName(){return GROUND;}
 
             ~Ground();
 

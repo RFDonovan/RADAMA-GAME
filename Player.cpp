@@ -55,6 +55,13 @@ void Player::loadPlayerSprite(TextureHolder* Textures)
 
 void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder* Textures)
 {
+            /*// ////////////////////////
+            for (int i = 0; i < stickingProjectile.size(); i++)
+              {
+                  stickingProjectile[i]->SetActive(false);
+              }
+              stickingProjectile.clear();
+            /// /////////////////////////*/
 
             /**GOD S HAND**/
 
@@ -105,6 +112,8 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
             //std::cout<< "\n******rendu ok*******";
 
 //*/
+
+
 }
 
 void Player::onCommand(sf::Event e)
@@ -133,12 +142,12 @@ void Player::onCommand(sf::Event e)
     }
     if (sf::Mouse::isButtonPressed(sf::Mouse::Middle))
     {
-        /*if(noWeapons)
-            attack();
-        else*/
-            //weaponsMap[currentProjectile]->SetTransform(b2Vec2(m_body->GetPosition().x, m_body->GetPosition().y-10), angle);
-            //position.Set(m_body->GetPosition().y-1)
-            //fire(currentProjectile);
+        if(joint != nullptr)
+        {
+            p_world->DestroyJoint(joint);
+            joint = nullptr;//pour eviter une repetition
+        }
+
         mousePos = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
         int posX = (int)m_body->GetPosition().x * RATIO;
         int posY = (int)m_body->GetPosition().y * RATIO;
@@ -179,10 +188,12 @@ void Player::onCommand(sf::Event e)
         mouseInit = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
 
         weaponsMap[currentProjectile]->SetLinearVelocity(b2Vec2(0,0));
+        weaponsMap[currentProjectile]->SetActive(false);
         }
         break;
     case sf::Event::MouseButtonReleased:
         if(e.mouseButton.button == sf::Mouse::Middle)
+            weaponsMap[currentProjectile]->SetActive(true);
             fire(currentProjectile);
         std::cout<< "End";
         break;
@@ -249,7 +260,7 @@ void Player::fire(Projectile projectile)
     case lefona:
         {
             std::cout<< "lefona be!"<<projectile;
-            weaponsMap[currentProjectile]->ApplyLinearImpulse(b2Vec2(500, 0), m_body->GetWorldCenter());
+            weaponsMap[currentProjectile]->ApplyLinearImpulse(b2Vec2(50, 0), m_body->GetWorldCenter());
 
         }
 
@@ -283,15 +294,58 @@ void Player::createWeapons()
     //FixtureDef.density = 0.5f;
     //FixtureDef.density = 10.f;
     //FixtureDef.friction = 1.0f;
-    FixtureDef.friction = 0.7f;
+    FixtureDef.friction = 0.735f;
     //FixtureDef.restitution = .5f;
     FixtureDef.shape = &Shape;
 
     //attach to body:
     lefona->CreateFixture(&FixtureDef);
-    //lefona->SetUserData((void*)PROJECTILE);
+    lefona->SetUserData(this);
 
     weaponsMap[Projectile::lefona] = lefona;
+    //lefona->SetActive(false);
+
+}
+
+void Player::stickProjectile(b2Fixture* fixtureTarget)
+{
+    //stickingProjectile.push_back(weaponsMap[currentProjectile]);
+
+        std::cout<< "begin************************";
+
+        worldCoordsAnchorPoint =(weaponsMap[currentProjectile])->GetWorldPoint( b2Vec2(0.6f, 0) );
+      weldJointDef.bodyA = fixtureTarget->GetBody();
+      if (weldJointDef.bodyA == m_body)
+        return;
+      weldJointDef.bodyB = weaponsMap[currentProjectile];
+      weldJointDef.localAnchorA = weldJointDef.bodyA->GetLocalPoint( worldCoordsAnchorPoint );
+      weldJointDef.localAnchorB = weldJointDef.bodyB->GetLocalPoint( worldCoordsAnchorPoint );
+      weldJointDef.referenceAngle = weldJointDef.bodyB->GetAngle() - weldJointDef.bodyA->GetAngle();
+      //p_world->CreateJoint( &weldJointDef );
+      std::cout<< "************************";
+
+      jointExist = true;
+}
+
+void Player::stickAll()
+{
+      /*weldJointDef.bodyA = fixtureTarget->GetBody();
+      weldJointDef.bodyB = weaponsMap[currentProjectile];
+      weldJointDef.localAnchorA = weldJointDef.bodyA->GetLocalPoint( worldCoordsAnchorPoint );
+      weldJointDef.localAnchorB = weldJointDef.bodyB->GetLocalPoint( worldCoordsAnchorPoint );
+      weldJointDef.referenceAngle = weldJointDef.bodyB->GetAngle() - weldJointDef.bodyA->GetAngle();*/
+      if(jointExist)
+      {
+          if(joint != nullptr)
+            {
+                return;
+            }
+          joint = p_world->CreateJoint( &weldJointDef );
+          jointExist = false;
+        //(weaponsMap[currentProjectile])->SetActive(false);
+      }
+
+
 }
 
 

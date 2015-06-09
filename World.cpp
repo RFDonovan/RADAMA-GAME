@@ -13,7 +13,7 @@ World::World(sf::RenderWindow& window)
     window.setVerticalSyncEnabled(true);
     p_world.SetDebugDraw(&debugDrawInstance);
 
-    debugDrawInstance.SetFlags(b2Draw::e_shapeBit);
+    debugDrawInstance.SetFlags(b2Draw::e_shapeBit|b2Draw::e_jointBit);
 
     loadTextures();
     buildScene();
@@ -132,6 +132,7 @@ void World::draw(sf::Time frameTime)
     if(!paused)/// ******************************************************************>>>>PAUSE
     {
         p_world.Step(1/60.f,6,2);
+        ePlayer->stickAll();
         p_world.ClearForces();
         mWindow.setMouseCursorVisible(false);
 

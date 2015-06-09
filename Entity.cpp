@@ -83,6 +83,7 @@ void Entity::startContact(b2Fixture   *fixture)
 }
 void Entity::endContact(b2Fixture   *fixture)
 {
+
     std::cout<< "CONTACT END";
     if(fixture == basFixture)
     {

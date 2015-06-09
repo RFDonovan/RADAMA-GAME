@@ -26,12 +26,17 @@ enum objectType{
 */
 #define ENTITY 1
 #define GROUND 2
+#define PLAYER 5
+#define HUMAN 4
 #define PROJECTILE 3
 
 class ObjectType
 {
+public:
+    int hardness = 100;
     public:
     virtual int getObjectType() = 0;
+    virtual int     getClassName()=0;
 };
 
 

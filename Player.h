@@ -26,7 +26,13 @@ public:
     std::vector<b2Body*>    weapons;
     std::map<Projectile, b2Body*>  weaponsMap;
     Projectile currentProjectile = Projectile::lefona;
+    std::vector<b2Body*>    stickingProjectile;
     float angle;
+
+    b2RevoluteJointDef weldJointDef;
+    b2Vec2 worldCoordsAnchorPoint;
+    b2Joint * joint = nullptr;
+    bool jointExist = false;
 
     float distortionFactor = .2f;
     float riseFactor = .5f;
@@ -45,6 +51,9 @@ public:
     void    fire(Projectile projectile);
 
     void    createWeapons();
+    int     getClassName(){return PLAYER;}
+    void    stickProjectile(b2Fixture* fixtureTarget);
+    void    stickAll();
 
 };
 

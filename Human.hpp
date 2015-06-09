@@ -25,6 +25,7 @@ public:
             Human(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
     void    loadSprite(TextureHolder* Textures);
     void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures);
+    int     getClassName(){return HUMAN;}
 
 };
 
