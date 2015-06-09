@@ -8,7 +8,7 @@
 //#include "AnimatedSprite.hpp"
 #include "TextureHolder.h"
 
-class Ground
+class Ground : public ObjectType
 {
 public:
     enum Type{
@@ -47,6 +47,8 @@ public:
 
     void    startContact(b2Fixture   *fixture);
     void    endContact(b2Fixture   *fixture);
+
+    int     getObjectType(){return GROUND;}
 
             ~Ground();
 

@@ -17,11 +17,22 @@
 
 #define K_LEFT sf::Keyboard::Q
 #define K_RIGHT sf::Keyboard::D
-
+/*
 enum objectType{
     Ground,
-    Human,
-    Player,
+    Entity,
+    Projectile,
 };
+*/
+#define ENTITY 1
+#define GROUND 2
+#define PROJECTILE 3
+
+class ObjectType
+{
+    public:
+    virtual int getObjectType() = 0;
+};
+
 
 #endif // GLOBALS_H_INCLUDED

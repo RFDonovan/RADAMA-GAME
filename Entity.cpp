@@ -15,6 +15,7 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
     m_body = world->CreateBody(&myBodyDef);
 
     m_body->SetUserData(this);
+    //m_body->SetUserData(this);
 
     //set fixture:
     b2PolygonShape Shape;
@@ -31,10 +32,14 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
     m_body->CreateFixture(&FixtureDef);
 
     b2Vec2 pos(0,(h/RATIO)/2);
-    Shape.SetAsBox(((w-2)/2)/RATIO, (1/2)/RATIO, pos, 0);///1 PIXEL SUFFIT
+    Shape.SetAsBox(((w-2)/2)/RATIO, (10/2)/RATIO, pos, 0);///1 PIXEL SUFFIT
     //FixtureDef.restitution = 1.f;
+    FixtureDef.isSensor = true;
     basFixture = m_body->CreateFixture(&FixtureDef);
+    basFixture->SetUserData(this);
     //currentAnimation = &walkingAnimationLeft;///POUR LE STANDBY ANIMATION
+    //Entity::EntityLists.push_back(this);
+//EntityLists.push_back(this);
 }
 /*
 void Entity::processLogic()
@@ -67,8 +72,10 @@ void Entity::startContact(b2Fixture   *fixture)
 
     if(fixture == basFixture)
     {
+        std::cout<< "CONTACT++";
         grounded = true;
-        nb_contacts++;
+            nb_contacts++;
+        std::cout<< "CONTACT++"<<nb_contacts;
         //std::cout<< "fixture ok";
     }
 
@@ -81,6 +88,7 @@ void Entity::endContact(b2Fixture   *fixture)
     {
         grounded = false;
         nb_contacts--;
+        std::cout<< "CONTACT--"<<nb_contacts;
         //std::cout<< "fixture ko";
     }
 

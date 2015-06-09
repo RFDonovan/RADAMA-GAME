@@ -5,6 +5,7 @@
 #include<Box2D/Box2D.h>
 #include<iostream>
 #include<cmath>
+#include<vector>
 #include "Globals.h"
 #include "AnimatedSprite.hpp"
 #include "TextureHolder.h"
@@ -13,7 +14,7 @@ struct bodyUserData {
       int bodyKind;
   };
 
-class Entity {
+class Entity : public ObjectType{
 
 public:
     enum Type{
@@ -22,6 +23,8 @@ public:
         Other,
     };
     //class member variables
+
+
 
     b2Body* m_body;
     float   m_radius;
@@ -71,6 +74,8 @@ public:
     void    endContact(b2Fixture   *fixture);
 
     //void    attachStuff(sf::Shader* shader, TextureHolder::TexName tex);
+
+    int     getObjectType(){return ENTITY;}
 
 
             ~Entity();

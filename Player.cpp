@@ -126,7 +126,10 @@ void Player::onCommand(sf::Event e)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
         if(nb_contacts>0)
+        {
             jump ++;
+        }
+
     }
     if (sf::Mouse::isButtonPressed(sf::Mouse::Middle))
     {
@@ -176,9 +179,6 @@ void Player::onCommand(sf::Event e)
         mouseInit = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
 
         weaponsMap[currentProjectile]->SetLinearVelocity(b2Vec2(0,0));
-        /*if(e.mouseButton.button == sf::Mouse::Middle)
-            weaponsMap[currentProjectile]->SetTransform(b2Vec2(m_body->GetPosition().x, m_body->GetPosition().y-10), angle);
-*/
         }
         break;
     case sf::Event::MouseButtonReleased:
@@ -198,10 +198,6 @@ void Player::onCommand(sf::Event e)
         break;
     }
 
-    if(nb_contacts<=0)
-    {
-        //qdesiredVel = 0.f;
-    }
 
 }
 
@@ -217,25 +213,16 @@ void Player::processLogic()
         velChange = 0.f;
 
     float force = m_body->GetMass() * velChange / (1/60.0);// f = mv/t
-    while(jump>0)
+    if(jump>0)
     {
-        if(nb_contacts<=0)
-            break;
         force = m_body->GetMass() * 6;
         if(velChange==0.0f)
-            force = force*1.5;
+            force = force;//*1.5;
         m_body->ApplyLinearImpulse(b2Vec2(velChange/2, -force), m_body->GetWorldCenter());
         jump--;
     }
 
 
-    if(noKeyWasPressed)
-    {
-        if(nb_contacts > 0)
-            m_body->ApplyForce(b2Vec2(0, 150), m_body->GetWorldCenter());
-
-        return;
-    }
 
 
     if(nb_contacts>0)
@@ -302,6 +289,7 @@ void Player::createWeapons()
 
     //attach to body:
     lefona->CreateFixture(&FixtureDef);
+    //lefona->SetUserData((void*)PROJECTILE);
 
     weaponsMap[Projectile::lefona] = lefona;
 }

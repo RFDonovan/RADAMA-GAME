@@ -22,7 +22,7 @@ Ground::Ground(b2World* world, TextureHolder* Textures, float32 x, float32 y, fl
     m_body->CreateFixture(&FixtureDef);
 
 
-
+    m_body->SetUserData(this);
     loadSprites(Textures);
 }
 

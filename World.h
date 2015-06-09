@@ -13,7 +13,6 @@
 #include "ContactListener.inl"
 
 //#include "CommandQueue.h"
-
 /// class World - recevra une reference du RenderWindow depuis Game, c'est cette classe qui va s'
 class World
 {
@@ -36,6 +35,7 @@ public:
 
 
     std::vector<Human*>    humans;
+
     std::vector<Ground*>    grounds;
 
 
