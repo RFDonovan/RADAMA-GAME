@@ -15,6 +15,7 @@ World::World(sf::RenderWindow& window)
 
     debugDrawInstance.SetFlags(b2Draw::e_shapeBit|b2Draw::e_jointBit);
 
+
     loadTextures();
     buildScene();
     BG = sf::Sprite(*Textures.getTexture(TextureHolder::Background1));
@@ -59,12 +60,21 @@ void World::processInput(sf::Event e)
 {
     /*if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         paused = !paused;*/
+
     switch(e.type)
     {
     case sf::Event::KeyReleased:
         if(e.key.code == sf::Keyboard::Escape)
         {
             paused = !paused;
+        }
+        if(e.key.code == sf::Keyboard::C)
+        {
+            debugDrawInstance.ClearFlags(b2Draw::e_shapeBit|b2Draw::e_jointBit);
+        }
+        if(e.key.code == sf::Keyboard::V)
+        {
+            debugDrawInstance.SetFlags(b2Draw::e_shapeBit|b2Draw::e_jointBit);
         }
 
         break;
@@ -214,6 +224,7 @@ void World::loadTextures()
     Textures.loadFromFile(TextureHolder::Background1, "background.png");
     Textures.loadFromFile(TextureHolder::Pause, "pause.png");
     Textures.loadFromFile(TextureHolder::Fire, "fire.png");
+    Textures.loadFromFile(TextureHolder::Lefona, "lefona.png");
 
     //*/
 

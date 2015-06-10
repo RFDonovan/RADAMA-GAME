@@ -51,17 +51,19 @@ void Player::loadPlayerSprite(TextureHolder* Textures)
     stopLeft.addFrame(sf::IntRect(891, 160, 43, 149));
 
     noKeyWasPressed = true;
+
+    ///WEAPONS
+    texture = Textures->getTexture(TextureHolder::Lefona);
+    weaponSprite.setTexture(*texture);
+    weaponSprite.setScale(sf::Vector2f(1.2f,1.f));
+    texture->setSmooth(true);
+
 }
 
 void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder* Textures)
 {
-            /*// ////////////////////////
-            for (int i = 0; i < stickingProjectile.size(); i++)
-              {
-                  stickingProjectile[i]->SetActive(false);
-              }
-              stickingProjectile.clear();
-            /// /////////////////////////*/
+
+
 
             /**GOD S HAND**/
 
@@ -71,11 +73,9 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
 
             //start animation:
             animatedSprite.play(*currentAnimation);
-            if (noKeyWasPressed || nb_contacts<=0)
-            {
-/// AJOUTER UNE ANIMATION EN FONCTION DE L'ACTUEL AU LIEU DE FAIRE UN STOP
 
-            }
+/// AJOUTER UNE ANIMATION EN FONCTION DE L'ACTUEL AU LIEU DE FAIRE UN STOP
+            if(std::abs(getVelocity().x)>1)///SI IL BOUGE PLUS QUE NECESSAIRE---------POUR EVITER LE TREMBLEMENT DES SPRITES
             if(nb_contacts>0)
                 if (getVelocity().x>0)
                     currentAnimation = &walkingAnimationRight;
@@ -95,7 +95,13 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
                     if(currentAnimation == &walkingAnimationRight)
                         currentAnimation = &stopRight;
                 }
-
+            else///QUAND IL NE BOUGE PLUS OU BOUGE PETIT
+                {
+                    if(currentAnimation == &walkingAnimationLeft)
+                        currentAnimation = &stopLeft;
+                    if(currentAnimation == &walkingAnimationRight)
+                        currentAnimation = &stopRight;
+                }
 
 
             noKeyWasPressed = true;
@@ -109,7 +115,9 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
             animatedSprite.setRotation(m_body->GetAngle() * 180/b2_pi);
             ///Draw:
             mWindow.draw(animatedSprite);
+            renderWeapons(mWindow);
             //std::cout<< "\n******rendu ok*******";
+
 
 //*/
 
@@ -154,6 +162,7 @@ void Player::onCommand(sf::Event e)
 
         //angle = std::atan(mousePos.y-posY/mousePos.x-posX);
         angle = std::atan2(mousePos.y-posY,mousePos.x-posX);
+
 
         weaponsMap[currentProjectile]->SetTransform(b2Vec2(m_body->GetPosition().x, m_body->GetPosition().y-3), angle);
         std::cout<<mousePos.x<<";"<<mousePos.y<<";"<<angle<<";\n";
@@ -214,10 +223,8 @@ void Player::onCommand(sf::Event e)
 
 void Player::processLogic()
 {
-    if(kind == Entity::Player)
-    {
 
-    }
+
     vel = m_body->GetLinearVelocity();
     float velChange = desiredVel - vel.x;
     if (noKeyWasPressed)
@@ -226,7 +233,7 @@ void Player::processLogic()
     float force = m_body->GetMass() * velChange / (1/60.0);// f = mv/t
     if(jump>0)
     {
-        force = m_body->GetMass() * 6;
+        force = m_body->GetMass() * 3;
         if(velChange==0.0f)
             force = force;//*1.5;
         m_body->ApplyLinearImpulse(b2Vec2(velChange/2, -force), m_body->GetWorldCenter());
@@ -259,8 +266,13 @@ void Player::fire(Projectile projectile)
     {
     case lefona:
         {
+            float angle = weaponsMap[Projectile::lefona]->GetAngle();
+            float x,y;
+            x = std::cos(angle) * 500;
+            y = std::sin(angle) * 500;
             std::cout<< "lefona be!"<<projectile;
-            weaponsMap[currentProjectile]->ApplyLinearImpulse(b2Vec2(50, 0), m_body->GetWorldCenter());
+            //weaponsMap[currentProjectile]->ApplyLinearImpulse(b2Vec2(x, y), m_body->GetWorldCenter());
+            weaponsMap[currentProjectile]->ApplyLinearImpulse(b2Vec2(x, y), weaponsMap[currentProjectile]->GetWorldPoint(b2Vec2(50.f/RATIO,0.f)));
 
         }
 
@@ -289,12 +301,13 @@ void Player::createWeapons()
 
     //set fixture:
     b2PolygonShape Shape;
-    Shape.SetAsBox(100.f/RATIO, 5.f/RATIO);
+    Shape.SetAsBox(100.f/RATIO, 2.f/RATIO);
     b2FixtureDef FixtureDef;
     //FixtureDef.density = 0.5f;
     //FixtureDef.density = 10.f;
     //FixtureDef.friction = 1.0f;
     FixtureDef.friction = 0.735f;
+    //FixtureDef.restitution = 1.f;
     //FixtureDef.restitution = .5f;
     FixtureDef.shape = &Shape;
 
@@ -305,6 +318,20 @@ void Player::createWeapons()
     weaponsMap[Projectile::lefona] = lefona;
     //lefona->SetActive(false);
 
+}
+
+void Player::renderWeapons(sf::RenderWindow& mWindow)
+{
+    for(auto iterator : weaponsMap)
+    {
+        //std::cout<< iterator.first;
+        b2Body* wBody = weaponsMap[iterator.first];
+        weaponSprite.setOrigin(texture->getSize().x/2,texture->getSize().y/2);
+        weaponSprite.setPosition(wBody->GetPosition().x * RATIO, wBody->GetPosition().y * RATIO);
+        weaponSprite.setRotation(wBody->GetAngle()/ RADTODEG);
+        mWindow.draw(weaponSprite);
+
+    }
 }
 
 void Player::stickProjectile(b2Fixture* fixtureTarget)
@@ -329,11 +356,6 @@ void Player::stickProjectile(b2Fixture* fixtureTarget)
 
 void Player::stickAll()
 {
-      /*weldJointDef.bodyA = fixtureTarget->GetBody();
-      weldJointDef.bodyB = weaponsMap[currentProjectile];
-      weldJointDef.localAnchorA = weldJointDef.bodyA->GetLocalPoint( worldCoordsAnchorPoint );
-      weldJointDef.localAnchorB = weldJointDef.bodyB->GetLocalPoint( worldCoordsAnchorPoint );
-      weldJointDef.referenceAngle = weldJointDef.bodyB->GetAngle() - weldJointDef.bodyA->GetAngle();*/
       if(jointExist)
       {
           if(joint != nullptr)

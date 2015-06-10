@@ -17,6 +17,7 @@ public:
         Pause,
 
         Fire,
+        Lefona,
 
         Other,
     };

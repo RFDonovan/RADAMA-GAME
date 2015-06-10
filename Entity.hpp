@@ -26,7 +26,7 @@ public:
 
 
 
-    b2Body* m_body;
+    b2Body* m_body, *m_legs, *m_head;
     float   m_radius;
     Type    kind;
 

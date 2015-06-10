@@ -11,7 +11,9 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
     //set dynamic body:
     b2BodyDef myBodyDef;
     myBodyDef.type = b2_dynamicBody;
+    myBodyDef.fixedRotation = true;
     myBodyDef.position.Set(x/RATIO, y/RATIO);
+
     m_body = world->CreateBody(&myBodyDef);
 
     m_body->SetUserData(this);
@@ -19,27 +21,79 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
 
     //set fixture:
     b2PolygonShape Shape;
-    Shape.SetAsBox((w/2)/RATIO, (h/2)/RATIO);
+    //Shape.SetAsBox((w/2)/RATIO, (h/2)/RATIO);
+    Shape.SetAsBox((w/2)/RATIO, (h/4)/RATIO);
     b2FixtureDef FixtureDef;
     //FixtureDef.density = 0.5f;
-    //FixtureDef.density = 1.f;
+    FixtureDef.density = 10.f;
     //FixtureDef.friction = 1.0f;
     FixtureDef.friction = 0.7f;
-    //FixtureDef.restitution = .5f;
+    FixtureDef.restitution = 0.f;
     FixtureDef.shape = &Shape;
 
     //attach to body:
     m_body->CreateFixture(&FixtureDef);
+/// sensor
 
     b2Vec2 pos(0,(h/RATIO)/2);
-    Shape.SetAsBox(((w-2)/2)/RATIO, (10/2)/RATIO, pos, 0);///1 PIXEL SUFFIT
-    //FixtureDef.restitution = 1.f;
-    FixtureDef.isSensor = true;
+    Shape.SetAsBox(((w-2)/4)/RATIO, (10/2)/RATIO, pos, 0);///10 PIXEL SUFFIT
+    FixtureDef.isSensor = true;//pas de collision visible
     basFixture = m_body->CreateFixture(&FixtureDef);
     basFixture->SetUserData(this);
-    //currentAnimation = &walkingAnimationLeft;///POUR LE STANDBY ANIMATION
-    //Entity::EntityLists.push_back(this);
-//EntityLists.push_back(this);
+/// //////*/
+    float rayon = w/2;
+///bas du corps
+
+    myBodyDef.type = b2_dynamicBody;
+    myBodyDef.position.Set(x/RATIO, y/RATIO);
+    m_legs = world->CreateBody(&myBodyDef);
+
+    b2CircleShape cShape;
+    cShape.m_p.Set(0,0);
+    cShape.m_radius = (rayon/RATIO);
+    b2FixtureDef cFixtureDef;
+    cFixtureDef.isSensor = false;
+    cFixtureDef.density = 10.f;
+    cFixtureDef.friction = 1.f;
+    cFixtureDef.restitution = 0.f;
+    cFixtureDef.shape = &cShape;
+    m_legs->CreateFixture(&cFixtureDef);
+    b2RevoluteJointDef rJointDef;
+
+
+      rJointDef.bodyA = m_body;
+      rJointDef.bodyB = m_legs;
+      rJointDef.collideConnected = false;
+      rJointDef.localAnchorA = rJointDef.bodyA->GetLocalPoint( m_body->GetWorldPoint(b2Vec2(0, ((h/4)+rayon)/RATIO)) );
+      rJointDef.localAnchorB = rJointDef.bodyB->GetLocalPoint( m_legs->GetWorldPoint(b2Vec2(0, 0)) );
+      rJointDef.referenceAngle = rJointDef.bodyB->GetAngle() - rJointDef.bodyA->GetAngle();
+      rJointDef.enableLimit = true;
+      world->CreateJoint( &rJointDef );
+/// ///////////
+
+///tete
+
+    myBodyDef.type = b2_dynamicBody;
+    myBodyDef.position.Set(x/RATIO, y/RATIO);
+    m_head = world->CreateBody(&myBodyDef);
+
+    //cShape;
+    cFixtureDef.density = 0.f;
+    cShape.m_p.Set(0,0);
+    cShape.m_radius = (rayon/RATIO);
+    m_head->CreateFixture(&cFixtureDef);
+
+      rJointDef.bodyA = m_body;
+      rJointDef.bodyB = m_head;
+      rJointDef.collideConnected = false;
+      rJointDef.localAnchorA = rJointDef.bodyA->GetLocalPoint( m_body->GetWorldPoint(b2Vec2(0, -((h/4)+rayon)/RATIO)) );
+      rJointDef.localAnchorB = rJointDef.bodyB->GetLocalPoint( m_head->GetWorldPoint(b2Vec2(0, 0)) );
+      rJointDef.referenceAngle = rJointDef.bodyB->GetAngle() - rJointDef.bodyA->GetAngle();
+      rJointDef.enableLimit = true;
+      world->CreateJoint( &rJointDef );
+/// ///////////
+
+
 }
 /*
 void Entity::processLogic()

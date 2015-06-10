@@ -16,7 +16,7 @@ public:
         sokina,
     };
 
-    sf::Sprite stuffSprite;
+    sf::Sprite stuffSprite, weaponSprite;
     sf::Shader *Shader;
 
     bool noKeyWasPressed = true;
@@ -46,6 +46,7 @@ public:
     void    processLogic();
     void    processLogic(sf::RenderWindow& mWindow);
     void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures);
+    void    renderWeapons(sf::RenderWindow& mWindow);
     void    onCommand(sf::Event e);
     void    attack();
     void    fire(Projectile projectile);
