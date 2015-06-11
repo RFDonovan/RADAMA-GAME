@@ -8,11 +8,12 @@
 #include "pugixml.hpp"
 #include "debugDraw.hpp"
 #include "TextureHolder.h"
+#include "GameLevel.hpp"
 #include "Entity.hpp"
 #include "Human.hpp"
 #include "Player.h"
 #include "Ground.hpp"
-#include "Level.hpp"
+
 #include "ContactListener.inl"
 
 
