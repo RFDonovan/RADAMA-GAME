@@ -338,7 +338,7 @@ void Player::stickProjectile(b2Fixture* fixtureTarget)
 {
     //stickingProjectile.push_back(weaponsMap[currentProjectile]);
 
-        std::cout<< "begin************************";
+        //std::cout<< "begin************************";
 
         worldCoordsAnchorPoint =(weaponsMap[currentProjectile])->GetWorldPoint( b2Vec2(0.6f, 0) );
       weldJointDef.bodyA = fixtureTarget->GetBody();
@@ -349,7 +349,7 @@ void Player::stickProjectile(b2Fixture* fixtureTarget)
       weldJointDef.localAnchorB = weldJointDef.bodyB->GetLocalPoint( worldCoordsAnchorPoint );
       weldJointDef.referenceAngle = weldJointDef.bodyB->GetAngle() - weldJointDef.bodyA->GetAngle();
       //p_world->CreateJoint( &weldJointDef );
-      std::cout<< "************************";
+      //std::cout<< "************************";
 
       jointExist = true;
 }

@@ -33,7 +33,7 @@ void Game::processInput()
             mWindow.close();
 
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-                sf::Vector2f MousePos = mWorld.getMousePos();
+                //sf::Vector2f MousePos = mWorld.getMousePos();
 
                 //mWorld.createBox(mWorld.getWorld(), MousePos.x, MousePos.y);
                 ///mWorld.createEntity(mWorld.getWorld(), MousePos.x, MousePos.y); ON VA ENLEVER CA POUR LE MOMENT

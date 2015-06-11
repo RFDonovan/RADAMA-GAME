@@ -78,7 +78,7 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
     m_head = world->CreateBody(&myBodyDef);
 
     //cShape;
-    cFixtureDef.density = 0.f;
+    cFixtureDef.density = 10.f;
     cShape.m_p.Set(0,0);
     cShape.m_radius = (rayon/RATIO);
     m_head->CreateFixture(&cFixtureDef);

@@ -29,14 +29,15 @@ enum objectType{
 #define PLAYER 5
 #define HUMAN 4
 #define PROJECTILE 3
+#define LEVEL
 
 class ObjectType
 {
 public:
+
     int hardness = 100;
-    public:
     virtual int getObjectType() = 0;
-    virtual int     getClassName()=0;
+    virtual int getClassName() = 0;
 };
 
 

@@ -3,14 +3,18 @@
 #include<iostream>
 #include<functional>
 #include<vector>
+#include<algorithm>
 
+#include "pugixml.hpp"
 #include "debugDraw.hpp"
 #include "TextureHolder.h"
 #include "Entity.hpp"
 #include "Human.hpp"
 #include "Player.h"
 #include "Ground.hpp"
+#include "Level.hpp"
 #include "ContactListener.inl"
+
 
 //#include "CommandQueue.h"
 /// class World - recevra une reference du RenderWindow depuis Game, c'est cette classe qui va s'
@@ -70,24 +74,27 @@ public:
 
     // Operations
 public:
-    explicit World (sf::RenderWindow& window);
-    void update (/*sf::Time dt*/);
-    void draw (sf::Time frameTime);
-    void loadTextures ();
-    void buildScene ();
-    void adaptViewToPlayer();
-    b2World& getWorld();
-    sf::Vector2f getMousePos();
+            explicit World (sf::RenderWindow& window);
+    void    update (/*sf::Time dt*/);
+    void    draw (sf::Time frameTime);
+    void    loadTextures ();
+    void    buildScene ();
+    void    adaptViewToPlayer();
+    b2World&    getWorld();
+    sf::Vector2f    getMousePos();
 
-    void updateView(sf::Vector2f view);
-    void processInput(sf::Event);
+    void    updateView(sf::Vector2f view);
+    void    processInput(sf::Event);
 
     //TextureHolder World::getTextureMap();
 
     /**CREATING SOMETHINGS*/
-    void createGround(b2World& world, float X, float Y, float W = 600.f, float H = 16.f);
-    void createBox(b2World& world, int MouseX, int MouseY);
-    void createEntity(b2World& world, int MouseX, int MouseY);
+    /*int    loadLevel(std::string filename);
+    void    createBody(pugi::xml_node body, pugi::xml_node fixtures);
+    */
+    void    createGround(b2World& world, float X, float Y, float W = 600.f, float H = 16.f);
+    void    createBox(b2World& world, int MouseX, int MouseY);
+    void    createEntity(b2World& world, int MouseX, int MouseY);
 
     /**PAUSE STUFF**/
     sf::RectangleShape pauseLayer;

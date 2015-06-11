@@ -1,13 +1,13 @@
 #include "World.h"
 
 World::World(sf::RenderWindow& window)
-: mWindow(window)
-, gravity(0.f,12.f)
+    : mWindow(window)
+    , gravity(0.f,12.f)
 //, gravity(0.f,9.8f)
-, p_world(gravity, true)
-, debugDrawInstance(window)
-, mWorldView(window.getDefaultView())
-, pauseLayer(sf::Vector2f(WINDOW_W, WINDOW_H))
+    , p_world(gravity, true)
+    , debugDrawInstance(window)
+    , mWorldView(window.getDefaultView())
+    , pauseLayer(sf::Vector2f(WINDOW_W, WINDOW_H))
 
 {
     window.setVerticalSyncEnabled(true);
@@ -81,10 +81,10 @@ void World::processInput(sf::Event e)
     }
 
     if (e.type == sf::Event::LostFocus)
-            pause();
+        pause();
 
     if (e.type == sf::Event::GainedFocus)
-            resume();
+        resume();
 
     if(!paused) /// ******************************************************************>>>>PAUSE
         /*for (int i = 0 ;i < entities.size() ; i++ )
@@ -119,7 +119,7 @@ void World::update()
         //entities[i]->processLogic(mWindow);
 
     }
-//*/
+    //*/
     ePlayer->processLogic();
     mWorldView.move(playerPosition);
     adaptViewToPlayer();
@@ -148,7 +148,8 @@ void World::draw(sf::Time frameTime)
 
     }
 
-    else{
+    else
+    {
         mWindow.setMouseCursorVisible(true);
     }
 
@@ -161,7 +162,7 @@ void World::draw(sf::Time frameTime)
 
 
 
-    for (int i = 0 ;i < humans.size() ; i++ )
+    for (int i = 0 ; i < humans.size() ; i++ )
     {
 
         ///teste une suppression d'Entité morts: ASSEZ BIEN!!!
@@ -199,13 +200,13 @@ void World::draw(sf::Time frameTime)
 
 
 
-/*
-        //renderTexture.clear(sf::Color(0, 0, 0, 150));
+        /*
+                //renderTexture.clear(sf::Color(0, 0, 0, 150));
 
-        //renderTexture.draw(BG_pause);
-        //renderTexture.draw(object);
-        //renderTexture.display();
-*/
+                //renderTexture.draw(BG_pause);
+                //renderTexture.draw(object);
+                //renderTexture.display();
+        */
         //mWindow.draw(sprite, &shader);
     }
 
@@ -238,7 +239,14 @@ void World::buildScene()
     /**add background*/
     /**add player*/
     //createBox(p_world, 10, 10);
+
+
     createGround(p_world, 40.f, 600.f);
+    //if(loadLevel("exported1.xml") == -1)
+      //  return;
+    GameLevel level(&p_world);
+    //level.loadLevel("exported1.xml");
+
     createGround(p_world, 800.f, 500.f, 200.f,16.f);
     createGround(p_world, 500.f, 500.f, 200.f,16.f);
 
@@ -340,3 +348,74 @@ void World::resume()
     paused = false;
     std::cout<<"resume";
 }
+/*
+int World::loadLevel(std::string filename)
+{
+    pugi::xml_document doc;
+    if (!doc.load_file(filename.c_str()))
+    {
+        std::cout << "error on loading "<<filename<< "\n";
+        return -1;
+    }
+
+    pugi::xml_node bodiesNode = doc.child("box2d").child("bodies");
+
+    for (pugi::xml_node node = bodiesNode.first_child(); node ; node = node.next_sibling())
+        ///BODIES LEVEL ITERATION
+    {
+        std::cout<< node.name()<<"-----------\n";
+        createBody(node, node.child("fixtures"));
+
+    }
+    return 1;
+}
+
+void World::createBody(pugi::xml_node body, pugi::xml_node fixtures)
+{
+    std::map<std::string , int> shapeMap;
+    std::map<std::string, b2BodyType> bodyType;
+
+    bodyType["dynamic"] = b2_dynamicBody;
+    bodyType["static"] = b2_staticBody;
+    bodyType["kinematic"] = b2_kinematicBody;
+
+
+    /// BODY DEFINITION
+    b2Body * mBody;
+    b2BodyDef myBodyDef;
+    myBodyDef.type = bodyType[body.attribute("type").as_string()];
+    std::cout<<"x:"<<(float32)body.attribute("x").as_float()/RATIO<<"y:"<<(float32) body.attribute("y").as_float()/RATIO;
+    myBodyDef.position.Set((float32)body.attribute("x").as_float()/RATIO,-(float32) body.attribute("y").as_float()/RATIO);
+    mBody = p_world.CreateBody(&myBodyDef);
+
+///*
+    for (pugi::xml_node nodeSon = fixtures.first_child(); nodeSon ; nodeSon = nodeSon.next_sibling() )
+        ///FIXTURES LEVEL ITERATION
+    {
+
+        std::cout<< "--------"<<nodeSon.name()<<"-----------\n";
+        b2EdgeShape Shape;
+
+        b2FixtureDef FixtureDef;
+        //FixtureDef.density = 0.5f;
+        FixtureDef.density = 10.f;//nodeSon.attribute("density").as_float();
+        //FixtureDef.friction = 1.0f;
+        FixtureDef.friction = nodeSon.attribute("friction").as_float();
+        //FixtureDef.restitution = 0.f;
+        FixtureDef.shape = &Shape;
+///*
+        for(pugi::xml_node vertice = nodeSon.first_child(); vertice; vertice = vertice.next_sibling())
+            ///PARCOURS DES VERTEX
+        {
+            Shape.Set(b2Vec2((float32)vertice.attribute("x").as_int()/RATIO,-(float32)vertice.attribute("y").as_int()/RATIO),b2Vec2((float32)vertice.next_sibling().attribute("x").as_int()/RATIO,-(float32)vertice.next_sibling().attribute("y").as_int()/RATIO));
+            std::cout<<"coord"<<(float32)vertice.attribute("x").as_float()/RATIO<< ","<<vertice.attribute("y").as_int()/RATIO<<" ; "<<vertice.next_sibling().attribute("x").as_int()/RATIO<<","<<vertice.next_sibling().attribute("y").as_int()/RATIO<<"\n";
+            mBody->CreateFixture(&FixtureDef);
+        }
+        //mBody->SetUserData(grounds[0]);
+
+    }///
+    mBody->SetUserData(grounds[0]);
+}
+*/
+
+
