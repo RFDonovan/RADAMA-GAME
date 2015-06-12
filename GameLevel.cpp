@@ -1,29 +1,9 @@
 #include "GameLevel.hpp"
 
 GameLevel::GameLevel(b2World* world)
-: p_world(world)
+    : p_world(world)
 {
-    /*kind = Type::Default;
-    std::cout<< "OBJTYPE=" << getObjectType();
 
-    b2Body * mBody;
-    b2BodyDef BodyDef;
-    BodyDef.position.Set(5/RATIO,500/RATIO);
-    BodyDef.type = b2_staticBody;
-    mBody = world->CreateBody(&BodyDef);
-
-    b2PolygonShape Shape;
-    Shape.SetAsBox(600/RATIO, 2/RATIO);
-
-    b2FixtureDef FixtureDef;
-    FixtureDef.density = 1.f;
-
-    FixtureDef.shape = &Shape;
-    mBody->CreateFixture(&FixtureDef);
-
-
-    mBody->SetUserData(this);
-    mBody->GetUserData();*/
 }
 ///*
 int GameLevel::loadLevel(std::string filename)
@@ -65,17 +45,17 @@ void GameLevel::createBody(pugi::xml_node body, pugi::xml_node fixtures)
     std::cout<<"x:"<<(float32)body.attribute("x").as_float()/RATIO<<"y:"<<(float32) body.attribute("y").as_float()/RATIO;
     myBodyDef.position.Set((float32)body.attribute("x").as_float()/RATIO,-(float32) body.attribute("y").as_float()/RATIO);
     mBody = p_world->CreateBody(&myBodyDef);
+
     //mBody->SetUserData(this);
-    b2EdgeShape Shape;
-    b2FixtureDef FixtureDef;
+    /// SHAPE AND FIXTURE DEFINITION
 
-    /*FixtureDef.shape = &Shape;
-    Shape.Set(b2Vec2(-50, -5),b2Vec2(50,-5));
-    b2Fixture * fix = mBody->CreateFixture(&FixtureDef);
-    fix->SetUserData(this);
-    mBody->SetUserData(this);*/
+    pugi::xml_node imagesNode = XMLDocument.child("box2d").child("images");
+    pugi::xml_node imageCorrespondant = imagesNode.find_child_by_attribute("image","name",body.attribute("image").as_string());
+    int xRatio = std::abs((float32)body.attribute("x").as_float() -  imageCorrespondant.attribute("x").as_float());
+    int yRatio = std::abs((float32)body.attribute("y").as_float() -  imageCorrespondant.attribute("y").as_float());
+    ratioList.push_back(b2Vec2(xRatio,yRatio));
 
-//*
+
     for (pugi::xml_node nodeSon = fixtures.first_child(); nodeSon ; nodeSon = nodeSon.next_sibling() )
         ///FIXTURES LEVEL ITERATION
     {
@@ -84,39 +64,76 @@ void GameLevel::createBody(pugi::xml_node body, pugi::xml_node fixtures)
         //b2EdgeShape Shape;
         //b2Shape Shape;
         std::string shapeType(nodeSon.attribute("shapeType").as_string());
-        //if(shapeType.compare("edgeShape") == 0)
 
-
-
-        FixtureDef.density = nodeSon.attribute("density").as_float();
-        //FixtureDef.friction = 1.0f;
-        FixtureDef.friction = nodeSon.attribute("friction").as_float();
-        //FixtureDef.restitution = 0.f;
-        FixtureDef.shape = &Shape;
-///*
-        for(pugi::xml_node vertice = nodeSon.first_child(); vertice; vertice = vertice.next_sibling())
-            ///PARCOURS DES VERTEX
+        if(shapeType.compare("edgeShape") == 0)
+            /// -------EDGESHAPE
         {
-            Shape.Set(
-                        b2Vec2((float32)vertice.attribute("x").as_int()/RATIO,
-                               -(float32)vertice.attribute("y").as_int()/RATIO)
-                      ,b2Vec2((float32)vertice.next_sibling().attribute("x").as_int()/RATIO,
-                              -(float32)vertice.next_sibling().attribute("y").as_int()/RATIO));
-            /*Shape.m_vertex0.Set((vertice.attribute("x").as_int()/RATIO)-1, -(float32)vertice.attribute("y").as_int()/RATIO);
-            Shape.m_vertex0.Set((vertice.next_sibling().attribute("x").as_int()/RATIO ) -1, -(float32)vertice.next_sibling().attribute("y").as_int()/RATIO);
-            Shape.m_hasVertex0 = true;
-            Shape.m_hasVertex3 = true;*/
 
-            std::cout<<"coord"<<(float32)vertice.attribute("x").as_float()/RATIO<< ","<<vertice.attribute("y").as_int()/RATIO<<" ; "<<vertice.next_sibling().attribute("x").as_int()/RATIO<<","<<vertice.next_sibling().attribute("y").as_int()/RATIO<<"\n";
+
+            b2EdgeShape Shape;
+            b2FixtureDef FixtureDef;
+
+            FixtureDef.density = nodeSon.attribute("density").as_float();
+            //FixtureDef.friction = 1.0f;
+            FixtureDef.friction = nodeSon.attribute("friction").as_float();
+            //FixtureDef.restitution = 0.f;
             FixtureDef.shape = &Shape;
-            b2Fixture* fixture = mBody->CreateFixture(&FixtureDef);
+///*
+            for(pugi::xml_node vertice = nodeSon.first_child(); vertice; vertice = vertice.next_sibling())
+                ///PARCOURS DES VERTEX
+            {
+                Shape.Set(
+                    b2Vec2((float32)vertice.attribute("x").as_int()/RATIO,
+                           -(float32)vertice.attribute("y").as_int()/RATIO)
+                    ,b2Vec2((float32)vertice.next_sibling().attribute("x").as_int()/RATIO,
+                            -(float32)vertice.next_sibling().attribute("y").as_int()/RATIO));
+                /*Shape.m_vertex0.Set((vertice.attribute("x").as_int()/RATIO)-1, -(float32)vertice.attribute("y").as_int()/RATIO);
+                Shape.m_vertex0.Set((vertice.next_sibling().attribute("x").as_int()/RATIO ) -1, -(float32)vertice.next_sibling().attribute("y").as_int()/RATIO);
+                Shape.m_hasVertex0 = true;
+                Shape.m_hasVertex3 = true;*/
 
-            fixture->SetUserData(this);
+                std::cout<<"coord"<<(float32)vertice.attribute("x").as_float()/RATIO<< ","<<vertice.attribute("y").as_int()/RATIO<<" ; "<<vertice.next_sibling().attribute("x").as_int()/RATIO<<","<<vertice.next_sibling().attribute("y").as_int()/RATIO<<"\n";
+                FixtureDef.shape = &Shape;
+                b2Fixture* fixture = mBody->CreateFixture(&FixtureDef);
+
+                fixture->SetUserData(this);
+            }
+
         }
+        /// TAPITRA -------EDGESHAPE
+
+        if(shapeType.compare("circleShape") == 0)
+            /// -------CIRCLESHAPE
+        {
+            b2CircleShape Shape;
+            b2FixtureDef FixtureDef;
+
+            for (pugi::xml_node nodeSon = fixtures.first_child(); nodeSon ; nodeSon = nodeSon.next_sibling() )
+                ///FIXTURES LEVEL ITERATION
+            {
+                std::cout<< "--------"<<nodeSon.name()<<"-----------\n";
+
+
+                FixtureDef.density = nodeSon.attribute("density").as_float();
+                //FixtureDef.friction = 1.0f;
+                FixtureDef.friction = nodeSon.attribute("friction").as_float();
+                FixtureDef.restitution = nodeSon.attribute("restitution").as_float();
+                //FixtureDef.restitution = 0.f;
+                Shape.m_p.Set(0,0);
+                Shape.m_radius = ( nodeSon.attribute("circleRadius").as_float() /RATIO);
+                FixtureDef.shape = &Shape;
+                b2Fixture* fixture = mBody->CreateFixture(&FixtureDef);
+                fixture->SetUserData(this);
+            }
+        }
+        /// TAPITRA-------CIRCLESHAPE
         //mBody->SetUserData(this);
 
     }///
+
+
     mBody->SetUserData(this);
+    bodyList.push_back(mBody);
 }
 //*/
 void GameLevel::loadSprites()
@@ -131,7 +148,8 @@ void GameLevel::loadSprites()
         ss << "./Resources/" <<image.attribute("path").as_string();
         std::string filename = ss.str();
 
-
+        sf::Sprite imgSprite;
+        sf::Texture  tex;
         if ( !tex.loadFromFile(filename) )
         {
             std::cout << "Failed to load  spritesheet!" << std::endl;
@@ -139,25 +157,26 @@ void GameLevel::loadSprites()
         }
 
 
-        sf::Sprite imgSprite;
-        std::cout<<filename<<" Images 1........\n";
+
+        //std::cout<<filename<<" Images 1........\n";
         tex.setSmooth(true);
         imgSprite.setTexture(tex);
         imgSprite.setScale(
-                            image.attribute("scaleX").as_float(),
-                            image.attribute("scaleY").as_float()
-                            );
+            image.attribute("scaleX").as_float(),
+            image.attribute("scaleY").as_float()
+        );
         imgSprite.setPosition(
-                               image.attribute("x").as_float(),
-                               -(image.attribute("y").as_float())
-                               );
+            image.attribute("x").as_float(),
+            -(image.attribute("y").as_float())
+        );
         imgSprite.setRotation(image.attribute("rotation").as_float());
         imgSprite.setOrigin(
-                            (tex.getSize().x)/2,
-                            (tex.getSize().y)/2
-                            );
+            (tex.getSize().x)/2,
+            (tex.getSize().y)/2
+        );
         spriteList.push_back(imgSprite);
-        std::cout<<"TAILLE TEX:"<<(imgSprite.getScale().x*tex.getSize().x)/2<<std::endl;
+        texList.push_back(tex);
+        //std::cout<<"TAILLE TEX:"<<(imgSprite.getScale().x*tex.getSize().x)/2<<std::endl;
 
     }
 
@@ -173,11 +192,22 @@ void    GameLevel::render(sf::RenderWindow& mWindow)
 }
 void    GameLevel::render(sf::RenderWindow& mWindow, sf::Shader* shader)
 {
+    int i = 0;
     for (sf::Sprite s : spriteList )
     {
         //s.setTexture(tex)
+        s.setTexture(texList[i]);
+        //s.setPosition(bodyList[i]->GetPosition().x*RATIO + ( s.getPosition().x - bodyList[i]->GetPosition().x*RATIO), - bodyList[i]->GetPosition().y*RATIO + ( s.getPosition().y + bodyList[i]->GetPosition().x*RATIO));
+        if(bodyList[i]->GetType() == b2_dynamicBody)
+        {
+            s.setPosition((bodyList[i]->GetPosition().x*RATIO)-ratioList[i].x,  (bodyList[i]->GetPosition().y*RATIO)+ratioList[i].y);
+            s.setRotation(bodyList[i]->GetAngle()/ RADTODEG);
+        }
+
+        //std::cout<<"RATIO: "<<ratioList[i].x<<","<<ratioList[i].y<<std::endl;
         mWindow.draw(s);
-        //std::cout<<"rendu\n"<<s->getPosition().x<<std::endl;
+
+        i++;
     }
     //std::cout<<spriteList.size();
 

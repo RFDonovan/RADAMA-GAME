@@ -161,14 +161,22 @@ std::cout<<"userdata exist\n";
         {
             //b2Body* arrowBody = fixtureA->GetBody();
             if(fixtureA->GetFriction() == 0.735f)
+            {
                 ((Player*)userDataA)->stickProjectile(fixtureB);
+                fixtureA->SetDensity(0.f);
+            }
+
             //std::cout<<"arrowbody trouve";
         }
         if(userDataB && ((ObjectType*)userDataB)->getClassName() == PLAYER)
         {
             //b2Body* arrowBody = fixtureB->GetBody();
             if(fixtureB->GetFriction() == 0.735f)
+            {
                 ((Player*)userDataB)->stickProjectile(fixtureA);
+                fixtureA->SetDensity(0.f);
+            }
+
             //std::cout<<"arrowbody trouve";
         }
 

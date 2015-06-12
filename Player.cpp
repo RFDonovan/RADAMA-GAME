@@ -113,9 +113,11 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
             animatedSprite.setPosition(m_body->GetPosition().x * RATIO,
                                         m_body->GetPosition().y * RATIO);
             animatedSprite.setRotation(m_body->GetAngle() * 180/b2_pi);
+            ///weapon render
+            renderWeapons(mWindow);
             ///Draw:
             mWindow.draw(animatedSprite);
-            renderWeapons(mWindow);
+
             //std::cout<< "\n******rendu ok*******";
 
 
@@ -303,7 +305,7 @@ void Player::createWeapons()
     b2PolygonShape Shape;
     Shape.SetAsBox(100.f/RATIO, 2.f/RATIO);
     b2FixtureDef FixtureDef;
-    //FixtureDef.density = 0.5f;
+    FixtureDef.density = 0.f;
     //FixtureDef.density = 10.f;
     //FixtureDef.friction = 1.0f;
     FixtureDef.friction = 0.735f;
@@ -342,8 +344,26 @@ void Player::stickProjectile(b2Fixture* fixtureTarget)
 
         worldCoordsAnchorPoint =(weaponsMap[currentProjectile])->GetWorldPoint( b2Vec2(0.6f, 0) );
       weldJointDef.bodyA = fixtureTarget->GetBody();
-      if (weldJointDef.bodyA == m_body)
+      if (weldJointDef.bodyA == m_body||weldJointDef.bodyA == m_legs||weldJointDef.bodyA == m_head)
         return;
+      /*if (weaponsMap[currentProjectile]->GetLinearVelocity().x<10)///SI LA PROJECTILE DEPLACE MOINS VITE
+        {
+            for(b2Fixture *f =weaponsMap[currentProjectile]->GetFixtureList();f; f = f->GetNext())
+            {
+                f->SetDensity(10.f);
+                std::cout<<"DENSITY SET TO 1"<<std::endl;
+            }
+            return;
+        }
+      else
+      {
+          for(b2Fixture *f =weaponsMap[currentProjectile]->GetFixtureList();f; f = f->GetNext())
+            {
+                f->SetDensity(0.f);
+                std::cout<<"DENSITY SET TO 0"<<std::endl;
+            }
+      }*/
+
       weldJointDef.bodyB = weaponsMap[currentProjectile];
       weldJointDef.localAnchorA = weldJointDef.bodyA->GetLocalPoint( worldCoordsAnchorPoint );
       weldJointDef.localAnchorB = weldJointDef.bodyB->GetLocalPoint( worldCoordsAnchorPoint );

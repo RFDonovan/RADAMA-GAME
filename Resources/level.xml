@@ -1,7 +1,7 @@
 <box2d>
   <images>
-    <image path="capture.jpg" name="capture.jpg" x="402" y="-302" rotation="0" scaleX="1" scaleY="1" zDepth="0" pinned="true" atlas="null"/>
     <image path="monde.png" name="monde.png" x="529.15" y="-330.79999999999995" rotation="0.9246177695690656" scaleX="0.7591078952262978" scaleY="0.8855582686083381" zDepth="15" pinned="false" body="body1" atlas="null"/>
+    <image path="ball.png" name="ball.png" x="532" y="-193" rotation="0" scaleX="1" scaleY="1" zDepth="17" pinned="false" body="rockBody" atlas="null"/>
   </images>
   <bodies>
     <body name="body1" x="415" y="-604" type="static" bullet="false" image="monde.png">
@@ -20,6 +20,11 @@
           <vertex x="477" y="21"/>
           <vertex x="460" y="-15"/>
         </fixture>
+      </fixtures>
+    </body>
+    <body name="rockBody" x="531" y="-191" type="dynamic" bullet="false" image="ball.png">
+      <fixtures>
+        <fixture name="230" shapeType="circleShape" restitution="0.01" density="100" friction="1" circleX="7" circleY="2" circleRadius="109.40292500660117" isSensor="false"/>
       </fixtures>
     </body>
   </bodies>

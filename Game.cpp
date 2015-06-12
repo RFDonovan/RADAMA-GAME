@@ -51,7 +51,7 @@ void Game::update()
 
 void Game::render(sf::Time frameTime)
 {
-    mWindow.clear(sf::Color::Black);
+    mWindow.clear(sf::Color::White);
 
     mWorld.draw(frameTime);
 

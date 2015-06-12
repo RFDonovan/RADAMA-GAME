@@ -59,18 +59,34 @@ void Human::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder*
             sf::Vector2i screenDimensions(800,600);
 
             //start animation:
+            if(std::abs(getVelocity().x)>1)///SI IL BOUGE PLUS QUE NECESSAIRE---------POUR EVITER LE TREMBLEMENT DES SPRITES
             if(nb_contacts>0)
                 if (getVelocity().x>0)
                     currentAnimation = &walkingAnimationRight;
                 else if (getVelocity().x<0)
                     currentAnimation = &walkingAnimationLeft;
-                    else
-                    {
-                        if(currentAnimation == &walkingAnimationLeft)
-                            currentAnimation = &stopLeft;
-                        if(currentAnimation == &walkingAnimationRight)
-                            currentAnimation = &stopRight;
-                    }
+                else
+                {
+                    if(currentAnimation == &walkingAnimationLeft)
+                        currentAnimation = &stopLeft;
+                    if(currentAnimation == &walkingAnimationRight)
+                        currentAnimation = &stopRight;
+                }
+            else///QUAND IL SAUTE
+                {
+                    if(currentAnimation == &walkingAnimationLeft)
+                        currentAnimation = &stopLeft;
+                    if(currentAnimation == &walkingAnimationRight)
+                        currentAnimation = &stopRight;
+                }
+            else///QUAND IL NE BOUGE PLUS OU BOUGE PETIT
+                {
+                    if(currentAnimation == &walkingAnimationLeft)
+                        currentAnimation = &stopLeft;
+                    if(currentAnimation == &walkingAnimationRight)
+                        currentAnimation = &stopRight;
+                }
+
             animatedSprite.play(*currentAnimation);
 
             animatedSprite.update(frameTime1);

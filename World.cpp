@@ -137,7 +137,8 @@ void World::draw(sf::Time frameTime)
     //mWindow.draw(BG, &fogShader);
 
     //BG.setColor(sf::Color(0, 0, 0, 200));
-    mWindow.draw(BG);
+
+    ///mWindow.draw(BG);
 
 
     if(!paused)/// ******************************************************************>>>>PAUSE
@@ -255,7 +256,7 @@ void World::buildScene()
 
     ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
     std::cout<<"creation d'une deuxieme entite";
-    Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H-20);
+    Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H);
     humans.push_back(e);
 
 

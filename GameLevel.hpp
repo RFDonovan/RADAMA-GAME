@@ -25,8 +25,12 @@ public:
     b2Body *    mBody;
     pugi::xml_document  XMLDocument;
 
-    std::vector<sf::Sprite> spriteList;
-    sf::Texture  tex;
+    std::vector<sf::Sprite>     spriteList;
+    std::vector<sf::Texture>    texList;
+    std::vector<b2Body*>        bodyList;
+    std::vector<b2Vec2>         ratioList;
+    std::map<sf::Sprite, sf::Texture>   Tex;
+
 
 
 public:
