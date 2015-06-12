@@ -33,7 +33,7 @@ std::cout<<"userdata exist\n";
             std::cout<<"after conversion\n";
             switch (objectType)
             {
-            case PLAYER:
+            case ENTITY:
                 //std::cout<<"mety";
             {
                 std::cout<<"entityA\n";
@@ -41,20 +41,20 @@ std::cout<<"userdata exist\n";
             }
             break;
             case GROUND:
-                {
+                /*{
                     int classname = (static_cast<ObjectType*>(userData))->getClassName();
                     userData = contact->GetFixtureB()->GetBody()->GetUserData();
                     if(classname == HUMAN)
                     {
 
                     }
-                    if(classname == PLAYER)
+                    if(classname == PLAYER||classname == HUMAN)
                     {
                         userData = contact->GetFixtureB()->GetBody()->GetUserData();
                         static_cast<Entity*>( userData )->startContact(contact->GetFixtureB());
                     }
                     std::cout<<"----->GROUND A\n";
-                }
+                }*/
                 break;
             default:
                 std::cout<<"latsaka ato am DEFAULT A\n";
@@ -78,7 +78,7 @@ std::cout<<"userdata exist\n";
                 (static_cast<Entity*>( userData ))->startContact(contact->GetFixtureB());
             }
             case GROUND:
-                {
+                /*{
                     int classname = (static_cast<ObjectType*>(userData))->getClassName();
                     userData = contact->GetFixtureA()->GetBody()->GetUserData();
                     if(classname == HUMAN)
@@ -91,7 +91,7 @@ std::cout<<"userdata exist\n";
                         static_cast<Entity*>( userData )->startContact(contact->GetFixtureA());
                     }
                     std::cout<<"----->GROUND B\n";
-                }
+                }*/
             break;
             default:
                 std::cout<<"latsaka ato am DEFAULT B\n";
