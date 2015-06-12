@@ -37,7 +37,7 @@ public:
     //DebugDraw debugDrawInstance;
     sf::View    mWorldView;
 
-
+    GameLevel*  level;
 
     std::vector<Human*>    humans;
 
@@ -80,6 +80,7 @@ public:
     void    draw (sf::Time frameTime);
     void    loadTextures ();
     void    buildScene ();
+    void    rebuildScene ();
     void    adaptViewToPlayer();
     b2World&    getWorld();
     sf::Vector2f    getMousePos();

@@ -139,6 +139,7 @@ void World::draw(sf::Time frameTime)
     //BG.setColor(sf::Color(0, 0, 0, 200));
     mWindow.draw(BG);
 
+
     if(!paused)/// ******************************************************************>>>>PAUSE
     {
         p_world.Step(1/60.f,6,2);
@@ -154,6 +155,8 @@ void World::draw(sf::Time frameTime)
     }
 
     mWindow.setView(mWorldView);
+    ///LEVEL
+    level->render(mWindow, &shader);
 ///RENDU DU JOUEUR
     ePlayer->render(mWindow, frameTime, &Textures);
 
@@ -244,7 +247,7 @@ void World::buildScene()
     //createGround(p_world, 40.f, 600.f);
     //if(loadLevel("exported1.xml") == -1)
       //  return;
-    GameLevel* level = new GameLevel(&p_world);
+    level = new GameLevel(&p_world);
     level->loadLevel("Resources/level.xml");
 
     //createGround(p_world, 800.f, 500.f, 200.f,16.f);
@@ -257,6 +260,12 @@ void World::buildScene()
 
 
 
+}
+void World::rebuildScene()
+{
+    level->clearAll();
+    level = nullptr;
+    buildScene();
 }
 
 void World::adaptViewToPlayer()

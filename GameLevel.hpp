@@ -5,7 +5,8 @@
 #include<SFML/Graphics.hpp>
 #include<Box2D/Box2D.h>
 #include<iostream>
-#include<string>
+#include <sstream>
+#include <string>
 
 //#include "AnimatedSprite.hpp"
 #include "TextureHolder.h"
@@ -21,13 +22,17 @@ public:
     };
     Type        kind;
     b2World*    p_world;
-    b2Body * mBody;
+    b2Body *    mBody;
+    pugi::xml_document  XMLDocument;
 
+    std::vector<sf::Sprite> spriteList;
+    sf::Texture  tex;
 
 
 public:
 
             GameLevel(b2World* world);
+    void    loadSprites();
     int     loadLevel(std::string filename);
     void    createBody(pugi::xml_node body, pugi::xml_node fixtures);
     void    clearAll();

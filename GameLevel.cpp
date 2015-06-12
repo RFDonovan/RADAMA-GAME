@@ -28,13 +28,13 @@ GameLevel::GameLevel(b2World* world)
 ///*
 int GameLevel::loadLevel(std::string filename)
 {
-    pugi::xml_document XMLDocument;
+
     if (!XMLDocument.load_file(filename.c_str()))
     {
         std::cout << "error on loading "<<filename<< "\n";
         return -1;
     }
-
+    loadSprites();
     pugi::xml_node bodiesNode = XMLDocument.child("box2d").child("bodies");
 
     for (pugi::xml_node node = bodiesNode.first_child(); node ; node = node.next_sibling())
@@ -44,6 +44,7 @@ int GameLevel::loadLevel(std::string filename)
         createBody(node, node.child("fixtures"));
 
     }
+
     return 1;
 }
 
@@ -118,6 +119,49 @@ void GameLevel::createBody(pugi::xml_node body, pugi::xml_node fixtures)
     mBody->SetUserData(this);
 }
 //*/
+void GameLevel::loadSprites()
+{
+    pugi::xml_node imagesNode = XMLDocument.child("box2d").child("images");
+    std::cout<<"Images loading........\n";
+    for(pugi::xml_node image = imagesNode.first_child(); image; image = image.next_sibling())
+        ///IMAGE BODIES ITERATIONS
+    {
+
+        std::stringstream ss;
+        ss << "./Resources/" <<image.attribute("path").as_string();
+        std::string filename = ss.str();
+
+
+        if ( !tex.loadFromFile(filename) )
+        {
+            std::cout << "Failed to load  spritesheet!" << std::endl;
+            continue;
+        }
+
+
+        sf::Sprite imgSprite;
+        std::cout<<filename<<" Images 1........\n";
+        tex.setSmooth(true);
+        imgSprite.setTexture(tex);
+        imgSprite.setScale(
+                            image.attribute("scaleX").as_float(),
+                            image.attribute("scaleY").as_float()
+                            );
+        imgSprite.setPosition(
+                               image.attribute("x").as_float(),
+                               -(image.attribute("y").as_float())
+                               );
+        imgSprite.setRotation(image.attribute("rotation").as_float());
+        imgSprite.setOrigin(
+                            (tex.getSize().x)/2,
+                            (tex.getSize().y)/2
+                            );
+        spriteList.push_back(imgSprite);
+        std::cout<<"TAILLE TEX:"<<(imgSprite.getScale().x*tex.getSize().x)/2<<std::endl;
+
+    }
+
+}
 void GameLevel::clearAll()
 {
 
@@ -129,6 +173,13 @@ void    GameLevel::render(sf::RenderWindow& mWindow)
 }
 void    GameLevel::render(sf::RenderWindow& mWindow, sf::Shader* shader)
 {
+    for (sf::Sprite s : spriteList )
+    {
+        //s.setTexture(tex)
+        mWindow.draw(s);
+        //std::cout<<"rendu\n"<<s->getPosition().x<<std::endl;
+    }
+    //std::cout<<spriteList.size();
 
 }
 
