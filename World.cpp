@@ -245,7 +245,7 @@ void World::buildScene()
     //if(loadLevel("exported1.xml") == -1)
       //  return;
     GameLevel* level = new GameLevel(&p_world);
-    //level.loadLevel("exported1.xml");
+    //level->loadLevel("exported1.xml");
 
     createGround(p_world, 800.f, 500.f, 200.f,16.f);
     createGround(p_world, 500.f, 500.f, 200.f,16.f);

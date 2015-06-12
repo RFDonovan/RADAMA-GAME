@@ -3,7 +3,7 @@
 GameLevel::GameLevel(b2World* world)
 : p_world(world)
 {
-    kind = Type::Default;
+    /*kind = Type::Default;
     std::cout<< "OBJTYPE=" << getObjectType();
 
     b2Body * mBody;
@@ -23,9 +23,9 @@ GameLevel::GameLevel(b2World* world)
 
 
     mBody->SetUserData(this);
-    mBody->GetUserData();
+    mBody->GetUserData();*/
 }
-/*
+///*
 int GameLevel::loadLevel(std::string filename)
 {
     pugi::xml_document XMLDocument;
@@ -68,13 +68,13 @@ void GameLevel::createBody(pugi::xml_node body, pugi::xml_node fixtures)
     b2EdgeShape Shape;
     b2FixtureDef FixtureDef;
 
-    FixtureDef.shape = &Shape;
+    /*FixtureDef.shape = &Shape;
     Shape.Set(b2Vec2(-50, -5),b2Vec2(50,-5));
     b2Fixture * fix = mBody->CreateFixture(&FixtureDef);
     fix->SetUserData(this);
-    mBody->SetUserData(this);
+    mBody->SetUserData(this);*/
 
-/*
+//*
     for (pugi::xml_node nodeSon = fixtures.first_child(); nodeSon ; nodeSon = nodeSon.next_sibling() )
         ///FIXTURES LEVEL ITERATION
     {
@@ -96,19 +96,28 @@ void GameLevel::createBody(pugi::xml_node body, pugi::xml_node fixtures)
         for(pugi::xml_node vertice = nodeSon.first_child(); vertice; vertice = vertice.next_sibling())
             ///PARCOURS DES VERTEX
         {
-            Shape.Set(b2Vec2((float32)vertice.attribute("x").as_int()/RATIO,-(float32)vertice.attribute("y").as_int()/RATIO),b2Vec2((float32)vertice.next_sibling().attribute("x").as_int()/RATIO,-(float32)vertice.next_sibling().attribute("y").as_int()/RATIO));
+            Shape.Set(
+                        b2Vec2((float32)vertice.attribute("x").as_int()/RATIO,
+                               -(float32)vertice.attribute("y").as_int()/RATIO)
+                      ,b2Vec2((float32)vertice.next_sibling().attribute("x").as_int()/RATIO,
+                              -(float32)vertice.next_sibling().attribute("y").as_int()/RATIO));
+            /*Shape.m_vertex0.Set((vertice.attribute("x").as_int()/RATIO)-1, -(float32)vertice.attribute("y").as_int()/RATIO);
+            Shape.m_vertex0.Set((vertice.next_sibling().attribute("x").as_int()/RATIO ) -1, -(float32)vertice.next_sibling().attribute("y").as_int()/RATIO);
+            Shape.m_hasVertex0 = true;
+            Shape.m_hasVertex3 = true;*/
+
             std::cout<<"coord"<<(float32)vertice.attribute("x").as_float()/RATIO<< ","<<vertice.attribute("y").as_int()/RATIO<<" ; "<<vertice.next_sibling().attribute("x").as_int()/RATIO<<","<<vertice.next_sibling().attribute("y").as_int()/RATIO<<"\n";
             FixtureDef.shape = &Shape;
-            mBody->CreateFixture(&FixtureDef);
+            b2Fixture* fixture = mBody->CreateFixture(&FixtureDef);
 
-            //fixture->SetUserData(this);
+            fixture->SetUserData(this);
         }
         //mBody->SetUserData(this);
 
     }///
-    //mBody->SetUserData(this);
+    mBody->SetUserData(this);
 }
-*/
+//*/
 void GameLevel::clearAll()
 {
 

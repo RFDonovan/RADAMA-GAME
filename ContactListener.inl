@@ -14,91 +14,103 @@ class ContactListener : public b2ContactListener
         std::cout<<"contact exist\n";
 
         void * userData = contact->GetFixtureA()->GetBody()->GetUserData();
-
-
-        if(!userData)
-            return;
-        if(contact->GetFixtureA()->GetBody()->GetType() == b2_staticBody)
-        {
-            (static_cast<ObjectType*>(userData))->getObjectType();
-            std::cout <<"got ya!!!";
-        }
-        //int objectType = ((ObjectType*)userData)->getObjectType();
-        //int objectType = ((ObjectType*)userData)->getObjectType();
         int objectType;
 
-            objectType = (static_cast<ObjectType*>(userData))->getObjectType();
-        std::cout<<"after conversion\n";
-        switch (objectType)
+        if(userData)
         {
-        case PLAYER:
-            //std::cout<<"mety";
-        {
-            std::cout<<"entityA\n";
-            static_cast<Entity*>( userData )->startContact(contact->GetFixtureA());
-        }
-        break;
-        default:
-            break;
-        }
+std::cout<<"userdata exist\n";
 
+//            if(contact->GetFixtureA()->GetBody()->GetType() == b2_staticBody)
+//            {
+//                (static_cast<ObjectType*>(userData))->getObjectType();
+//                std::cout <<"got ya!!!";
+//            }
+            //int objectType = ((ObjectType*)userData)->getObjectType();
+            //int objectType = ((ObjectType*)userData)->getObjectType();
+
+
+            objectType = (static_cast<ObjectType*>(userData))->getObjectType();
+            std::cout<<"after conversion\n";
+            switch (objectType)
+            {
+            case PLAYER:
+                //std::cout<<"mety";
+            {
+                std::cout<<"entityA\n";
+                static_cast<Entity*>( userData )->startContact(contact->GetFixtureA());
+            }
+            break;
+            default:
+                std::cout<<"latsaka ato am DEFAULT A\n";
+                std::cout<<"ObjectType = "<< objectType<<"\n" ;
+                break;
+            }
+        }
 
         userData = contact->GetFixtureB()->GetBody()->GetUserData();
-        if(!userData)
-            return;
-        //objectType = ((ObjectType*)userData)->getObjectType();
-        objectType = static_cast<ObjectType*>(userData)->getObjectType();
-        switch (objectType)
+        if(userData)
         {
-        case ENTITY:
-            //std::cout<<"mety";
-        {
-            std::cout<<"entityB\n";
-            (static_cast<Entity*>( userData ))->startContact(contact->GetFixtureB());
-        }
-        break;
-        default:
+
+            //objectType = ((ObjectType*)userData)->getObjectType();
+            objectType = static_cast<ObjectType*>(userData)->getObjectType();
+            switch (objectType)
+            {
+            case ENTITY:
+                //std::cout<<"mety";
+            {
+                std::cout<<"entityB\n";
+                (static_cast<Entity*>( userData ))->startContact(contact->GetFixtureB());
+            }
             break;
+            default:
+                std::cout<<"latsaka ato am DEFAULT B\n";
+                break;
+            }
         }
 //*/
     }
 
     void EndContact(b2Contact* contact)
     {
-
+        int objectType;
         void * userData = contact->GetFixtureA()->GetBody()->GetUserData();
-        if(!userData)
-            return;
-        //int objectType = ((ObjectType*)userData)->getObjectType();
-        int objectType = static_cast<ObjectType*>(userData)->getObjectType();
-        switch (objectType)
+        if(userData)
         {
-        case ENTITY:
-            //std::cout<<"mety";
-        {
-            static_cast<Entity*>( userData )->endContact(contact->GetFixtureA());
-        }
-        break;
-        default:
+
+
+            //int objectType = ((ObjectType*)userData)->getObjectType();
+            objectType = static_cast<ObjectType*>(userData)->getObjectType();
+            switch (objectType)
+            {
+            case ENTITY:
+                //std::cout<<"mety";
+            {
+                static_cast<Entity*>( userData )->endContact(contact->GetFixtureA());
+            }
             break;
+            default:
+                break;
+            }
+
         }
-
-
         userData = contact->GetFixtureB()->GetBody()->GetUserData();
-        if(!userData)
-            return;
-        //objectType = ((ObjectType*)userData)->getObjectType();
-        objectType = static_cast<ObjectType*>(userData)->getObjectType();
-        switch (objectType)
+        if(userData)
         {
-        case ENTITY:
-            //std::cout<<"mety";
-        {
-            static_cast<Entity*>( userData )->endContact(contact->GetFixtureB());
-        }
-        break;
-        default:
+
+
+            objectType = ((ObjectType*)userData)->getObjectType();
+            //objectType = static_cast<ObjectType*>(userData)->getObjectType();
+            switch (objectType)
+            {
+            case ENTITY:
+                //std::cout<<"mety";
+            {
+                static_cast<Entity*>( userData )->endContact(contact->GetFixtureB());
+            }
             break;
+            default:
+                break;
+            }
         }
         //*/
     }

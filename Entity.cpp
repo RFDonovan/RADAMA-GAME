@@ -124,7 +124,7 @@ void Entity::startContact(b2Fixture   *fixture)
 {
     std::cout<< "CONTACT BEGIN";
 
-    if(fixture == basFixture)
+    if(fixture == basFixture || fixture->GetBody() == m_legs)
     {
         std::cout<< "CONTACT++";
         grounded = true;
@@ -139,7 +139,7 @@ void Entity::endContact(b2Fixture   *fixture)
 {
 
     std::cout<< "CONTACT END";
-    if(fixture == basFixture)
+    if(fixture == basFixture || fixture->GetBody() == m_legs)
     {
         grounded = false;
         nb_contacts--;

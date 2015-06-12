@@ -28,8 +28,8 @@ public:
 public:
 
             GameLevel(b2World* world);
-    //int     loadLevel(std::string filename);
-    //void    createBody(pugi::xml_node body, pugi::xml_node fixtures);
+    int     loadLevel(std::string filename);
+    void    createBody(pugi::xml_node body, pugi::xml_node fixtures);
     void    clearAll();
     void    render(sf::RenderWindow& mWindow);
     void    render(sf::RenderWindow& mWindow, sf::Shader* shader);
