@@ -36,7 +36,7 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
 /// sensor
 
     b2Vec2 pos(0,(h/RATIO)/2);
-    Shape.SetAsBox(((w-2)/4)/RATIO, (10/2)/RATIO, pos, 0);///10 PIXEL SUFFIT
+    Shape.SetAsBox(((w-2)/8)/RATIO, (2/2)/RATIO, pos, 0);///10 PIXEL SUFFIT
     FixtureDef.isSensor = true;//pas de collision visible
     basFixture = m_body->CreateFixture(&FixtureDef);
     basFixture->SetUserData(this);
@@ -113,6 +113,11 @@ int Entity::getX()
 b2Vec2 Entity::getVelocity()
 {
     return m_body->GetLinearVelocity();
+}
+
+float Entity::getMass()
+{
+    return m_body->GetMass()+m_legs->GetMass()+m_head->GetMass();
 }
 
 bool Entity::isGrounded()

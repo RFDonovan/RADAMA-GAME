@@ -69,6 +69,7 @@ public:
     int     getX();
     bool    isGrounded();
     b2Vec2  getVelocity();
+    float   getMass();
 
     void    startContact(b2Fixture   *fixture);
     void    endContact(b2Fixture   *fixture);

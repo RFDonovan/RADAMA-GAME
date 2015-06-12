@@ -1,0 +1,31 @@
+<box2d>
+  <images>
+    <image path="capture.jpg" name="capture.jpg" x="402" y="-302" rotation="0" scaleX="1" scaleY="1" zDepth="0" pinned="true" atlas="null"/>
+    <image path="monde.png" name="monde.png" x="544.8000000000001" y="-347.95000000000005" rotation="1.7727936571914267" scaleX="0.7303111238734296" scaleY="0.8134382938933469" zDepth="1" pinned="true" body="body1" atlas="null"/>
+  </images>
+  <bodies>
+    <body name="body1" x="415" y="-604" type="static" bullet="false" image="monde.png">
+      <fixtures>
+        <fixture name="60" shapeType="edgeShape" restitution="1" density="1" friction="1" closedPath="false">
+          <vertex x="458" y="-16"/>
+          <vertex x="-2" y="-62"/>
+          <vertex x="-416" y="-76"/>
+          <vertex x="-414" y="84"/>
+          <vertex x="-320" y="88"/>
+          <vertex x="-163" y="83"/>
+          <vertex x="68" y="77"/>
+          <vertex x="137" y="78"/>
+          <vertex x="292" y="91"/>
+          <vertex x="444" y="88"/>
+          <vertex x="477" y="21"/>
+          <vertex x="460" y="-15"/>
+        </fixture>
+      </fixtures>
+    </body>
+  </bodies>
+  <joints/>
+  <metaData/>
+  <settings>
+    <setting isLocked="true"/>
+  </settings>
+</box2d>

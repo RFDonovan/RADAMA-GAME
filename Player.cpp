@@ -230,10 +230,10 @@ void Player::processLogic()
     if (noKeyWasPressed)
         velChange = 0.f;
 
-    float force = m_body->GetMass() * velChange / (1/60.0);// f = mv/t
+    float force = getMass() * velChange / (1/60.0);// f = mv/t
     if(jump>0)
     {
-        force = m_body->GetMass() * 3;
+        force = getMass() * 4;
         if(velChange==0.0f)
             force = force;//*1.5;
         m_body->ApplyLinearImpulse(b2Vec2(velChange/2, -force), m_body->GetWorldCenter());

@@ -241,14 +241,14 @@ void World::buildScene()
     //createBox(p_world, 10, 10);
 
 
-    createGround(p_world, 40.f, 600.f);
+    //createGround(p_world, 40.f, 600.f);
     //if(loadLevel("exported1.xml") == -1)
       //  return;
     GameLevel* level = new GameLevel(&p_world);
-    //level->loadLevel("exported1.xml");
+    level->loadLevel("Resources/level.xml");
 
-    createGround(p_world, 800.f, 500.f, 200.f,16.f);
-    createGround(p_world, 500.f, 500.f, 200.f,16.f);
+    //createGround(p_world, 800.f, 500.f, 200.f,16.f);
+    //createGround(p_world, 500.f, 500.f, 200.f,16.f);
 
     ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
     std::cout<<"creation d'une deuxieme entite";
