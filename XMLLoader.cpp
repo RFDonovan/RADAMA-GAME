@@ -118,6 +118,37 @@ b2Fixture*   XMLLoader::createPolygonShape(b2Body* body, pugi::xml_node fixtureN
 ///CREATE POLYGONS
 {
 
+
+
+    b2FixtureDef FixtureDef;
+
+    FixtureDef.density = fixtureNode.attribute("density").as_float();
+    FixtureDef.friction = fixtureNode.attribute("friction").as_float();
+    FixtureDef.restitution = fixtureNode.attribute("restitution").as_float();
+    //FixtureDef.shape = &Shape;
+
+    int n = std::distance(fixtureNode.children("vertex").begin(), fixtureNode.children("vertex").end());
+    b2Vec2 vertices[n+1];
+    int i = 0;
+    for(pugi::xml_node vertice = fixtureNode.first_child(); vertice; vertice = vertice.next_sibling())
+        ///PARCOURS DES VERTEX
+    {
+        vertices[i].Set(
+                                  vertice.attribute("x").as_float()/RATIO,
+                                  vertice.attribute("y").as_float()/RATIO
+
+                           );
+
+        std::cout<<"n"<<n<<"x:"<<(float32)vertice.attribute("x").as_int()/RATIO<<"y : "<<-(float32)vertice.attribute("y").as_int()/RATIO<<std::endl;
+        i++;
+    }
+    b2PolygonShape Shape;
+    Shape.Set(vertices, n);
+    FixtureDef.shape = &Shape;
+    b2Fixture* fixture = body->CreateFixture(&FixtureDef);
+    //fixture->SetUserData(this);
+
+    //return fixture;
 }
 
 b2Fixture*   XMLLoader::createCircleShape(b2Body* body, pugi::xml_node fixtureNode)
