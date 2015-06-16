@@ -28,8 +28,14 @@ void XMLLoader::loadEntity(std::string XMLFile)
         body = createBody(attributeMap[node.attribute("type").as_string()], node);
         ///CREATE FIXTURES:
         if(body)
+        {
             addFixtures(body, node);
+            bodyList.push_back(body);
+        }
+
     }
+    if(bodyList.size()>0)
+        loadSprites();
 
 
 
@@ -170,3 +176,72 @@ b2Fixture*   XMLLoader::createCircleShape(b2Body* body, pugi::xml_node fixtureNo
             fixture->SetUserData(this);
             return fixture;
 }
+/// ///////////////////////////////////////////////
+/// //////////////////SPRITES STUFFS////////////////
+
+void XMLLoader::loadSprites()
+{
+    pugi::xml_node imagesNode = XMLDocument.child("box2d").child("images");
+    std::cout<<"Images loading........\n";
+    for(pugi::xml_node image = imagesNode.first_child(); image; image = image.next_sibling())
+        ///IMAGE BODIES ITERATIONS
+    {
+
+        std::stringstream ss;
+        ss << "./Resources/" <<image.attribute("path").as_string(); ///PEUT ETRE CHANGER?
+        std::string filename = ss.str();
+
+        sf::Sprite imgSprite;
+        sf::Texture  tex;
+        if ( !tex.loadFromFile(filename) )
+        {
+            std::cout << "Failed to load  spritesheet!" << std::endl;
+            continue;
+        }
+
+
+
+        //std::cout<<filename<<" Images 1........\n";
+        tex.setSmooth(true);
+        imgSprite.setTexture(tex);
+        imgSprite.setScale(
+            image.attribute("scaleX").as_float(),
+            image.attribute("scaleY").as_float()
+        );
+        imgSprite.setPosition(
+            image.attribute("x").as_float(),
+            -(image.attribute("y").as_float())
+        );
+        imgSprite.setRotation(image.attribute("rotation").as_float());
+        imgSprite.setOrigin(
+            (tex.getSize().x)/2,
+            (tex.getSize().y)/2
+        );
+        spriteList.push_back(imgSprite);
+        texList.push_back(tex);
+        //std::cout<<"TAILLE TEX:"<<(imgSprite.getScale().x*tex.getSize().x)/2<<std::endl;
+
+    }
+
+}
+
+void XMLLoader::render(sf::RenderWindow& mWindow, sf::Shader* shader)
+{
+    int i = 0;
+    for (sf::Sprite s : spriteList )
+    {
+        s.setTexture(texList[i]);
+        if(bodyList[i]->GetType() == b2_dynamicBody)
+        {
+            s.setPosition((bodyList[i]->GetPosition().x*RATIO)-ratioList[i].x,  (bodyList[i]->GetPosition().y*RATIO)+ratioList[i].y);
+            s.setRotation(bodyList[i]->GetAngle()/ RADTODEG);
+        }
+
+        mWindow.draw(s);
+
+        i++;
+    }
+
+}
+
+

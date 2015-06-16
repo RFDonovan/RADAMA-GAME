@@ -12,11 +12,17 @@
 #include "TextureHolder.h"
 #include "pugixml.hpp"
 
-class XMLLoader
+class XMLLoader : public ObjectType
 {
 public:
     b2World*                    p_world;
     pugi::xml_document          XMLDocument;
+
+    std::vector<sf::Sprite>     spriteList;
+    std::vector<sf::Texture>    texList;
+    std::vector<b2Body*>        bodyList;
+    std::vector<b2Vec2>         ratioList;
+
     std::map<std::string, int>  attributeMap;
 
 public:
@@ -26,8 +32,15 @@ public:
     b2Body*     createBody(int bodyType, pugi::xml_node bodyNode);
     std::vector<b2Fixture*>         addFixtures(b2Body* body, pugi::xml_node bodyNode);
     std::vector<b2Fixture*>         createEdgeShape(b2Body* body, pugi::xml_node fixtureNode);
-    b2Fixture*   createPolygonShape(b2Body* body, pugi::xml_node fixtureNode);
-    b2Fixture*   createCircleShape(b2Body* body, pugi::xml_node fixtureNode);
+    b2Fixture*  createPolygonShape(b2Body* body, pugi::xml_node fixtureNode);
+    b2Fixture*  createCircleShape(b2Body* body, pugi::xml_node fixtureNode);
+
+    void        loadSprites();
+    void        render(sf::RenderWindow& mWindow, sf::Shader* shader);
+
+
+    int     getObjectType(){return GROUND;}
+    int     getClassName(){return GROUND;}
     //void        createEntity(std::string);
     //void        loadMachine(std::string);
 };
