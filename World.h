@@ -9,6 +9,7 @@
 #include "debugDraw.hpp"
 #include "TextureHolder.h"
 #include "GameLevel.hpp"
+#include "XMLLoader.hpp"
 #include "Entity.hpp"
 #include "Human.hpp"
 #include "Player.h"

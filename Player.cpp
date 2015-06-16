@@ -317,6 +317,7 @@ void Player::createWeapons()
     lefona->CreateFixture(&FixtureDef);
     lefona->SetUserData((Entity*)this);
 
+    //lefona->SetBullet(true);
     weaponsMap[Projectile::lefona] = lefona;
     //lefona->SetActive(false);
 

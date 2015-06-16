@@ -27,7 +27,7 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
     //FixtureDef.density = 0.5f;
     FixtureDef.density = 10.f;
     //FixtureDef.friction = 1.0f;
-    FixtureDef.friction = 0.7f;
+    FixtureDef.friction = 0.f;
     FixtureDef.restitution = 0.f;
     FixtureDef.shape = &Shape;
 
@@ -129,7 +129,7 @@ void Entity::startContact(b2Fixture   *fixture)
 {
     std::cout<< "CONTACT BEGIN";
 
-    if(fixture == basFixture || fixture->GetBody() == m_legs)
+    if(fixture == basFixture)
     {
         std::cout<< "CONTACT++";
         grounded = true;

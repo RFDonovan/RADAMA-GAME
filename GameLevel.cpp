@@ -108,23 +108,19 @@ void GameLevel::createBody(pugi::xml_node body, pugi::xml_node fixtures)
             b2CircleShape Shape;
             b2FixtureDef FixtureDef;
 
-            for (pugi::xml_node nodeSon = fixtures.first_child(); nodeSon ; nodeSon = nodeSon.next_sibling() )
-                ///FIXTURES LEVEL ITERATION
-            {
-                std::cout<< "--------"<<nodeSon.name()<<"-----------\n";
+            std::cout<< "--------"<<nodeSon.name()<<"-----------\n";
 
+            FixtureDef.density = nodeSon.attribute("density").as_float();
+            //FixtureDef.friction = 1.0f;
+            FixtureDef.friction = nodeSon.attribute("friction").as_float();
+            FixtureDef.restitution = nodeSon.attribute("restitution").as_float();
+            //FixtureDef.restitution = 0.f;
+            Shape.m_p.Set(0,0);
+            Shape.m_radius = ( nodeSon.attribute("circleRadius").as_float() /RATIO);
+            FixtureDef.shape = &Shape;
+            b2Fixture* fixture = mBody->CreateFixture(&FixtureDef);
+            fixture->SetUserData(this);
 
-                FixtureDef.density = nodeSon.attribute("density").as_float();
-                //FixtureDef.friction = 1.0f;
-                FixtureDef.friction = nodeSon.attribute("friction").as_float();
-                FixtureDef.restitution = nodeSon.attribute("restitution").as_float();
-                //FixtureDef.restitution = 0.f;
-                Shape.m_p.Set(0,0);
-                Shape.m_radius = ( nodeSon.attribute("circleRadius").as_float() /RATIO);
-                FixtureDef.shape = &Shape;
-                b2Fixture* fixture = mBody->CreateFixture(&FixtureDef);
-                fixture->SetUserData(this);
-            }
         }
         /// TAPITRA-------CIRCLESHAPE
         //mBody->SetUserData(this);
