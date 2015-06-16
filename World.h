@@ -39,7 +39,7 @@ public:
     sf::View    mWorldView;
 
     GameLevel*  level;
-    //XMLLoader* xLoad;
+    XMLLoader* xLoad;
 
     std::vector<Human*>    humans;
 

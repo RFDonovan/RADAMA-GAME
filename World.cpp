@@ -157,7 +157,9 @@ void World::draw(sf::Time frameTime)
 
     mWindow.setView(mWorldView);
     ///LEVEL
-    level->render(mWindow, &shader);
+    //level->render(mWindow, &shader);
+    xLoad->render(mWindow, &shader);
+
 ///RENDU DU JOUEUR
     ePlayer->render(mWindow, frameTime, &Textures);
 
@@ -249,10 +251,10 @@ void World::buildScene()
     //if(loadLevel("exported1.xml") == -1)
       //  return;
     level = new GameLevel(&p_world);
-    level->loadLevel("Resources/level.xml");
+    //level->loadLevel("Resources/level.xml");
 
-    XMLLoader* xLoad = new XMLLoader(&p_world);
-    //xLoad->loadEntity("Resources/level.xml");
+    xLoad = new XMLLoader(&p_world);
+    xLoad->loadEntity("Resources/level.xml");
     xLoad->loadEntity("Resources/rectangle.xml");
     xLoad->loadEntity("Resources/circle.xml");
 
