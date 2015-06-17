@@ -26,7 +26,8 @@ public:
 
     std::vector<b2Body*>    weapons;
     std::map<int, b2Body*>  weaponsMap;///map <PROJECTILEREF, BODY>
-    std::map<std::string, int>  weaponsNames; ///map <NOM, PROJECTILEREF>
+    std::map<std::string, int>  nameToWeapon; ///map <NOM, PROJECTILEREF>
+    std::map<int, std::string>  weaponToName;
     //Projectile currentProjectile = Projectile::lefona;
     int currentProjectile = 0;
     std::vector<b2Body*>    stickingProjectile;

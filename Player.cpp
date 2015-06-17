@@ -1,8 +1,8 @@
 #include "Player.h"
 
 Player::Player(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h)
-: Entity(mWindow,world, Textures, radius, x, y, w, h)
-, desiredVel(0)
+    : Entity(mWindow,world, Textures, radius, x, y, w, h)
+    , desiredVel(0)
 {
     kind = Entity::Player;
     std::cout<< "creation*******";
@@ -11,7 +11,7 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
     currentAnimation = &stopRight;///POUR LE STANDBY ANIMATION
     createWeapons();
 
-    currentProjectile = weaponsNames["lefona"];
+    currentProjectile = nameToWeapon["lefona"];
 }
 
 void Player::loadPlayerSprite(TextureHolder* Textures)
@@ -67,60 +67,60 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
 
 
 
-            /**GOD S HAND**/
+    /**GOD S HAND**/
 
-            sf::Time frameTime1 = frameClock.restart();
+    sf::Time frameTime1 = frameClock.restart();
 
-            sf::Vector2i screenDimensions(800,600);
+    sf::Vector2i screenDimensions(800,600);
 
-            //start animation:
-            animatedSprite.play(*currentAnimation);
+    //start animation:
+    animatedSprite.play(*currentAnimation);
 
 /// AJOUTER UNE ANIMATION EN FONCTION DE L'ACTUEL AU LIEU DE FAIRE UN STOP
-            if(std::abs(getVelocity().x)>1)///SI IL BOUGE PLUS QUE NECESSAIRE---------POUR EVITER LE TREMBLEMENT DES SPRITES
-            if(nb_contacts>0)
-                if (getVelocity().x>0)
-                    currentAnimation = &walkingAnimationRight;
-                else if (getVelocity().x<0)
-                    currentAnimation = &walkingAnimationLeft;
-                else
-                {
-                    if(currentAnimation == &walkingAnimationLeft)
-                        currentAnimation = &stopLeft;
-                    if(currentAnimation == &walkingAnimationRight)
-                        currentAnimation = &stopRight;
-                }
-            else///QUAND IL SAUTE
-                {
-                    if(currentAnimation == &walkingAnimationLeft)
-                        currentAnimation = &stopLeft;
-                    if(currentAnimation == &walkingAnimationRight)
-                        currentAnimation = &stopRight;
-                }
-            else///QUAND IL NE BOUGE PLUS OU BOUGE PETIT
-                {
-                    if(currentAnimation == &walkingAnimationLeft)
-                        currentAnimation = &stopLeft;
-                    if(currentAnimation == &walkingAnimationRight)
-                        currentAnimation = &stopRight;
-                }
+    if(std::abs(getVelocity().x)>1)///SI IL BOUGE PLUS QUE NECESSAIRE---------POUR EVITER LE TREMBLEMENT DES SPRITES
+        if(nb_contacts>0)
+            if (getVelocity().x>0)
+                currentAnimation = &walkingAnimationRight;
+            else if (getVelocity().x<0)
+                currentAnimation = &walkingAnimationLeft;
+            else
+            {
+                if(currentAnimation == &walkingAnimationLeft)
+                    currentAnimation = &stopLeft;
+                if(currentAnimation == &walkingAnimationRight)
+                    currentAnimation = &stopRight;
+            }
+        else///QUAND IL SAUTE
+        {
+            if(currentAnimation == &walkingAnimationLeft)
+                currentAnimation = &stopLeft;
+            if(currentAnimation == &walkingAnimationRight)
+                currentAnimation = &stopRight;
+        }
+    else///QUAND IL NE BOUGE PLUS OU BOUGE PETIT
+    {
+        if(currentAnimation == &walkingAnimationLeft)
+            currentAnimation = &stopLeft;
+        if(currentAnimation == &walkingAnimationRight)
+            currentAnimation = &stopRight;
+    }
 
 
-            noKeyWasPressed = true;
-            animatedSprite.update(frameTime1);
+    noKeyWasPressed = true;
+    animatedSprite.update(frameTime1);
 
 
-            ///emplacement:
-            animatedSprite.setOrigin((BOXSIZE_W),(BOXSIZE_H/2));
-            animatedSprite.setPosition(m_body->GetPosition().x * RATIO,
-                                        m_body->GetPosition().y * RATIO);
-            animatedSprite.setRotation(m_body->GetAngle() * 180/b2_pi);
-            ///weapon render
-            renderWeapons(mWindow);
-            ///Draw:
-            mWindow.draw(animatedSprite);
+    ///emplacement:
+    animatedSprite.setOrigin((BOXSIZE_W),(BOXSIZE_H/2));
+    animatedSprite.setPosition(m_body->GetPosition().x * RATIO,
+                               m_body->GetPosition().y * RATIO);
+    animatedSprite.setRotation(m_body->GetAngle() * 180/b2_pi);
+    ///weapon render
+    renderWeapons(mWindow);
+    ///Draw:
+    mWindow.draw(animatedSprite);
 
-            //std::cout<< "\n******rendu ok*******";
+    //std::cout<< "\n******rendu ok*******";
 
 
 //*/
@@ -196,18 +196,18 @@ void Player::onCommand(sf::Event e)
     switch(e.type)
     {
     case sf::Event::MouseButtonPressed:
-        {
+    {
 
         mouseInit = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
 
         weaponsMap[currentProjectile]->SetLinearVelocity(b2Vec2(0,0));
         weaponsMap[currentProjectile]->SetActive(false);
-        }
-        break;
+    }
+    break;
     case sf::Event::MouseButtonReleased:
         if(e.mouseButton.button == sf::Mouse::Middle)
             weaponsMap[currentProjectile]->SetActive(true);
-            fire(currentProjectile);
+        fire(currentProjectile);
         std::cout<< "End";
         break;
     case sf::Event::KeyReleased:
@@ -220,6 +220,26 @@ void Player::onCommand(sf::Event e)
     case sf::Event::MouseMoved:
 
         break;
+    case sf::Event::MouseWheelMoved:
+    {
+        if(e.mouseWheel.delta>0)
+        {
+            std::cout<< "UP";
+            if(currentProjectile<weaponsMap.size())
+                currentProjectile++;
+            else
+                currentProjectile = 0;
+        }else
+        {
+            std::cout<< "Down";
+            if(currentProjectile <= 0)
+                currentProjectile--;
+            else
+                currentProjectile = weaponsMap.size() - 1;
+        }
+        std::cout<< "ARME UTILISE: "<<weaponToName[currentProjectile]<<std::endl;
+    }
+    break;
     }
 
 
@@ -269,18 +289,18 @@ void Player::fire(int projectile)
     switch (projectile)
     {
     case lefona:
-        {
-            float angle = weaponsMap[Projectile::lefona]->GetAngle();
-            float x,y;
-            x = std::cos(angle) * 500;//cosinus*hypotenuse
-            y = std::sin(angle) * 500;
-            std::cout<< "lefona be!"<<projectile;
-            //weaponsMap[currentProjectile]->ApplyLinearImpulse(b2Vec2(x, y), m_body->GetWorldCenter());
-            weaponsMap[currentProjectile]->ApplyLinearImpulse(b2Vec2(x, y), weaponsMap[currentProjectile]->GetWorldPoint(b2Vec2(50.f/RATIO,0.f)));
+    {
+        float angle = weaponsMap[Projectile::lefona]->GetAngle();
+        float x,y;
+        x = std::cos(angle) * 500;//cosinus*hypotenuse
+        y = std::sin(angle) * 500;
+        std::cout<< "lefona be!"<<projectile;
+        //weaponsMap[currentProjectile]->ApplyLinearImpulse(b2Vec2(x, y), m_body->GetWorldCenter());
+        weaponsMap[currentProjectile]->ApplyLinearImpulse(b2Vec2(x, y), weaponsMap[currentProjectile]->GetWorldPoint(b2Vec2(50.f/RATIO,0.f)));
 
-        }
+    }
 
-        break;
+    break;
 
     default:
         break;
@@ -322,7 +342,8 @@ void Player::createWeapons()
     //lefona->SetBullet(true);
     int numero = weaponsMap.size();
     weaponsMap[numero] = lefona;
-    weaponsNames["lefona"] = numero;
+    nameToWeapon["lefona"] = numero;
+    weaponToName[numero] = "lefona";
     //lefona->SetActive(false);
 
 }
@@ -336,7 +357,8 @@ void    Player::loadWeapon(bodyData* data)
     data->body->SetUserData((Entity*)this);
     int numero = weaponsMap.size();
     weaponsMap[numero] = data->body;
-    weaponsNames[data->name] = numero;
+    nameToWeapon[data->name] = numero;
+    weaponToName[numero] = data->name;
 
     std::cout<<"**************data*************"<<std::endl;
     std::cout<<"name: "<<data->name<<std::endl;
@@ -362,31 +384,31 @@ void Player::stickProjectile(b2Fixture* fixtureTarget)
 {
 
 
-        worldCoordsAnchorPoint =(weaponsMap[currentProjectile])->GetWorldPoint( b2Vec2(0.6f, 0) );
-      weldJointDef.bodyA = fixtureTarget->GetBody();
-      if (weldJointDef.bodyA == m_body||weldJointDef.bodyA == m_legs||weldJointDef.bodyA == m_head)
+    worldCoordsAnchorPoint =(weaponsMap[currentProjectile])->GetWorldPoint( b2Vec2(0.6f, 0) );
+    weldJointDef.bodyA = fixtureTarget->GetBody();
+    if (weldJointDef.bodyA == m_body||weldJointDef.bodyA == m_legs||weldJointDef.bodyA == m_head)
         return;
 
 
-      weldJointDef.bodyB = weaponsMap[currentProjectile];
-      weldJointDef.localAnchorA = weldJointDef.bodyA->GetLocalPoint( worldCoordsAnchorPoint );
-      weldJointDef.localAnchorB = weldJointDef.bodyB->GetLocalPoint( worldCoordsAnchorPoint );
-      weldJointDef.referenceAngle = weldJointDef.bodyB->GetAngle() - weldJointDef.bodyA->GetAngle();
+    weldJointDef.bodyB = weaponsMap[currentProjectile];
+    weldJointDef.localAnchorA = weldJointDef.bodyA->GetLocalPoint( worldCoordsAnchorPoint );
+    weldJointDef.localAnchorB = weldJointDef.bodyB->GetLocalPoint( worldCoordsAnchorPoint );
+    weldJointDef.referenceAngle = weldJointDef.bodyB->GetAngle() - weldJointDef.bodyA->GetAngle();
 
-      jointExist = true;
+    jointExist = true;
 }
 
 void Player::stickAll()
 {
-      if(jointExist)
-      {
-          if(joint != nullptr)
-            {
-                return;
-            }
-          joint = p_world->CreateJoint( &weldJointDef );
-          jointExist = false;
-      }
+    if(jointExist)
+    {
+        if(joint != nullptr)
+        {
+            return;
+        }
+        joint = p_world->CreateJoint( &weldJointDef );
+        jointExist = false;
+    }
 
 
 }
