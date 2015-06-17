@@ -325,11 +325,21 @@ void Player::createWeapons()
 
 void    Player::loadWeapon(Projectile projectile, bodyData* data)
 {
+    if(data==nullptr)
+    {
+        return;
+    }
+    data->body->SetUserData((Entity*)this);
+    weaponsMap[projectile] = data->body;
 
+    std::cout<<"**************data*************"<<std::endl;
+    std::cout<<"name: "<<data->name<<std::endl;
+    std::cout<<"***************************"<<std::endl;
 }
 
 void Player::renderWeapons(sf::RenderWindow& mWindow)
 {
+    return;
     for(auto iterator : weaponsMap)
     {
         //std::cout<< iterator.first;

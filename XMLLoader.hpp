@@ -23,13 +23,14 @@ public:
     std::vector<sf::Texture>    texList;
     std::vector<b2Body*>        bodyList;
     std::vector<b2Vec2>         ratioList;
+    std::vector<float>          angleRatioList;
 
     std::map<std::string, int>  attributeMap;
 
 public:
                 XMLLoader(b2World* world);
 
-    bodyData*        loadXML(std::string);
+    bodyData        loadXML(std::string);
     b2Body*     createBody(int bodyType, pugi::xml_node bodyNode);
     std::vector<b2Fixture*>         addFixtures(b2Body* body, pugi::xml_node bodyNode);
     std::vector<b2Fixture*>         createEdgeShape(b2Body* body, pugi::xml_node fixtureNode);

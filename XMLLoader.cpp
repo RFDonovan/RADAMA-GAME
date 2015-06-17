@@ -11,13 +11,13 @@ XMLLoader::XMLLoader(b2World* world)
     //attributeMap[]
 }
 
-bodyData* XMLLoader::loadXML(std::string XMLFile)
+bodyData XMLLoader::loadXML(std::string XMLFile)
 {
     bodyData bData;
     if (!XMLDocument.load_file(XMLFile.c_str()))
     {
         std::cout << "error on loading "<<XMLFile<< "\n";
-        return nullptr;
+        //return NULL;
     }
     pugi::xml_node bodiesNode = XMLDocument.child("box2d").child("bodies");
 
@@ -30,9 +30,11 @@ bodyData* XMLLoader::loadXML(std::string XMLFile)
 
         std::stringstream ss;
         ss<<node.attribute("name").as_string();
+        //ss<<"bieber";
 
-        bData.body = body;
-        bData.name = ss.str();
+        bData.body = body;///Structures.hpp
+        bData.name = ss.str();///Structures.hpp
+        std::cout << "error on loading "<<bData.name<< "\n";
         ///CREATE FIXTURES:
         if(body)
         {
@@ -41,7 +43,10 @@ bodyData* XMLLoader::loadXML(std::string XMLFile)
             if(!(attrImage.compare("null") == 0))
             {
                 bodyList.push_back(body);
-                bData.sprite = loadImage(attrImage);
+                bData.sprite = loadImage(attrImage);///Structures.hpp
+            }
+            else{
+                bData.sprite = nullptr;
             }
 
         }
@@ -51,7 +56,7 @@ bodyData* XMLLoader::loadXML(std::string XMLFile)
     }
     //if(bodyList.size()>0)
     //loadSprites();
-    return &bData;
+    return bData;
 
 
 
@@ -74,6 +79,9 @@ b2Body* XMLLoader::createBody(int bodyType, pugi::xml_node bodyNode)
         int xRatio = std::abs((float32)bodyNode.attribute("x").as_float() -  imageCorrespondant.attribute("x").as_float());
         int yRatio = std::abs((float32)bodyNode.attribute("y").as_float() -  imageCorrespondant.attribute("y").as_float());
         ratioList.push_back(b2Vec2(xRatio,yRatio));
+
+        float angleRatio = std::abs((mBody->GetAngle()/RADTODEG) -  imageCorrespondant.attribute("rotation").as_float());
+        angleRatioList.push_back(angleRatio);
     }
 
 
@@ -251,7 +259,7 @@ void XMLLoader::render(sf::RenderWindow& mWindow, sf::Shader* shader)
         if(bodyList[i]->GetType() == b2_dynamicBody)
         {
             s.setPosition((bodyList[i]->GetPosition().x*RATIO)-ratioList[i].x,  (bodyList[i]->GetPosition().y*RATIO)+ratioList[i].y);
-            s.setRotation(bodyList[i]->GetAngle()/ RADTODEG);
+            s.setRotation(bodyList[i]->GetAngle()/ RADTODEG - angleRatioList[i]);
         }
 
         mWindow.draw(s);

@@ -201,19 +201,7 @@ void World::draw(sf::Time frameTime)
         shader.setParameter("distortionFactor", distortionFactor);
         shader.setParameter("riseFactor", riseFactor);
         mWindow.draw(BG_pause, &shader);
-        //
 
-
-
-
-        /*
-                //renderTexture.clear(sf::Color(0, 0, 0, 150));
-
-                //renderTexture.draw(BG_pause);
-                //renderTexture.draw(object);
-                //renderTexture.display();
-        */
-        //mWindow.draw(sprite, &shader);
     }
 
 
@@ -256,7 +244,7 @@ void World::buildScene()
     xLoad = new XMLLoader(&p_world);
     xLoad->loadXML("Resources/level.xml");
     //xLoad->loadEntity("Resources/rectangle.xml");
-    xLoad->loadXML("Resources/circle.xml");
+
 
     //createGround(p_world, 800.f, 500.f, 200.f,16.f);
     //createGround(p_world, 500.f, 500.f, 200.f,16.f);
@@ -265,6 +253,9 @@ void World::buildScene()
     std::cout<<"creation d'une deuxieme entite";
     Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H);
     humans.push_back(e);
+
+    bodyData essaie = xLoad->loadXML("Resources/lefona.xml");
+    ePlayer->loadWeapon(Player::Projectile::afo, &essaie);
 
 
 
