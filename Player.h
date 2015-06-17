@@ -1,6 +1,7 @@
 #ifndef PLAYER_H_INCLUDED
 #define PLAYER_H_INCLUDED
 #include "Entity.hpp"
+#include "Structures.hpp"
 
 class Player: public Entity
 {
@@ -52,7 +53,7 @@ public:
     void    fire(Projectile projectile);
 
     void    createWeapons();
-    void    loadWeapon();
+    void    loadWeapon(Projectile projectile, bodyData* data);
     int     getClassName(){return PLAYER;}
     void    stickProjectile(b2Fixture* fixtureTarget);
     void    stickAll();

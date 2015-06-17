@@ -323,7 +323,7 @@ void Player::createWeapons()
 
 }
 
-void Player::loadWeapon()
+void    Player::loadWeapon(Projectile projectile, bodyData* data)
 {
 
 }

@@ -14,6 +14,7 @@
 #include "Human.hpp"
 #include "Player.h"
 #include "Ground.hpp"
+#include "Structures.hpp"
 
 #include "ContactListener.inl"
 

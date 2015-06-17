@@ -11,12 +11,13 @@ XMLLoader::XMLLoader(b2World* world)
     //attributeMap[]
 }
 
-void XMLLoader::loadXML(std::string XMLFile)
+bodyData* XMLLoader::loadXML(std::string XMLFile)
 {
+    bodyData bData;
     if (!XMLDocument.load_file(XMLFile.c_str()))
     {
         std::cout << "error on loading "<<XMLFile<< "\n";
-        return;
+        return nullptr;
     }
     pugi::xml_node bodiesNode = XMLDocument.child("box2d").child("bodies");
 
@@ -26,6 +27,12 @@ void XMLLoader::loadXML(std::string XMLFile)
         std::cout<<">>>creation d un "<<node.attribute("type").as_string()<<std::endl;
         b2Body* body;
         body = createBody(attributeMap[node.attribute("type").as_string()], node);
+
+        std::stringstream ss;
+        ss<<node.attribute("name").as_string();
+
+        bData.body = body;
+        bData.name = ss.str();
         ///CREATE FIXTURES:
         if(body)
         {
@@ -34,14 +41,17 @@ void XMLLoader::loadXML(std::string XMLFile)
             if(!(attrImage.compare("null") == 0))
             {
                 bodyList.push_back(body);
-                loadImage(attrImage);
+                bData.sprite = loadImage(attrImage);
             }
 
         }
 
+
+
     }
     //if(bodyList.size()>0)
     //loadSprites();
+    return &bData;
 
 
 
@@ -193,7 +203,7 @@ b2Fixture*   XMLLoader::createCircleShape(b2Body* body, pugi::xml_node fixtureNo
 /// ///////////////////////////////////////////////
 /// //////////////////SPRITES STUFFS////////////////
 
-void XMLLoader::loadImage(std::string imageName)
+sf::Sprite* XMLLoader::loadImage(std::string imageName)
 {
     pugi::xml_node imagesNode = XMLDocument.child("box2d").child("images");
     pugi::xml_node image = imagesNode.find_child_by_attribute("image","name",imageName.c_str());
@@ -228,6 +238,7 @@ void XMLLoader::loadImage(std::string imageName)
     );
     spriteList.push_back(imgSprite);
     texList.push_back(tex);
+    return &imgSprite;
 }
 
 void XMLLoader::render(sf::RenderWindow& mWindow, sf::Shader* shader)
