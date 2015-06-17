@@ -38,7 +38,7 @@ public:
     //DebugDraw debugDrawInstance;
     sf::View    mWorldView;
 
-    GameLevel*  level;
+    //GameLevel*  level;
     XMLLoader* xLoad;
 
     std::vector<Human*>    humans;
@@ -49,9 +49,6 @@ public:
 
 
     TextureHolder           mTextures;
-    //Layers mSceneLayers;
-    //CommandQueue mCommandQueue;
-    //float mScrollSpeed;
     sf::Vector2f            mPlayerPosition;
     Player                  *ePlayer;
 
@@ -68,7 +65,6 @@ public:
     /**SHADERS STUFF**/
     sf::Texture objectTexture, distortionMap;
     sf::Sprite object, sprite;
-    //sf::RenderTexture renderTexture;
     sf::Shader shader, fogShader;
     float distortionFactor = .1f;
     float riseFactor = .5f;
@@ -90,12 +86,8 @@ public:
     void    updateView(sf::Vector2f view);
     void    processInput(sf::Event);
 
-    //TextureHolder World::getTextureMap();
 
     /**CREATING SOMETHINGS*/
-    /*int    loadLevel(std::string filename);
-    void    createBody(pugi::xml_node body, pugi::xml_node fixtures);
-    */
     void    createGround(b2World& world, float X, float Y, float W = 600.f, float H = 16.f);
     void    createBox(b2World& world, int MouseX, int MouseY);
     void    createEntity(b2World& world, int MouseX, int MouseY);

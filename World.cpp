@@ -250,12 +250,12 @@ void World::buildScene()
     //createGround(p_world, 40.f, 600.f);
     //if(loadLevel("exported1.xml") == -1)
       //  return;
-    level = new GameLevel(&p_world);
+    //level = new GameLevel(&p_world);
     //level->loadLevel("Resources/level.xml");
 
     xLoad = new XMLLoader(&p_world);
     xLoad->loadEntity("Resources/level.xml");
-    xLoad->loadEntity("Resources/rectangle.xml");
+    //xLoad->loadEntity("Resources/rectangle.xml");
     xLoad->loadEntity("Resources/circle.xml");
 
     //createGround(p_world, 800.f, 500.f, 200.f,16.f);
@@ -271,8 +271,8 @@ void World::buildScene()
 }
 void World::rebuildScene()
 {
-    level->clearAll();
-    level = nullptr;
+    //level->clearAll();
+    //level = nullptr;
     buildScene();
 }
 

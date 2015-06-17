@@ -36,7 +36,6 @@ public:
     b2Fixture*  createCircleShape(b2Body* body, pugi::xml_node fixtureNode);
 
     void        loadImage(std::string imageName);
-    void        loadSprites();
     void        render(sf::RenderWindow& mWindow, sf::Shader* shader);
 
 
