@@ -10,6 +10,8 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
     loadPlayerSprite(Textures);
     currentAnimation = &stopRight;///POUR LE STANDBY ANIMATION
     createWeapons();
+
+    currentProjectile = weaponsNames["lefona"];
 }
 
 void Player::loadPlayerSprite(TextureHolder* Textures)
@@ -261,7 +263,7 @@ void Player::attack()
 
 }
 
-void Player::fire(Projectile projectile)
+void Player::fire(int projectile)
 {
 
     switch (projectile)
@@ -318,19 +320,23 @@ void Player::createWeapons()
     lefona->SetUserData((Entity*)this);
 
     //lefona->SetBullet(true);
-    weaponsMap[Projectile::lefona] = lefona;
+    int numero = weaponsMap.size();
+    weaponsMap[numero] = lefona;
+    weaponsNames["lefona"] = numero;
     //lefona->SetActive(false);
 
 }
 
-void    Player::loadWeapon(Projectile projectile, bodyData* data)
+void    Player::loadWeapon(bodyData* data)
 {
     if(data==nullptr)
     {
         return;
     }
     data->body->SetUserData((Entity*)this);
-    weaponsMap[projectile] = data->body;
+    int numero = weaponsMap.size();
+    weaponsMap[numero] = data->body;
+    weaponsNames[data->name] = numero;
 
     std::cout<<"**************data*************"<<std::endl;
     std::cout<<"name: "<<data->name<<std::endl;

@@ -255,7 +255,7 @@ void World::buildScene()
     humans.push_back(e);
 
     bodyData essaie = xLoad->loadXML("Resources/lefona.xml");
-    ePlayer->loadWeapon(Player::Projectile::afo, &essaie);
+    ePlayer->loadWeapon(&essaie);
 
 
 

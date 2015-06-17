@@ -25,8 +25,10 @@ public:
     float jumpLimit = 5.f;
 
     std::vector<b2Body*>    weapons;
-    std::map<Projectile, b2Body*>  weaponsMap;
-    Projectile currentProjectile = Projectile::lefona;
+    std::map<int, b2Body*>  weaponsMap;///map <PROJECTILEREF, BODY>
+    std::map<std::string, int>  weaponsNames; ///map <NOM, PROJECTILEREF>
+    //Projectile currentProjectile = Projectile::lefona;
+    int currentProjectile = 0;
     std::vector<b2Body*>    stickingProjectile;
     float angle;
 
@@ -50,10 +52,10 @@ public:
     void    renderWeapons(sf::RenderWindow& mWindow);
     void    onCommand(sf::Event e);
     void    attack();
-    void    fire(Projectile projectile);
+    void    fire(int projectile);
 
     void    createWeapons();
-    void    loadWeapon(Projectile projectile, bodyData* data);
+    void    loadWeapon(bodyData* data);
     int     getClassName(){return PLAYER;}
     void    stickProjectile(b2Fixture* fixtureTarget);
     void    stickAll();
