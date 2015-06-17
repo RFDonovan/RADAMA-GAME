@@ -254,9 +254,9 @@ void World::buildScene()
     //level->loadLevel("Resources/level.xml");
 
     xLoad = new XMLLoader(&p_world);
-    xLoad->loadEntity("Resources/level.xml");
+    xLoad->loadXML("Resources/level.xml");
     //xLoad->loadEntity("Resources/rectangle.xml");
-    xLoad->loadEntity("Resources/circle.xml");
+    xLoad->loadXML("Resources/circle.xml");
 
     //createGround(p_world, 800.f, 500.f, 200.f,16.f);
     //createGround(p_world, 500.f, 500.f, 200.f,16.f);

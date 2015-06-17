@@ -52,6 +52,7 @@ public:
     void    fire(Projectile projectile);
 
     void    createWeapons();
+    void    loadWeapon();
     int     getClassName(){return PLAYER;}
     void    stickProjectile(b2Fixture* fixtureTarget);
     void    stickAll();

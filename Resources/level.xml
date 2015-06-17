@@ -7,7 +7,7 @@
   <bodies>
     <body name="body1" x="415" y="-604" type="static" bullet="false" image="monde.png">
       <fixtures>
-        <fixture name="60" shapeType="edgeShape" restitution="1" density="1" friction="1" closedPath="false">
+        <fixture name="60" shapeType="edgeShape" restitution="0" density="1" friction="1" closedPath="false">
           <vertex x="458" y="-16"/>
           <vertex x="-2" y="-62"/>
           <vertex x="-416" y="-76"/>
@@ -30,7 +30,7 @@
     </body>
 	<body name="body3" x="1496" y="-528" type="static" bullet="false" image="rock2.png">
       <fixtures>
-        <fixture name="680" shapeType="edgeShape" restitution="1" density="1" friction="1" closedPath="false">
+        <fixture name="680" shapeType="edgeShape" restitution="0" density="1" friction="1" closedPath="false">
           <vertex x="-297" y="-257"/>
           <vertex x="-331" y="-113"/>
           <vertex x="-331" y="-64"/>

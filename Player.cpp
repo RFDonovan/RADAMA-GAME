@@ -270,7 +270,7 @@ void Player::fire(Projectile projectile)
         {
             float angle = weaponsMap[Projectile::lefona]->GetAngle();
             float x,y;
-            x = std::cos(angle) * 500;
+            x = std::cos(angle) * 500;//cosinus*hypotenuse
             y = std::sin(angle) * 500;
             std::cout<< "lefona be!"<<projectile;
             //weaponsMap[currentProjectile]->ApplyLinearImpulse(b2Vec2(x, y), m_body->GetWorldCenter());
@@ -323,6 +323,11 @@ void Player::createWeapons()
 
 }
 
+void Player::loadWeapon()
+{
+
+}
+
 void Player::renderWeapons(sf::RenderWindow& mWindow)
 {
     for(auto iterator : weaponsMap)
@@ -339,38 +344,18 @@ void Player::renderWeapons(sf::RenderWindow& mWindow)
 
 void Player::stickProjectile(b2Fixture* fixtureTarget)
 {
-    //stickingProjectile.push_back(weaponsMap[currentProjectile]);
 
-        //std::cout<< "begin************************";
 
         worldCoordsAnchorPoint =(weaponsMap[currentProjectile])->GetWorldPoint( b2Vec2(0.6f, 0) );
       weldJointDef.bodyA = fixtureTarget->GetBody();
       if (weldJointDef.bodyA == m_body||weldJointDef.bodyA == m_legs||weldJointDef.bodyA == m_head)
         return;
-      /*if (weaponsMap[currentProjectile]->GetLinearVelocity().x<10)///SI LA PROJECTILE DEPLACE MOINS VITE
-        {
-            for(b2Fixture *f =weaponsMap[currentProjectile]->GetFixtureList();f; f = f->GetNext())
-            {
-                f->SetDensity(10.f);
-                std::cout<<"DENSITY SET TO 1"<<std::endl;
-            }
-            return;
-        }
-      else
-      {
-          for(b2Fixture *f =weaponsMap[currentProjectile]->GetFixtureList();f; f = f->GetNext())
-            {
-                f->SetDensity(0.f);
-                std::cout<<"DENSITY SET TO 0"<<std::endl;
-            }
-      }*/
+
 
       weldJointDef.bodyB = weaponsMap[currentProjectile];
       weldJointDef.localAnchorA = weldJointDef.bodyA->GetLocalPoint( worldCoordsAnchorPoint );
       weldJointDef.localAnchorB = weldJointDef.bodyB->GetLocalPoint( worldCoordsAnchorPoint );
       weldJointDef.referenceAngle = weldJointDef.bodyB->GetAngle() - weldJointDef.bodyA->GetAngle();
-      //p_world->CreateJoint( &weldJointDef );
-      //std::cout<< "************************";
 
       jointExist = true;
 }
@@ -385,7 +370,6 @@ void Player::stickAll()
             }
           joint = p_world->CreateJoint( &weldJointDef );
           jointExist = false;
-        //(weaponsMap[currentProjectile])->SetActive(false);
       }
 
 

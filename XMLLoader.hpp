@@ -28,7 +28,7 @@ public:
 public:
                 XMLLoader(b2World* world);
 
-    void        loadEntity(std::string);
+    void        loadXML(std::string);
     b2Body*     createBody(int bodyType, pugi::xml_node bodyNode);
     std::vector<b2Fixture*>         addFixtures(b2Body* body, pugi::xml_node bodyNode);
     std::vector<b2Fixture*>         createEdgeShape(b2Body* body, pugi::xml_node fixtureNode);

@@ -11,7 +11,7 @@ XMLLoader::XMLLoader(b2World* world)
     //attributeMap[]
 }
 
-void XMLLoader::loadEntity(std::string XMLFile)
+void XMLLoader::loadXML(std::string XMLFile)
 {
     if (!XMLDocument.load_file(XMLFile.c_str()))
     {
@@ -128,7 +128,7 @@ std::vector<b2Fixture*>   XMLLoader::createEdgeShape(b2Body* body, pugi::xml_nod
         FixtureDef.shape = &Shape;
         b2Fixture* fixture = body->CreateFixture(&FixtureDef);
 
-        fixture->SetUserData(this);
+        ///fixture->SetUserData(this);
         listFixtures.push_back(fixture);
     }
 
@@ -187,7 +187,7 @@ b2Fixture*   XMLLoader::createCircleShape(b2Body* body, pugi::xml_node fixtureNo
     Shape.m_radius = ( fixtureNode.attribute("circleRadius").as_float() /RATIO);
     FixtureDef.shape = &Shape;
     b2Fixture* fixture = body->CreateFixture(&FixtureDef);
-    fixture->SetUserData(this);
+    ///fixture->SetUserData(this);
     return fixture;
 }
 /// ///////////////////////////////////////////////
