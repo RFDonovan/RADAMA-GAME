@@ -408,22 +408,22 @@ void    Player::impactTo(b2Fixture* fixtureSource, b2Fixture* fixtureTarget)
     {
         std::cout<<"fixture trouvE+++++++++++: "<< weaponToName[(int)fixData-identificationArme] <<std::endl;
     }
-    if(fixtureSource->GetFriction() == 0.735f)
-    {
-        stickProjectile(fixtureTarget);
-    }
+    if(weaponToName[(int)fixData-identificationArme].compare("lefona")==0
+       || weaponToName[(int)fixData-identificationArme].compare("lefonaMiloko")==0)
+        stickProjectile((int)fixData-identificationArme, fixtureTarget);
+
 }
-void Player::stickProjectile(b2Fixture* fixtureTarget)
+void Player::stickProjectile(int projectile,b2Fixture* fixtureTarget)
 {
 
 
-    worldCoordsAnchorPoint =(weaponsMap[currentProjectile])->GetWorldPoint( b2Vec2(0.6f, 0) );
+    worldCoordsAnchorPoint =(weaponsMap[projectile])->GetWorldPoint( b2Vec2(0.6f, 0) );
     weldJointDef.bodyA = fixtureTarget->GetBody();
     if (weldJointDef.bodyA == m_body||weldJointDef.bodyA == m_legs||weldJointDef.bodyA == m_head)
         return;
 
 
-    weldJointDef.bodyB = weaponsMap[currentProjectile];
+    weldJointDef.bodyB = weaponsMap[projectile];
     weldJointDef.localAnchorA = weldJointDef.bodyA->GetLocalPoint( worldCoordsAnchorPoint );
     weldJointDef.localAnchorB = weldJointDef.bodyB->GetLocalPoint( worldCoordsAnchorPoint );
     weldJointDef.referenceAngle = weldJointDef.bodyB->GetAngle() - weldJointDef.bodyA->GetAngle();
