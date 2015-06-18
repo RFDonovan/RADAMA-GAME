@@ -198,6 +198,7 @@ void Player::onCommand(sf::Event e)
     case sf::Event::MouseButtonPressed:
     {
 
+
         mouseInit = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
 
         weaponsMap[currentProjectile]->SetLinearVelocity(b2Vec2(0,0));
@@ -222,17 +223,19 @@ void Player::onCommand(sf::Event e)
         break;
     case sf::Event::MouseWheelMoved:
     {
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Middle))
+            return;
         if(e.mouseWheel.delta>0)
         {
             std::cout<< "UP";
-            if(currentProjectile<weaponsMap.size())
+            if(currentProjectile<weaponsMap.size()-1)
                 currentProjectile++;
             else
                 currentProjectile = 0;
         }else
         {
             std::cout<< "Down";
-            if(currentProjectile <= 0)
+            if(currentProjectile > 0)
                 currentProjectile--;
             else
                 currentProjectile = weaponsMap.size() - 1;
@@ -303,6 +306,16 @@ void Player::fire(int projectile)
     break;
 
     default:
+        {
+            float angle = weaponsMap[currentProjectile]->GetAngle();
+        float x,y;
+        x = std::cos(angle) * 500;//cosinus*hypotenuse
+        y = std::sin(angle) * 500;
+        std::cout<< "lefona be!"<<projectile;
+        //weaponsMap[currentProjectile]->ApplyLinearImpulse(b2Vec2(x, y), m_body->GetWorldCenter());
+        weaponsMap[currentProjectile]->ApplyLinearImpulse(b2Vec2(x, y), weaponsMap[currentProjectile]->GetWorldPoint(b2Vec2(50.f/RATIO,0.f)));
+
+        }
         break;
     }
 
