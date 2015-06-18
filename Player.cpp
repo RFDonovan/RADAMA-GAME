@@ -349,7 +349,8 @@ void Player::createWeapons()
     FixtureDef.shape = &Shape;
 
     //attach to body:
-    lefona->CreateFixture(&FixtureDef);
+    b2Fixture* f = lefona->CreateFixture(&FixtureDef);
+
     lefona->SetUserData((Entity*)this);
 
     //lefona->SetBullet(true);
@@ -357,6 +358,7 @@ void Player::createWeapons()
     weaponsMap[numero] = lefona;
     nameToWeapon["lefona"] = numero;
     weaponToName[numero] = "lefona";
+    f->SetUserData((void*)identificationArme + numero);
     //lefona->SetActive(false);
 
 }
@@ -368,10 +370,15 @@ void    Player::loadWeapon(bodyData* data)
         return;
     }
     data->body->SetUserData((Entity*)this);
+
     int numero = weaponsMap.size();
     weaponsMap[numero] = data->body;
     nameToWeapon[data->name] = numero;
     weaponToName[numero] = data->name;
+    for (b2Fixture* f = data->body->GetFixtureList(); f; f = f->GetNext())
+    {
+        f->SetUserData((void*)identificationArme + numero);
+    }
 
     std::cout<<"**************data*************"<<std::endl;
     std::cout<<"name: "<<data->name<<std::endl;
@@ -393,6 +400,19 @@ void Player::renderWeapons(sf::RenderWindow& mWindow)
     }
 }
 
+
+void    Player::impactTo(b2Fixture* fixtureSource, b2Fixture* fixtureTarget)
+{
+    void* fixData = fixtureSource->GetUserData();
+    if(fixData)
+    {
+        std::cout<<"fixture trouvE+++++++++++: "<< weaponToName[(int)fixData-identificationArme] <<std::endl;
+    }
+    if(fixtureSource->GetFriction() == 0.735f)
+    {
+        stickProjectile(fixtureTarget);
+    }
+}
 void Player::stickProjectile(b2Fixture* fixtureTarget)
 {
 

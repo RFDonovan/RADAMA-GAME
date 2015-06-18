@@ -20,14 +20,6 @@ class ContactListener : public b2ContactListener
         {
 std::cout<<"userdata exist\n";
 
-//            if(contact->GetFixtureA()->GetBody()->GetType() == b2_staticBody)
-//            {
-//                (static_cast<ObjectType*>(userData))->getObjectType();
-//                std::cout <<"got ya!!!";
-//            }
-            //int objectType = ((ObjectType*)userData)->getObjectType();
-            //int objectType = ((ObjectType*)userData)->getObjectType();
-
 
             objectType = (static_cast<ObjectType*>(userData))->getObjectType();
             std::cout<<"after conversion\n";
@@ -41,20 +33,6 @@ std::cout<<"userdata exist\n";
             }
             break;
             case GROUND:
-                /*{
-                    int classname = (static_cast<ObjectType*>(userData))->getClassName();
-                    userData = contact->GetFixtureB()->GetBody()->GetUserData();
-                    if(classname == HUMAN)
-                    {
-
-                    }
-                    if(classname == PLAYER||classname == HUMAN)
-                    {
-                        userData = contact->GetFixtureB()->GetBody()->GetUserData();
-                        static_cast<Entity*>( userData )->startContact(contact->GetFixtureB());
-                    }
-                    std::cout<<"----->GROUND A\n";
-                }*/
                 break;
             default:
                 std::cout<<"latsaka ato am DEFAULT A\n";
@@ -78,20 +56,6 @@ std::cout<<"userdata exist\n";
                 (static_cast<Entity*>( userData ))->startContact(contact->GetFixtureB());
             }
             case GROUND:
-                /*{
-                    int classname = (static_cast<ObjectType*>(userData))->getClassName();
-                    userData = contact->GetFixtureA()->GetBody()->GetUserData();
-                    if(classname == HUMAN)
-                    {
-
-                    }
-                    if(classname == PLAYER)
-                    {
-                        userData = contact->GetFixtureA()->GetBody()->GetUserData();
-                        static_cast<Entity*>( userData )->startContact(contact->GetFixtureA());
-                    }
-                    std::cout<<"----->GROUND B\n";
-                }*/
             break;
             default:
                 std::cout<<"latsaka ato am DEFAULT B\n";
@@ -160,22 +124,24 @@ std::cout<<"userdata exist\n";
         if(userDataA && ((ObjectType*)userDataA)->getClassName() == PLAYER)//&&fixture->GetBody()->GetLinearVelocity().x
         {
             //b2Body* arrowBody = fixtureA->GetBody();
-            if(fixtureA->GetFriction() == 0.735f)
+            ((Player*)userDataA)->impactTo(fixtureA, fixtureB);
+            /*if(fixtureA->GetFriction() == 0.735f)
             {
                 ((Player*)userDataA)->stickProjectile(fixtureB);
                 fixtureA->SetDensity(0.f);
-            }
+            }*/
 
             //std::cout<<"arrowbody trouve";
         }
         if(userDataB && ((ObjectType*)userDataB)->getClassName() == PLAYER)
         {
-            //b2Body* arrowBody = fixtureB->GetBody();
-            if(fixtureB->GetFriction() == 0.735f)
+            //b2Body* arrowBody = fixtureB->GetBody();0
+            ((Player*)userDataB)->impactTo(fixtureB, fixtureA);
+            /*if(fixtureB->GetFriction() == 0.735f)
             {
                 ((Player*)userDataB)->stickProjectile(fixtureA);
                 fixtureA->SetDensity(0.f);
-            }
+            }*/
 
             //std::cout<<"arrowbody trouve";
         }
