@@ -63,6 +63,7 @@ public:
     void    stickProjectile( int projectile, b2Fixture* fixtureTarget);
     void    impactTo(b2Fixture* fixtureSource, b2Fixture* fixtureTarget, float impulse);
     void    stickAll();
+    void    jointDestroyer();
 
 };
 

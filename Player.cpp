@@ -154,16 +154,20 @@ void Player::onCommand(sf::Event e)
     }
     if (sf::Mouse::isButtonPressed(sf::Mouse::Middle))
     {
-        if(joint != nullptr)
+        if(joint !=nullptr)
         {
+            std::cout<<"destroying joint 1...\n";
             p_world->DestroyJoint(joint);
 
             joint = nullptr;//pour eviter une repetition
+            std::cout<<"joint 1 destroyed\n";
         }
         if(joint2 != nullptr)
         {
+            std::cout<<"destroying joint 2...\n";
             p_world->DestroyJoint(joint2);
             joint2 = nullptr;
+            std::cout<<"joint 2 destroyed\n";
         }
 
         mousePos = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
@@ -460,10 +464,19 @@ void Player::stickAll()
         }
         joint = p_world->CreateJoint( &weldJointDef );
         joint2 = p_world->CreateJoint( &weldJointDef1 );
+        joint->SetUserData((void*)(JOINTRANGE + 2));
+        joint2->SetUserData((void*)(JOINTRANGE + 3));
+
         jointExist = false;
     }
 
 
+}
+
+void Player::jointDestroyer()
+{
+    joint = nullptr;
+    joint2 = nullptr;
 }
 
 

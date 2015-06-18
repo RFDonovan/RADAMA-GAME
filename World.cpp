@@ -25,6 +25,7 @@ World::World(sf::RenderWindow& window)
     //BG_pause.scale(.9f,.9f);
 
     p_world.SetContactListener(&CL_Instance);
+    p_world.SetDestructionListener(&DL_Instance);
 
     if(!sf::Shader::isAvailable())
     {
@@ -76,8 +77,16 @@ void World::processInput(sf::Event e)
         {
             debugDrawInstance.SetFlags(b2Draw::e_shapeBit|b2Draw::e_jointBit);
         }
+        if(e.key.code == sf::Keyboard::A)
+        {
+            std::cout<<"deleting 10 01 0 10 1"<<std::endl;
+            listOfDeletedHuman.push_back(humans[0]);
+            std::cout<<"contenu de human"<<humans.size()<<std::endl;
+            //delete humans[1];
+        }
 
         break;
+
     }
 
     if (e.type == sf::Event::LostFocus)
@@ -144,6 +153,7 @@ void World::draw(sf::Time frameTime)
     if(!paused)/// ******************************************************************>>>>PAUSE
     {
         p_world.Step(1/60.f,6,2);
+        sheduleRemove();
         ePlayer->stickAll();
         p_world.ClearForces();
         mWindow.setMouseCursorVisible(false);
@@ -426,4 +436,14 @@ void World::createBody(pugi::xml_node body, pugi::xml_node fixtures)
 }
 */
 
+void World::sheduleRemove()
+{
+    for (int i = 0 ; i < listOfDeletedHuman.size() ; i++ )
+    {
+        delete listOfDeletedHuman[i];
+        listOfDeletedHuman.erase(listOfDeletedHuman.begin()+i);
+        humans.erase(humans.begin());
+
+    }
+}
 

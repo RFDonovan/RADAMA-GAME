@@ -32,6 +32,8 @@ enum objectType{
 #define PROJECTILE 3
 #define LEVEL
 
+#define JOINTRANGE 30000
+
 class ObjectType
 {
 public:

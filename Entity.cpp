@@ -59,6 +59,7 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
     cFixtureDef.shape = &cShape;
     m_legs->CreateFixture(&cFixtureDef);
     b2RevoluteJointDef rJointDef;
+    m_legs->SetUserData(this);
 
 
       rJointDef.bodyA = m_body;
@@ -76,6 +77,7 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
     myBodyDef.type = b2_dynamicBody;
     myBodyDef.position.Set(x/RATIO, y/RATIO);
     m_head = world->CreateBody(&myBodyDef);
+    m_head->SetUserData(this);
 
     //cShape;
     cFixtureDef.density = 10.f;
@@ -90,7 +92,9 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
       rJointDef.localAnchorB = rJointDef.bodyB->GetLocalPoint( m_head->GetWorldPoint(b2Vec2(0, 0)) );
       rJointDef.referenceAngle = rJointDef.bodyB->GetAngle() - rJointDef.bodyA->GetAngle();
       rJointDef.enableLimit = true;
-      world->CreateJoint( &rJointDef );
+      b2Joint * j = world->CreateJoint( &rJointDef );
+      j->SetUserData((void*)(JOINTRANGE + 1));
+
 /// ///////////
 
 
@@ -159,6 +163,8 @@ void Entity::endContact(b2Fixture   *fixture)
 Entity::~Entity()
 {
     p_world->DestroyBody(m_body);
+    p_world->DestroyBody(m_legs);
+    p_world->DestroyBody(m_head);
 
     std::cout<< "fini";
 }

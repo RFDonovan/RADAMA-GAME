@@ -17,6 +17,7 @@
 #include "Structures.hpp"
 
 #include "ContactListener.inl"
+#include "DestructionListener.inl"
 
 
 //#include "CommandQueue.h"
@@ -43,6 +44,7 @@ public:
     XMLLoader* xLoad;
 
     std::vector<Human*>    humans;
+    std::vector<Human*>     listOfDeletedHuman;
 
     std::vector<Ground*>    grounds;
 
@@ -61,7 +63,9 @@ public:
     sf::Sprite  GroundSprite;
 
     ///contact listener
+    MyDestructionListener DL_Instance;
     ContactListener CL_Instance;
+
 
     /**SHADERS STUFF**/
     sf::Texture objectTexture, distortionMap;
@@ -92,6 +96,8 @@ public:
     void    createGround(b2World& world, float X, float Y, float W = 600.f, float H = 16.f);
     void    createBox(b2World& world, int MouseX, int MouseY);
     void    createEntity(b2World& world, int MouseX, int MouseY);
+
+    void    sheduleRemove();
 
     /**PAUSE STUFF**/
     sf::RectangleShape pauseLayer;
