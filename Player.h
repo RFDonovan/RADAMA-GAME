@@ -34,9 +34,10 @@ public:
     std::vector<b2Body*>    stickingProjectile;
     float angle;
 
-    b2RevoluteJointDef weldJointDef;
+    b2RevoluteJointDef weldJointDef, weldJointDef1;
     b2Vec2 worldCoordsAnchorPoint;
     b2Joint * joint = nullptr;
+    b2Joint * joint2 = nullptr;
     bool jointExist = false;
 
     float distortionFactor = .2f;

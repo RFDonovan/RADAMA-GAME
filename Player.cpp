@@ -157,7 +157,13 @@ void Player::onCommand(sf::Event e)
         if(joint != nullptr)
         {
             p_world->DestroyJoint(joint);
+
             joint = nullptr;//pour eviter une repetition
+        }
+        if(joint2 != nullptr)
+        {
+            p_world->DestroyJoint(joint2);
+            joint2 = nullptr;
         }
 
         mousePos = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
@@ -185,7 +191,7 @@ void Player::onCommand(sf::Event e)
         //force = std::sqrt(force);
         velocityForce = sf::Vector2f();
 
-        if (desiredVel > velocityLimit)
+        if (desiredVel > velocityLimit)p_world->DestroyJoint(joint);
             desiredVel = velocityLimit;
         if (desiredVel <- velocityLimit)
             desiredVel = -velocityLimit;
@@ -341,7 +347,7 @@ void Player::createWeapons()
     Shape.SetAsBox(100.f/RATIO, 2.f/RATIO);
     b2FixtureDef FixtureDef;
     FixtureDef.density = 0.f;
-    //FixtureDef.density = 10.f;
+    FixtureDef.density = 1.f;
     //FixtureDef.friction = 1.0f;
     FixtureDef.friction = 0.735f;
     //FixtureDef.restitution = 1.f;
@@ -404,9 +410,10 @@ void Player::renderWeapons(sf::RenderWindow& mWindow)
 void    Player::impactTo(b2Fixture* fixtureSource, b2Fixture* fixtureTarget, float impulse)
 {
     void* fixData = fixtureSource->GetUserData();
-    if(fixData)
+    if(! fixData)
     {
-        std::cout<<"fixture trouvE+++++++++++: "<< weaponToName[(int)fixData-identificationArme] <<std::endl;
+        //std::cout<<"fixture trouvE+++++++++++: "<< weaponToName[(int)fixData-identificationArme] <<std::endl;
+        return;
     }
     if(weaponToName[(int)fixData-identificationArme].compare("lefona")==0
        || weaponToName[(int)fixData-identificationArme].compare("lefonaMiloko")==0)
@@ -428,6 +435,17 @@ void Player::stickProjectile(int projectile,b2Fixture* fixtureTarget)
     weldJointDef.localAnchorA = weldJointDef.bodyA->GetLocalPoint( worldCoordsAnchorPoint );
     weldJointDef.localAnchorB = weldJointDef.bodyB->GetLocalPoint( worldCoordsAnchorPoint );
     weldJointDef.referenceAngle = weldJointDef.bodyB->GetAngle() - weldJointDef.bodyA->GetAngle();
+    ///SECOND
+    worldCoordsAnchorPoint =(weaponsMap[projectile])->GetWorldPoint( b2Vec2(2.f, 0) );
+    weldJointDef1.bodyA = fixtureTarget->GetBody();
+    if (weldJointDef.bodyA == m_body||weldJointDef.bodyA == m_legs||weldJointDef.bodyA == m_head)
+        return;
+
+
+    weldJointDef1.bodyB = weaponsMap[projectile];
+    weldJointDef1.localAnchorA = weldJointDef.bodyA->GetLocalPoint( worldCoordsAnchorPoint );
+    weldJointDef1.localAnchorB = weldJointDef.bodyB->GetLocalPoint( worldCoordsAnchorPoint );
+    weldJointDef1.referenceAngle = weldJointDef.bodyB->GetAngle() - weldJointDef.bodyA->GetAngle();
 
     jointExist = true;
 }
@@ -441,6 +459,7 @@ void Player::stickAll()
             return;
         }
         joint = p_world->CreateJoint( &weldJointDef );
+        joint2 = p_world->CreateJoint( &weldJointDef1 );
         jointExist = false;
     }
 
