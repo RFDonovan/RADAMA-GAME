@@ -157,7 +157,8 @@ void Player::onCommand(sf::Event e)
         if(joint !=nullptr)
         {
             std::cout<<"destroying joint 1...\n";
-            p_world->DestroyJoint(joint);
+            if(!jointsAlreadyDestroyed)
+                p_world->DestroyJoint(joint);
 
             joint = nullptr;//pour eviter une repetition
             std::cout<<"joint 1 destroyed\n";
@@ -165,7 +166,8 @@ void Player::onCommand(sf::Event e)
         if(joint2 != nullptr)
         {
             std::cout<<"destroying joint 2...\n";
-            p_world->DestroyJoint(joint2);
+            if(!jointsAlreadyDestroyed)
+                p_world->DestroyJoint(joint2);
             joint2 = nullptr;
             std::cout<<"joint 2 destroyed\n";
         }
@@ -440,7 +442,7 @@ void Player::stickProjectile(int projectile,b2Fixture* fixtureTarget)
     weldJointDef.localAnchorB = weldJointDef.bodyB->GetLocalPoint( worldCoordsAnchorPoint );
     weldJointDef.referenceAngle = weldJointDef.bodyB->GetAngle() - weldJointDef.bodyA->GetAngle();
     ///SECOND
-    worldCoordsAnchorPoint =(weaponsMap[projectile])->GetWorldPoint( b2Vec2(2.f, 0) );
+    worldCoordsAnchorPoint =(weaponsMap[projectile])->GetWorldPoint( b2Vec2(2.f, 6.f) );
     weldJointDef1.bodyA = fixtureTarget->GetBody();
     if (weldJointDef.bodyA == m_body||weldJointDef.bodyA == m_legs||weldJointDef.bodyA == m_head)
         return;
@@ -468,6 +470,7 @@ void Player::stickAll()
         joint2->SetUserData((void*)(JOINTRANGE + 3));
 
         jointExist = false;
+        jointsAlreadyDestroyed = false;
     }
 
 
@@ -475,8 +478,8 @@ void Player::stickAll()
 
 void Player::jointDestroyer()
 {
-    joint = nullptr;
-    joint2 = nullptr;
+    std::cout<<"GOOOOOT YAAAAA!!!"<<std::endl;
+    jointsAlreadyDestroyed = true;
 }
 
 

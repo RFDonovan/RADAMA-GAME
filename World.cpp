@@ -81,6 +81,7 @@ void World::processInput(sf::Event e)
         {
             std::cout<<"deleting 10 01 0 10 1"<<std::endl;
             listOfDeletedHuman.push_back(humans[0]);
+            humans.erase(humans.begin());
             std::cout<<"contenu de human"<<humans.size()<<std::endl;
             //delete humans[1];
         }
@@ -185,7 +186,8 @@ void World::draw(sf::Time frameTime)
         if(humans[i]->getY() > mWindow.getSize().y)
         {
             std::cout<< "ito suppr";
-            delete humans[i];
+            listOfDeletedHuman.push_back(humans[i]);
+            //delete humans[i];
             humans.erase(humans.begin()+i);
             continue;
 
@@ -442,7 +444,7 @@ void World::sheduleRemove()
     {
         delete listOfDeletedHuman[i];
         listOfDeletedHuman.erase(listOfDeletedHuman.begin()+i);
-        humans.erase(humans.begin());
+
 
     }
 }

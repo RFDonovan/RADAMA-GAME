@@ -69,7 +69,8 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
       rJointDef.localAnchorB = rJointDef.bodyB->GetLocalPoint( m_legs->GetWorldPoint(b2Vec2(0, 0)) );
       rJointDef.referenceAngle = rJointDef.bodyB->GetAngle() - rJointDef.bodyA->GetAngle();
       rJointDef.enableLimit = true;
-      world->CreateJoint( &rJointDef );
+      b2Joint * j = world->CreateJoint( &rJointDef );
+      j->SetUserData((void*)(JOINTRANGE + 1));
 /// ///////////
 
 ///tete
@@ -92,8 +93,8 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
       rJointDef.localAnchorB = rJointDef.bodyB->GetLocalPoint( m_head->GetWorldPoint(b2Vec2(0, 0)) );
       rJointDef.referenceAngle = rJointDef.bodyB->GetAngle() - rJointDef.bodyA->GetAngle();
       rJointDef.enableLimit = true;
-      b2Joint * j = world->CreateJoint( &rJointDef );
-      j->SetUserData((void*)(JOINTRANGE + 1));
+      b2Joint * j1 = world->CreateJoint( &rJointDef );
+      j1->SetUserData((void*)(JOINTRANGE + 1));
 
 /// ///////////
 

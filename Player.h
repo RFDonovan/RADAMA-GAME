@@ -39,6 +39,7 @@ public:
     b2Joint * joint = nullptr;
     b2Joint * joint2 = nullptr;
     bool jointExist = false;
+    bool jointsAlreadyDestroyed = false;
 
     float distortionFactor = .2f;
     float riseFactor = .5f;
