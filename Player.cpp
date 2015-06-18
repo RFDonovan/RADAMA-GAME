@@ -401,7 +401,7 @@ void Player::renderWeapons(sf::RenderWindow& mWindow)
 }
 
 
-void    Player::impactTo(b2Fixture* fixtureSource, b2Fixture* fixtureTarget)
+void    Player::impactTo(b2Fixture* fixtureSource, b2Fixture* fixtureTarget, float impulse)
 {
     void* fixData = fixtureSource->GetUserData();
     if(fixData)
@@ -410,7 +410,8 @@ void    Player::impactTo(b2Fixture* fixtureSource, b2Fixture* fixtureTarget)
     }
     if(weaponToName[(int)fixData-identificationArme].compare("lefona")==0
        || weaponToName[(int)fixData-identificationArme].compare("lefonaMiloko")==0)
-        stickProjectile((int)fixData-identificationArme, fixtureTarget);
+       if(impulse > 40)///d'habitude c'est >50
+            stickProjectile((int)fixData-identificationArme, fixtureTarget);
 
 }
 void Player::stickProjectile(int projectile,b2Fixture* fixtureTarget)

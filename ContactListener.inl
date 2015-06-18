@@ -124,19 +124,20 @@ std::cout<<"userdata exist\n";
         if(userDataA && ((ObjectType*)userDataA)->getClassName() == PLAYER)//&&fixture->GetBody()->GetLinearVelocity().x
         {
             //b2Body* arrowBody = fixtureA->GetBody();
-            ((Player*)userDataA)->impactTo(fixtureA, fixtureB);
+            ((Player*)userDataA)->impactTo(fixtureA, fixtureB,(float)impulse->normalImpulses[0]);
+
             /*if(fixtureA->GetFriction() == 0.735f)
             {
                 ((Player*)userDataA)->stickProjectile(fixtureB);
                 fixtureA->SetDensity(0.f);
             }*/
 
-            //std::cout<<"arrowbody trouve";
+            //std::cout<<"IMPULSE:"<<impulse->normalImpulses[0];
         }
         if(userDataB && ((ObjectType*)userDataB)->getClassName() == PLAYER)
         {
             //b2Body* arrowBody = fixtureB->GetBody();0
-            ((Player*)userDataB)->impactTo(fixtureB, fixtureA);
+            ((Player*)userDataB)->impactTo(fixtureB, fixtureA,(float)impulse->normalImpulses[0]);
             /*if(fixtureB->GetFriction() == 0.735f)
             {
                 ((Player*)userDataB)->stickProjectile(fixtureA);
