@@ -63,22 +63,34 @@ World::World(sf::RenderWindow& window)
 
 void World::processInput(sf::Event e)
 {
+    if(!paused) /// ******************************************************************>>>>PAUSE
+        if(!editMode)
+        {
+            //std::cout<<"passer la commande "<<std::endl;
+            ePlayer->onCommand(e);
+            //return;
+        }
+
+
     if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
     {
-        MouseMove(b2Vec2(getMousePos().x/RATIO, getMousePos().y/RATIO));
+        if(editMode)
+            MouseMove(b2Vec2(getMousePos().x/RATIO, getMousePos().y/RATIO));
     }
 
     switch(e.type)
     {
     case sf::Event::MouseButtonPressed:
         {
-            MouseDown(b2Vec2(getMousePos().x/RATIO, getMousePos().y/RATIO));
-            std::cout<<"positon mouse:" <<getMousePos().y<<std::endl;
+            if(editMode)
+                MouseDown(b2Vec2(getMousePos().x/RATIO, getMousePos().y/RATIO));
+            //std::cout<<"positon mouse:" <<getMousePos().y<<std::endl;
         }
         break;
     case sf::Event::MouseButtonReleased:
         {
-            MouseUp();
+            if(editMode)
+                MouseUp();
         }
         break;
     case sf::Event::KeyReleased:
@@ -119,9 +131,6 @@ void World::processInput(sf::Event e)
     if (e.type == sf::Event::GainedFocus)
         resume();
 
-    if(!paused) /// ******************************************************************>>>>PAUSE
-        if(!editMode)
-            ePlayer->onCommand(e);
 }
 
 void World::updateView(sf::Vector2f view)

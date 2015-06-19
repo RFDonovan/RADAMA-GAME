@@ -197,7 +197,7 @@ void Player::onCommand(sf::Event e)
         //force = std::sqrt(force);
         velocityForce = sf::Vector2f();
 
-        if (desiredVel > velocityLimit)p_world->DestroyJoint(joint);
+        if (desiredVel > velocityLimit)
             desiredVel = velocityLimit;
         if (desiredVel <- velocityLimit)
             desiredVel = -velocityLimit;
