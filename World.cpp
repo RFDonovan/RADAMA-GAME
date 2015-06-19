@@ -154,8 +154,10 @@ void World::draw(sf::Time frameTime)
     if(!paused)/// ******************************************************************>>>>PAUSE
     {
         p_world.Step(1/60.f,6,2);
+        /// LES FONCTIONS QUI SONT EN DEHORS DU STEP : suppressions securisE des bodies ou changements des datas comme setActive
         sheduleRemove();
         ePlayer->stickAll();
+        /// ----------------------------------------
         p_world.ClearForces();
         mWindow.setMouseCursorVisible(false);
 
@@ -266,8 +268,10 @@ void World::buildScene()
     Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H);
     humans.push_back(e);
 
-    bodyData essaie = xLoad->loadXML("Resources/lefona.xml");
-    ePlayer->loadWeapon(&essaie);
+    bodyData lefona1 = xLoad->loadXML("Resources/lefona.xml");
+    ePlayer->loadWeapon(&lefona1);
+    bodyData lefona2 = xLoad->loadXML("Resources/lefonaMiloko.xml");
+    ePlayer->loadWeapon(&lefona2);
 
 
 

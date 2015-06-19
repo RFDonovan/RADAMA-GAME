@@ -35,6 +35,7 @@ public:
     std::vector<b2Fixture*>         addFixtures(b2Body* body, pugi::xml_node bodyNode);
     std::vector<b2Fixture*>         createEdgeShape(b2Body* body, pugi::xml_node fixtureNode);
     b2Fixture*  createPolygonShape(b2Body* body, pugi::xml_node fixtureNode);
+    b2Fixture*  createRectangleShape(b2Body* body, pugi::xml_node fixtureNode);
     b2Fixture*  createCircleShape(b2Body* body, pugi::xml_node fixtureNode);
 
     sf::Sprite*        loadImage(std::string imageName);

@@ -110,6 +110,8 @@ std::vector<b2Fixture*> XMLLoader::addFixtures(b2Body* body, pugi::xml_node body
 
             else if(shapeType.compare("polygonShape") == 0)
                 fixture = createPolygonShape(body, fixture1);
+                else if(shapeType.compare("rectangleShape") == 0)
+                    fixture = createRectangleShape(body, fixture1);
             if(fixture)
                 fixtureList.push_back(fixture);
             std::cout<<"fixtures crEEEEEEEEEEEEEEEEE"<<std::endl;
@@ -182,6 +184,28 @@ b2Fixture*   XMLLoader::createPolygonShape(b2Body* body, pugi::xml_node fixtureN
     }
     b2PolygonShape Shape;
     Shape.Set(vertices, n);
+    FixtureDef.shape = &Shape;
+    b2Fixture* fixture = body->CreateFixture(&FixtureDef);
+    //fixture->SetUserData(this);
+
+    //return fixture;
+}
+
+b2Fixture*   XMLLoader::createRectangleShape(b2Body* body, pugi::xml_node fixtureNode)
+///CREATE POLYGONS
+{
+
+    b2FixtureDef FixtureDef;
+
+    FixtureDef.density = fixtureNode.attribute("density").as_float();
+    FixtureDef.friction = fixtureNode.attribute("friction").as_float();
+    FixtureDef.restitution = fixtureNode.attribute("restitution").as_float();
+    //FixtureDef.shape = &Shape;
+
+
+    b2PolygonShape Shape;
+    Shape.SetAsBox(fixtureNode.attribute("width").as_float()/RATIO,
+                   fixtureNode.attribute("height").as_float()/RATIO);
     FixtureDef.shape = &Shape;
     b2Fixture* fixture = body->CreateFixture(&FixtureDef);
     //fixture->SetUserData(this);

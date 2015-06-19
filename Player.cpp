@@ -9,7 +9,7 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
 
     loadPlayerSprite(Textures);
     currentAnimation = &stopRight;///POUR LE STANDBY ANIMATION
-    createWeapons();
+    ///createWeapons(); je vais desactiver celui ci
 
     currentProjectile = nameToWeapon["lefona"];
 }
@@ -431,7 +431,7 @@ void Player::stickProjectile(int projectile,b2Fixture* fixtureTarget)
 {
 
 
-    worldCoordsAnchorPoint =(weaponsMap[projectile])->GetWorldPoint( b2Vec2(0.6f, 0) );
+    worldCoordsAnchorPoint =(weaponsMap[projectile])->GetWorldPoint( b2Vec2(2.6f, 0.f) );
     weldJointDef.bodyA = fixtureTarget->GetBody();
     if (weldJointDef.bodyA == m_body||weldJointDef.bodyA == m_legs||weldJointDef.bodyA == m_head)
         return;
