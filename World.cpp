@@ -10,6 +10,8 @@ World::World(sf::RenderWindow& window)
     , pauseLayer(sf::Vector2f(WINDOW_W, WINDOW_H))
 
 {
+
+    m_mouseJoint = NULL;
     window.setVerticalSyncEnabled(true);
     p_world.SetDebugDraw(&debugDrawInstance);
 
@@ -55,15 +57,30 @@ World::World(sf::RenderWindow& window)
 
 
     ///***********************************
+    b2BodyDef bodyDef;
+	m_groundBody = p_world.CreateBody(&bodyDef);
 }
 
 void World::processInput(sf::Event e)
 {
-    /*if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-        paused = !paused;*/
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+    {
+        MouseMove(b2Vec2(getMousePos().x/RATIO, getMousePos().y/RATIO));
+    }
 
     switch(e.type)
     {
+    case sf::Event::MouseButtonPressed:
+        {
+            MouseDown(b2Vec2(getMousePos().x/RATIO, getMousePos().y/RATIO));
+            std::cout<<"positon mouse:" <<getMousePos().y<<std::endl;
+        }
+        break;
+    case sf::Event::MouseButtonReleased:
+        {
+            MouseUp();
+        }
+        break;
     case sf::Event::KeyReleased:
         if(e.key.code == sf::Keyboard::Escape)
         {
@@ -76,6 +93,12 @@ void World::processInput(sf::Event e)
         if(e.key.code == sf::Keyboard::V)
         {
             debugDrawInstance.SetFlags(b2Draw::e_shapeBit|b2Draw::e_jointBit);
+        }
+        if(e.key.code == sf::Keyboard::E)
+        {
+            editMode = !editMode;
+            std::cout<<"MODE EDITION: "<<editMode<<std::endl;
+
         }
         if(e.key.code == sf::Keyboard::A)
         {
@@ -97,13 +120,8 @@ void World::processInput(sf::Event e)
         resume();
 
     if(!paused) /// ******************************************************************>>>>PAUSE
-        /*for (int i = 0 ;i < entities.size() ; i++ )
-        {
-            if(entities[i]->kind == Entity::Player)
-                ((Player*)entities[i])->onCommand(e);
-
-        }*/
-        ePlayer->onCommand(e);
+        if(!editMode)
+            ePlayer->onCommand(e);
 }
 
 void World::updateView(sf::Vector2f view)
@@ -121,15 +139,7 @@ void World::update()
 
     sf::Vector2f playerPosition(0.0f,0.0f);
 
-    /*
-    for (int i = 0 ;i < entities.size() ; i++ )
-    {
-        if(entities[i]->kind == Entity::Player)
-            ((Player*)entities[i])->processLogic();
-        //entities[i]->processLogic(mWindow);
 
-    }
-    //*/
     ePlayer->processLogic();
     mWorldView.move(playerPosition);
     adaptViewToPlayer();
@@ -159,7 +169,7 @@ void World::draw(sf::Time frameTime)
         ePlayer->stickAll();
         /// ----------------------------------------
         p_world.ClearForces();
-        mWindow.setMouseCursorVisible(false);
+        //mWindow.setMouseCursorVisible(false);
 
     }
 
@@ -372,75 +382,6 @@ void World::resume()
     paused = false;
     std::cout<<"resume";
 }
-/*
-int World::loadLevel(std::string filename)
-{
-    pugi::xml_document doc;
-    if (!doc.load_file(filename.c_str()))
-    {
-        std::cout << "error on loading "<<filename<< "\n";
-        return -1;
-    }
-
-    pugi::xml_node bodiesNode = doc.child("box2d").child("bodies");
-
-    for (pugi::xml_node node = bodiesNode.first_child(); node ; node = node.next_sibling())
-        ///BODIES LEVEL ITERATION
-    {
-        std::cout<< node.name()<<"-----------\n";
-        createBody(node, node.child("fixtures"));
-
-    }
-    return 1;
-}
-
-void World::createBody(pugi::xml_node body, pugi::xml_node fixtures)
-{
-    std::map<std::string , int> shapeMap;
-    std::map<std::string, b2BodyType> bodyType;
-
-    bodyType["dynamic"] = b2_dynamicBody;
-    bodyType["static"] = b2_staticBody;
-    bodyType["kinematic"] = b2_kinematicBody;
-
-
-    /// BODY DEFINITION
-    b2Body * mBody;
-    b2BodyDef myBodyDef;
-    myBodyDef.type = bodyType[body.attribute("type").as_string()];
-    std::cout<<"x:"<<(float32)body.attribute("x").as_float()/RATIO<<"y:"<<(float32) body.attribute("y").as_float()/RATIO;
-    myBodyDef.position.Set((float32)body.attribute("x").as_float()/RATIO,-(float32) body.attribute("y").as_float()/RATIO);
-    mBody = p_world.CreateBody(&myBodyDef);
-
-///*
-    for (pugi::xml_node nodeSon = fixtures.first_child(); nodeSon ; nodeSon = nodeSon.next_sibling() )
-        ///FIXTURES LEVEL ITERATION
-    {
-
-        std::cout<< "--------"<<nodeSon.name()<<"-----------\n";
-        b2EdgeShape Shape;
-
-        b2FixtureDef FixtureDef;
-        //FixtureDef.density = 0.5f;
-        FixtureDef.density = 10.f;//nodeSon.attribute("density").as_float();
-        //FixtureDef.friction = 1.0f;
-        FixtureDef.friction = nodeSon.attribute("friction").as_float();
-        //FixtureDef.restitution = 0.f;
-        FixtureDef.shape = &Shape;
-///*
-        for(pugi::xml_node vertice = nodeSon.first_child(); vertice; vertice = vertice.next_sibling())
-            ///PARCOURS DES VERTEX
-        {
-            Shape.Set(b2Vec2((float32)vertice.attribute("x").as_int()/RATIO,-(float32)vertice.attribute("y").as_int()/RATIO),b2Vec2((float32)vertice.next_sibling().attribute("x").as_int()/RATIO,-(float32)vertice.next_sibling().attribute("y").as_int()/RATIO));
-            std::cout<<"coord"<<(float32)vertice.attribute("x").as_float()/RATIO<< ","<<vertice.attribute("y").as_int()/RATIO<<" ; "<<vertice.next_sibling().attribute("x").as_int()/RATIO<<","<<vertice.next_sibling().attribute("y").as_int()/RATIO<<"\n";
-            mBody->CreateFixture(&FixtureDef);
-        }
-        //mBody->SetUserData(grounds[0]);
-
-    }///
-    mBody->SetUserData(grounds[0]);
-}
-*/
 
 void World::sheduleRemove()
 {
@@ -452,4 +393,69 @@ void World::sheduleRemove()
 
     }
 }
+///MOUSE TRICKS************************************
+
+void World::MouseDown(const b2Vec2& p)
+{
+    std::cout<<"start MOUSEDOWN"<<std::endl;
+	m_mouseWorld = p;
+
+	if (m_mouseJoint != NULL)
+	{
+	    std::cout<<"MOUSEDOWN: mousejoint !null"<<std::endl;
+		return;
+	}
+
+	// Make a small box.
+	b2AABB aabb;
+	b2Vec2 d;
+	d.Set(0.001f, 0.001f);
+	aabb.lowerBound = p - d;
+	aabb.upperBound = p + d;
+
+	// Query the world for overlapping shapes.
+	QueryCallback callback(p);
+	(&p_world)->QueryAABB(&callback, aabb);
+
+	if (callback.m_fixture)
+	{
+		b2Body* body = callback.m_fixture->GetBody();
+		b2MouseJointDef md;
+		md.bodyA = m_groundBody;
+		md.bodyB = body;
+		md.target = p;
+		md.maxForce = 1000.0f * body->GetMass();
+		m_mouseJoint = (b2MouseJoint*)(&p_world)->CreateJoint(&md);
+		body->SetAwake(true);
+	}
+	std::cout<<"posY:"<<p.y<<std::endl;
+	std::cout<<"end MOUSEDOWN"<<std::endl;
+}
+void World::MouseUp()
+{
+    std::cout<<"start MOUSEUP"<<std::endl;
+	if (m_mouseJoint)
+	{
+        std::cout<<"MOUSEUP destroy something.."<<std::endl;
+		(&p_world)->DestroyJoint(m_mouseJoint);
+		m_mouseJoint = NULL;
+		std::cout<<"MOUSEUP destroyed something"<<std::endl;
+	}
+	std::cout<<"end MOUSEUP"<<std::endl;
+}
+
+void World::MouseMove(const b2Vec2& p)
+{
+    std::cout<<"start MOUSEMOVE"<<std::endl;
+	m_mouseWorld = p;
+
+	if (m_mouseJoint)
+	{
+		m_mouseJoint->SetTarget(p);
+	}
+	std::cout<<"end MOUSEMOVE"<<std::endl;
+}
+
+
+///*****************MOUSE TRICKS************************************
 
