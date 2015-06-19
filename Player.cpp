@@ -12,6 +12,7 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
     ///createWeapons(); je vais desactiver celui ci
 
     currentProjectile = nameToWeapon["lefona"];
+
 }
 
 void Player::loadPlayerSprite(TextureHolder* Textures)

@@ -1,5 +1,11 @@
 #include "XMLLoader.hpp"
-
+/**
+    BOUNDARY =          0x0001,
+    FRIENDLY_SHIP =     0x0002,
+    ENEMY_SHIP =        0x0004,
+    FRIENDLY_AIRCRAFT = 0x0008,
+    ENEMY_AIRCRAFT =    0x0010,
+*/
 XMLLoader::XMLLoader(b2World* world)
     : p_world(world)
 {
@@ -67,6 +73,7 @@ b2Body* XMLLoader::createBody(int bodyType, pugi::xml_node bodyNode)
     b2Body * mBody;
     b2BodyDef myBodyDef;
     myBodyDef.type = (b2BodyType)bodyType;
+    myBodyDef.bullet = bodyNode.attribute("bullet").as_bool();
     //std::cout<<"x:"<<(float32)bodyNode.attribute("x").as_float()/RATIO<<"y:"<<(float32) bodyNode.attribute("y").as_float()/RATIO;
     myBodyDef.position.Set((float32)bodyNode.attribute("x").as_float()/RATIO,-(float32) bodyNode.attribute("y").as_float()/RATIO);
     mBody = p_world->CreateBody(&myBodyDef);
@@ -115,6 +122,7 @@ std::vector<b2Fixture*> XMLLoader::addFixtures(b2Body* body, pugi::xml_node body
             if(fixture)
                 fixtureList.push_back(fixture);
             std::cout<<"fixtures crEEEEEEEEEEEEEEEEE"<<std::endl;
+
         }
     }
     return fixtureList;
@@ -129,6 +137,13 @@ std::vector<b2Fixture*>   XMLLoader::createEdgeShape(b2Body* body, pugi::xml_nod
 
     b2EdgeShape Shape;
     b2FixtureDef FixtureDef;
+    ///COLLISION FILTERING
+    if(strcmp(fixtureNode.attribute("categoryBits").value(), "") != 0)
+        FixtureDef.filter.categoryBits = (uint16)fixtureNode.attribute("categoryBits").as_uint();
+        //exit(-1);
+    if(strcmp(fixtureNode.attribute("maskBits").value(), "") != 0)
+        FixtureDef.filter.maskBits = (uint16)fixtureNode.attribute("maskBits").as_uint();
+    ///------------------
 
     FixtureDef.density = fixtureNode.attribute("density").as_float();
     FixtureDef.friction = fixtureNode.attribute("friction").as_float();
@@ -161,6 +176,13 @@ b2Fixture*   XMLLoader::createPolygonShape(b2Body* body, pugi::xml_node fixtureN
 {
 
     b2FixtureDef FixtureDef;
+    ///COLLISION FILTERING
+    if(strcmp(fixtureNode.attribute("categoryBits").value(), "") != 0)
+        FixtureDef.filter.categoryBits = (uint16)fixtureNode.attribute("categoryBits").as_uint();
+        //exit(-1);
+    if(strcmp(fixtureNode.attribute("maskBits").value(), "") != 0)
+        FixtureDef.filter.maskBits = (uint16)fixtureNode.attribute("maskBits").as_uint();
+    ///------------------
 
     FixtureDef.density = fixtureNode.attribute("density").as_float();
     FixtureDef.friction = fixtureNode.attribute("friction").as_float();
@@ -196,6 +218,15 @@ b2Fixture*   XMLLoader::createRectangleShape(b2Body* body, pugi::xml_node fixtur
 {
 
     b2FixtureDef FixtureDef;
+    ///COLLISION FILTERING
+    if(strcmp(fixtureNode.attribute("categoryBits").value(), "") != 0)
+        FixtureDef.filter.categoryBits = (uint16)fixtureNode.attribute("categoryBits").as_uint();
+        //exit(-1);
+    if(strcmp(fixtureNode.attribute("maskBits").value(), "") != 0)
+        FixtureDef.filter.maskBits = (uint16)fixtureNode.attribute("maskBits").as_uint();
+    ///------------------
+    std::cout<<"categoryBits: "<<(uint16)fixtureNode.attribute("categoryBits").as_uint()<<std::endl;
+    std::cout<<"maskbit: "<<(uint16)fixtureNode.attribute("maskBits").as_uint()<<std::endl;
 
     FixtureDef.density = fixtureNode.attribute("density").as_float();
     FixtureDef.friction = fixtureNode.attribute("friction").as_float();

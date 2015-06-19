@@ -288,7 +288,7 @@ void World::adaptViewToPlayer()
     /**player always at 2/3 of scren*/
     /**except at the begining or at the end of the level*/
 
-    if(ePlayer->getX() < WINDOW_W/3)
+    if(ePlayer->getX() < WINDOW_W/2)
         return;
 
 
