@@ -85,6 +85,8 @@ public:
 
     std::vector<Ground*>    grounds;
 
+    bool rebuild = false;
+
 
 
 

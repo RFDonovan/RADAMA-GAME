@@ -71,6 +71,7 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
       rJointDef.enableLimit = true;
       b2Joint * j = world->CreateJoint( &rJointDef );
       j->SetUserData((void*)(JOINTRANGE + 1));
+      jointList.push_back(j);
 /// ///////////
 
 ///tete
@@ -95,6 +96,7 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
       rJointDef.enableLimit = true;
       b2Joint * j1 = world->CreateJoint( &rJointDef );
       j1->SetUserData((void*)(JOINTRANGE + 1));
+      jointList.push_back(j1);
 
 /// ///////////
 
@@ -160,9 +162,18 @@ void Entity::endContact(b2Fixture   *fixture)
 
 }
 
+void Entity::wipeJoints()
+{
+    for (int i = 0; i< jointList.size(); i++)
+    {
+        p_world->DestroyJoint(jointList[i]);
+        jointList.erase(jointList.begin()+i);
+    }
+}
 
 Entity::~Entity()
 {
+    wipeJoints();
     p_world->DestroyBody(m_body);
     p_world->DestroyBody(m_legs);
     p_world->DestroyBody(m_head);

@@ -29,6 +29,7 @@ public:
     b2Body* m_body, *m_legs, *m_head;
     float   m_radius;
     Type    kind;
+    std::vector<b2Joint *>      jointList;
 
     sf::RenderWindow& mWindow;
 
@@ -78,7 +79,7 @@ public:
 
     int     getObjectType(){return ENTITY;}
 
-
+    void    wipeJoints();
 
             ~Entity();
 };

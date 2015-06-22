@@ -58,7 +58,7 @@ World::World(sf::RenderWindow& window)
 
     ///***********************************
     b2BodyDef bodyDef;
-	m_groundBody = p_world.CreateBody(&bodyDef);
+    m_groundBody = p_world.CreateBody(&bodyDef);
 }
 
 void World::processInput(sf::Event e)
@@ -81,22 +81,26 @@ void World::processInput(sf::Event e)
     switch(e.type)
     {
     case sf::Event::MouseButtonPressed:
-        {
-            if(editMode)
-                MouseDown(b2Vec2(getMousePos().x/RATIO, getMousePos().y/RATIO));
-            //std::cout<<"positon mouse:" <<getMousePos().y<<std::endl;
-        }
-        break;
+    {
+        if(editMode)
+            MouseDown(b2Vec2(getMousePos().x/RATIO, getMousePos().y/RATIO));
+        //std::cout<<"positon mouse:" <<getMousePos().y<<std::endl;
+    }
+    break;
     case sf::Event::MouseButtonReleased:
-        {
-            if(editMode)
-                MouseUp();
-        }
-        break;
+    {
+        if(editMode)
+            MouseUp();
+    }
+    break;
     case sf::Event::KeyReleased:
         if(e.key.code == sf::Keyboard::Escape)
         {
             paused = !paused;
+        }
+        if(e.key.code == sf::Keyboard::BackSpace)
+        {
+            rebuildScene();
         }
         if(e.key.code == sf::Keyboard::C)
         {
@@ -174,8 +178,9 @@ void World::draw(sf::Time frameTime)
     {
         p_world.Step(1/60.f,6,2);
         /// LES FONCTIONS QUI SONT EN DEHORS DU STEP : suppressions securisE des bodies ou changements des datas comme setActive
-        sheduleRemove();
+
         ePlayer->stickAll();
+        sheduleRemove();
         /// ----------------------------------------
         p_world.ClearForces();
         //mWindow.setMouseCursorVisible(false);
@@ -266,37 +271,31 @@ void World::buildScene()
     /**add background*/
     /**add player*/
     //createBox(p_world, 10, 10);
+    std::cout<<"************************************************************************\n";
+    std::cout<<"************************************************************************\n";
+    std::string CurrentDir("./Resources/L1/");
 
 
-    //createGround(p_world, 40.f, 600.f);
-    //if(loadLevel("exported1.xml") == -1)
-      //  return;
-    //level = new GameLevel(&p_world);
-    //level->loadLevel("Resources/level.xml");
-
+    ///LOADING LEVEL
     xLoad = new XMLLoader(&p_world);
-    xLoad->loadXML("Resources/level.xml");
-    //xLoad->loadEntity("Resources/rectangle.xml");
-
-
-    //createGround(p_world, 800.f, 500.f, 200.f,16.f);
-    //createGround(p_world, 500.f, 500.f, 200.f,16.f);
+    xLoad->loadXML(CurrentDir + "level.xml", CurrentDir);
 
     ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
     std::cout<<"creation d'une deuxieme entite";
     Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H);
     humans.push_back(e);
-/*
-    bodyData lefona1 = xLoad->loadXML("Resources/lefona.xml");
-    ePlayer->loadWeapon(&lefona1);
-    bodyData lefona2 = xLoad->loadXML("Resources/lefonaMiloko.xml");
-    ePlayer->loadWeapon(&lefona2);
+    /*
+        bodyData lefona1 = xLoad->loadXML("Resources/lefona.xml");
+        ePlayer->loadWeapon(&lefona1);
+        bodyData lefona2 = xLoad->loadXML("Resources/lefonaMiloko.xml");
+        ePlayer->loadWeapon(&lefona2);
 
-    bodyData vato = xLoad->loadXML("Resources/vato.xml");
-    ePlayer->loadWeapon(&vato);
-*/
+        bodyData vato = xLoad->loadXML("Resources/vato.xml");
+        ePlayer->loadWeapon(&vato);
+    */
     ///LOADING WEAPONS
-    std::string weaponDir("./Resources/Weapons/");
+
+    std::string weaponDir(CurrentDir + "Weapons/");
     DIR* dir;
     dirent* pdir;
     dir = opendir(weaponDir.c_str());
@@ -316,7 +315,7 @@ void World::buildScene()
 
     }
     closedir(dir);
-
+    ///------------------
 
 
 }
@@ -329,7 +328,9 @@ void World::rebuildScene()
 {
     //level->clearAll();
     //level = nullptr;
-    buildScene();
+    //p_world.
+    rebuild = true;
+
 }
 
 void World::adaptViewToPlayer()
@@ -424,6 +425,42 @@ void World::resume()
 
 void World::sheduleRemove()
 {
+    if(rebuild)
+    {
+
+        //for (b2body* b = p_world.get)
+
+        for (int i = 0; i < humans.size(); i++)
+        {
+            delete humans[i];
+            humans.erase(humans.begin()+i);
+        }
+
+
+        b2Joint * j = p_world.GetJointList();
+        while(j)
+        {
+            b2Joint* j1 = j;
+            j = j->GetNext();
+            p_world.DestroyJoint(j1);
+        }
+
+        b2Body * b = p_world.GetBodyList();
+        while(b)
+        {
+            b2Body* b1 = b;
+            b = b->GetNext();
+            p_world.DestroyBody(b1);
+        }
+        ePlayer = nullptr;
+
+        rebuild = false;
+        m_mouseJoint = NULL;///MUST set to NULL
+        buildScene();
+
+    }
+
+
     for (int i = 0 ; i < listOfDeletedHuman.size() ; i++ )
     {
         delete listOfDeletedHuman[i];
@@ -437,62 +474,68 @@ void World::sheduleRemove()
 void World::MouseDown(const b2Vec2& p)
 {
     std::cout<<"start MOUSEDOWN"<<std::endl;
-	m_mouseWorld = p;
+    m_mouseWorld = p;
 
-	if (m_mouseJoint != NULL)
-	{
-	    std::cout<<"MOUSEDOWN: mousejoint !null"<<std::endl;
-		return;
-	}
+    if (m_mouseJoint != NULL)
+    {
+        std::cout<<"MOUSEDOWN: mousejoint !null"<<std::endl;
+        return;
+    }
+    else
+    {
+        // Make a small box.
+        b2AABB aabb;
+        b2Vec2 d;
+        d.Set(0.001f, 0.001f);
+        aabb.lowerBound = p - d;
+        aabb.upperBound = p + d;
 
-	// Make a small box.
-	b2AABB aabb;
-	b2Vec2 d;
-	d.Set(0.001f, 0.001f);
-	aabb.lowerBound = p - d;
-	aabb.upperBound = p + d;
-
-	// Query the world for overlapping shapes.
-	QueryCallback callback(p);
-	(&p_world)->QueryAABB(&callback, aabb);
-
-	if (callback.m_fixture)
-	{
-		b2Body* body = callback.m_fixture->GetBody();
-		b2MouseJointDef md;
-		md.bodyA = m_groundBody;
-		md.bodyB = body;
-		md.target = p;
-		md.maxForce = 1000.0f * body->GetMass();
-		m_mouseJoint = (b2MouseJoint*)(&p_world)->CreateJoint(&md);
-		body->SetAwake(true);
-	}
-	std::cout<<"posY:"<<p.y<<std::endl;
-	std::cout<<"end MOUSEDOWN"<<std::endl;
+        // Query the world for overlapping shapes.
+        QueryCallback callback(p);
+        (&p_world)->QueryAABB(&callback, aabb);
+        if (callback.m_fixture)
+        {
+            std::cout<<"Callback launching..."<<std::endl;
+            b2Body* body = callback.m_fixture->GetBody();
+            std::cout<<"get body...OK"<<std::endl;
+            b2MouseJointDef md;
+            md.bodyA = m_groundBody;
+            md.bodyB = body;
+            md.target = p;
+            md.maxForce = 1000.0f * body->GetMass();
+            std::cout<<"get mass...OK"<<std::endl;
+            m_mouseJoint = (b2MouseJoint*)p_world.CreateJoint(&md);
+            std::cout<<"create joint...OK"<<std::endl;
+            //body->SetAwake(true);
+        }
+        std::cout<<"posY:"<<p.y<<std::endl;
+        std::cout<<"end MOUSEDOWN"<<std::endl;
+    }
 }
 void World::MouseUp()
 {
     std::cout<<"start MOUSEUP"<<std::endl;
-	if (m_mouseJoint)
-	{
+    if (m_mouseJoint !=  NULL)
+    {
         std::cout<<"MOUSEUP destroy something.."<<std::endl;
-		(&p_world)->DestroyJoint(m_mouseJoint);
-		m_mouseJoint = NULL;
-		std::cout<<"MOUSEUP destroyed something"<<std::endl;
-	}
-	std::cout<<"end MOUSEUP"<<std::endl;
+        (&p_world)->DestroyJoint(m_mouseJoint);
+        m_mouseJoint = NULL;
+        std::cout<<"MOUSEUP destroyed something"<<std::endl;
+    }
+    std::cout<<"end MOUSEUP"<<std::endl;
 }
 
 void World::MouseMove(const b2Vec2& p)
 {
     std::cout<<"start MOUSEMOVE"<<std::endl;
-	m_mouseWorld = p;
+    m_mouseWorld = p;
 
-	if (m_mouseJoint)
-	{
-		m_mouseJoint->SetTarget(p);
-	}
-	std::cout<<"end MOUSEMOVE"<<std::endl;
+    if (m_mouseJoint != NULL)
+    {
+        std::cout<<"setting target"<<std::endl;
+        m_mouseJoint->SetTarget(p);
+    }
+    std::cout<<"end MOUSEMOVE"<<std::endl;
 }
 
 

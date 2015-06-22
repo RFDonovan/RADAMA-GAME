@@ -31,7 +31,7 @@ public:
     //Projectile currentProjectile = Projectile::lefona;
     int currentProjectile = 0;
     int identificationArme = 20000;///fixture->setUserData((void*)(identificationArme + numero))pour identifier le numero d'un arme, on soustrait l'object data avec celui ci
-    std::vector<b2Body*>    stickingProjectile;
+    //std::vector<b2Body*>    stickingProjectile;
     float angle;
 
     b2RevoluteJointDef weldJointDef, weldJointDef1;
@@ -65,6 +65,8 @@ public:
     void    impactTo(b2Fixture* fixtureSource, b2Fixture* fixtureTarget, float impulse);
     void    stickAll();
     void    jointDestroyer();
+
+    void    clearAll();
 
 };
 

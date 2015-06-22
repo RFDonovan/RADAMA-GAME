@@ -480,7 +480,24 @@ void Player::jointDestroyer()
 {
     std::cout<<"GOOOOOT YAAAAA!!!"<<std::endl;
     jointsAlreadyDestroyed = true;
+    //jointExist =  true;
 }
 
+void Player::clearAll()
+{
+    std::vector<b2Body*>    weapons;
+    std::map<int, b2Body*>  weaponsMap;///map <PROJECTILEREF, BODY>
+    std::map<std::string, int>  nameToWeapon; ///map <NOM, PROJECTILEREF>
+    std::map<int, std::string>  weaponToName;
+    weaponsMap.clear();
+    nameToWeapon.clear();
+    weaponToName.clear();
+    for (int i = 0; i < weapons.size(); i++)
+    {
+        p_world->DestroyBody(weapons[i]);
+        weapons[i] = nullptr;
+        weapons.erase(weapons.begin()+i);
+    }
 
+}
 
