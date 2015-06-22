@@ -17,8 +17,9 @@ XMLLoader::XMLLoader(b2World* world)
     //attributeMap[]
 }
 
-bodyData XMLLoader::loadXML(std::string XMLFile)
+bodyData XMLLoader::loadXML(std::string XMLFile, std::string dir)
 {
+    std::cout << "directory: "<<dir<< "\n";
     bodyData bData;
     if (!XMLDocument.load_file(XMLFile.c_str()))
     {
@@ -45,11 +46,20 @@ bodyData XMLLoader::loadXML(std::string XMLFile)
         if(body)
         {
             addFixtures(body, node);
-            std::string attrImage(node.attribute("image").as_string());
+            std::stringstream ss2;
+            std::size_t found = XMLFile.find(dir.c_str());
+//            if (found!=std::string::npos)
+//                ss2<<dir<<node.attribute("image").as_string();
+//            else
+            ss2<<node.attribute("image").as_string();
+
+            std::cout << "image : "<<ss2.str()<< "\n";
+            std::string attrImage(ss2.str());
+
             if(!(attrImage.compare("null") == 0))
             {
                 bodyList.push_back(body);
-                bData.sprite = loadImage(attrImage);///Structures.hpp
+                bData.sprite = loadImage(attrImage, dir);///Structures.hpp
             }
             else{
                 bData.sprite = nullptr;
@@ -266,12 +276,13 @@ b2Fixture*   XMLLoader::createCircleShape(b2Body* body, pugi::xml_node fixtureNo
 /// ///////////////////////////////////////////////
 /// //////////////////SPRITES STUFFS////////////////
 
-sf::Sprite* XMLLoader::loadImage(std::string imageName)
+sf::Sprite* XMLLoader::loadImage(std::string imageName, std::string dir)
 {
+    std::cout << "Loading " <<imageName<< std::endl;
     pugi::xml_node imagesNode = XMLDocument.child("box2d").child("images");
     pugi::xml_node image = imagesNode.find_child_by_attribute("image","name",imageName.c_str());
     std::stringstream ss;
-    ss << "./Resources/" <<imageName; ///PEUT ETRE CHANGER?
+    ss <<dir<<imageName; ///PEUT ETRE CHANGER?
     std::string filename = ss.str();
 
     sf::Sprite imgSprite;

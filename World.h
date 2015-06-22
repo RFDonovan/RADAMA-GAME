@@ -4,6 +4,10 @@
 #include<functional>
 #include<vector>
 #include<algorithm>
+#include<sys/stat.h>
+
+///FILESYSTEM
+#include<dirent.h>
 
 #include "pugixml.hpp"
 #include "debugDraw.hpp"
@@ -130,6 +134,8 @@ public:
     void    updateView(sf::Vector2f view);
     void    processInput(sf::Event);
 
+    /**TEST SYSTEM*////
+    bool    fileExist(std::string& filename);
 
     /**CREATING SOMETHINGS*/
     void    createGround(b2World& world, float X, float Y, float W = 600.f, float H = 16.f);

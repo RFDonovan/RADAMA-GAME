@@ -6,6 +6,8 @@
 #include<SFML/Graphics.hpp>
 #include<Box2D/Box2D.h>
 #include<iostream>
+#include<stdio.h>
+#include<stdlib.h>
 #include <sstream>
 #include <string>
 
@@ -30,7 +32,7 @@ public:
 public:
                 XMLLoader(b2World* world);
 
-    bodyData        loadXML(std::string);
+    bodyData        loadXML(std::string XMLFile, std::string dir = "./Resources/");
     b2Body*     createBody(int bodyType, pugi::xml_node bodyNode);
     std::vector<b2Fixture*>         addFixtures(b2Body* body, pugi::xml_node bodyNode);
     std::vector<b2Fixture*>         createEdgeShape(b2Body* body, pugi::xml_node fixtureNode);
@@ -38,7 +40,7 @@ public:
     b2Fixture*  createRectangleShape(b2Body* body, pugi::xml_node fixtureNode);
     b2Fixture*  createCircleShape(b2Body* body, pugi::xml_node fixtureNode);
 
-    sf::Sprite*        loadImage(std::string imageName);
+    sf::Sprite*        loadImage(std::string imageName, std::string dir);
     void        render(sf::RenderWindow& mWindow, sf::Shader* shader);
 
 

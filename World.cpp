@@ -286,14 +286,44 @@ void World::buildScene()
     std::cout<<"creation d'une deuxieme entite";
     Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H);
     humans.push_back(e);
-
+/*
     bodyData lefona1 = xLoad->loadXML("Resources/lefona.xml");
     ePlayer->loadWeapon(&lefona1);
     bodyData lefona2 = xLoad->loadXML("Resources/lefonaMiloko.xml");
     ePlayer->loadWeapon(&lefona2);
 
+    bodyData vato = xLoad->loadXML("Resources/vato.xml");
+    ePlayer->loadWeapon(&vato);
+*/
+    ///LOADING WEAPONS
+    std::string weaponDir("./Resources/Weapons/");
+    DIR* dir;
+    dirent* pdir;
+    dir = opendir(weaponDir.c_str());
+    while (pdir = readdir(dir))
+    {
+        std::string fichier(pdir->d_name);
+        std::size_t found = fichier.find(".xml");
+        if (found!=std::string::npos)
+        {
+            std::stringstream ss;
+            ss << weaponDir<<fichier;
+            bodyData weaponData = xLoad->loadXML(ss.str(),weaponDir);
+            ePlayer->loadWeapon(&weaponData);
+            std::cout<<"**>fichier "<< ss.str() << " chargE " <<std::endl;
+            std::cout<<"**>dir:  "<< weaponDir << " OK " <<std::endl;
+        }
+
+    }
+    closedir(dir);
 
 
+
+}
+bool World::fileExist(std::string& filename)
+{
+    struct stat buffer;
+    return (stat (filename.c_str(), &buffer) == 0);
 }
 void World::rebuildScene()
 {
