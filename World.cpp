@@ -456,6 +456,8 @@ void World::sheduleRemove()
 
         rebuild = false;
         m_mouseJoint = NULL;///MUST set to NULL
+        b2BodyDef bodyDef;
+        m_groundBody = p_world.CreateBody(&bodyDef);
         buildScene();
 
     }
