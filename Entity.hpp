@@ -26,12 +26,17 @@ public:
     };
     //class member variables
 
-
+    struct jointStruct{
+        b2Joint* joint;
+        std::string bodyA;
+        std::string bodyB;
+    };
 
     b2Body* m_body, *m_legs, *m_head;
     float   m_radius;
     Type    kind;
     std::vector<b2Joint *>      jointList;
+    std::vector<jointStruct>      jointBodyList;
     std::map<std::string, b2Body*> bodyList;
 
     sf::RenderWindow& mWindow;
@@ -87,6 +92,7 @@ public:
 
     void    exportToXML(std::string filename);
     void    addBodyNode(pugi::xml_node parent, std::string name, b2Body* body);
+    void    addJointNode(pugi::xml_node parent, std::string name, jointStruct jStruct);
 
             ~Entity();
 };

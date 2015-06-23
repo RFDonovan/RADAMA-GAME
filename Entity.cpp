@@ -72,6 +72,13 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
       b2Joint * j = world->CreateJoint( &rJointDef );
       j->SetUserData((void*)(JOINTRANGE + 1));
       jointList.push_back(j);
+
+      jointStruct js1;
+      js1.joint = j;
+      js1.bodyA = "m_body";
+      js1.bodyB = "m_legs";
+
+      jointBodyList.push_back(js1);
 /// ///////////
 
 ///tete
@@ -98,6 +105,14 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
       j1->SetUserData((void*)(JOINTRANGE + 1));
       jointList.push_back(j1);
 
+      jointStruct js;
+      js.joint = j1;
+      js.bodyA = "m_body";
+      js.bodyB = "m_head";
+
+      jointBodyList.push_back(js);
+
+
 /// ///////////
     bodyList["m_body"] = m_body;
     bodyList["m_head"] = m_head;
@@ -121,6 +136,11 @@ void Entity::exportToXML(std::string filename)
     for (auto b : bodyList)
     {
         addBodyNode(bodies, b.first, b.second);
+    }
+    for (int i = 0; i< jointBodyList.size(); i++)
+    {
+
+        addJointNode(joints, "Jointname", jointBodyList[i]);
     }
 
 
@@ -171,6 +191,32 @@ void Entity::addBodyNode(pugi::xml_node parent, std::string name, b2Body* body)
                   }
 
       }
+}
+
+void Entity::addJointNode(pugi::xml_node parent, std::string name, jointStruct jStruct)
+{
+    std::cout<<"++++++++++++++CREATING XML JOINT\n";
+    b2Joint* j = jStruct.joint;
+    pugi::xml_node joint = parent.append_child("joint");
+    joint.append_attribute("name") = name.c_str();
+    std::cout<<"++++++++++++++ADDING BODY A\n";
+    joint.append_attribute("bodyA") = jStruct.bodyA.c_str();
+    std::cout<<"++++++++++++++ADDING BODY B\n";
+    joint.append_attribute("bodyB") = jStruct.bodyB.c_str();
+    joint.append_attribute("collideConnected") = j->GetCollideConnected();
+    std::cout<<"++++++++++++++COMPARE\n";
+    if (j->GetType() == b2JointType::e_weldJoint)
+    {
+        joint.append_attribute("type") = "WeldJoint";
+    }
+    else if(j->GetType() == b2JointType::e_revoluteJoint)
+            {
+                b2RevoluteJoint* rj = (b2RevoluteJoint*) j;
+                joint.append_attribute("type") = "RevoluteJoint";
+                joint.append_attribute("enableLimit") = rj->IsLimitEnabled();
+                joint.append_attribute("enableMotor") = rj->IsMotorEnabled();
+
+            }
 }
 int Entity::getY()
 {
