@@ -10,6 +10,7 @@
 #include<stdlib.h>
 #include <sstream>
 #include <string>
+#include <map>
 
 //#include "AnimatedSprite.hpp"
 #include "TextureHolder.h"
@@ -35,7 +36,8 @@ public:
 
     std::vector<bodyData>        loadXML(std::string XMLFile, std::string dir = "./Resources/");
     b2Body*     createBody(int bodyType, pugi::xml_node bodyNode);
-    std::vector<b2Fixture*>         addFixtures(b2Body* body, pugi::xml_node bodyNode);
+    std::map<std::string, b2Fixture*>         addFixtures(b2Body* body, pugi::xml_node bodyNode);
+    //std::vector<b2Fixture*>         addFixtures(b2Body* body, pugi::xml_node bodyNode);
     std::vector<b2Fixture*>         createEdgeShape(b2Body* body, pugi::xml_node fixtureNode);
     b2Fixture*  createPolygonShape(b2Body* body, pugi::xml_node fixtureNode);
     b2Fixture*  createRectangleShape(b2Body* body, pugi::xml_node fixtureNode);

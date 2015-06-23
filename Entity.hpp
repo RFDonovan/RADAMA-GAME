@@ -61,6 +61,7 @@ public:
 
 public:
             Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
+//            Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
     //void    loadPlayerSprite(TextureHolder* Textures);
     //void    processLogic();
     //void    processLogic(sf::RenderWindow& mWindow);

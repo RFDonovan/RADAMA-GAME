@@ -46,7 +46,8 @@ std::vector<bodyData> XMLLoader::loadXML(std::string XMLFile, std::string dir)
         ///CREATE FIXTURES:
         if(body)
         {
-            addFixtures(body, node);
+            std::map<std::string, b2Fixture*>   mapFixture = addFixtures(body, node);
+            bData.mapFixture = mapFixture;
             std::stringstream ss2;
             std::size_t found = XMLFile.find(dir.c_str());
 //            if (found!=std::string::npos)
@@ -56,6 +57,7 @@ std::vector<bodyData> XMLLoader::loadXML(std::string XMLFile, std::string dir)
 
             std::cout << "image : "<<ss2.str()<< "\n";
             std::string attrImage(ss2.str());
+
 
             if(!(attrImage.compare("null") == 0))
             {
@@ -107,10 +109,12 @@ b2Body* XMLLoader::createBody(int bodyType, pugi::xml_node bodyNode)
     return mBody;
 }
 
-std::vector<b2Fixture*> XMLLoader::addFixtures(b2Body* body, pugi::xml_node bodyNode)
+//std::vector<b2Fixture*> XMLLoader::addFixtures(b2Body* body, pugi::xml_node bodyNode)
+std::map<std::string, b2Fixture*> XMLLoader::addFixtures(b2Body* body, pugi::xml_node bodyNode)
 ///ADD APPROPRIATE FIXTURE ACCOURDING TO THE XML CHILD NODES
 {
     std::vector<b2Fixture*> fixtureList;
+    std::map<std::string, b2Fixture*>   mapFixture;
     pugi::xml_node fixturesNode = bodyNode.first_child();
     if(fixturesNode)///si le noeud fixtures existe
     {
@@ -118,10 +122,11 @@ std::vector<b2Fixture*> XMLLoader::addFixtures(b2Body* body, pugi::xml_node body
             ///FIXTURES LEVEL ITERATION
         {
             std::string shapeType(fixture1.attribute("shapeType").as_string());
+            std::string fixtureName(fixture1.attribute("name").as_string());
             b2Fixture* fixture = nullptr;
 
             if(shapeType.compare("edgeShape") == 0)
-                fixtureList = createEdgeShape(body, fixture1);
+                fixtureList = createEdgeShape(body, fixture1);///ON A UN PROBLEME CAR ICI ON ECRASE LA FIXTURELIST, ON N'AJOUTE PAS
 
             else if(shapeType.compare("circleShape") == 0)
                 fixture = createCircleShape(body, fixture1);
@@ -131,12 +136,17 @@ std::vector<b2Fixture*> XMLLoader::addFixtures(b2Body* body, pugi::xml_node body
                 else if(shapeType.compare("rectangleShape") == 0)
                     fixture = createRectangleShape(body, fixture1);
             if(fixture)
+            {
                 fixtureList.push_back(fixture);
+                mapFixture[fixtureName] = fixture;
+            }
+
             std::cout<<"fixtures crEEEEEEEEEEEEEEEEE"<<std::endl;
 
         }
     }
-    return fixtureList;
+    //return fixtureList;
+    return mapFixture;
 
 }
 
