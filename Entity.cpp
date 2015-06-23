@@ -107,6 +107,61 @@ void Entity::processLogic()
 {
 }
 */
+
+void Entity::exportToXML(std::string filename)
+{
+    pugi::xml_document doc;
+    pugi::xml_node box2d = doc.append_child("box2d");
+    pugi::xml_node bodies = box2d.append_child("bodies");
+    pugi::xml_node joints = box2d.append_child("joints");
+    pugi::xml_node images = box2d.append_child("images");
+    ///M_BODY
+    pugi::xml_node m_bodyNode = bodies.append_child("body");
+    m_bodyNode.append_attribute("name") = "m_body";
+    m_bodyNode.append_attribute("x") = m_body->GetPosition().x*RATIO;
+    m_bodyNode.append_attribute("y") = m_body->GetPosition().y*RATIO;
+    m_bodyNode.append_attribute("type") = "dynamic";
+    m_bodyNode.append_attribute("bullet") = m_body->IsBullet();
+    m_bodyNode.append_attribute("image") = "null";
+    /// /FIXTURE
+    pugi::xml_node fixtures = m_bodyNode.append_child("fixtures");
+    int i = 0;
+    for (b2Fixture* f = m_body->GetFixtureList(); f; f = f->GetNext())
+      {
+          i++;
+          pugi::xml_node fixture = fixtures.append_child("fixture");
+          fixture.append_attribute("name") = "fixture" + i;
+          fixture.append_attribute("restitution") = f->GetRestitution();
+          fixture.append_attribute("density") = f->GetDensity();
+          fixture.append_attribute("friction") = f->GetFriction();
+          fixture.append_attribute("isSensor") = f->IsSensor();
+          if(f->GetType() == b2Shape::e_circle)
+          {
+              b2CircleShape* circleShape = (b2CircleShape*)f->GetShape();
+              fixture.append_attribute("shapeType") = "circleShape";
+              fixture.append_attribute("circleRadius") = circleShape->m_radius;
+          }
+          else if(f->GetType() == b2Shape::e_polygon)
+                  {
+                      b2PolygonShape* polyShape = (b2PolygonShape*)f->GetShape();
+                      fixture.append_attribute("shapeType") = "polygonShape";
+                      for(int i = 0; i< polyShape->GetVertexCount(); i++)
+                      {
+                          pugi::xml_node vertex = fixture.append_child("vertex");
+                          vertex.append_attribute("x") = polyShape->GetVertex(i).x*RATIO;
+                          vertex.append_attribute("y") = polyShape->GetVertex(i).y*RATIO;
+                      }
+
+                  }
+
+      }
+
+    doc.save_file(filename.c_str());
+
+
+
+}
+
 int Entity::getY()
 {
     return (int)m_body->GetPosition().y * RATIO;

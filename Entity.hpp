@@ -10,6 +10,8 @@
 #include "AnimatedSprite.hpp"
 #include "TextureHolder.h"
 
+#include "pugixml.hpp"
+
 struct bodyUserData {
       int bodyKind;
   };
@@ -81,6 +83,8 @@ public:
     int     getObjectType(){return ENTITY;}
 
     void    wipeJoints();
+
+    void    exportToXML(std::string filename);
 
             ~Entity();
 };

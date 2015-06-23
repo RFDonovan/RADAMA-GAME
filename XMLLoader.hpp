@@ -28,6 +28,7 @@ public:
     std::vector<b2Vec2>         ratioList;
     std::vector<float>          angleRatioList;
     std::map<std::string, b2Body*>  nameToBody;
+    std::map<std::string, b2Joint*> jointMap;
 
     std::map<std::string, int>  attributeMap;
 
@@ -45,6 +46,8 @@ public:
 
     b2Joint*    addWeldJoint(pugi::xml_node jointNode);
     b2Joint*    addRevJoint(pugi::xml_node jointNode);
+
+    std::map<std::string, b2Joint*> GetCurrentJointMap();
 
     sf::Sprite*        loadImage(std::string imageName, std::string dir);
     void        render(sf::RenderWindow& mWindow, sf::Shader* shader);

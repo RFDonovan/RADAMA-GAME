@@ -78,9 +78,9 @@ std::vector<bodyData> XMLLoader::loadXML(std::string XMLFile, std::string dir)
     //if(bodyList.size()>0)
     //loadSprites();
     //return bData;
-    std::map<std::string, b2Joint*> jointMap;
-    pugi::xml_node jointsNode = XMLDocument.child("box2d").child("joints");
 
+    pugi::xml_node jointsNode = XMLDocument.child("box2d").child("joints");
+    jointMap.clear();
     for (pugi::xml_node node = jointsNode.first_child(); node ; node = node.next_sibling())
         ///JOINTS ITERATION
     {
@@ -97,6 +97,11 @@ std::vector<bodyData> XMLLoader::loadXML(std::string XMLFile, std::string dir)
     return bodyDataList;
 
 
+}
+
+std::map<std::string, b2Joint*> XMLLoader::GetCurrentJointMap()
+{
+    return jointMap;
 }
 b2Joint* XMLLoader::addWeldJoint(pugi::xml_node jointNode)
 {

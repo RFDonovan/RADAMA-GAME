@@ -125,6 +125,12 @@ void World::processInput(sf::Event e)
             std::cout<<"contenu de human"<<humans.size()<<std::endl;
             //delete humans[1];
         }
+        if(e.key.code == sf::Keyboard::Return)
+        {
+            if(editMode)
+                ePlayer->exportToXML("ePlayer.xml");
+
+        }
 
         break;
 
@@ -323,6 +329,8 @@ void World::buildScene(std::string CurrentDir)
     closedir(dir);
     ///------------------
     xLoad->loadXML(CurrentDir + "testJoint.xml", CurrentDir);
+    std::map<std::string, b2Joint*> jMap = xLoad->GetCurrentJointMap();
+
 
     sf::FloatRect r(sf::Vector2f(0.f,0.f),
                               mWorldView.getSize()
