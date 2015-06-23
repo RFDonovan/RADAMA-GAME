@@ -279,12 +279,15 @@ void World::buildScene(std::string CurrentDir)
 
     ///LOADING LEVEL
     xLoad = new XMLLoader(&p_world);
-    xLoad->loadXML(CurrentDir + "level.xml", CurrentDir);
+    LevelObjectList = xLoad->loadXML(CurrentDir + "level.xml", CurrentDir);
+    ///--------------
 
+    ///LOADING PLAYERS
     ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
     std::cout<<"creation d'une deuxieme entite";
     Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H);
     humans.push_back(e);
+    ///--------------
 
     ///LOADING WEAPONS
     std::string weaponDir(CurrentDir + "Weapons/");
@@ -337,6 +340,7 @@ void World::rebuildScene()
     //p_world.
     ///CLEARING LISTS
     WeaponList.clear();
+    LevelObjectList.clear();
     ///--------------
     rebuild = true;
 
