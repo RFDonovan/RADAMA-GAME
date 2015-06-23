@@ -300,14 +300,18 @@ void World::buildScene(std::string CurrentDir)
             std::stringstream ss;
             ss << weaponDir<<fichier;
             std::vector<bodyData> bDList = xLoad->loadXML(ss.str(),weaponDir);
-            //bodyData weaponData
-            //ePlayer->loadWeapon(&weaponData);
+
+
             for (int i = 0; i < bDList.size(); i++)
             {
                 ePlayer->loadWeapon(&(bDList[i]));
-                bDList.erase(bDList.begin()+i);
+                //WeaponList.push_back(bDList[i]);
+                //bDList.erase(bDList.begin()+i);
             }
 
+            WeaponList.insert(WeaponList.end(), bDList.begin(), bDList.end());
+            bDList.clear();
+            std::cout<<"***>Weaponlist.size : "<<WeaponList.size() <<std::endl;
             std::cout<<"**>fichier "<< ss.str() << " chargE " <<std::endl;
             std::cout<<"**>dir:  "<< weaponDir << " OK " <<std::endl;
         }
@@ -331,6 +335,9 @@ void World::rebuildScene()
     //level->clearAll();
     //level = nullptr;
     //p_world.
+    ///CLEARING LISTS
+    WeaponList.clear();
+    ///--------------
     rebuild = true;
 
 }

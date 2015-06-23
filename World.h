@@ -82,8 +82,8 @@ public:
 
     std::vector<Human*>    humans;
     std::vector<Human*>     listOfDeletedHuman;
-
     std::vector<Ground*>    grounds;
+    std::vector<bodyData>   WeaponList;
 
     bool rebuild = false;
 
