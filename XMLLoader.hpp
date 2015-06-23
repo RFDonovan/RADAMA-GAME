@@ -26,13 +26,14 @@ public:
     std::vector<b2Body*>        bodyList;
     std::vector<b2Vec2>         ratioList;
     std::vector<float>          angleRatioList;
+    std::map<std::string, b2Body*>  nameToBody;
 
     std::map<std::string, int>  attributeMap;
 
 public:
                 XMLLoader(b2World* world);
 
-    bodyData        loadXML(std::string XMLFile, std::string dir = "./Resources/");
+    std::vector<bodyData>        loadXML(std::string XMLFile, std::string dir = "./Resources/");
     b2Body*     createBody(int bodyType, pugi::xml_node bodyNode);
     std::vector<b2Fixture*>         addFixtures(b2Body* body, pugi::xml_node bodyNode);
     std::vector<b2Fixture*>         createEdgeShape(b2Body* body, pugi::xml_node fixtureNode);

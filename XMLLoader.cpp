@@ -17,10 +17,11 @@ XMLLoader::XMLLoader(b2World* world)
     //attributeMap[]
 }
 
-bodyData XMLLoader::loadXML(std::string XMLFile, std::string dir)
+std::vector<bodyData> XMLLoader::loadXML(std::string XMLFile, std::string dir)
 {
+    std::vector<bodyData> bodyDataList;
     std::cout << "directory: "<<dir<< "\n";
-    bodyData bData;
+
     if (!XMLDocument.load_file(XMLFile.c_str()))
     {
         std::cout << "error on loading "<<XMLFile<< "\n";
@@ -38,7 +39,7 @@ bodyData XMLLoader::loadXML(std::string XMLFile, std::string dir)
         std::stringstream ss;
         ss<<node.attribute("name").as_string();
         //ss<<"bieber";
-
+        bodyData bData;
         bData.body = body;///Structures.hpp
         bData.name = ss.str();///Structures.hpp
         std::cout << "error on loading "<<bData.name<< "\n";
@@ -64,7 +65,7 @@ bodyData XMLLoader::loadXML(std::string XMLFile, std::string dir)
             else{
                 bData.sprite = nullptr;
             }
-
+            bodyDataList.push_back(bData);
         }
 
 
@@ -72,8 +73,8 @@ bodyData XMLLoader::loadXML(std::string XMLFile, std::string dir)
     }
     //if(bodyList.size()>0)
     //loadSprites();
-    return bData;
-
+    //return bData;
+    return bodyDataList;
 
 
 }
@@ -294,7 +295,7 @@ sf::Sprite* XMLLoader::loadImage(std::string imageName, std::string dir)
 
 
 
-    //std::cout<<filename<<" Images 1........\n";
+
     tex.setSmooth(true);
     imgSprite.setTexture(tex);
     imgSprite.setScale(
@@ -312,6 +313,7 @@ sf::Sprite* XMLLoader::loadImage(std::string imageName, std::string dir)
     );
     spriteList.push_back(imgSprite);
     texList.push_back(tex);
+    std::cout<<filename<<" loadE........\n";
     return &imgSprite;
 }
 

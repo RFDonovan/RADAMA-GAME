@@ -8,6 +8,7 @@ World::World(sf::RenderWindow& window)
     , debugDrawInstance(window)
     , mWorldView(window.getDefaultView())
     , pauseLayer(sf::Vector2f(WINDOW_W, WINDOW_H))
+    , levelPath("./Resources/L1/")
 
 {
 
@@ -19,7 +20,7 @@ World::World(sf::RenderWindow& window)
 
 
     loadTextures();
-    buildScene();
+    buildScene(levelPath);
     BG = sf::Sprite(*Textures.getTexture(TextureHolder::Background1));
     BG_pause = sf::Sprite(*Textures.getTexture(TextureHolder::Pause));
     BG.scale(.6f,.6f);
@@ -265,15 +266,15 @@ void World::loadTextures()
 
 
 
-void World::buildScene()
+void World::buildScene(std::string CurrentDir)
 {
     /**prepare layers*/
     /**add background*/
     /**add player*/
     //createBox(p_world, 10, 10);
-    std::cout<<"************************************************************************\n";
-    std::cout<<"************************************************************************\n";
-    std::string CurrentDir("./Resources/L1/");
+    std::cout<<"\n**********************************INITIALISATION**************************************\n";
+    std::cout<<"**************************************************************************************\n";
+    //std::string CurrentDir("./Resources/L1/");
 
 
     ///LOADING LEVEL
@@ -284,17 +285,8 @@ void World::buildScene()
     std::cout<<"creation d'une deuxieme entite";
     Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H);
     humans.push_back(e);
-    /*
-        bodyData lefona1 = xLoad->loadXML("Resources/lefona.xml");
-        ePlayer->loadWeapon(&lefona1);
-        bodyData lefona2 = xLoad->loadXML("Resources/lefonaMiloko.xml");
-        ePlayer->loadWeapon(&lefona2);
 
-        bodyData vato = xLoad->loadXML("Resources/vato.xml");
-        ePlayer->loadWeapon(&vato);
-    */
     ///LOADING WEAPONS
-
     std::string weaponDir(CurrentDir + "Weapons/");
     DIR* dir;
     dirent* pdir;
@@ -307,8 +299,15 @@ void World::buildScene()
         {
             std::stringstream ss;
             ss << weaponDir<<fichier;
-            bodyData weaponData = xLoad->loadXML(ss.str(),weaponDir);
-            ePlayer->loadWeapon(&weaponData);
+            std::vector<bodyData> bDList = xLoad->loadXML(ss.str(),weaponDir);
+            //bodyData weaponData
+            //ePlayer->loadWeapon(&weaponData);
+            for (int i = 0; i < bDList.size(); i++)
+            {
+                ePlayer->loadWeapon(&(bDList[i]));
+                bDList.erase(bDList.begin()+i);
+            }
+
             std::cout<<"**>fichier "<< ss.str() << " chargE " <<std::endl;
             std::cout<<"**>dir:  "<< weaponDir << " OK " <<std::endl;
         }
@@ -428,11 +427,9 @@ void World::resume()
 
 void World::sheduleRemove()
 {
+    ///RECHARGER COMPLETEMENT TOUS LES SCENES
     if(rebuild)
     {
-
-        //for (b2body* b = p_world.get)
-
         for (int i = 0; i < humans.size(); i++)
         {
             delete humans[i];
@@ -462,10 +459,10 @@ void World::sheduleRemove()
         b2BodyDef bodyDef;
         ///RECREER CELUI CI APRES LA DESTRUCTION
         m_groundBody = p_world.CreateBody(&bodyDef);
-        buildScene();
+        buildScene(levelPath);
 
     }
-
+    ///--------------------------------------
 
     for (int i = 0 ; i < listOfDeletedHuman.size() ; i++ )
     {

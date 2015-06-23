@@ -119,6 +119,7 @@ public:
     b2MouseJoint* m_mouseJoint;
     b2Vec2 m_mouseWorld;
     bool editMode = true;
+    std::string     levelPath;
 
 
     // Operations
@@ -127,7 +128,7 @@ public:
     void    update (/*sf::Time dt*/);
     void    draw (sf::Time frameTime);
     void    loadTextures ();
-    void    buildScene ();
+    void    buildScene (std::string CurrentDir);
     void    rebuildScene ();
     void    adaptViewToPlayer();
     b2World&    getWorld();

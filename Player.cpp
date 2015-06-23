@@ -377,6 +377,7 @@ void Player::createWeapons()
 
 void    Player::loadWeapon(bodyData* data)
 {
+    std::cout<<"**************LOADING DATA*************"<<std::endl;
     if(data==nullptr)
     {
         return;
