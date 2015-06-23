@@ -316,7 +316,10 @@ void World::buildScene()
     }
     closedir(dir);
     ///------------------
-
+    sf::FloatRect r(sf::Vector2f(0.f,0.f),
+                              mWorldView.getSize()
+               );
+    mWorldView.reset(r);
 
 }
 bool World::fileExist(std::string& filename)
@@ -457,6 +460,7 @@ void World::sheduleRemove()
         rebuild = false;
         m_mouseJoint = NULL;///MUST set to NULL
         b2BodyDef bodyDef;
+        ///RECREER CELUI CI APRES LA DESTRUCTION
         m_groundBody = p_world.CreateBody(&bodyDef);
         buildScene();
 
