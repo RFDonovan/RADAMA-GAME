@@ -226,6 +226,7 @@ std::vector<b2Fixture*>   XMLLoader::createEdgeShape(b2Body* body, pugi::xml_nod
     FixtureDef.density = fixtureNode.attribute("density").as_float();
     FixtureDef.friction = fixtureNode.attribute("friction").as_float();
     FixtureDef.restitution = fixtureNode.attribute("restitution").as_float();
+    FixtureDef.isSensor = fixtureNode.attribute("isSensor").as_bool();
     FixtureDef.shape = &Shape;
 
     for(pugi::xml_node vertice = fixtureNode.first_child(); vertice; vertice = vertice.next_sibling())
@@ -265,6 +266,7 @@ b2Fixture*   XMLLoader::createPolygonShape(b2Body* body, pugi::xml_node fixtureN
     FixtureDef.density = fixtureNode.attribute("density").as_float();
     FixtureDef.friction = fixtureNode.attribute("friction").as_float();
     FixtureDef.restitution = fixtureNode.attribute("restitution").as_float();
+    FixtureDef.isSensor = fixtureNode.attribute("isSensor").as_bool();
     //FixtureDef.shape = &Shape;
 
     int n = std::distance(fixtureNode.children("vertex").begin(), fixtureNode.children("vertex").end());
@@ -309,6 +311,7 @@ b2Fixture*   XMLLoader::createRectangleShape(b2Body* body, pugi::xml_node fixtur
     FixtureDef.density = fixtureNode.attribute("density").as_float();
     FixtureDef.friction = fixtureNode.attribute("friction").as_float();
     FixtureDef.restitution = fixtureNode.attribute("restitution").as_float();
+    FixtureDef.isSensor = fixtureNode.attribute("isSensor").as_bool();
     //FixtureDef.shape = &Shape;
 
 
@@ -334,6 +337,7 @@ b2Fixture*   XMLLoader::createCircleShape(b2Body* body, pugi::xml_node fixtureNo
     FixtureDef.density = fixtureNode.attribute("density").as_float();
     FixtureDef.friction = fixtureNode.attribute("friction").as_float();
     FixtureDef.restitution = fixtureNode.attribute("restitution").as_float();
+    FixtureDef.isSensor = fixtureNode.attribute("isSensor").as_bool();
     Shape.m_p.Set(0,0);
     Shape.m_radius = ( fixtureNode.attribute("circleRadius").as_float() /RATIO);
     FixtureDef.shape = &Shape;
