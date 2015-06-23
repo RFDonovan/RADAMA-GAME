@@ -99,7 +99,9 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
       jointList.push_back(j1);
 
 /// ///////////
-
+    bodyList["m_body"] = m_body;
+    bodyList["m_head"] = m_head;
+    bodyList["m_legs"] = m_legs;
 
 }
 /*
@@ -116,21 +118,35 @@ void Entity::exportToXML(std::string filename)
     pugi::xml_node joints = box2d.append_child("joints");
     pugi::xml_node images = box2d.append_child("images");
     ///M_BODY
-    pugi::xml_node m_bodyNode = bodies.append_child("body");
-    m_bodyNode.append_attribute("name") = "m_body";
-    m_bodyNode.append_attribute("x") = m_body->GetPosition().x*RATIO;
-    m_bodyNode.append_attribute("y") = m_body->GetPosition().y*RATIO;
+    for (auto b : bodyList)
+    {
+        addBodyNode(bodies, b.first, b.second);
+    }
+
+
+    doc.save_file(filename.c_str());
+
+
+
+}
+
+void Entity::addBodyNode(pugi::xml_node parent, std::string name, b2Body* body)
+{
+    pugi::xml_node m_bodyNode = parent.append_child("body");
+    m_bodyNode.append_attribute("name") = name.c_str();
+    m_bodyNode.append_attribute("x") = body->GetPosition().x*RATIO;
+    m_bodyNode.append_attribute("y") = body->GetPosition().y*RATIO;
     m_bodyNode.append_attribute("type") = "dynamic";
-    m_bodyNode.append_attribute("bullet") = m_body->IsBullet();
+    m_bodyNode.append_attribute("bullet") = body->IsBullet();
     m_bodyNode.append_attribute("image") = "null";
     /// /FIXTURE
     pugi::xml_node fixtures = m_bodyNode.append_child("fixtures");
     int i = 0;
-    for (b2Fixture* f = m_body->GetFixtureList(); f; f = f->GetNext())
+    for (b2Fixture* f = body->GetFixtureList(); f; f = f->GetNext())
       {
           i++;
           pugi::xml_node fixture = fixtures.append_child("fixture");
-          fixture.append_attribute("name") = "fixture" + i;
+          fixture.append_attribute("name") = i;
           fixture.append_attribute("restitution") = f->GetRestitution();
           fixture.append_attribute("density") = f->GetDensity();
           fixture.append_attribute("friction") = f->GetFriction();
@@ -139,7 +155,7 @@ void Entity::exportToXML(std::string filename)
           {
               b2CircleShape* circleShape = (b2CircleShape*)f->GetShape();
               fixture.append_attribute("shapeType") = "circleShape";
-              fixture.append_attribute("circleRadius") = circleShape->m_radius;
+              fixture.append_attribute("circleRadius") = circleShape->m_radius*RATIO;
           }
           else if(f->GetType() == b2Shape::e_polygon)
                   {
@@ -155,13 +171,7 @@ void Entity::exportToXML(std::string filename)
                   }
 
       }
-
-    doc.save_file(filename.c_str());
-
-
-
 }
-
 int Entity::getY()
 {
     return (int)m_body->GetPosition().y * RATIO;

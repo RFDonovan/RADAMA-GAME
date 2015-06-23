@@ -32,6 +32,7 @@ public:
     float   m_radius;
     Type    kind;
     std::vector<b2Joint *>      jointList;
+    std::map<std::string, b2Body*> bodyList;
 
     sf::RenderWindow& mWindow;
 
@@ -85,6 +86,7 @@ public:
     void    wipeJoints();
 
     void    exportToXML(std::string filename);
+    void    addBodyNode(pugi::xml_node parent, std::string name, b2Body* body);
 
             ~Entity();
 };
