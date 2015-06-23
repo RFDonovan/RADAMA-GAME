@@ -32,7 +32,7 @@ public:
     std::map<std::string, int>  attributeMap;
 
 public:
-                XMLLoader(b2World* world);
+    XMLLoader(b2World* world);
 
     std::vector<bodyData>        loadXML(std::string XMLFile, std::string dir = "./Resources/");
     b2Body*     createBody(int bodyType, pugi::xml_node bodyNode);
@@ -43,12 +43,21 @@ public:
     b2Fixture*  createRectangleShape(b2Body* body, pugi::xml_node fixtureNode);
     b2Fixture*  createCircleShape(b2Body* body, pugi::xml_node fixtureNode);
 
+    b2Joint*    addWeldJoint(pugi::xml_node jointNode);
+    b2Joint*    addRevJoint(pugi::xml_node jointNode);
+
     sf::Sprite*        loadImage(std::string imageName, std::string dir);
     void        render(sf::RenderWindow& mWindow, sf::Shader* shader);
 
 
-    int     getObjectType(){return GROUND;}
-    int     getClassName(){return GROUND;}
+    int     getObjectType()
+    {
+        return GROUND;
+    }
+    int     getClassName()
+    {
+        return GROUND;
+    }
     //void        createEntity(std::string);
     //void        loadMachine(std::string);
 };

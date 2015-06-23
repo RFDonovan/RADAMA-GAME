@@ -322,6 +322,8 @@ void World::buildScene(std::string CurrentDir)
     }
     closedir(dir);
     ///------------------
+    xLoad->loadXML(CurrentDir + "testJoint.xml", CurrentDir);
+
     sf::FloatRect r(sf::Vector2f(0.f,0.f),
                               mWorldView.getSize()
                );

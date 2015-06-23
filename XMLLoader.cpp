@@ -46,6 +46,7 @@ std::vector<bodyData> XMLLoader::loadXML(std::string XMLFile, std::string dir)
         ///CREATE FIXTURES:
         if(body)
         {
+            nameToBody[ss.str()] = body;
             std::map<std::string, b2Fixture*>   mapFixture = addFixtures(body, node);
             bData.mapFixture = mapFixture;
             std::stringstream ss2;
@@ -64,7 +65,8 @@ std::vector<bodyData> XMLLoader::loadXML(std::string XMLFile, std::string dir)
                 bodyList.push_back(body);
                 bData.sprite = loadImage(attrImage, dir);///Structures.hpp
             }
-            else{
+            else
+            {
                 bData.sprite = nullptr;
             }
             bodyDataList.push_back(bData);
@@ -76,10 +78,60 @@ std::vector<bodyData> XMLLoader::loadXML(std::string XMLFile, std::string dir)
     //if(bodyList.size()>0)
     //loadSprites();
     //return bData;
+    std::map<std::string, b2Joint*> jointMap;
+    pugi::xml_node jointsNode = XMLDocument.child("box2d").child("joints");
+
+    for (pugi::xml_node node = jointsNode.first_child(); node ; node = node.next_sibling())
+        ///JOINTS ITERATION
+    {
+        std::string jointType(node.attribute("type").as_string());
+        std::string jointName(node.attribute("name").as_string());
+        b2Joint* j;
+        if(jointType.compare("RevoluteJoint") == 0)
+            j = addRevJoint(node);
+        else if(jointType.compare("RevoluteJoint") == 0)
+            j = addWeldJoint(node);
+        jointMap[jointName] = j;
+    }
+
     return bodyDataList;
 
 
 }
+b2Joint* XMLLoader::addWeldJoint(pugi::xml_node jointNode)
+{
+    return nullptr;
+}
+
+b2Joint* XMLLoader::addRevJoint(pugi::xml_node jointNode)
+{
+    b2RevoluteJointDef rJointDef;
+    rJointDef.bodyA = nameToBody[jointNode.attribute("bodyA").as_string()];
+    rJointDef.bodyB = nameToBody[jointNode.attribute("bodyB").as_string()];
+
+    rJointDef.collideConnected = jointNode.attribute("collideConnected").as_bool();
+
+//    rJointDef.localAnchorA = rJointDef.bodyA->GetLocalPoint(
+//                                                            m_body->GetWorldPoint(
+//                                                                                  b2Vec2(jointNode.attribute("x").as_float()/RATIO,
+//                                                                                         jointNode.attribute("y").as_float()/RATIO
+//                                                                                         )
+//                                                                                  )
+//                                                            );
+    float Ax = jointNode.attribute("Ax").as_float();
+    float Ay = jointNode.attribute("Ay").as_float();
+    float Bx = jointNode.attribute("Bx").as_float();
+    float By = jointNode.attribute("By").as_float();
+    rJointDef.localAnchorA = rJointDef.bodyA->GetLocalPoint( rJointDef.bodyA->GetWorldPoint(b2Vec2(Ax/RATIO, Ay/RATIO)) );
+    rJointDef.localAnchorB = rJointDef.bodyB->GetLocalPoint( rJointDef.bodyB->GetWorldPoint(b2Vec2(Bx/RATIO, By/RATIO)) );
+
+    rJointDef.referenceAngle = rJointDef.bodyB->GetAngle() - rJointDef.bodyA->GetAngle();
+
+    rJointDef.enableLimit = jointNode.attribute("enableLimit").as_bool();
+    b2Joint * j = p_world->CreateJoint( &rJointDef );
+    return j;
+}
+
 b2Body* XMLLoader::createBody(int bodyType, pugi::xml_node bodyNode)
 ///CREER UN BODY
 {
@@ -133,8 +185,8 @@ std::map<std::string, b2Fixture*> XMLLoader::addFixtures(b2Body* body, pugi::xml
 
             else if(shapeType.compare("polygonShape") == 0)
                 fixture = createPolygonShape(body, fixture1);
-                else if(shapeType.compare("rectangleShape") == 0)
-                    fixture = createRectangleShape(body, fixture1);
+            else if(shapeType.compare("rectangleShape") == 0)
+                fixture = createRectangleShape(body, fixture1);
             if(fixture)
             {
                 fixtureList.push_back(fixture);
@@ -161,7 +213,7 @@ std::vector<b2Fixture*>   XMLLoader::createEdgeShape(b2Body* body, pugi::xml_nod
     ///COLLISION FILTERING
     if(strcmp(fixtureNode.attribute("categoryBits").value(), "") != 0)
         FixtureDef.filter.categoryBits = (uint16)fixtureNode.attribute("categoryBits").as_uint();
-        //exit(-1);
+    //exit(-1);
     if(strcmp(fixtureNode.attribute("maskBits").value(), "") != 0)
         FixtureDef.filter.maskBits = (uint16)fixtureNode.attribute("maskBits").as_uint();
     ///------------------
@@ -200,7 +252,7 @@ b2Fixture*   XMLLoader::createPolygonShape(b2Body* body, pugi::xml_node fixtureN
     ///COLLISION FILTERING
     if(strcmp(fixtureNode.attribute("categoryBits").value(), "") != 0)
         FixtureDef.filter.categoryBits = (uint16)fixtureNode.attribute("categoryBits").as_uint();
-        //exit(-1);
+    //exit(-1);
     if(strcmp(fixtureNode.attribute("maskBits").value(), "") != 0)
         FixtureDef.filter.maskBits = (uint16)fixtureNode.attribute("maskBits").as_uint();
     ///------------------
@@ -242,7 +294,7 @@ b2Fixture*   XMLLoader::createRectangleShape(b2Body* body, pugi::xml_node fixtur
     ///COLLISION FILTERING
     if(strcmp(fixtureNode.attribute("categoryBits").value(), "") != 0)
         FixtureDef.filter.categoryBits = (uint16)fixtureNode.attribute("categoryBits").as_uint();
-        //exit(-1);
+    //exit(-1);
     if(strcmp(fixtureNode.attribute("maskBits").value(), "") != 0)
         FixtureDef.filter.maskBits = (uint16)fixtureNode.attribute("maskBits").as_uint();
     ///------------------
