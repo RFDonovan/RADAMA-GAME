@@ -6,9 +6,11 @@
 #include<iostream>
 #include<cmath>
 #include<vector>
+#include<sstream>
 #include "Globals.h"
 #include "AnimatedSprite.hpp"
 #include "TextureHolder.h"
+#include "Structures.hpp"
 
 #include "pugixml.hpp"
 
@@ -69,7 +71,7 @@ public:
 
 public:
             Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
-//            Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
+            Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap);
     //void    loadPlayerSprite(TextureHolder* Textures);
     //void    processLogic();
     //void    processLogic(sf::RenderWindow& mWindow);

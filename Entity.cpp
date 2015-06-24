@@ -124,6 +124,78 @@ void Entity::processLogic()
 }
 */
 
+Entity::Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap)
+: p_world(world)
+, mWindow(mWindow)
+, textureHolder(Textures)
+,animatedSprite(sf::seconds(0.08), true, false)
+{
+
+
+
+//    m_body->SetUserData(this);
+//    m_legs->SetUserData(this);
+//    m_head->SetUserData(this);
+//    basFixture->SetUserData(this);
+
+    for (int i = 0; i< bDList->size(); i++)
+    {
+        std::cout<<i<<"----bdlist\n";
+        std::string bodyName("m_body");
+        std::string headName("m_head");
+        std::string legsName("m_legs");
+
+        (*bDList)[i].body->SetUserData(this);
+
+        if(bodyName.compare((*bDList)[i].name)==0)
+        {
+            std::cout<<i<<"----body\n";
+            m_body = (*bDList)[i].body;
+            basFixture = nullptr;
+            std::map<std::string, b2Fixture*> fixMap = (*bDList)[i].mapFixture;
+            //std::cout<<test.size()<<"---SIZE -fixture list\n";
+            std::string basFixtureName("basFixture");
+            for (auto f : fixMap)
+            {
+                if(basFixtureName.compare(f.first)==0)
+                {
+                    std::cout<<fixMap[f.first]<<"---->basFixture trouve\n";
+                    ///fixMap[f.first]->SetUserData(this);
+//                    basFixture = (b2Fixture*)fixMap[f.first];
+//                    basFixture->SetUserData(this);
+                }
+            }
+//            if(basFixture != nullptr)
+//                basFixture->SetUserData(this);
+
+
+        }else if(headName.compare((*bDList)[i].name)==0)
+        {
+            std::cout<<i<<"----head\n";
+            m_head = (*bDList)[i].body;
+        }else if(legsName.compare((*bDList)[i].name)==0)
+        {
+            std::cout<<i<<"----legs\n";
+            m_legs = (*bDList)[i].body;
+        }
+    }
+
+    for (auto j : *jMap)
+    {
+        std::cout<<"----jMap\n";
+        j.second->SetUserData((void*)(JOINTRANGE + 1));
+    }
+
+
+    std::cout<<"\n\n\n\n------------------------------------------------------"<<std::endl;
+    std::cout<<"\n\n\n\n------------------------DEUXIEME CONSTRUCTEUR------------------------------"<<std::endl;
+
+    std::cout<<"\n\n\n\n-----bDList-"<<bDList->size()<<std::endl;
+    std::cout<<"\n\n\n\n-----jMap-"<<jMap->size()<<std::endl;
+
+    std::cout<<"\n\n\n\n------------------------------------------------------"<<std::endl;
+}
+
 void Entity::exportToXML(std::string filename)
 {
     pugi::xml_document doc;
@@ -138,8 +210,11 @@ void Entity::exportToXML(std::string filename)
     }
     for (int i = 0; i< jointBodyList.size(); i++)
     {
+        std::stringstream ss;
+        ss<<"JointName"<<i;
 
-        addJointNode(joints, "Jointname", &jointBodyList[i]);
+
+        addJointNode(joints, ss.str(), &jointBodyList[i]);
     }
 
 

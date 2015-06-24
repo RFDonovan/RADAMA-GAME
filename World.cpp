@@ -289,8 +289,16 @@ void World::buildScene(std::string CurrentDir)
     ///--------------
 
     ///LOADING PLAYERS
-    ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
+    //ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
+
+    std::vector<bodyData> bDList = xLoad->loadXML(CurrentDir + "ePlayer.xml", CurrentDir);
+    std::map<std::string, b2Joint*> jMap = xLoad->GetCurrentJointMap();
+    ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , &bDList, &jMap);
+
+
     std::cout<<"creation d'une deuxieme entite";
+
+
     Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H);
     humans.push_back(e);
     ///--------------
@@ -329,7 +337,7 @@ void World::buildScene(std::string CurrentDir)
     closedir(dir);
     ///------------------
     xLoad->loadXML(CurrentDir + "testJoint.xml", CurrentDir);
-    std::map<std::string, b2Joint*> jMap = xLoad->GetCurrentJointMap();
+    std::map<std::string, b2Joint*> jMap2 = xLoad->GetCurrentJointMap();
 
 
     sf::FloatRect r(sf::Vector2f(0.f,0.f),

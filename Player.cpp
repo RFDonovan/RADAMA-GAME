@@ -14,6 +14,21 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
     currentProjectile = nameToWeapon["lefona"];
 }
 
+Player::Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap)
+    : Entity(mWindow, world, Textures,radius, bDList, jMap)
+    , desiredVel(0)
+{
+    kind = Entity::Player;
+    std::cout<< "creation*******";
+
+    loadPlayerSprite(Textures);
+    currentAnimation = &stopRight;
+
+    currentProjectile = nameToWeapon["lefona"];
+}
+
+/// //////////////
+
 void Player::loadPlayerSprite(TextureHolder* Textures)
 {
     texture = Textures->getTexture(TextureHolder::Player);
