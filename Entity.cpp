@@ -171,6 +171,8 @@ void Entity::addBodyNode(pugi::xml_node parent, std::string name, b2Body* body)
           fixture.append_attribute("density") = f->GetDensity();
           fixture.append_attribute("friction") = f->GetFriction();
           fixture.append_attribute("isSensor") = f->IsSensor();
+          fixture.append_attribute("categoryBits") = f->GetFilterData().categoryBits;
+          fixture.append_attribute("maskBits") = f->GetFilterData().maskBits;
           if(f->GetType() == b2Shape::e_circle)
           {
               b2CircleShape* circleShape = (b2CircleShape*)f->GetShape();
