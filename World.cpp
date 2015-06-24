@@ -335,7 +335,11 @@ void World::buildScene(std::string CurrentDir)
     sf::FloatRect r(sf::Vector2f(0.f,0.f),
                               mWorldView.getSize()
                );
+
+    BG_pause.setPosition(sf::Vector2f(0.f,0.f));
+    pauseLayer.setPosition(sf::Vector2f(0.f,0.f));
     mWorldView.reset(r);
+    //adaptViewToPlayer();
 
 }
 bool World::fileExist(std::string& filename)

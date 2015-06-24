@@ -15,7 +15,6 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
     myBodyDef.position.Set(x/RATIO, y/RATIO);
 
     m_body = world->CreateBody(&myBodyDef);
-
     m_body->SetUserData(this);
     //m_body->SetUserData(this);
 
@@ -158,6 +157,7 @@ void Entity::addBodyNode(pugi::xml_node parent, std::string name, b2Body* body)
     m_bodyNode.append_attribute("y") = body->GetPosition().y*RATIO;
     m_bodyNode.append_attribute("type") = "dynamic";
     m_bodyNode.append_attribute("bullet") = body->IsBullet();
+    m_bodyNode.append_attribute("fixedRotation") = body->IsFixedRotation();
     m_bodyNode.append_attribute("image") = "null";
     /// /FIXTURE
     pugi::xml_node fixtures = m_bodyNode.append_child("fixtures");
@@ -204,6 +204,10 @@ void Entity::addJointNode(pugi::xml_node parent, std::string name, jointStruct* 
     std::cout<<"++++++++++++++ADDING BODY B\n";
     joint.append_attribute("bodyB") = jStruct->bodyB.c_str();
     joint.append_attribute("collideConnected") = j->GetCollideConnected();
+    joint.append_attribute("Ax") = "";
+    joint.append_attribute("Ay") = "";
+    joint.append_attribute("Bx") = "";
+    joint.append_attribute("By") = "";
     std::cout<<"++++++++++++++COMPARE\n";
     if (j->GetType() == b2JointType::e_weldJoint)
     {
