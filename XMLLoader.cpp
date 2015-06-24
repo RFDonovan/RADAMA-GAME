@@ -182,24 +182,36 @@ std::map<std::string, b2Fixture*> XMLLoader::addFixtures(b2Body* body, pugi::xml
             std::string shapeType(fixture1.attribute("shapeType").as_string());
             std::string fixtureName(fixture1.attribute("name").as_string());
             b2Fixture* fixture = nullptr;
-
+            std::cout<<fixture<<" ceci est un nullptr fixture ****"<<std::endl;
             if(shapeType.compare("edgeShape") == 0)
                 fixtureList = createEdgeShape(body, fixture1);///ON A UN PROBLEME CAR ICI ON ECRASE LA FIXTURELIST, ON N'AJOUTE PAS
 
             else if(shapeType.compare("circleShape") == 0)
+            {
                 fixture = createCircleShape(body, fixture1);
+                std::cout<<fixture<<" Circle fixture ****"<<fixtureName<<"***** crEEEEEEEEEEEEEEEEE"<<std::endl;
+            }
+
 
             else if(shapeType.compare("polygonShape") == 0)
+            {
                 fixture = createPolygonShape(body, fixture1);
+                std::cout<<fixture<<" Polygon fixture ****"<<fixtureName<<"***** crEEEEEEEEEEEEEEEEE"<<std::endl;
+            }
+
             else if(shapeType.compare("rectangleShape") == 0)
-                fixture = createRectangleShape(body, fixture1);
+                {
+                    fixture = createRectangleShape(body, fixture1);
+                    std::cout<<fixture<<" rectangle fixture ****"<<fixtureName<<"***** crEEEEEEEEEEEEEEEEE"<<std::endl;
+                }
             if(fixture)
             {
                 fixtureList.push_back(fixture);
                 mapFixture[fixtureName] = fixture;
+                std::cout<<fixture<<"fixtures ****"<<fixtureName<<"***** crEEEEEEEEEEEEEEEEE"<<std::endl;
             }
 
-            std::cout<<"fixtures crEEEEEEEEEEEEEEEEE"<<std::endl;
+            std::cout<<"fixtures "<<fixtureName<<" crEEEEEEEEEEEEEEEEE"<<std::endl;
 
         }
     }
@@ -291,7 +303,7 @@ b2Fixture*   XMLLoader::createPolygonShape(b2Body* body, pugi::xml_node fixtureN
     b2Fixture* fixture = body->CreateFixture(&FixtureDef);
     //fixture->SetUserData(this);
 
-    //return fixture;
+    return fixture;
 }
 
 b2Fixture*   XMLLoader::createRectangleShape(b2Body* body, pugi::xml_node fixtureNode)

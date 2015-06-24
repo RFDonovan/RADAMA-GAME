@@ -145,7 +145,7 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
         std::string headName("m_head");
         std::string legsName("m_legs");
 
-        (*bDList)[i].body->SetUserData(this);
+
 
         if(bodyName.compare((*bDList)[i].name)==0)
         {
@@ -160,15 +160,12 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
                 if(basFixtureName.compare(f.first)==0)
                 {
                     std::cout<<fixMap[f.first]<<"---->basFixture trouve\n";
-                    ///fixMap[f.first]->SetUserData(this);
-//                    basFixture = (b2Fixture*)fixMap[f.first];
-//                    basFixture->SetUserData(this);
+                    //(fixMap[f.first])->SetUserData(this);
+                    //f.second->SetUserData((void*)1);
+                    basFixture = (b2Fixture*)fixMap[f.first];
+                    basFixture->SetUserData(this);
                 }
             }
-//            if(basFixture != nullptr)
-//                basFixture->SetUserData(this);
-
-
         }else if(headName.compare((*bDList)[i].name)==0)
         {
             std::cout<<i<<"----head\n";
@@ -178,16 +175,19 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
             std::cout<<i<<"----legs\n";
             m_legs = (*bDList)[i].body;
         }
+        (*bDList)[i].body->SetUserData(this);
     }
 
     for (auto j : *jMap)
     {
         std::cout<<"----jMap\n";
         j.second->SetUserData((void*)(JOINTRANGE + 1));
+        jointList.push_back(j.second);
     }
 
 
     std::cout<<"\n\n\n\n------------------------------------------------------"<<std::endl;
+    //basFixture->SetUserData(this);
     std::cout<<"\n\n\n\n------------------------DEUXIEME CONSTRUCTEUR------------------------------"<<std::endl;
 
     std::cout<<"\n\n\n\n-----bDList-"<<bDList->size()<<std::endl;
