@@ -92,7 +92,7 @@ public:
 
     void    exportToXML(std::string filename);
     void    addBodyNode(pugi::xml_node parent, std::string name, b2Body* body);
-    void    addJointNode(pugi::xml_node parent, std::string name, jointStruct jStruct);
+    void    addJointNode(pugi::xml_node parent, std::string name, jointStruct* jStruct);
 
             ~Entity();
 };

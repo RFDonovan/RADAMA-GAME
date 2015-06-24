@@ -140,7 +140,7 @@ void Entity::exportToXML(std::string filename)
     for (int i = 0; i< jointBodyList.size(); i++)
     {
 
-        addJointNode(joints, "Jointname", jointBodyList[i]);
+        addJointNode(joints, "Jointname", &jointBodyList[i]);
     }
 
 
@@ -193,16 +193,16 @@ void Entity::addBodyNode(pugi::xml_node parent, std::string name, b2Body* body)
       }
 }
 
-void Entity::addJointNode(pugi::xml_node parent, std::string name, jointStruct jStruct)
+void Entity::addJointNode(pugi::xml_node parent, std::string name, jointStruct* jStruct)
 {
     std::cout<<"++++++++++++++CREATING XML JOINT\n";
-    b2Joint* j = jStruct.joint;
+    b2Joint* j = jStruct->joint;
     pugi::xml_node joint = parent.append_child("joint");
     joint.append_attribute("name") = name.c_str();
     std::cout<<"++++++++++++++ADDING BODY A\n";
-    joint.append_attribute("bodyA") = jStruct.bodyA.c_str();
+    joint.append_attribute("bodyA") = jStruct->bodyA.c_str();
     std::cout<<"++++++++++++++ADDING BODY B\n";
-    joint.append_attribute("bodyB") = jStruct.bodyB.c_str();
+    joint.append_attribute("bodyB") = jStruct->bodyB.c_str();
     joint.append_attribute("collideConnected") = j->GetCollideConnected();
     std::cout<<"++++++++++++++COMPARE\n";
     if (j->GetType() == b2JointType::e_weldJoint)
