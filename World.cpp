@@ -30,6 +30,7 @@ World::World(sf::RenderWindow& window)
     p_world.SetContactListener(&CL_Instance);
     p_world.SetDestructionListener(&DL_Instance);
 
+
     if(!sf::Shader::isAvailable())
     {
         std::cout<< "SHADER NOT AVAILABLE!!!\n";
@@ -227,7 +228,9 @@ void World::draw(sf::Time frameTime)
         }
         else
         {
+            humans[i]->sense();
             humans[i]->render(mWindow, frameTime, &Textures);
+
 
         }
         //std::cout<<"\n draw- after render\n";
@@ -288,7 +291,7 @@ void World::buildScene(std::string CurrentDir)
     LevelObjectList = xLoad->loadXML(CurrentDir + "level.xml", CurrentDir);
     ///--------------
 
-    ///LOADING PLAYERS
+    ///LOADING PLAYER
     //ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
 
     std::vector<bodyData> bDList = xLoad->loadXML(CurrentDir + "ePlayer.xml", CurrentDir);
@@ -298,7 +301,7 @@ void World::buildScene(std::string CurrentDir)
 
     std::cout<<"creation d'une deuxieme entite";
 
-
+    ///LOADING OTHER ENTITIES
     Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H);
     humans.push_back(e);
     ///--------------

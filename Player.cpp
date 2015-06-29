@@ -2,8 +2,9 @@
 
 Player::Player(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h)
     : Entity(mWindow,world, Textures, radius, x, y, w, h)
-    , desiredVel(0)
+    //, desiredVel(0)
 {
+    desiredVel = 0;
     kind = Entity::Player;
     std::cout<< "creation*******";
 
@@ -16,8 +17,9 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
 
 Player::Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap)
     : Entity(mWindow, world, Textures,radius, bDList, jMap)
-    , desiredVel(0)
+    //, desiredVel(0)
 {
+    desiredVel = 0;
     kind = Entity::Player;
     std::cout<< "creation*******";
 

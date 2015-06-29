@@ -21,7 +21,7 @@ public:
     sf::Shader *Shader;
 
     bool noKeyWasPressed = true;
-    float desiredVel;
+//    float desiredVel;
     float jumpLimit = 5.f;
 
     std::vector<b2Body*>    weapons;

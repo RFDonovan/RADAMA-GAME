@@ -363,6 +363,77 @@ void Entity::wipeJoints()
     }
 }
 
+void Entity::sense()
+{
+    RayCastCallback callback;
+    float rayRange = 10.f;
+    float secureDistance = 5.f;
+    int changeDirection = -1;
+    if(currentAnimation == &walkingAnimationLeft || currentAnimation == &stopLeft)
+            changeDirection = -changeDirection;
+    if(hunting)
+    {
+
+        if(std::abs(m_body->GetPosition().x-targetBody->GetPosition().x)> secureDistance)
+        {
+
+            desiredVel = -5.f*changeDirection;
+        }
+        else{
+                desiredVel = 0.f;
+                hunting = false;
+        }
+
+        commitLogic();
+        return;
+    }
+
+//    RayCastCallback callback;
+    p_world->RayCast(&callback,m_body->GetPosition(), b2Vec2(m_body->GetPosition().x-(rayRange*changeDirection),m_body->GetPosition().y));
+    if(callback.m_hit)
+    {
+        std::cout<< "//////////HIT HIT HIT\n";
+        hunting = true;
+        targetBody = callback.m_body;
+    }
+}
+
+void Entity::goTo(b2Vec2& playerLastPos)
+{
+//find path to a position
+
+}
+
+
+void Entity::commitLogic()
+{
+
+
+    vel = m_body->GetLinearVelocity();
+    float velChange = desiredVel - vel.x;
+    if (!hunting)
+        velChange = 0.f;
+
+    float force = getMass() * velChange / (1/60.0);// f = mv/t
+    if(jump>0)
+    {
+        force = getMass() * 4;
+        if(velChange==0.0f)
+            force = force;//*1.5;
+        m_body->ApplyLinearImpulse(b2Vec2(velChange/2, -force), m_body->GetWorldCenter());
+        jump--;
+    }
+
+
+
+
+    if(nb_contacts>0)
+        m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter());
+    else if(vel.y < -1.0f) //|| vel.y > 2.0f)//vel.x != 0 &&
+        m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter());
+
+}
+
 Entity::~Entity()
 {
     wipeJoints();

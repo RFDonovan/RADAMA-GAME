@@ -11,6 +11,7 @@
 #include "AnimatedSprite.hpp"
 #include "TextureHolder.h"
 #include "Structures.hpp"
+#include "RayCastCallback.h"
 
 #include "pugixml.hpp"
 
@@ -61,13 +62,16 @@ public:
 
     sf::Vector2f mouseInit, mousePos, playerPos, velocityForce;
 
+    float desiredVel;
     float velocityLimit = 5.f;
     float jumpLimit = 5.f;
+    b2Body* targetBody;
 
     sf::Clock clock;
 
     ///ATTACK DEF INTERACTION
     bool isAttacked = false;
+    bool hunting = false;
 
 public:
             Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
@@ -96,6 +100,9 @@ public:
     void    addBodyNode(pugi::xml_node parent, std::string name, b2Body* body);
     void    addJointNode(pugi::xml_node parent, std::string name, jointStruct* jStruct);
 
+    void    sense();
+    void    goTo(b2Vec2&);
+    void    commitLogic();
             ~Entity();
 };
 
