@@ -365,23 +365,39 @@ void Entity::wipeJoints()
 
 void Entity::sense()
 {
+
     RayCastCallback callback;
     float rayRange = 10.f;
     float secureDistance = 5.f;
     int changeDirection = -1;
     if(currentAnimation == &walkingAnimationLeft || currentAnimation == &stopLeft)
             changeDirection = -changeDirection;
+
+    jumpOnObstacle(rayRange, changeDirection);
+
     if(hunting)
     {
+
 
         if(std::abs(m_body->GetPosition().x-targetBody->GetPosition().x)> secureDistance)
         {
 
-            desiredVel = -5.f*changeDirection;
+
+            if(m_body->GetPosition().y-targetBody->GetPosition().y> 1.f) ///SAUTE QUAND ...
+                if(nb_contacts>0)
+                    jump ++;
+                else
+                    jump --;
+
+
+            if(m_body->GetPosition().x-targetBody->GetPosition().x > 0)
+                desiredVel = -5.f;
+            else
+                desiredVel = 5.f;
         }
         else{
                 desiredVel = 0.f;
-                hunting = false;
+                ///hunting = false;
         }
 
         commitLogic();
@@ -395,6 +411,30 @@ void Entity::sense()
         std::cout<< "//////////HIT HIT HIT\n";
         hunting = true;
         targetBody = callback.m_body;
+    }
+
+}
+
+void Entity::jumpOnObstacle(float rayRange, int changeDirection)
+{
+    RayCastCallback callback;
+    p_world->RayCast(&callback,
+                     m_body->GetPosition(),
+                     b2Vec2(m_body->GetPosition().x-(rayRange*changeDirection),
+                            m_body->GetPosition().y+rayRange
+                            )
+                     );
+    if(callback.m_ground)///TERRE DIRECTEMENT
+    {
+            //std::cout<< "/////////////////////////////////////Terre devant\n";
+    }else///VIDE OU QUELQUES CHOSES D AUTRE
+    {
+        if(std::abs(m_body->GetLinearVelocity().x)>1.f)
+            if(nb_contacts>0)
+                        jump ++;
+                    else
+                        jump --;
+        //std::cout<< "/////////////////////////////////////Vide devant\n";
     }
 }
 

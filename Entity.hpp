@@ -101,6 +101,7 @@ public:
     void    addJointNode(pugi::xml_node parent, std::string name, jointStruct* jStruct);
 
     void    sense();
+    void    jumpOnObstacle(float rayRange, int changeDirection);
     void    goTo(b2Vec2&);
     void    commitLogic();
             ~Entity();

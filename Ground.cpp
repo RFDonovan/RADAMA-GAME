@@ -26,6 +26,14 @@ Ground::Ground(b2World* world, TextureHolder* Textures, float32 x, float32 y, fl
     loadSprites(Textures);
 }
 
+Ground::Ground(b2World* world,std::vector<bodyData> *bDList)
+{
+    for (int i = 0; i< bDList->size(); i++)
+    {
+        (*bDList)[i].body->SetUserData(this);
+    }
+}
+
 void Ground::loadSprites(TextureHolder* Textures)
 {
     switch (kind)

@@ -289,6 +289,7 @@ void World::buildScene(std::string CurrentDir)
     ///LOADING LEVEL
     xLoad = new XMLLoader(&p_world);
     LevelObjectList = xLoad->loadXML(CurrentDir + "level.xml", CurrentDir);
+    Ground * level = new Ground(&p_world, &LevelObjectList);
     ///--------------
 
     ///LOADING PLAYER

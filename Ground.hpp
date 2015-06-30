@@ -7,6 +7,7 @@
 #include "Globals.h"
 //#include "AnimatedSprite.hpp"
 #include "TextureHolder.h"
+#include "Structures.hpp"
 
 class Ground : public ObjectType
 {
@@ -35,6 +36,7 @@ public:
 public:
 
             Ground(b2World* world, TextureHolder* Textures, float32 x, float32 y, float w = 600.f , float h = 16.f);
+            Ground(b2World* world,std::vector<bodyData> *bDList);
     void    loadSprites(TextureHolder* Textures);
     void    render(sf::RenderWindow& mWindow);
     void    render(sf::RenderWindow& mWindow, sf::Shader* shader);

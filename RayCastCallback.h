@@ -14,6 +14,7 @@ public:
     RayCastCallback()
     {
         m_hit = false;
+        m_ground = false;
     }
 
     float32 ReportFixture(   b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction)
@@ -53,6 +54,11 @@ public:
                 return fraction;
             }
             break;
+            case GROUND:
+                m_ground = true;
+                return fraction;
+                break;
+
             default:
                 //return -1.0f;
                 return fraction;
@@ -62,6 +68,7 @@ public:
 
         }
         std::cout<<"autres choses vu \n";
+        m_ground = false;
         m_hit = false;
         m_point = point;
         m_normal = normal;
@@ -71,7 +78,7 @@ public:
         return fraction;
     }
     int objectType;
-    bool m_hit;
+    bool m_hit, m_ground;
     b2Vec2 m_point;
     b2Vec2 m_normal;
     b2Body* m_body;   //this is what I've added
