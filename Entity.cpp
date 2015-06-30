@@ -373,12 +373,12 @@ void Entity::sense()
     if(currentAnimation == &walkingAnimationLeft || currentAnimation == &stopLeft)
             changeDirection = -changeDirection;
 
-    jumpOnObstacle(rayRange, changeDirection);
+    //jumpOnObstacle();
 
     if(hunting)
     {
 
-
+        /*
         if(std::abs(m_body->GetPosition().x-targetBody->GetPosition().x)> secureDistance)
         {
 
@@ -398,8 +398,8 @@ void Entity::sense()
         else{
                 desiredVel = 0.f;
                 ///hunting = false;
-        }
-
+        }*/
+        goTo(b2Vec2(targetBody->GetPosition().x+(secureDistance*changeDirection),targetBody->GetPosition().y));
         commitLogic();
         return;
     }
@@ -415,8 +415,14 @@ void Entity::sense()
 
 }
 
-void Entity::jumpOnObstacle(float rayRange, int changeDirection)
+void Entity::jumpOnObstacle()
 {
+    float rayRange = 10.f;
+    int changeDirection = -1;
+
+    if(currentAnimation == &walkingAnimationLeft || currentAnimation == &stopLeft)
+            changeDirection = -changeDirection;
+
     RayCastCallback callback;
     p_world->RayCast(&callback,
                      m_body->GetPosition(),
@@ -438,9 +444,19 @@ void Entity::jumpOnObstacle(float rayRange, int changeDirection)
     }
 }
 
-void Entity::goTo(b2Vec2& playerLastPos)
+void Entity::goTo(b2Vec2 newPos)
 {
 //find path to a position
+    if(abs(m_body->GetPosition().x-newPos.x)<10.f/RATIO)
+    {
+        desiredVel = .0f;
+        return;
+    }
+    if(m_body->GetPosition().x-newPos.x > 10.f/RATIO)
+        desiredVel = -velocityLimit;
+    else if(m_body->GetPosition().x-newPos.x < 10.f/RATIO)
+        desiredVel = velocityLimit;
+    jumpOnObstacle();
 
 }
 
