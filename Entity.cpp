@@ -399,7 +399,9 @@ void Entity::sense()
                 desiredVel = 0.f;
                 ///hunting = false;
         }*/
-        goTo(b2Vec2(targetBody->GetPosition().x+(secureDistance*changeDirection),targetBody->GetPosition().y));
+
+        if(std::abs(targetBody->GetPosition().x - m_body->GetPosition().x) > secureDistance)
+            goTo(b2Vec2(targetBody->GetPosition().x+(secureDistance*changeDirection),targetBody->GetPosition().y));
         commitLogic();
         return;
     }
@@ -450,12 +452,15 @@ void Entity::goTo(b2Vec2 newPos)
     if(abs(m_body->GetPosition().x-newPos.x)<10.f/RATIO)
     {
         desiredVel = .0f;
+        //hunting = false;
         return;
     }
     if(m_body->GetPosition().x-newPos.x > 10.f/RATIO)
         desiredVel = -velocityLimit;
-    else if(m_body->GetPosition().x-newPos.x < 10.f/RATIO)
+    else if(m_body->GetPosition().x-newPos.x < -10.f/RATIO)
         desiredVel = velocityLimit;
+    else
+        desiredVel = .0f;
     jumpOnObstacle();
 
 }
