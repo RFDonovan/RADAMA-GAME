@@ -4,7 +4,7 @@ World::World(sf::RenderWindow& window)
     : mWindow(window)
     , gravity(0.f,12.f)
 //, gravity(0.f,9.8f)
-    , p_world(gravity, true)
+    , p_world(gravity)//, true)--2.2.0
     , debugDrawInstance(window)
     , mWorldView(window.getDefaultView())
     , pauseLayer(sf::Vector2f(WINDOW_W, WINDOW_H))

@@ -481,7 +481,7 @@ void Entity::commitLogic()
         force = getMass() * 4;
         if(velChange==0.0f)
             force = force;//*1.5;
-        m_body->ApplyLinearImpulse(b2Vec2(velChange/2, -force), m_body->GetWorldCenter());
+        m_body->ApplyLinearImpulse(b2Vec2(velChange/2, -force), m_body->GetWorldCenter(), true);
         jump--;
     }
 
@@ -489,9 +489,9 @@ void Entity::commitLogic()
 
 
     if(nb_contacts>0)
-        m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter());
+        m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter(), true);
     else if(vel.y < -1.0f) //|| vel.y > 2.0f)//vel.x != 0 &&
-        m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter());
+        m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter(), true);
 
 }
 
