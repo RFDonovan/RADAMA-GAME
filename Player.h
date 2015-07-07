@@ -45,7 +45,8 @@ public:
     float riseFactor = .5f;
     sf::Clock clock;
 
-
+    sf::Texture *lifeTex, *deathTex;
+    sf::Sprite lifeSprite, deathSprite; ///red and green
 
 public:
             Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
@@ -55,6 +56,9 @@ public:
     void    processLogic(sf::RenderWindow& mWindow);
     void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures);
     void    renderWeapons(sf::RenderWindow& mWindow);
+
+    void    drawLife(sf::RenderWindow& mWindow);
+
     void    onCommand(sf::Event e);
     void    attack();
     void    fire(int projectile);

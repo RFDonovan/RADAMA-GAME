@@ -179,7 +179,7 @@ void World::draw(sf::Time frameTime)
 
     //BG.setColor(sf::Color(0, 0, 0, 200));
 
-    ///mWindow.draw(BG);
+    mWindow.draw(BG);
 
 
     if(!paused)/// ******************************************************************>>>>PAUSE

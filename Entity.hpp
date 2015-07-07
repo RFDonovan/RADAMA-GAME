@@ -73,6 +73,10 @@ public:
     bool isAttacked = false;
     bool hunting = false;
 
+
+    ///LIFE HANDLER
+    int m_life = 80; // sur 100
+
 public:
             Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
             Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap);

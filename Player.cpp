@@ -27,6 +27,19 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
     currentAnimation = &stopRight;
 
     currentProjectile = nameToWeapon["lefona"];
+
+
+    lifeTex = new sf::Texture();
+    deathTex = new sf::Texture();
+    lifeTex->loadFromFile("life.png");
+    lifeSprite.setTexture(*lifeTex);
+    deathTex->loadFromFile("death.png");
+    deathSprite.setTexture(*deathTex);
+    ///lifeSprite.setOrigin(lifeTex->getSize().x/2, lifeTex->getSize().y/2);
+    ///deathSprite.setOrigin(deathTex->getSize().x/2, deathTex->getSize().y/2);
+
+
+
 }
 
 /// //////////////
@@ -132,6 +145,7 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
     animatedSprite.setPosition(m_body->GetPosition().x * RATIO,
                                m_body->GetPosition().y * RATIO);
     animatedSprite.setRotation(m_body->GetAngle() * 180/b2_pi);
+    drawLife(mWindow);
     ///weapon render
     renderWeapons(mWindow);
     ///Draw:
@@ -143,6 +157,21 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
 //*/
 
 
+}
+
+void Player::drawLife(sf::RenderWindow& mWindow)
+{
+
+    deathSprite.setPosition(animatedSprite.getPosition().x - deathTex->getSize().x/2,
+                     animatedSprite.getPosition().y - 100);
+    mWindow.draw(deathSprite);
+
+    lifeSprite.setPosition(animatedSprite.getPosition().x-2 - lifeTex->getSize().x/2,
+                     animatedSprite.getPosition().y - 100+1);
+
+    lifeSprite.setScale(100/m_life,1.f);
+
+    mWindow.draw(lifeSprite);
 }
 
 void Player::onCommand(sf::Event e)
