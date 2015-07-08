@@ -109,7 +109,7 @@ public:
     void    jumpOnObstacle();
     void    goTo(b2Vec2);
     void    commitLogic();
-    void    getHit();
+    void    getHit(float impulse);
     bool    isDead();
     void    doTheDead();
             ~Entity();

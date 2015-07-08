@@ -130,7 +130,7 @@ std::cout<<"userdata exist\n";
             {
                 std::cout<<"userDataB";
                 if(userDataB && ((ObjectType*)userDataB)->getClassName() != PLAYER)///POUR EVITER LES COLLISIONS ENTRE ARME ET JOUEUR
-                    ((Entity*)userDataB)->getHit();
+                    ((Entity*)userDataB)->getHit((float)impulse->normalImpulses[0]);
             }
 
 
@@ -145,7 +145,7 @@ std::cout<<"userdata exist\n";
             {
                 std::cout<<"userDataA";
                 if(userDataA && ((ObjectType*)userDataA)->getClassName() != PLAYER)///POUR EVITER LES COLLISIONS ENTRE ARME ET JOUEUR
-                    ((Entity*)userDataA)->getHit();
+                    ((Entity*)userDataA)->getHit((float)impulse->normalImpulses[0]);
 
             }
 

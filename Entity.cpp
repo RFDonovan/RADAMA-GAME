@@ -531,12 +531,15 @@ void Entity::commitLogic()
 
 }
 
-void Entity::getHit()
+void Entity::getHit(float impulse)
 {
+    float degat;
+    if(impulse > 40)
+        degat = 10;
 
-    std::cout<<"TOUCHEEEEEEEEEEEEEEEEEEEEEE\n";
+    std::cout<<"TOUCHEEEEEEEEEEEEEEEEEEEEEE avec impulse = "<<impulse<<std::endl;
     if(m_life>10)
-        m_life = m_life - 10;
+        m_life = m_life - degat;
     else
         m_life = 0;
 

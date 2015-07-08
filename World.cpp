@@ -370,6 +370,7 @@ void World::rebuildScene()
     ///CLEARING LISTS
     WeaponList.clear();
     LevelObjectList.clear();
+    humans.clear();
     ///--------------
     rebuild = true;
 

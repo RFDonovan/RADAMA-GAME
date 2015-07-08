@@ -346,7 +346,13 @@ b2Fixture*   XMLLoader::createCircleShape(b2Body* body, pugi::xml_node fixtureNo
     b2CircleShape Shape;
     b2FixtureDef FixtureDef;
 
-
+    ///COLLISION FILTERING
+    if(strcmp(fixtureNode.attribute("categoryBits").value(), "") != 0)
+        FixtureDef.filter.categoryBits = (uint16)fixtureNode.attribute("categoryBits").as_uint();
+    //exit(-1);
+    if(strcmp(fixtureNode.attribute("maskBits").value(), "") != 0)
+        FixtureDef.filter.maskBits = (uint16)fixtureNode.attribute("maskBits").as_uint();
+    ///------------------
 
     FixtureDef.density = fixtureNode.attribute("density").as_float();
     FixtureDef.friction = fixtureNode.attribute("friction").as_float();
