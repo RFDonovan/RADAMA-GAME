@@ -145,6 +145,7 @@ b2Body* XMLLoader::createBody(int bodyType, pugi::xml_node bodyNode)
     myBodyDef.type = (b2BodyType)bodyType;
     myBodyDef.bullet = bodyNode.attribute("bullet").as_bool();
     myBodyDef.fixedRotation = bodyNode.attribute("fixedRotation").as_bool();
+    //myBodyDef.active = bodyNode.attribute("isActive").as_bool();
     //std::cout<<"x:"<<(float32)bodyNode.attribute("x").as_float()/RATIO<<"y:"<<(float32) bodyNode.attribute("y").as_float()/RATIO;
     myBodyDef.position.Set((float32)bodyNode.attribute("x").as_float()/RATIO,-(float32) bodyNode.attribute("y").as_float()/RATIO);
     mBody = p_world->CreateBody(&myBodyDef);

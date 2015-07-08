@@ -169,7 +169,7 @@ void Player::drawLife(sf::RenderWindow& mWindow)
     lifeSprite.setPosition(animatedSprite.getPosition().x-2 - lifeTex->getSize().x/2,
                      animatedSprite.getPosition().y - 100+1);
 
-    lifeSprite.setScale(100/m_life,1.f);
+    lifeSprite.setScale(m_life/100.f,1.f);
 
     mWindow.draw(lifeSprite);
 }
@@ -429,7 +429,7 @@ void    Player::loadWeapon(bodyData* data)
         return;
     }
     data->body->SetUserData((Entity*)this);
-
+    data->body->SetActive(false);
     int numero = weaponsMap.size();
     weaponsMap[numero] = data->body;
     nameToWeapon[data->name] = numero;

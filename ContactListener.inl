@@ -126,11 +126,13 @@ std::cout<<"userdata exist\n";
             //b2Body* arrowBody = fixtureA->GetBody();
             ((Player*)userDataA)->impactTo(fixtureA, fixtureB,(float)impulse->normalImpulses[0]);
 
-            /*if(fixtureA->GetFriction() == 0.735f)
+            if(userDataB && ((ObjectType*)userDataB)->getObjectType() == ENTITY)///si le touchE est une entitE
             {
-                ((Player*)userDataA)->stickProjectile(fixtureB);
-                fixtureA->SetDensity(0.f);
-            }*/
+                std::cout<<"userDataB";
+                if(userDataB && ((ObjectType*)userDataB)->getClassName() != PLAYER)///POUR EVITER LES COLLISIONS ENTRE ARME ET JOUEUR
+                    ((Entity*)userDataB)->getHit();
+            }
+
 
             //std::cout<<"IMPULSE:"<<impulse->normalImpulses[0];
         }
@@ -138,11 +140,14 @@ std::cout<<"userdata exist\n";
         {
             //b2Body* arrowBody = fixtureB->GetBody();0
             ((Player*)userDataB)->impactTo(fixtureB, fixtureA,(float)impulse->normalImpulses[0]);
-            /*if(fixtureB->GetFriction() == 0.735f)
+
+            if(userDataA && ((ObjectType*)userDataA)->getObjectType() == ENTITY)
             {
-                ((Player*)userDataB)->stickProjectile(fixtureA);
-                fixtureA->SetDensity(0.f);
-            }*/
+                std::cout<<"userDataA";
+                if(userDataA && ((ObjectType*)userDataA)->getClassName() != PLAYER)///POUR EVITER LES COLLISIONS ENTRE ARME ET JOUEUR
+                    ((Entity*)userDataA)->getHit();
+
+            }
 
             //std::cout<<"arrowbody trouve";
         }

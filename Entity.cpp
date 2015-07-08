@@ -495,6 +495,18 @@ void Entity::commitLogic()
 
 }
 
+void Entity::getHit()
+{
+
+    std::cout<<"TOUCHEEEEEEEEEEEEEEEEEEEEEE\n";
+    if(m_life>10)
+        m_life = m_life - 10;
+    else
+        m_life = 0;
+
+    std::cout<<"m_life = "<<m_life<<std::endl;
+}
+
 Entity::~Entity()
 {
     wipeJoints();
@@ -504,3 +516,5 @@ Entity::~Entity()
 
     std::cout<< "fini";
 }
+
+

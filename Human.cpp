@@ -9,6 +9,13 @@ Human::Human(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures, 
 
     loadSprite(Textures);
     currentAnimation = &stopLeft;///POUR LE STANDBY ANIMATION
+
+    lifeTex = new sf::Texture();
+    deathTex = new sf::Texture();
+    lifeTex->loadFromFile("life.png");
+    lifeSprite.setTexture(*lifeTex);
+    deathTex->loadFromFile("death.png");
+    deathSprite.setTexture(*deathTex);
 }
 
 void Human::loadSprite(TextureHolder* Textures)
@@ -98,8 +105,23 @@ void Human::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder*
                                         m_body->GetPosition().y * RATIO);
             animatedSprite.setRotation(m_body->GetAngle() * 180/b2_pi);
             ///Draw:
+            drawLife(mWindow);
             mWindow.draw(animatedSprite);
 
 //*/
+}
+void Human::drawLife(sf::RenderWindow& mWindow)
+{
+
+    deathSprite.setPosition(animatedSprite.getPosition().x - deathTex->getSize().x/2,
+                     animatedSprite.getPosition().y - 100);
+    mWindow.draw(deathSprite);
+
+    lifeSprite.setPosition(animatedSprite.getPosition().x-2 - lifeTex->getSize().x/2,
+                     animatedSprite.getPosition().y - 100+1);
+
+    lifeSprite.setScale(m_life/100.f,1.f);
+
+    mWindow.draw(lifeSprite);
 }
 
