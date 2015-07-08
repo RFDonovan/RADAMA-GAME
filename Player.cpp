@@ -418,8 +418,8 @@ void Player::createWeapons()
     weaponsMap[numero] = lefona;
     nameToWeapon["lefona"] = numero;
     weaponToName[numero] = "lefona";
-    f->SetUserData((void*)identificationArme + numero);
-    //lefona->SetActive(false);
+    f->SetUserData((void*)(identificationArme + numero));
+    //lefona
 
 }
 

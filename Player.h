@@ -30,7 +30,7 @@ public:
     std::map<int, std::string>  weaponToName;
     //Projectile currentProjectile = Projectile::lefona;
     int currentProjectile = 0;
-    int identificationArme = 20000;///fixture->setUserData((void*)(identificationArme + numero))pour identifier le numero d'un arme, on soustrait l'object data avec celui ci
+    int identificationArme = 20001;///fixture->setUserData((void*)(identificationArme + numero))pour identifier le numero d'un arme, on soustrait l'object data avec celui ci
     //std::vector<b2Body*>    stickingProjectile;
     float angle;
 

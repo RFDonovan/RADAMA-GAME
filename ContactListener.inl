@@ -129,6 +129,8 @@ std::cout<<"userdata exist\n";
             if(userDataB && ((ObjectType*)userDataB)->getObjectType() == ENTITY)///si le touchE est une entitE
             {
                 std::cout<<"userDataB";
+                std::cout<<"fixtureA ***>****>"<<(int)fixtureA->GetUserData()<<std::endl;
+                std::cout<<"velocity x ***>****>"<<fixtureA->GetBody()->GetLinearVelocity().x<<std::endl;
                 if(userDataB && ((ObjectType*)userDataB)->getClassName() != PLAYER)///POUR EVITER LES COLLISIONS ENTRE ARME ET JOUEUR
                     ((Entity*)userDataB)->getHit((float)impulse->normalImpulses[0]);
             }
@@ -144,6 +146,8 @@ std::cout<<"userdata exist\n";
             if(userDataA && ((ObjectType*)userDataA)->getObjectType() == ENTITY)
             {
                 std::cout<<"userDataA";
+                std::cout<<"fixtureA ***>****>"<<(int)fixtureB->GetUserData()<<std::endl;
+                std::cout<<"velocity x ***>****>"<<fixtureB->GetBody()->GetLinearVelocity().x<<std::endl;
                 if(userDataA && ((ObjectType*)userDataA)->getClassName() != PLAYER)///POUR EVITER LES COLLISIONS ENTRE ARME ET JOUEUR
                     ((Entity*)userDataA)->getHit((float)impulse->normalImpulses[0]);
 

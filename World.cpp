@@ -371,6 +371,7 @@ void World::rebuildScene()
     WeaponList.clear();
     LevelObjectList.clear();
     humans.clear();
+    listOfDeletedHuman.clear();
     ///--------------
     rebuild = true;
 
