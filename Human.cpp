@@ -4,6 +4,7 @@ Human::Human(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures, 
 : Entity(mWindow,world, Textures, radius, x, y, w, h)
 , desiredVel(0)
 {
+    maxLife = 80;
     kind = Entity::Human;
     std::cout<< "creation*******";
 
@@ -94,7 +95,8 @@ void Human::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder*
                         currentAnimation = &stopRight;
                 }
 
-            animatedSprite.play(*currentAnimation);
+            if(!isDead())
+                animatedSprite.play(*currentAnimation);
 
             animatedSprite.update(frameTime1);
 
@@ -120,7 +122,7 @@ void Human::drawLife(sf::RenderWindow& mWindow)
     lifeSprite.setPosition(animatedSprite.getPosition().x-2 - lifeTex->getSize().x/2,
                      animatedSprite.getPosition().y - 100+1);
 
-    lifeSprite.setScale(m_life/100.f,1.f);
+    lifeSprite.setScale(m_life/(float)maxLife,1.f);
 
     mWindow.draw(lifeSprite);
 }

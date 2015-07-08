@@ -4,6 +4,7 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures
     : Entity(mWindow,world, Textures, radius, x, y, w, h)
     //, desiredVel(0)
 {
+    maxLife = 100;
     desiredVel = 0;
     kind = Entity::Player;
     std::cout<< "creation*******";
@@ -19,6 +20,7 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
     : Entity(mWindow, world, Textures,radius, bDList, jMap)
     //, desiredVel(0)
 {
+    maxLife = 100;
     desiredVel = 0;
     kind = Entity::Player;
     std::cout<< "creation*******";
@@ -169,7 +171,7 @@ void Player::drawLife(sf::RenderWindow& mWindow)
     lifeSprite.setPosition(animatedSprite.getPosition().x-2 - lifeTex->getSize().x/2,
                      animatedSprite.getPosition().y - 100+1);
 
-    lifeSprite.setScale(m_life/100.f,1.f);
+    lifeSprite.setScale(m_life/(float)maxLife,1.f);
 
     mWindow.draw(lifeSprite);
 }

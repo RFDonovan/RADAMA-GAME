@@ -466,9 +466,45 @@ void Entity::goTo(b2Vec2 newPos)
 }
 
 
+void Entity::doTheDead()
+{
+    m_body->SetFixedRotation(false);
+    m_legs->SetFixedRotation(false);
+    m_head->SetFixedRotation(false);
+    b2Filter filter;
+    for (auto b : bodyList)
+    {
+        for (b2Fixture* f = (b.second)->GetFixtureList(); f; f = f->GetNext())
+        {
+            filter = f->GetFilterData();
+            //filter.categoryBits = 0x0001;
+            filter.maskBits = 0x0002;
+            f->SetFilterData(filter);
+            f->SetFriction(1.0);
+        }
+    }
+    /*for (b2Fixture* f = m_body->GetFixtureList(); f; f = f->GetNext())
+    {
+        filter = f->GetFilterData();
+        filter.categoryBits = 0;
+        filter.maskBits = 0;
+        f->SetFilterData(filter);
+    }
+    for (b2Fixture* f = m_head->GetFixtureList(); f; f = f->GetNext())
+    {
+        f->SetFilterData(filter);
+    }
+    for (b2Fixture* f = m_head->GetFixtureList(); f; f = f->GetNext())
+    {
+        f->SetFilterData(filter);
+    }*/
+
+}
+
 void Entity::commitLogic()
 {
-
+    if(isDead())
+        return;
 
     vel = m_body->GetLinearVelocity();
     float velChange = desiredVel - vel.x;
@@ -507,6 +543,14 @@ void Entity::getHit()
     std::cout<<"m_life = "<<m_life<<std::endl;
 }
 
+
+bool Entity::isDead()
+{
+    if(m_life <= 0)
+        return true;
+    else
+        return false;
+}
 Entity::~Entity()
 {
     wipeJoints();

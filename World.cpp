@@ -217,12 +217,15 @@ void World::draw(sf::Time frameTime)
     {
 
         ///teste une suppression d'Entité morts: ASSEZ BIEN!!!
-        if(humans[i]->getY() > mWindow.getSize().y)
+        if(humans[i]->getY() > mWindow.getSize().y || humans[i]->isDead())
         {
             std::cout<< "ito suppr";
             listOfDeletedHuman.push_back(humans[i]);
-            //delete humans[i];
-            humans.erase(humans.begin()+i);
+
+            ///RENDER A DEAD VERSION
+
+            //humans.erase(humans.begin()+i);
+            humans[i]->render(mWindow, frameTime, &Textures);
             continue;
 
         }
@@ -340,7 +343,7 @@ void World::buildScene(std::string CurrentDir)
     }
     closedir(dir);
     ///------------------
-    xLoad->loadXML(CurrentDir + "testJoint.xml", CurrentDir);
+    //xLoad->loadXML(CurrentDir + "testJoint.xml", CurrentDir);
     std::map<std::string, b2Joint*> jMap2 = xLoad->GetCurrentJointMap();
 
 
@@ -503,7 +506,9 @@ void World::sheduleRemove()
 
     for (int i = 0 ; i < listOfDeletedHuman.size() ; i++ )
     {
-        delete listOfDeletedHuman[i];
+        //delete listOfDeletedHuman[i];
+        //listOfDeletedHuman[i]->m_body->SetFixedRotation(false);
+        listOfDeletedHuman[i]->doTheDead();
         listOfDeletedHuman.erase(listOfDeletedHuman.begin()+i);
 
 

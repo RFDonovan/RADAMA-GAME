@@ -45,6 +45,7 @@ public:
     float riseFactor = .5f;
     sf::Clock clock;
 
+
     sf::Texture *lifeTex, *deathTex;
     sf::Sprite lifeSprite, deathSprite; ///red and green
 

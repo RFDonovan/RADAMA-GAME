@@ -76,6 +76,7 @@ public:
 
     ///LIFE HANDLER
     int m_life = 80; // sur 100
+    int maxLife;
 
 public:
             Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
@@ -109,6 +110,8 @@ public:
     void    goTo(b2Vec2);
     void    commitLogic();
     void    getHit();
+    bool    isDead();
+    void    doTheDead();
             ~Entity();
 };
 
