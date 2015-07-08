@@ -29,7 +29,7 @@ std::cout<<"userdata exist\n";
                 //std::cout<<"mety";
             {
                 std::cout<<"entityA\n";
-                static_cast<Entity*>( userData )->startContact(contact->GetFixtureA());
+                static_cast<Entity*>( userData )->startContact(contact->GetFixtureA(),contact->GetFixtureB());
             }
             break;
             case GROUND:
@@ -53,7 +53,7 @@ std::cout<<"userdata exist\n";
                 //std::cout<<"mety";
             {
                 std::cout<<"entityB\n";
-                (static_cast<Entity*>( userData ))->startContact(contact->GetFixtureB());
+                (static_cast<Entity*>( userData ))->startContact(contact->GetFixtureB(),contact->GetFixtureA());
             }
             case GROUND:
             break;
@@ -80,7 +80,7 @@ std::cout<<"userdata exist\n";
             case ENTITY:
                 //std::cout<<"mety";
             {
-                static_cast<Entity*>( userData )->endContact(contact->GetFixtureA());
+                static_cast<Entity*>( userData )->endContact(contact->GetFixtureA(),contact->GetFixtureB());
             }
             break;
             default:
@@ -100,7 +100,7 @@ std::cout<<"userdata exist\n";
             case ENTITY:
                 //std::cout<<"mety";
             {
-                static_cast<Entity*>( userData )->endContact(contact->GetFixtureB());
+                static_cast<Entity*>( userData )->endContact(contact->GetFixtureB(),contact->GetFixtureA());
             }
             break;
             default:

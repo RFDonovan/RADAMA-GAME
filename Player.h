@@ -71,6 +71,7 @@ public:
     void    impactTo(b2Fixture* fixtureSource, b2Fixture* fixtureTarget, float impulse);
     void    stickAll();
     void    jointDestroyer();
+    void    takeWeapon();
 
     void    clearAll();
 

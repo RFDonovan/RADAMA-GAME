@@ -328,7 +328,9 @@ void World::buildScene(std::string CurrentDir)
 
             for (int i = 0; i < bDList.size(); i++)
             {
-                ePlayer->loadWeapon(&(bDList[i]));
+
+                new Projectile(&(bDList[i]));
+                ///ePlayer->loadWeapon(&(bDList[i]));
                 //WeaponList.push_back(bDList[i]);
                 //bDList.erase(bDList.begin()+i);
             }

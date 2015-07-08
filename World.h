@@ -19,6 +19,7 @@
 #include "Player.h"
 #include "Ground.hpp"
 #include "Structures.hpp"
+#include "Projectile.hpp"
 
 #include "ContactListener.inl"
 #include "DestructionListener.inl"

@@ -12,6 +12,7 @@
 #include "TextureHolder.h"
 #include "Structures.hpp"
 #include "RayCastCallback.h"
+#include "Projectile.hpp"
 
 #include "pugixml.hpp"
 
@@ -78,6 +79,10 @@ public:
     int m_life = 80; // sur 100
     int maxLife;
 
+    ///WEAPON TAKING
+    bool        isWeaponDispo = false;
+    Projectile* weaponDispo;
+
 public:
             Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
             Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap);
@@ -92,8 +97,8 @@ public:
     b2Vec2  getVelocity();
     float   getMass();
 
-    void    startContact(b2Fixture   *fixture);
-    void    endContact(b2Fixture   *fixture);
+    void    startContact(b2Fixture   *fixture, b2Fixture   *fixtureB);
+    void    endContact(b2Fixture   *fixture, b2Fixture   *fixtureB);
 
     //void    attachStuff(sf::Shader* shader, TextureHolder::TexName tex);
 

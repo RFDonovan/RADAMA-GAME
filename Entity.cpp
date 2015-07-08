@@ -324,9 +324,17 @@ bool Entity::isGrounded()
  return grounded;
 }
 
-void Entity::startContact(b2Fixture   *fixture)
+void Entity::startContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
 {
     std::cout<< "CONTACT BEGIN";
+    if((int)fixtureB->GetUserData()>20000 && (int)fixture->GetUserData()<30000)
+    {
+        Projectile* p = (Projectile*)(fixtureB->GetBody()->GetUserData());
+        isWeaponDispo = p->isDispo();
+        if(isWeaponDispo)
+            weaponDispo = p;
+        //std::cout<< "CONTACT WITH PROJECTILE!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+    }
 
     if(fixture == basFixture)
     {
@@ -339,10 +347,15 @@ void Entity::startContact(b2Fixture   *fixture)
 //nb_contacts++;
 
 }
-void Entity::endContact(b2Fixture   *fixture)
+void Entity::endContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
 {
 
     std::cout<< "CONTACT END";
+    if((int)fixtureB->GetUserData()>20000 && (int)fixture->GetUserData()<30000)
+    {
+        isWeaponDispo = false;
+    //    std::cout<< "END CONTACT WITH PROJECTILE!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+    }
     if(fixture == basFixture)
     {
         grounded = false;

@@ -192,6 +192,15 @@ void Player::onCommand(sf::Event e)
         noKeyWasPressed = false;
     }
 
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))///T to TAKE
+    {
+        if(isWeaponDispo)
+        {
+            loadWeapon(weaponDispo->getBodyData());
+            weaponDispo->dejaPris = true;
+        }
+
+    }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
         if(nb_contacts>0)
@@ -202,6 +211,8 @@ void Player::onCommand(sf::Event e)
     }
     if (sf::Mouse::isButtonPressed(sf::Mouse::Middle))
     {
+        if(weaponsMap.size() <=0 )
+                return;
         if(joint !=nullptr)
         {
             std::cout<<"destroying joint 1...\n";
@@ -266,6 +277,8 @@ void Player::onCommand(sf::Event e)
     }
     break;
     case sf::Event::MouseButtonReleased:
+        if(weaponsMap.size() <=0 )
+                return;
         if(e.mouseButton.button == sf::Mouse::Middle)
             weaponsMap[currentProjectile]->SetActive(true);
         fire(currentProjectile);
@@ -284,6 +297,8 @@ void Player::onCommand(sf::Event e)
     case sf::Event::MouseWheelMoved:
     {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Middle))
+            return;
+        if(weaponsMap.size() <=0 )
             return;
         if(e.mouseWheel.delta>0)
         {
