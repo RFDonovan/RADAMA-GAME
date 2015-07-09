@@ -336,7 +336,7 @@ b2Fixture*   XMLLoader::createRectangleShape(b2Body* body, pugi::xml_node fixtur
     b2Fixture* fixture = body->CreateFixture(&FixtureDef);
     //fixture->SetUserData(this);
 
-    //return fixture;
+    return fixture;
 }
 
 b2Fixture*   XMLLoader::createCircleShape(b2Body* body, pugi::xml_node fixtureNode)

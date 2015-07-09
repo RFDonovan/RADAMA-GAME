@@ -298,9 +298,9 @@ void World::buildScene(std::string CurrentDir)
     ///LOADING PLAYER
     //ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
 
-    std::vector<bodyData> bDList = xLoad->loadXML(CurrentDir + "ePlayer.xml", CurrentDir);
+    std::vector<bodyData> bDListP = xLoad->loadXML(CurrentDir + "ePlayer.xml", CurrentDir);
     std::map<std::string, b2Joint*> jMap = xLoad->GetCurrentJointMap();
-    ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , &bDList, &jMap);
+    ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , &bDListP, &jMap);
 
 
     std::cout<<"creation d'une deuxieme entite";
@@ -315,6 +315,9 @@ void World::buildScene(std::string CurrentDir)
     DIR* dir;
     dirent* pdir;
     dir = opendir(weaponDir.c_str());
+
+    std::vector<Projectile*> pList;
+    std::vector<bodyData> bDList;
     while (pdir = readdir(dir))
     {
         std::string fichier(pdir->d_name);
@@ -323,16 +326,19 @@ void World::buildScene(std::string CurrentDir)
         {
             std::stringstream ss;
             ss << weaponDir<<fichier;
-            std::vector<bodyData> bDList = xLoad->loadXML(ss.str(),weaponDir);
+            /*std::vector<bodyData>*/ bDList = xLoad->loadXML(ss.str(),weaponDir);
 
 
             for (int i = 0; i < bDList.size(); i++)
             {
 
-                new Projectile(&(bDList[i]));
+                //new Projectile(&(bDList[i]));
+                Projectile* p = new Projectile(&(bDList[i]));
                 ///ePlayer->loadWeapon(&(bDList[i]));
                 //WeaponList.push_back(bDList[i]);
                 //bDList.erase(bDList.begin()+i);
+                //std::cout<<"weapon name**>:  "<< p->getName() << " OK " <<std::endl;
+                pList.push_back(p);
             }
 
             WeaponList.insert(WeaponList.end(), bDList.begin(), bDList.end());
@@ -344,6 +350,7 @@ void World::buildScene(std::string CurrentDir)
 
     }
     closedir(dir);
+
     ///------------------
     //xLoad->loadXML(CurrentDir + "testJoint.xml", CurrentDir);
     std::map<std::string, b2Joint*> jMap2 = xLoad->GetCurrentJointMap();

@@ -445,7 +445,7 @@ void    Player::loadWeapon(bodyData* data)
     {
         return;
     }
-    data->body->SetUserData((Entity*)this);
+    //data->body->SetUserData((Entity*)this);
     data->body->SetActive(false);
     int numero = weaponsMap.size();
     weaponsMap[numero] = data->body;
