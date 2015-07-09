@@ -213,7 +213,7 @@ void Player::onCommand(sf::Event e)
     {
         if(weaponsMap.size() <=0 )
                 return;
-        if(joint !=nullptr)
+        /*if(joint !=nullptr)
         {
             std::cout<<"destroying joint 1...\n";
             if(!jointsAlreadyDestroyed)
@@ -230,7 +230,9 @@ void Player::onCommand(sf::Event e)
             joint2 = nullptr;
             std::cout<<"joint 2 destroyed\n";
         }
-
+*/
+        void* ptile = weaponsMap[currentProjectile]->GetUserData();
+        ((Projectile*)ptile)->unStick();
         mousePos = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
         int posX = (int)m_body->GetPosition().x * RATIO;
         int posY = (int)m_body->GetPosition().y * RATIO;
@@ -368,7 +370,7 @@ void Player::fire(int projectile)
     {
     case lefona:
     {
-        float angle = weaponsMap[Projectile::lefona]->GetAngle();
+        float angle = weaponsMap[ProjectileType::lefona]->GetAngle();
         float x,y;
         x = std::cos(angle) * 500;//cosinus*hypotenuse
         y = std::sin(angle) * 500;

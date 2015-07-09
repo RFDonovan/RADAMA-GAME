@@ -121,16 +121,16 @@ std::cout<<"userdata exist\n";
         void * userDataB = contact->GetFixtureB()->GetBody()->GetUserData();
 
 
-        if(userDataA && ((ObjectType*)userDataA)->getClassName() == PLAYER)//&&fixture->GetBody()->GetLinearVelocity().x
+        if(userDataA && ((ObjectType*)userDataA)->getClassName() == PROJECTILE)//&&fixture->GetBody()->GetLinearVelocity().x
         {
             //b2Body* arrowBody = fixtureA->GetBody();
-            ((Player*)userDataA)->impactTo(fixtureA, fixtureB,(float)impulse->normalImpulses[0]);
+            ((Projectile*)userDataA)->impactTo(fixtureA, fixtureB,(float)impulse->normalImpulses[0]);
 
             if(userDataB && ((ObjectType*)userDataB)->getObjectType() == ENTITY)///si le touchE est une entitE
             {
-                std::cout<<"userDataB";
-                std::cout<<"fixtureA ***>****>"<<(int)fixtureA->GetUserData()<<std::endl;
-                std::cout<<"velocity x ***>****>"<<fixtureA->GetBody()->GetLinearVelocity().x<<std::endl;
+//                std::cout<<"userDataB";
+//                std::cout<<"fixtureA ***>****>"<<(int)fixtureA->GetUserData()<<std::endl;
+//                std::cout<<"velocity x ***>****>"<<fixtureA->GetBody()->GetLinearVelocity().x<<std::endl;
                 if(userDataB && ((ObjectType*)userDataB)->getClassName() != PLAYER)///POUR EVITER LES COLLISIONS ENTRE ARME ET JOUEUR
                     ((Entity*)userDataB)->getHit((float)impulse->normalImpulses[0]);
             }
@@ -138,16 +138,16 @@ std::cout<<"userdata exist\n";
 
             //std::cout<<"IMPULSE:"<<impulse->normalImpulses[0];
         }
-        if(userDataB && ((ObjectType*)userDataB)->getClassName() == PLAYER)
+        if(userDataB && ((ObjectType*)userDataB)->getClassName() == PROJECTILE)
         {
             //b2Body* arrowBody = fixtureB->GetBody();0
-            ((Player*)userDataB)->impactTo(fixtureB, fixtureA,(float)impulse->normalImpulses[0]);
+            ((Projectile*)userDataB)->impactTo(fixtureB, fixtureA,(float)impulse->normalImpulses[0]);
 
             if(userDataA && ((ObjectType*)userDataA)->getObjectType() == ENTITY)
             {
-                std::cout<<"userDataA";
-                std::cout<<"fixtureA ***>****>"<<(int)fixtureB->GetUserData()<<std::endl;
-                std::cout<<"velocity x ***>****>"<<fixtureB->GetBody()->GetLinearVelocity().x<<std::endl;
+//                std::cout<<"userDataA";
+//                std::cout<<"fixtureA ***>****>"<<(int)fixtureB->GetUserData()<<std::endl;
+//                std::cout<<"velocity x ***>****>"<<fixtureB->GetBody()->GetLinearVelocity().x<<std::endl;
                 if(userDataA && ((ObjectType*)userDataA)->getClassName() != PLAYER)///POUR EVITER LES COLLISIONS ENTRE ARME ET JOUEUR
                     ((Entity*)userDataA)->getHit((float)impulse->normalImpulses[0]);
 

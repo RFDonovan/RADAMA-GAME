@@ -86,6 +86,8 @@ public:
     std::vector<Ground*>    grounds;
     std::vector<bodyData>   WeaponList;
     std::vector<bodyData>   LevelObjectList;
+    std::vector<bodyData>   bDList;
+    std::vector<Projectile*>    pList;
 
     bool rebuild = false;
 
@@ -149,6 +151,8 @@ public:
 
     void    sheduleRemove();
 
+    /**STICKING PROJECTILE**/
+    void    sticking();
     /**PAUSE STUFF**/
     sf::RectangleShape pauseLayer;
     bool paused = false;

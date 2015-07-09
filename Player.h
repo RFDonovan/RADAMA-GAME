@@ -10,7 +10,7 @@ public:
 
 
     //animation control
-    enum Projectile{
+    enum ProjectileType{
         lefona,
         vato,
         afo,

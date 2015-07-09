@@ -168,6 +168,14 @@ void World::update()
 
 }
 
+void World::sticking()
+{
+    for (int i = 0; i < pList.size(); i++)
+    {
+        pList[i]->stickIt();
+    }
+}
+
 void World::draw(sf::Time frameTime)
 {
 
@@ -187,7 +195,8 @@ void World::draw(sf::Time frameTime)
         p_world.Step(1/60.f,6,2);
         /// LES FONCTIONS QUI SONT EN DEHORS DU STEP : suppressions securisE des bodies ou changements des datas comme setActive
 
-        ePlayer->stickAll();
+        //ePlayer->stickAll();
+        sticking();///create joint for sticky projectile
         sheduleRemove();
         /// ----------------------------------------
         p_world.ClearForces();
@@ -316,8 +325,10 @@ void World::buildScene(std::string CurrentDir)
     dirent* pdir;
     dir = opendir(weaponDir.c_str());
 
-    std::vector<Projectile*> pList;
-    std::vector<bodyData> bDList;
+    //xLoad = new XMLLoader(&p_world);
+//    std::vector<bodyData> bDList;
+    //pList.clear();
+    bDList.clear();
     while (pdir = readdir(dir))
     {
         std::string fichier(pdir->d_name);
@@ -326,24 +337,26 @@ void World::buildScene(std::string CurrentDir)
         {
             std::stringstream ss;
             ss << weaponDir<<fichier;
-            /*std::vector<bodyData>*/ bDList = xLoad->loadXML(ss.str(),weaponDir);
+
+            bDList = xLoad->loadXML(ss.str(),weaponDir);
 
 
             for (int i = 0; i < bDList.size(); i++)
             {
 
                 //new Projectile(&(bDList[i]));
-                Projectile* p = new Projectile(&(bDList[i]));
+                //Projectile* p = new Projectile(&p_world, &(bDList[i]));
                 ///ePlayer->loadWeapon(&(bDList[i]));
                 //WeaponList.push_back(bDList[i]);
                 //bDList.erase(bDList.begin()+i);
                 //std::cout<<"weapon name**>:  "<< p->getName() << " OK " <<std::endl;
-                pList.push_back(p);
+//                pList.push_back(new Projectile(&p_world, &(bDList[i])));
+                pList.push_back(new Projectile(&p_world, bDList[i]));
             }
 
-            WeaponList.insert(WeaponList.end(), bDList.begin(), bDList.end());
-            bDList.clear();
-            std::cout<<"***>Weaponlist.size : "<<WeaponList.size() <<std::endl;
+            ///WeaponList.insert(WeaponList.end(), bDList.begin(), bDList.end());
+            ///bDList.clear();
+            ///std::cout<<"***>Weaponlist.size : "<<WeaponList.size() <<std::endl;
             std::cout<<"**>fichier "<< ss.str() << " chargE " <<std::endl;
             std::cout<<"**>dir:  "<< weaponDir << " OK " <<std::endl;
         }
@@ -381,6 +394,7 @@ void World::rebuildScene()
     LevelObjectList.clear();
     humans.clear();
     listOfDeletedHuman.clear();
+    pList.clear();
     ///--------------
     rebuild = true;
 
@@ -487,6 +501,11 @@ void World::sheduleRemove()
             humans.erase(humans.begin()+i);
         }
 
+        for (int i = 0; i < pList.size(); i++)
+        {
+            delete pList[i];
+            pList.erase(pList.begin()+i);
+        }
 
         b2Joint * j = p_world.GetJointList();
         while(j)
