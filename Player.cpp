@@ -28,7 +28,7 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
     loadPlayerSprite(Textures);
     currentAnimation = &stopRight;
 
-    currentProjectile = nameToWeapon["lefona"];
+    currentProjectile = weaponsMap.size() - 1;//nameToWeapon["lefona"];
 
 
     lifeTex = new sf::Texture();
@@ -196,8 +196,7 @@ void Player::onCommand(sf::Event e)
     {
         if(isWeaponDispo)
         {
-            loadWeapon(weaponDispo->getBodyData());
-            weaponDispo->dejaPris = true;
+            takeWeapon();
         }
 
     }
@@ -213,29 +212,17 @@ void Player::onCommand(sf::Event e)
     {
         if(weaponsMap.size() <=0 )
                 return;
-        /*if(joint !=nullptr)
-        {
-            std::cout<<"destroying joint 1...\n";
-            if(!jointsAlreadyDestroyed)
-                p_world->DestroyJoint(joint);
-
-            joint = nullptr;//pour eviter une repetition
-            std::cout<<"joint 1 destroyed\n";
-        }
-        if(joint2 != nullptr)
-        {
-            std::cout<<"destroying joint 2...\n";
-            if(!jointsAlreadyDestroyed)
-                p_world->DestroyJoint(joint2);
-            joint2 = nullptr;
-            std::cout<<"joint 2 destroyed\n";
-        }
-*/
+        std::cout<<"PLAYER::IsButtonPressed avant tout\n";
         void* ptile = weaponsMap[currentProjectile]->GetUserData();
+        std::cout<<"PLAYER::IsButtonPressed apres GetUserData\n";
         ((Projectile*)ptile)->unStick();
+        std::cout<<"PLAYER::IsButtonPressed apres unStick\n";
         mousePos = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
         int posX = (int)m_body->GetPosition().x * RATIO;
         int posY = (int)m_body->GetPosition().y * RATIO;
+
+
+        ///FA MANINONA NO ERREUR REFA DEBARASSE LEIZ----resolu
 
         //angle = std::atan(mousePos.y-posY/mousePos.x-posX);
         angle = std::atan2(mousePos.y-posY,mousePos.x-posX);
@@ -282,9 +269,10 @@ void Player::onCommand(sf::Event e)
         if(weaponsMap.size() <=0 )
                 return;
         if(e.mouseButton.button == sf::Mouse::Middle)
+        {
             weaponsMap[currentProjectile]->SetActive(true);
-        fire(currentProjectile);
-        std::cout<< "End";
+            fire(currentProjectile);
+        }
         break;
     case sf::Event::KeyReleased:
         if(e.key.code == sf::Keyboard::Space)
@@ -304,18 +292,20 @@ void Player::onCommand(sf::Event e)
             return;
         if(e.mouseWheel.delta>0)
         {
-            std::cout<< "UP";
-            if(currentProjectile<weaponsMap.size()-1)
-                currentProjectile++;
-            else
-                currentProjectile = 0;
+            currentProjectile = nextProjectile();
+//                        std::cout<<std::endl<< "UP to"<<currentProjectile<<std::endl;
+//            if(currentProjectile<weaponsMap.size()-1)
+//                currentProjectile++;
+//            else
+//                currentProjectile = 0;
         }else
         {
-            std::cout<< "Down";
-            if(currentProjectile > 0)
-                currentProjectile--;
-            else
-                currentProjectile = weaponsMap.size() - 1;
+            currentProjectile = prevProjectile();
+//            std::cout<< "Down";
+//            if(currentProjectile > 0)
+//                currentProjectile--;
+//            else
+//                currentProjectile = weaponsMap.size() - 1;
         }
         std::cout<< "ARME UTILISE: "<<weaponToName[currentProjectile]<<std::endl;
     }
@@ -324,6 +314,31 @@ void Player::onCommand(sf::Event e)
 
 
 }
+
+int Player::nextProjectile()
+{
+    bool trouve = false;
+    for(auto& it: weaponsMap)
+    {
+        if(trouve)
+            return it.first;
+        if(currentProjectile == it.first)
+        trouve = true;
+    }
+    return currentProjectile;
+}
+int Player::prevProjectile()
+{
+    int prev = currentProjectile;
+    for(auto& it: weaponsMap)
+    {
+        if(currentProjectile == it.first)
+            return prev;
+        prev = it.first;
+    }
+    return currentProjectile;
+}
+
 
 void Player::processLogic()
 {
@@ -401,6 +416,27 @@ void Player::fire(int projectile)
 
     }
 
+    ///DROP IT
+    void * prData = weaponsMap[currentProjectile]->GetUserData();
+    ((Projectile*)prData)->dejaPris = false;
+    //std::cout<<"PLAYER::fire weaponsMap.size = "<<weaponsMap.size()<<std::endl;
+    weaponsMap.erase(currentProjectile);
+    ///on utilise ceci car les key dans weaponsMap ne sont pas forcement continue
+    for(auto& it: weaponsMap)
+    {
+        currentProjectile = it.first;
+    }
+    //std::cout<<"PLAYER::fire currentprojectile = "<<currentProjectile<<std::endl;
+    //std::cout<<"PLAYER::fire weaponsMap.size = "<<weaponsMap.size()<<std::endl;
+
+}
+
+void Player::takeWeapon()
+{
+    weaponDispo->unStick();
+    loadWeapon(weaponDispo->getBodyData());
+    weaponDispo->dejaPris = true;
+
 }
 
 void Player::createWeapons()
@@ -461,6 +497,7 @@ void    Player::loadWeapon(bodyData* data)
     std::cout<<"**************data*************"<<std::endl;
     std::cout<<"name: "<<data->name<<std::endl;
     std::cout<<"***************************"<<std::endl;
+    currentProjectile = numero;
 }
 
 void Player::renderWeapons(sf::RenderWindow& mWindow)
@@ -478,76 +515,6 @@ void Player::renderWeapons(sf::RenderWindow& mWindow)
     }
 }
 
-
-void    Player::impactTo(b2Fixture* fixtureSource, b2Fixture* fixtureTarget, float impulse)
-{
-    void* fixData = fixtureSource->GetUserData();
-    if(! fixData)
-    {
-        //std::cout<<"fixture trouvE+++++++++++: "<< weaponToName[(int)fixData-identificationArme] <<std::endl;
-        return;
-    }
-    if(weaponToName[(int)fixData-identificationArme].compare("lefona")==0
-       || weaponToName[(int)fixData-identificationArme].compare("lefonaMiloko")==0)
-       if(impulse > 40)///d'habitude c'est >50
-            stickProjectile((int)fixData-identificationArme, fixtureTarget);
-
-}
-void Player::stickProjectile(int projectile,b2Fixture* fixtureTarget)
-{
-
-
-    worldCoordsAnchorPoint =(weaponsMap[projectile])->GetWorldPoint( b2Vec2(2.6f, 0.f) );
-    weldJointDef.bodyA = fixtureTarget->GetBody();
-    if (weldJointDef.bodyA == m_body||weldJointDef.bodyA == m_legs||weldJointDef.bodyA == m_head)
-        return;
-
-
-    weldJointDef.bodyB = weaponsMap[projectile];
-    weldJointDef.localAnchorA = weldJointDef.bodyA->GetLocalPoint( worldCoordsAnchorPoint );
-    weldJointDef.localAnchorB = weldJointDef.bodyB->GetLocalPoint( worldCoordsAnchorPoint );
-    weldJointDef.referenceAngle = weldJointDef.bodyB->GetAngle() - weldJointDef.bodyA->GetAngle();
-    ///SECOND
-    worldCoordsAnchorPoint =(weaponsMap[projectile])->GetWorldPoint( b2Vec2(2.f, 6.f) );
-    weldJointDef1.bodyA = fixtureTarget->GetBody();
-    if (weldJointDef.bodyA == m_body||weldJointDef.bodyA == m_legs||weldJointDef.bodyA == m_head)
-        return;
-
-
-    weldJointDef1.bodyB = weaponsMap[projectile];
-    weldJointDef1.localAnchorA = weldJointDef.bodyA->GetLocalPoint( worldCoordsAnchorPoint );
-    weldJointDef1.localAnchorB = weldJointDef.bodyB->GetLocalPoint( worldCoordsAnchorPoint );
-    weldJointDef1.referenceAngle = weldJointDef.bodyB->GetAngle() - weldJointDef.bodyA->GetAngle();
-
-    jointExist = true;
-}
-
-void Player::stickAll()
-{
-    if(jointExist)
-    {
-        if(joint != nullptr)
-        {
-            return;
-        }
-        joint = p_world->CreateJoint( &weldJointDef );
-        joint2 = p_world->CreateJoint( &weldJointDef1 );
-        joint->SetUserData((void*)(JOINTRANGE + 2));
-        joint2->SetUserData((void*)(JOINTRANGE + 3));
-
-        jointExist = false;
-        jointsAlreadyDestroyed = false;
-    }
-
-
-}
-
-void Player::jointDestroyer()
-{
-    std::cout<<"GOOOOOT YAAAAA!!!"<<std::endl;
-    jointsAlreadyDestroyed = true;
-    //jointExist =  true;
-}
 
 void Player::clearAll()
 {

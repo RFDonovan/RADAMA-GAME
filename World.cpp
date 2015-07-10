@@ -228,7 +228,7 @@ void World::draw(sf::Time frameTime)
         ///teste une suppression d'Entité morts: ASSEZ BIEN!!!
         if(humans[i]->getY() > mWindow.getSize().y || humans[i]->isDead())
         {
-            std::cout<< "ito suppr";
+            ///std::cout<< "ito suppr";
             listOfDeletedHuman.push_back(humans[i]);
 
             ///RENDER A DEAD VERSION
@@ -390,7 +390,7 @@ void World::rebuildScene()
     //level = nullptr;
     //p_world.
     ///CLEARING LISTS
-    WeaponList.clear();
+    //WeaponList.clear();
     LevelObjectList.clear();
     humans.clear();
     listOfDeletedHuman.clear();

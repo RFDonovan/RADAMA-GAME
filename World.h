@@ -84,7 +84,7 @@ public:
     std::vector<Human*>    humans;
     std::vector<Human*>     listOfDeletedHuman;
     std::vector<Ground*>    grounds;
-    std::vector<bodyData>   WeaponList;
+    //std::vector<bodyData>   WeaponList;
     std::vector<bodyData>   LevelObjectList;
     std::vector<bodyData>   bDList;
     std::vector<Projectile*>    pList;
