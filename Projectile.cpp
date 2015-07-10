@@ -69,6 +69,8 @@ void Projectile::stickIt()
     joint2 = p_world->CreateJoint( &weldJointDef1 );
     joint->SetUserData((void*)(JOINTRANGE + 2));
     joint2->SetUserData((void*)(JOINTRANGE + 3));
+//    joint->SetUserData(this);
+//    joint2->SetUserData(this);
     canStick = false;
     jointExist = true;
 }

@@ -118,6 +118,8 @@ public:
     float riseFactor = .5f;
     sf::Clock clock;
 
+    bool deletetime_restart = false;
+
     ///FOR DRAGABLE:
     b2Body* m_groundBody;
     b2MouseJoint* m_mouseJoint;
@@ -149,7 +151,7 @@ public:
     void    createBox(b2World& world, int MouseX, int MouseY);
     void    createEntity(b2World& world, int MouseX, int MouseY);
 
-    void    sheduleRemove();
+    void    sheduleRemove(float elapsedTime);
 
     /**STICKING PROJECTILE**/
     void    sticking();

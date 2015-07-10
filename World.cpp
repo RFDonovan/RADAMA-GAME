@@ -196,8 +196,10 @@ void World::draw(sf::Time frameTime)
         /// LES FONCTIONS QUI SONT EN DEHORS DU STEP : suppressions securisE des bodies ou changements des datas comme setActive
 
         //ePlayer->stickAll();
+        ///maskAndCategoryBit(clock.getElapsedTime().asSeconds());
         sticking();///create joint for sticky projectile
-        sheduleRemove();
+
+        sheduleRemove(clock.getElapsedTime().asSeconds());
         /// ----------------------------------------
         p_world.ClearForces();
         //mWindow.setMouseCursorVisible(false);
@@ -234,6 +236,7 @@ void World::draw(sf::Time frameTime)
             ///RENDER A DEAD VERSION
 
             //humans.erase(humans.begin()+i);
+            //listOfDeletedHuman[listOfDeletedHuman.size()-1]->render(mWindow, frameTime, &Textures);
             humans[i]->render(mWindow, frameTime, &Textures);
             continue;
 
@@ -264,7 +267,9 @@ void World::draw(sf::Time frameTime)
 
     }
 
-
+    ///je teste si ce truck change la distorsion pixelshader--->oui
+    //clock.restart();
+    std::cout<<"\n\t\t\t\t\t\t\t\t\t\tTIME: "<<(int)clock.getElapsedTime().asSeconds()%7<<std::endl;
 
 
 }
@@ -490,7 +495,7 @@ void World::resume()
     std::cout<<"resume";
 }
 
-void World::sheduleRemove()
+void World::sheduleRemove(float elapsedTime)
 {
     ///RECHARGER COMPLETEMENT TOUS LES SCENES
     if(rebuild)
@@ -533,16 +538,39 @@ void World::sheduleRemove()
 
     }
     ///--------------------------------------
+    if((int)elapsedTime%10 == 0)
+        deletetime_restart = true;
+    if(deletetime_restart)
+    {
+        for (int i = 0 ; i < listOfDeletedHuman.size() ; i++ )
+        {
+            //delete listOfDeletedHuman[i];
+            listOfDeletedHuman[i]->wipeJoints();
+            //delete listOfDeletedHuman[i];
+            listOfDeletedHuman.erase(listOfDeletedHuman.begin()+i);
+        }
+        for (int j = 0 ; j < humans.size() ; j++ )
+        {
+            if(humans[j]->isDead())
+            {
+                delete humans[j];
+                humans.erase(humans.begin()+j);
+            }
 
+
+        }
+    }
+    else
     for (int i = 0 ; i < listOfDeletedHuman.size() ; i++ )
     {
         //delete listOfDeletedHuman[i];
         //listOfDeletedHuman[i]->m_body->SetFixedRotation(false);
+
         listOfDeletedHuman[i]->doTheDead();
-        listOfDeletedHuman.erase(listOfDeletedHuman.begin()+i);
-
-
+        //listOfDeletedHuman[i]->render(mWindow, sf::Time(), &Textures);
+        ///listOfDeletedHuman.erase(listOfDeletedHuman.begin()+i);
     }
+    deletetime_restart = false;
 }
 ///MOUSE TRICKS************************************
 

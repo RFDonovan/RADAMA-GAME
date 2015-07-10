@@ -569,7 +569,7 @@ bool Entity::isDead()
 }
 Entity::~Entity()
 {
-    wipeJoints();
+    //wipeJoints();
     p_world->DestroyBody(m_body);
     p_world->DestroyBody(m_legs);
     p_world->DestroyBody(m_head);
