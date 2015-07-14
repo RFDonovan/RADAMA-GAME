@@ -33,7 +33,7 @@ public:
         bool canStick = false;
 
         bool fired = false;
-        bool safeUnstick = false;
+        bool stickOnEntity = false;
 
         b2World *p_world;
 

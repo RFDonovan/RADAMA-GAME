@@ -360,7 +360,7 @@ void Entity::endContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
     if((int)fixtureB->GetUserData()>20000 && (int)fixtureB->GetUserData()<30000)
     {
         isWeaponDispo = false;
-    //    std::cout<< "END CONTACT WITH PROJECTILE!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+        std::cout<< "Entity::endContact-> END CONTACT WITH PROJECTILE!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
     }
     if(fixture == basFixture)
     {
@@ -594,14 +594,17 @@ Entity::~Entity()
 {
     std::cout<<"Entity::~Entity -> DELETING ENTITY"<<std::endl;
     wipeJoints();
-//    p_world->DestroyBody(m_body);
-//    p_world->DestroyBody(m_legs);
-//    p_world->DestroyBody(m_head);
-
-    m_body->SetActive(false);
-    m_legs->SetActive(false);
-    m_head->SetActive(false);
-
+    std::cout<<"Entity::~Entity -> DELETING body"<<std::endl;
+    p_world->DestroyBody(m_body);
+    std::cout<<"Entity::~Entity -> DELETING Legs"<<std::endl;
+    p_world->DestroyBody(m_legs);
+    std::cout<<"Entity::~Entity -> DELETING head"<<std::endl;
+    p_world->DestroyBody(m_head);
+//
+//    m_body->SetActive(false);
+//    m_legs->SetActive(false);
+//    m_head->SetActive(false);
+    std::cout<<"Entity::~Entity -> DELETING ENTITY DONE"<<std::endl;
     deleted = true;
 }
 

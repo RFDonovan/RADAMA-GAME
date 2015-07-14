@@ -40,6 +40,10 @@ void Projectile::stickProjectile(b2Fixture* fixtureTarget)
     worldCoordsAnchorPoint = data->body->GetWorldPoint( b2Vec2(2.6f, 0.f) );
     weldJointDef.bodyA = fixtureTarget->GetBody();
 
+    void * userDataA = fixtureTarget->GetBody()->GetUserData();
+    if(userDataA && ((ObjectType*)userDataA)->getObjectType() == ENTITY)
+        stickOnEntity = true;
+
     weldJointDef.bodyB = data->body;
     weldJointDef.localAnchorA = weldJointDef.bodyA->GetLocalPoint( worldCoordsAnchorPoint );
     weldJointDef.localAnchorB = weldJointDef.bodyB->GetLocalPoint( worldCoordsAnchorPoint );
@@ -101,6 +105,8 @@ void Projectile::unStick()
     jointExist = false;
     fired = false;
     canStick = false;
+
+    stickOnEntity = false;
     std::cout<<"Projectile::unStick ->all joints supprimE"<<std::endl;
 }
 

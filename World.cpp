@@ -192,13 +192,14 @@ void World::draw(sf::Time frameTime)
 
     if(!paused)/// ******************************************************************>>>>PAUSE
     {
+        sticking();///create joint for sticky projectile
         p_world.Step(1/60.f,6,2);
         /// LES FONCTIONS QUI SONT EN DEHORS DU STEP : suppressions securisE des bodies ou changements des datas comme setActive
 
         //ePlayer->stickAll();
         ///maskAndCategoryBit(clock.getElapsedTime().asSeconds());
         sheduleRemove(clock.getElapsedTime().asSeconds());
-        sticking();///create joint for sticky projectile
+
         /// ----------------------------------------
         p_world.ClearForces();
         //mWindow.setMouseCursorVisible(false);
@@ -536,12 +537,7 @@ void World::sheduleRemove(float elapsedTime)
     }
     ///--------------------------------------
 
-    /*for (int i=0; i< pList.size(); i++)
-    {
-        if(pList[i]->safeUnstick)
-            pList[i]->unStick();
-        pList[i]->safeUnstick = false;
-    }*/
+
     if((int)elapsedTime%10 == 0)
         deletetime_restart = true;
     if(deletetime_restart)
@@ -554,10 +550,16 @@ void World::sheduleRemove(float elapsedTime)
                 Item* item = new Item(&p_world,
                               "Rersources/L1/lifefire.png",
                               humans[j]->getX(),
-                              humans[j]->getY() + 50,
+                              humans[j]->getY() - 100,
                               10.f,
                               5.f
                               );
+                ///Unstick all projectiles
+                for (int i=0; i< pList.size(); i++)
+                    {
+                        if(pList[i]->stickOnEntity)
+                            pList[i]->unStick();
+                    }
                 itemList.push_back(item);
                 std::cout<<"world::scheduleRemove ->gonna wipe joint one more time"<<std::endl;
                 humans[j]->wipeJoints();
