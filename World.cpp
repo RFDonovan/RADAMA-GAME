@@ -548,7 +548,7 @@ void World::sheduleRemove(float elapsedTime)
             if(humans[j]->isDead())
             {
                 Item* item = new Item(&p_world,
-                              "Rersources/L1/lifefire.png",
+                              "Resources/L1/lifefire.png",
                               humans[j]->getX(),
                               humans[j]->getY() - 100,
                               10.f,
