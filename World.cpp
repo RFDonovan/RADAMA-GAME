@@ -197,9 +197,8 @@ void World::draw(sf::Time frameTime)
 
         //ePlayer->stickAll();
         ///maskAndCategoryBit(clock.getElapsedTime().asSeconds());
-        sticking();///create joint for sticky projectile
-
         sheduleRemove(clock.getElapsedTime().asSeconds());
+        sticking();///create joint for sticky projectile
         /// ----------------------------------------
         p_world.ClearForces();
         //mWindow.setMouseCursorVisible(false);
@@ -215,6 +214,16 @@ void World::draw(sf::Time frameTime)
     ///LEVEL
     //level->render(mWindow, &shader);
     xLoad->render(mWindow, &shader);
+    for (int i = 0; i < itemList.size(); i++)
+    {
+        if(itemList[i]->dejaPris)
+        {
+            itemList.erase(itemList.begin()+i);
+        }
+        else
+            itemList[i]->render(mWindow, &shader);
+    }
+
 
 ///RENDU DU JOUEUR
     ePlayer->render(mWindow, frameTime, &Textures);
@@ -224,30 +233,26 @@ void World::draw(sf::Time frameTime)
 
 
 
+
+
     for (int i = 0 ; i < humans.size() ; i++ )
     {
-
+        humans[i]->render(mWindow, frameTime, &Textures);
         ///teste une suppression d'Entité morts: ASSEZ BIEN!!!
         if(humans[i]->getY() > mWindow.getSize().y || humans[i]->isDead())
         {
-            ///std::cout<< "ito suppr";
-            listOfDeletedHuman.push_back(humans[i]);
-
             ///RENDER A DEAD VERSION
-
-            //humans.erase(humans.begin()+i);
-            //listOfDeletedHuman[listOfDeletedHuman.size()-1]->render(mWindow, frameTime, &Textures);
-            humans[i]->render(mWindow, frameTime, &Textures);
+            if(!humans[i]->deleted)
+                humans[i]->doTheDead();
+            //humans[i]->wipeJoints();
             continue;
 
         }
         else
         {
             humans[i]->sense();
-            humans[i]->render(mWindow, frameTime, &Textures);
-
-
         }
+
         //std::cout<<"\n draw- after render\n";
     }
 
@@ -269,7 +274,7 @@ void World::draw(sf::Time frameTime)
 
     ///je teste si ce truck change la distorsion pixelshader--->oui
     //clock.restart();
-    std::cout<<"\n\t\t\t\t\t\t\t\t\t\tTIME: "<<(int)clock.getElapsedTime().asSeconds()%7<<std::endl;
+    //std::cout<<"\n\t\t\t\t\t\t\t\t\t\tTIME: "<<(int)clock.getElapsedTime().asSeconds()%7<<std::endl;
 
 
 }
@@ -308,6 +313,10 @@ void World::buildScene(std::string CurrentDir)
     LevelObjectList = xLoad->loadXML(CurrentDir + "level.xml", CurrentDir);
     Ground * level = new Ground(&p_world, &LevelObjectList);
     ///--------------
+    ///LOADING ITEMS
+    itemList = xLoad->loadItems(CurrentDir);
+    //Item* item = new Item(&p_world, "exemple.png", 600.f, 500.f, 10, 10);
+    ///------------------
 
     ///LOADING PLAYER
     //ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
@@ -330,9 +339,6 @@ void World::buildScene(std::string CurrentDir)
     dirent* pdir;
     dir = opendir(weaponDir.c_str());
 
-    //xLoad = new XMLLoader(&p_world);
-//    std::vector<bodyData> bDList;
-    //pList.clear();
     bDList.clear();
     while (pdir = readdir(dir))
     {
@@ -348,20 +354,8 @@ void World::buildScene(std::string CurrentDir)
 
             for (int i = 0; i < bDList.size(); i++)
             {
-
-                //new Projectile(&(bDList[i]));
-                //Projectile* p = new Projectile(&p_world, &(bDList[i]));
-                ///ePlayer->loadWeapon(&(bDList[i]));
-                //WeaponList.push_back(bDList[i]);
-                //bDList.erase(bDList.begin()+i);
-                //std::cout<<"weapon name**>:  "<< p->getName() << " OK " <<std::endl;
-//                pList.push_back(new Projectile(&p_world, &(bDList[i])));
                 pList.push_back(new Projectile(&p_world, bDList[i]));
             }
-
-            ///WeaponList.insert(WeaponList.end(), bDList.begin(), bDList.end());
-            ///bDList.clear();
-            ///std::cout<<"***>Weaponlist.size : "<<WeaponList.size() <<std::endl;
             std::cout<<"**>fichier "<< ss.str() << " chargE " <<std::endl;
             std::cout<<"**>dir:  "<< weaponDir << " OK " <<std::endl;
         }
@@ -370,7 +364,9 @@ void World::buildScene(std::string CurrentDir)
     closedir(dir);
 
     ///------------------
-    //xLoad->loadXML(CurrentDir + "testJoint.xml", CurrentDir);
+    ///LOADING ITEMS
+    //Item* item = new Item(&p_world, "exemple.png", 600.f, 500.f, 10, 10);
+    ///------------------
     std::map<std::string, b2Joint*> jMap2 = xLoad->GetCurrentJointMap();
 
 
@@ -400,6 +396,7 @@ void World::rebuildScene()
     humans.clear();
     listOfDeletedHuman.clear();
     pList.clear();
+    itemList.clear();
     ///--------------
     rebuild = true;
 
@@ -500,13 +497,13 @@ void World::sheduleRemove(float elapsedTime)
     ///RECHARGER COMPLETEMENT TOUS LES SCENES
     if(rebuild)
     {
-        for (int i = 0; i < humans.size(); i++)
+        for (unsigned int i = 0; i < humans.size(); i++)
         {
             delete humans[i];
             humans.erase(humans.begin()+i);
         }
 
-        for (int i = 0; i < pList.size(); i++)
+        for (unsigned int i = 0; i < pList.size(); i++)
         {
             delete pList[i];
             pList.erase(pList.begin()+i);
@@ -538,37 +535,41 @@ void World::sheduleRemove(float elapsedTime)
 
     }
     ///--------------------------------------
+
+    /*for (int i=0; i< pList.size(); i++)
+    {
+        if(pList[i]->safeUnstick)
+            pList[i]->unStick();
+        pList[i]->safeUnstick = false;
+    }*/
     if((int)elapsedTime%10 == 0)
         deletetime_restart = true;
     if(deletetime_restart)
     {
-        for (int i = 0 ; i < listOfDeletedHuman.size() ; i++ )
-        {
-            //delete listOfDeletedHuman[i];
-            listOfDeletedHuman[i]->wipeJoints();
-            //delete listOfDeletedHuman[i];
-            listOfDeletedHuman.erase(listOfDeletedHuman.begin()+i);
-        }
+        std::cout<<"world::scheduleRemove ->declanchement du 10s"<<std::endl;
         for (int j = 0 ; j < humans.size() ; j++ )
         {
             if(humans[j]->isDead())
             {
-                delete humans[j];
+                Item* item = new Item(&p_world,
+                              "Rersources/L1/lifefire.png",
+                              humans[j]->getX(),
+                              humans[j]->getY() + 50,
+                              10.f,
+                              5.f
+                              );
+                itemList.push_back(item);
+                std::cout<<"world::scheduleRemove ->gonna wipe joint one more time"<<std::endl;
+                humans[j]->wipeJoints();
+                std::cout<<"world::scheduleRemove ->joint wiped"<<std::endl;
+                delete humans[j];///SETACTIVE = FALSE
+                std::cout<<"world::scheduleRemove ->human[j] deleted"<<std::endl;
                 humans.erase(humans.begin()+j);
+                std::cout<<"world::scheduleRemove ->human[j] erased from list"<<std::endl;
             }
 
 
         }
-    }
-    else
-    for (int i = 0 ; i < listOfDeletedHuman.size() ; i++ )
-    {
-        //delete listOfDeletedHuman[i];
-        //listOfDeletedHuman[i]->m_body->SetFixedRotation(false);
-
-        listOfDeletedHuman[i]->doTheDead();
-        //listOfDeletedHuman[i]->render(mWindow, sf::Time(), &Textures);
-        ///listOfDeletedHuman.erase(listOfDeletedHuman.begin()+i);
     }
     deletetime_restart = false;
 }

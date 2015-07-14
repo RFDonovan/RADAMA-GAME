@@ -30,6 +30,7 @@ enum objectType{
 #define PLAYER 5
 #define HUMAN 4
 #define PROJECTILE 3
+#define ITEM 6
 #define LEVEL
 
 #define JOINTRANGE 30000

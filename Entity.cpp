@@ -327,10 +327,11 @@ bool Entity::isGrounded()
 void Entity::startContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
 {
     std::cout<< "CONTACT BEGIN";
-    if((int)fixtureB->GetUserData()>20000 && (int)fixture->GetUserData()<30000)
+    if((int)fixtureB->GetUserData()>20000 && (int)fixtureB->GetUserData()<30000)
     {
         Projectile* p = (Projectile*)(fixtureB->GetBody()->GetUserData());
         isWeaponDispo = p->isDispo();
+        std::cout<< "CONTACT BEGIN NAME: "<</*p->getBodyData()->name*/(int)fixtureB->GetUserData()<<std::endl;
         if(isWeaponDispo)
             weaponDispo = p;
         //std::cout<< "CONTACT WITH PROJECTILE!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
@@ -338,6 +339,11 @@ void Entity::startContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
 
     if(fixture == basFixture)
     {
+        /*if((int)fixtureB->GetUserData()>20000)
+        {
+            nb_contacts = 1;
+            return;
+        }*/
         std::cout<< "CONTACT++";
         grounded = true;
             nb_contacts++;
@@ -351,13 +357,18 @@ void Entity::endContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
 {
 
     std::cout<< "CONTACT END";
-    if((int)fixtureB->GetUserData()>20000 && (int)fixture->GetUserData()<30000)
+    if((int)fixtureB->GetUserData()>20000 && (int)fixtureB->GetUserData()<30000)
     {
         isWeaponDispo = false;
     //    std::cout<< "END CONTACT WITH PROJECTILE!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
     }
     if(fixture == basFixture)
     {
+        /*if((int)fixtureB->GetUserData()>20000)
+        {
+            nb_contacts = 0;
+            return;
+        }*/
         grounded = false;
         nb_contacts--;
         std::cout<< "CONTACT--"<<nb_contacts;
@@ -374,14 +385,15 @@ void Entity::wipeJoints()
         p_world->DestroyJoint(jointList[i]);
         jointList.erase(jointList.begin()+i);
     }
+    std::cout<<"Entity::wipeJoints ->jointList vidE"<<std::endl;
 }
 
 void Entity::sense()
 {
 
     RayCastCallback callback;
-    float rayRange = 10.f;
-    float secureDistance = 5.f;
+    float rayRange = 300.f/RATIO;
+    float secureDistance = 200.f;
     int changeDirection = -1;
     if(currentAnimation == &walkingAnimationLeft || currentAnimation == &stopLeft)
             changeDirection = -changeDirection;
@@ -390,36 +402,20 @@ void Entity::sense()
 
     if(hunting)
     {
-
-        /*
-        if(std::abs(m_body->GetPosition().x-targetBody->GetPosition().x)> secureDistance)
+        int o = 1;
+        if(targetBody->GetPosition().x - m_body->GetPosition().x <0.f)
+            o=-1;
+        if(std::abs(targetBody->GetPosition().x - m_body->GetPosition().x) > secureDistance/RATIO)
         {
-
-
-            if(m_body->GetPosition().y-targetBody->GetPosition().y> 1.f) ///SAUTE QUAND ...
-                if(nb_contacts>0)
-                    jump ++;
-                else
-                    jump --;
-
-
-            if(m_body->GetPosition().x-targetBody->GetPosition().x > 0)
-                desiredVel = -5.f;
-            else
-                desiredVel = 5.f;
+            goTo(b2Vec2(targetBody->GetPosition().x+(secureDistance*o),targetBody->GetPosition().y));
+            commitLogic();
         }
-        else{
-                desiredVel = 0.f;
-                ///hunting = false;
-        }*/
 
-        if(std::abs(targetBody->GetPosition().x - m_body->GetPosition().x) > secureDistance)
-            goTo(b2Vec2(targetBody->GetPosition().x+(secureDistance*changeDirection),targetBody->GetPosition().y));
-        commitLogic();
         return;
     }
 
 //    RayCastCallback callback;
+
     p_world->RayCast(&callback,m_body->GetPosition(), b2Vec2(m_body->GetPosition().x-(rayRange*changeDirection),m_body->GetPosition().y));
     if(callback.m_hit)
     {
@@ -462,18 +458,27 @@ void Entity::jumpOnObstacle()
 void Entity::goTo(b2Vec2 newPos)
 {
 //find path to a position
-    if(abs(m_body->GetPosition().x-newPos.x)<10.f/RATIO)
+    if(std::abs(m_body->GetPosition().x-newPos.x)<=10.f/RATIO)
     {
         desiredVel = .0f;
-        //hunting = false;
+        hunting = false;
         return;
     }
-    if(m_body->GetPosition().x-newPos.x > 10.f/RATIO)
-        desiredVel = -velocityLimit;
-    else if(m_body->GetPosition().x-newPos.x < -10.f/RATIO)
-        desiredVel = velocityLimit;
     else
-        desiredVel = .0f;
+    {
+        if(m_body->GetPosition().x-newPos.x>0.f)
+            desiredVel = -velocityLimit;
+        else
+            desiredVel = velocityLimit;
+    }
+
+//    if(m_body->GetPosition().x-newPos.x > 10.f/RATIO)
+//        desiredVel = -velocityLimit;
+//    else if(m_body->GetPosition().x-newPos.x < -10.f/RATIO)
+//        desiredVel = velocityLimit;
+//    else
+//        desiredVel = .0f;
+//
     jumpOnObstacle();
 
 }
@@ -481,6 +486,9 @@ void Entity::goTo(b2Vec2 newPos)
 
 void Entity::doTheDead()
 {
+    //if(m_life>0)///vider la vie actuel
+        m_life = 0;
+
     m_body->SetFixedRotation(false);
     m_legs->SetFixedRotation(false);
     m_head->SetFixedRotation(false);
@@ -496,6 +504,7 @@ void Entity::doTheDead()
             f->SetFriction(1.0);
         }
     }
+
     /*for (b2Fixture* f = m_body->GetFixtureList(); f; f = f->GetNext())
     {
         filter = f->GetFilterData();
@@ -511,7 +520,7 @@ void Entity::doTheDead()
     {
         f->SetFilterData(filter);
     }*/
-
+    std::cout<<"Entity::doTheDead -> OK"<<std::endl;
 }
 
 void Entity::commitLogic()
@@ -544,19 +553,19 @@ void Entity::commitLogic()
 
 }
 
-void Entity::getHit(float impulse)
+void Entity::getHit(int damage, float impulse)
 {
-    float degat;
+    float degat = 10;
     if(impulse > 40)
-        degat = 10;
+        degat = (float)damage;
 
-    std::cout<<"TOUCHEEEEEEEEEEEEEEEEEEEEEE avec impulse = "<<impulse<<std::endl;
+    //std::cout<<"TOUCHEEEEEEEEEEEEEEEEEEEEEE avec impulse = "<<impulse<<std::endl;
     if(m_life>10)
         m_life = m_life - degat;
-    else
+    if(m_life<0)
         m_life = 0;
 
-    std::cout<<"m_life = "<<m_life<<std::endl;
+    //std::cout<<"m_life = "<<m_life<<std::endl;
 }
 
 
@@ -567,14 +576,33 @@ bool Entity::isDead()
     else
         return false;
 }
+
+void Entity::takeItem(Item* item)
+{
+    std::cout<< "+++++++++++++++++++++Item taken \n";
+    if(item->dejaPris)
+        return;
+    m_life = m_life + item->bonusLife;
+    item->dejaPris = true;
+    //m_mana = m_mana + item->bonusMana;
+    if(m_life>maxLife)
+        m_life = maxLife;
+
+}
+
 Entity::~Entity()
 {
-    //wipeJoints();
-    p_world->DestroyBody(m_body);
-    p_world->DestroyBody(m_legs);
-    p_world->DestroyBody(m_head);
+    std::cout<<"Entity::~Entity -> DELETING ENTITY"<<std::endl;
+    wipeJoints();
+//    p_world->DestroyBody(m_body);
+//    p_world->DestroyBody(m_legs);
+//    p_world->DestroyBody(m_head);
 
-    std::cout<< "fini";
+    m_body->SetActive(false);
+    m_legs->SetActive(false);
+    m_head->SetActive(false);
+
+    deleted = true;
 }
 
 

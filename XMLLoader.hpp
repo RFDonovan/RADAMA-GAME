@@ -15,6 +15,7 @@
 //#include "AnimatedSprite.hpp"
 #include "TextureHolder.h"
 #include "pugixml.hpp"
+#include "Item.hpp"
 
 class XMLLoader : public ObjectType
 {
@@ -33,7 +34,9 @@ public:
     std::map<std::string, int>  attributeMap;
 
 public:
-    XMLLoader(b2World* world);
+        XMLLoader(b2World* world);
+
+    std::vector<Item*>    loadItems(std::string dir);
 
     std::vector<bodyData>        loadXML(std::string XMLFile, std::string dir = "./Resources/");
     b2Body*     createBody(int bodyType, pugi::xml_node bodyNode);

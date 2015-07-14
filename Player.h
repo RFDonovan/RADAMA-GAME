@@ -2,6 +2,7 @@
 #define PLAYER_H_INCLUDED
 #include "Entity.hpp"
 #include "Structures.hpp"
+#include "Item.hpp"
 
 class Player: public Entity
 {

@@ -13,6 +13,7 @@
 #include "Structures.hpp"
 #include "RayCastCallback.h"
 #include "Projectile.hpp"
+#include "Item.hpp"
 
 #include "pugixml.hpp"
 
@@ -78,6 +79,7 @@ public:
     ///LIFE HANDLER
     int m_life = 80; // sur 100
     int maxLife;
+    bool deleted = false;
 
     ///WEAPON TAKING
     bool        isWeaponDispo = false;
@@ -114,9 +116,10 @@ public:
     void    jumpOnObstacle();
     void    goTo(b2Vec2);
     void    commitLogic();
-    void    getHit(float impulse);
+    void    getHit(int damage, float impulse);
     bool    isDead();
     void    doTheDead();
+    void    takeItem(Item* item);
             ~Entity();
 };
 

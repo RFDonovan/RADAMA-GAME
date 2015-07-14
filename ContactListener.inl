@@ -31,6 +31,19 @@ std::cout<<"userdata exist\n";
                 std::cout<<"entityA\n";
                 static_cast<Entity*>( userData )->startContact(contact->GetFixtureA(),contact->GetFixtureB());
             }
+            case ITEM:
+                //std::cout<<"mety";
+            {
+                std::cout<<"ItemA\n";
+                static_cast<Item*>( userData )->collideWith(contact->GetFixtureB());
+
+                void * userDataB = contact->GetFixtureB()->GetBody()->GetUserData();
+                if(userDataB && ((ObjectType*)userDataB)->getObjectType() == ENTITY)
+                {
+                    (static_cast<Entity*>( userDataB ))->takeItem(static_cast<Item*>( userData ));///GIVE ITEM TO THE ENTITY
+                }
+
+            }
             break;
             case GROUND:
                 break;
@@ -55,6 +68,19 @@ std::cout<<"userdata exist\n";
                 std::cout<<"entityB\n";
                 (static_cast<Entity*>( userData ))->startContact(contact->GetFixtureB(),contact->GetFixtureA());
             }
+            case ITEM:
+                //std::cout<<"mety";
+            {
+                std::cout<<"ItemB\n";
+                static_cast<Item*>( userData )->collideWith(contact->GetFixtureA());
+
+                void * userDataB = contact->GetFixtureA()->GetBody()->GetUserData();
+                if(userDataB && ((ObjectType*)userDataB)->getObjectType() == ENTITY)
+                {
+                    (static_cast<Entity*>( userDataB ))->takeItem(static_cast<Item*>( userData ));///GIVE ITEM TO THE ENTITY
+                }
+            }
+
             case GROUND:
             break;
             default:
@@ -124,35 +150,34 @@ std::cout<<"userdata exist\n";
         if(userDataA && ((ObjectType*)userDataA)->getClassName() == PROJECTILE)//&&fixture->GetBody()->GetLinearVelocity().x
         {
             //b2Body* arrowBody = fixtureA->GetBody();
+            if(!((Projectile*)userDataA)->isFired())
+                return;
             ((Projectile*)userDataA)->impactTo(fixtureA, fixtureB,(float)impulse->normalImpulses[0]);
 
             if(userDataB && ((ObjectType*)userDataB)->getObjectType() == ENTITY)///si le touchE est une entitE
             {
-//                std::cout<<"userDataB";
-//                std::cout<<"fixtureA ***>****>"<<(int)fixtureA->GetUserData()<<std::endl;
-//                std::cout<<"velocity x ***>****>"<<fixtureA->GetBody()->GetLinearVelocity().x<<std::endl;
                 if(userDataB && ((ObjectType*)userDataB)->getClassName() != PLAYER)///POUR EVITER LES COLLISIONS ENTRE ARME ET JOUEUR
-                    ((Entity*)userDataB)->getHit((float)impulse->normalImpulses[0]);
+                    ((Entity*)userDataB)->getHit(((Projectile*)userDataB)->damage,(float)impulse->normalImpulses[0]);
             }
 
 
+            std::cout<<"////////////Contactlistener::postsolve fixtureA "<<std::endl;
             //std::cout<<"IMPULSE:"<<impulse->normalImpulses[0];
         }
         if(userDataB && ((ObjectType*)userDataB)->getClassName() == PROJECTILE)
         {
+            if(!((Projectile*)userDataB)->isFired())
+                return;
             //b2Body* arrowBody = fixtureB->GetBody();0
             ((Projectile*)userDataB)->impactTo(fixtureB, fixtureA,(float)impulse->normalImpulses[0]);
 
             if(userDataA && ((ObjectType*)userDataA)->getObjectType() == ENTITY)
             {
-//                std::cout<<"userDataA";
-//                std::cout<<"fixtureA ***>****>"<<(int)fixtureB->GetUserData()<<std::endl;
-//                std::cout<<"velocity x ***>****>"<<fixtureB->GetBody()->GetLinearVelocity().x<<std::endl;
                 if(userDataA && ((ObjectType*)userDataA)->getClassName() != PLAYER)///POUR EVITER LES COLLISIONS ENTRE ARME ET JOUEUR
-                    ((Entity*)userDataA)->getHit((float)impulse->normalImpulses[0]);
+                    ((Entity*)userDataA)->getHit(((Projectile*)userDataB)->damage,(float)impulse->normalImpulses[0]);
 
             }
-
+            std::cout<<"////////////Contactlistener::postsolve fixtureB "<<std::endl;
             //std::cout<<"arrowbody trouve";
         }
 

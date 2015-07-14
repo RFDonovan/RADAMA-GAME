@@ -18,6 +18,8 @@ public:
         Default,
     };
 
+    int identificationGround = 10001;
+
     b2World*    p_world;
     b2Body*     m_body;
     Type        kind;

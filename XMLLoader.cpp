@@ -17,6 +17,31 @@ XMLLoader::XMLLoader(b2World* world)
     //attributeMap[]
 }
 
+
+std::vector<Item*> XMLLoader::loadItems(std::string dir)
+{
+    std::vector<Item*> itemList;
+    pugi::xml_node itemsNode = XMLDocument.child("box2d").child("metaData");
+    for (pugi::xml_node node = itemsNode.first_child(); node ; node = node.next_sibling())
+        ///ITEMS ITERATION
+    {
+        std::stringstream ss;
+        ss <<dir<<node.attribute("image").as_string();
+        std::string filename = ss.str();
+
+        Item* item = new Item(p_world,
+                              filename,
+                              (float32)node.attribute("x").as_float(),
+                              -(float32)node.attribute("y").as_float(),
+                              node.attribute("mana").as_float(),
+                              node.attribute("life").as_float()
+                              );
+        itemList.push_back(item);
+    std::cout << "XMLLoader::loadItems item : "<<node.attribute("name").as_string()<< "\n";
+    }
+    return itemList;
+}
+
 std::vector<bodyData> XMLLoader::loadXML(std::string XMLFile, std::string dir)
 {
     std::vector<bodyData> bodyDataList;

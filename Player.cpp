@@ -216,6 +216,7 @@ void Player::onCommand(sf::Event e)
         void* ptile = weaponsMap[currentProjectile]->GetUserData();
         std::cout<<"PLAYER::IsButtonPressed apres GetUserData\n";
         ((Projectile*)ptile)->unStick();
+        ((Projectile*)ptile)->fired = true; ///ARMER LE PROJECTILE POUR FAIRE MAL
         std::cout<<"PLAYER::IsButtonPressed apres unStick\n";
         mousePos = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
         int posX = (int)m_body->GetPosition().x * RATIO;
@@ -258,11 +259,13 @@ void Player::onCommand(sf::Event e)
     case sf::Event::MouseButtonPressed:
     {
 
+        if(e.mouseButton.button == sf::Mouse::Middle)
+        {
+            mouseInit = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
 
-        mouseInit = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
-
-        weaponsMap[currentProjectile]->SetLinearVelocity(b2Vec2(0,0));
-        weaponsMap[currentProjectile]->SetActive(false);
+            weaponsMap[currentProjectile]->SetLinearVelocity(b2Vec2(0,0));
+            weaponsMap[currentProjectile]->SetActive(false);
+        }
     }
     break;
     case sf::Event::MouseButtonReleased:

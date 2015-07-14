@@ -20,6 +20,7 @@
 #include "Ground.hpp"
 #include "Structures.hpp"
 #include "Projectile.hpp"
+#include "Item.hpp"
 
 #include "ContactListener.inl"
 #include "DestructionListener.inl"
@@ -81,13 +82,14 @@ public:
     //GameLevel*  level;
     XMLLoader* xLoad;
 
-    std::vector<Human*>    humans;
-    std::vector<Human*>     listOfDeletedHuman;
-    std::vector<Ground*>    grounds;
+    std::vector<Human*>         humans;
+    std::vector<Human*>         listOfDeletedHuman;
+    std::vector<Ground*>        grounds;
     //std::vector<bodyData>   WeaponList;
-    std::vector<bodyData>   LevelObjectList;
-    std::vector<bodyData>   bDList;
+    std::vector<bodyData>       LevelObjectList;
+    std::vector<bodyData>       bDList;
     std::vector<Projectile*>    pList;
+    std::vector<Item*>          itemList;
 
     bool rebuild = false;
 

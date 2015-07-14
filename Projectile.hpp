@@ -17,6 +17,7 @@ class Projectile: public ObjectType{
 public:
         int type;///CERTAINES ENTITES NE PEUT PRENDRE CERTAINS ARMES
         int identificationArme = 20001;
+        int damage = 50;
         bodyData realData;
         bodyData* data = nullptr;
 
@@ -30,6 +31,10 @@ public:
         bool sticky = true;
 
         bool canStick = false;
+
+        bool fired = false;
+        bool safeUnstick = false;
+
         b2World *p_world;
 
 public:
@@ -47,6 +52,7 @@ public:
         void    impactTo(b2Fixture* fixtureSource, b2Fixture* fixtureTarget, float impulse);
         void    stickIt();
         void    stickProjectile(b2Fixture* fixtureTarget);
+        bool    isFired(){return fired;}
 
 
 };

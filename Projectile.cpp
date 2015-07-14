@@ -30,6 +30,8 @@ void    Projectile::impactTo(b2Fixture* fixtureSource, b2Fixture* fixtureTarget,
        if(impulse > 40)///d'habitude c'est >50
             stickProjectile(fixtureTarget);
 
+    fired = false;
+
 }
 
 
@@ -51,17 +53,21 @@ void Projectile::stickProjectile(b2Fixture* fixtureTarget)
     weldJointDef1.localAnchorB = weldJointDef.bodyB->GetLocalPoint( worldCoordsAnchorPoint );
     weldJointDef1.referenceAngle = weldJointDef.bodyB->GetAngle() - weldJointDef.bodyA->GetAngle();
     canStick = true;
+    fired = true;
 }
 
 
 void Projectile::stickIt()
 {
+//    if(!fired)
+//        return;
+   /// std::cout<<"Projectile::Sticking  ->Start"<<std::endl;
     if(!canStick)
         return;
     if(jointExist)
         return;
 
-    if(joint != nullptr)
+    if(joint != nullptr || joint2 != nullptr)
     {
         return;
     }
@@ -73,6 +79,9 @@ void Projectile::stickIt()
 //    joint2->SetUserData(this);
     canStick = false;
     jointExist = true;
+    fired = false;
+   /// std::cout<<"Projectile::Sticking  ->End"<<std::endl;
+
 }
 
 void Projectile::unStick()
@@ -81,13 +90,18 @@ void Projectile::unStick()
     {
         p_world->DestroyJoint(joint);
         joint = nullptr;
+        std::cout<<"Projectile::unStick ->joint supprimE"<<std::endl;
     }
     if(joint2 != nullptr)
     {
         p_world->DestroyJoint(joint2);
         joint2 = nullptr;
+        std::cout<<"Projectile::unStick ->joint2 supprimE"<<std::endl;
     }
     jointExist = false;
+    fired = false;
+    canStick = false;
+    std::cout<<"Projectile::unStick ->all joints supprimE"<<std::endl;
 }
 
 Projectile::~Projectile()
