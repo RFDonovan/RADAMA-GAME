@@ -130,7 +130,13 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
 , textureHolder(Textures)
 ,animatedSprite(sf::seconds(0.08), true, false)
 {
-
+    lifeTex = new sf::Texture();
+    deathTex = new sf::Texture();
+    lifeTex->loadFromFile("life.png");
+    lifeSprite.setTexture(*lifeTex);
+    deathTex->loadFromFile("death.png");
+    deathSprite.setTexture(*deathTex);
+    deathSprite.setColor(sf::Color(0, 0, 0, 150));
 
 
 //    m_body->SetUserData(this);
@@ -299,6 +305,8 @@ void Entity::addJointNode(pugi::xml_node parent, std::string name, jointStruct* 
 
             }
 }
+
+
 int Entity::getY()
 {
     return (int)m_body->GetPosition().y * RATIO;
@@ -307,6 +315,12 @@ int Entity::getY()
 int Entity::getX()
 {
     return (int)m_body->GetPosition().x * RATIO;
+}
+
+
+void Entity::setPosition(sf::Vector2f position)
+{
+    m_body->SetTransform(b2Vec2(position.x/RATIO,position.y/RATIO),m_body->GetAngle());
 }
 
 b2Vec2 Entity::getVelocity()
@@ -588,6 +602,35 @@ void Entity::takeItem(Item* item)
     if(m_life>maxLife)
         m_life = maxLife;
 
+}
+
+
+void Entity::drawLife(sf::RenderWindow& mWindow)
+{
+    lifeSprite.setColor(sf::Color(255-(m_life*255/100), 255-180+(m_life*180/100), 100, 255));
+
+    if(m_life<30)
+    {
+        if(lifeClock.getElapsedTime().asMilliseconds()<=50)
+            deathSprite.setColor(sf::Color(100, 0, 0, 150));
+        if(lifeClock.getElapsedTime().asMilliseconds()>=100)
+            deathSprite.setColor(sf::Color(0, 0, 0, 150));
+        if(lifeClock.getElapsedTime().asMilliseconds()>=200)
+            lifeClock.restart();
+    }
+    else
+        deathSprite.setColor(sf::Color(0, 0, 0, 150));
+
+    deathSprite.setPosition(animatedSprite.getPosition().x - deathTex->getSize().x/2,
+                     animatedSprite.getPosition().y - 100);
+    mWindow.draw(deathSprite);
+
+    lifeSprite.setPosition(animatedSprite.getPosition().x - lifeTex->getSize().x/2,
+                     animatedSprite.getPosition().y - 100+1);
+
+    lifeSprite.setScale(m_life/(float)maxLife,1.f);
+
+    mWindow.draw(lifeSprite);
 }
 
 Entity::~Entity()

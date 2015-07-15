@@ -323,7 +323,11 @@ void World::buildScene(std::string CurrentDir)
     std::cout<<"creation d'une deuxieme entite";
 
     ///LOADING OTHER ENTITIES
-    Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H);
+    std::vector<bodyData> bDListH = xLoad->loadXML(CurrentDir + "ePlayer.xml", CurrentDir);
+    std::map<std::string, b2Joint*> jMapH = xLoad->GetCurrentJointMap();
+    Human* e = new Human(mWindow,&p_world, &Textures, 1.f , &bDListH, &jMapH);
+//    Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H);
+    e->setPosition(sf::Vector2f(400.f,200.f));
     humans.push_back(e);
     ///--------------
 

@@ -19,16 +19,16 @@ public:
 
     float distortionFactor = .2f;
     float riseFactor = .5f;
-    sf::Clock clock;
+    sf::Clock clock, lifeClock;
     sf::Texture *lifeTex, *deathTex;
     sf::Sprite lifeSprite, deathSprite; ///red and green
 
 public:
-            Human(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
+            Human(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap);
     void    loadSprite(TextureHolder* Textures);
     void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures);
     int     getClassName(){return HUMAN;}
-    void    drawLife(sf::RenderWindow& mWindow);
+//    void    drawLife(sf::RenderWindow& mWindow);
 
 };
 

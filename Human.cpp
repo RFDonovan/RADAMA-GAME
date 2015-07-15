@@ -1,8 +1,8 @@
 #include "Human.hpp"
 
-Human::Human(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h)
-: Entity(mWindow,world, Textures, radius, x, y, w, h)
-, desiredVel(0)
+Human::Human(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap)
+    : Entity(mWindow, world, Textures,radius, bDList, jMap)
+    //, desiredVel(0)
 {
     maxLife = 80;
     kind = Entity::Human;
@@ -11,12 +11,10 @@ Human::Human(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures, 
     loadSprite(Textures);
     currentAnimation = &stopLeft;///POUR LE STANDBY ANIMATION
 
-    lifeTex = new sf::Texture();
-    deathTex = new sf::Texture();
-    lifeTex->loadFromFile("life.png");
-    lifeSprite.setTexture(*lifeTex);
-    deathTex->loadFromFile("death.png");
-    deathSprite.setTexture(*deathTex);
+
+    ///lifeSprite.setOrigin(lifeTex->getSize().x/2, lifeTex->getSize().y/2);
+    ///deathSprite.setOrigin(deathTex->getSize().x/2, deathTex->getSize().y/2);
+
 }
 
 void Human::loadSprite(TextureHolder* Textures)
@@ -112,18 +110,5 @@ void Human::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder*
 
 //*/
 }
-void Human::drawLife(sf::RenderWindow& mWindow)
-{
 
-    deathSprite.setPosition(animatedSprite.getPosition().x - deathTex->getSize().x/2,
-                     animatedSprite.getPosition().y - 100);
-    mWindow.draw(deathSprite);
-
-    lifeSprite.setPosition(animatedSprite.getPosition().x-2 - lifeTex->getSize().x/2,
-                     animatedSprite.getPosition().y - 100+1);
-
-    lifeSprite.setScale(m_life/(float)maxLife,1.f);
-
-    mWindow.draw(lifeSprite);
-}
 

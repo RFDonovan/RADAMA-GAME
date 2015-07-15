@@ -81,6 +81,10 @@ public:
     int maxLife;
     bool deleted = false;
 
+    sf::Clock lifeClock;
+    sf::Texture *lifeTex, *deathTex;
+    sf::Sprite lifeSprite, deathSprite;
+
     ///WEAPON TAKING
     bool        isWeaponDispo = false;
     Projectile* weaponDispo;
@@ -95,6 +99,8 @@ public:
     //void    onCommand(sf::Event e);
     int     getY();
     int     getX();
+    void    setPosition(sf::Vector2f position);
+
     bool    isGrounded();
     b2Vec2  getVelocity();
     float   getMass();
@@ -120,6 +126,9 @@ public:
     bool    isDead();
     void    doTheDead();
     void    takeItem(Item* item);
+
+    ///DRAWING SOMETHING
+    void    drawLife(sf::RenderWindow& mWindow);
             ~Entity();
 };
 

@@ -9,14 +9,7 @@ class Player: public Entity
 
 public:
 
-
     //animation control
-    enum ProjectileType{
-        lefona,
-        vato,
-        afo,
-        sokina,
-    };
 
     sf::Sprite stuffSprite, weaponSprite;
     sf::Shader *Shader;
@@ -44,14 +37,10 @@ public:
 
     float distortionFactor = .2f;
     float riseFactor = .5f;
-    sf::Clock clock,lifeClock;
-
-
-    sf::Texture *lifeTex, *deathTex;
-    sf::Sprite lifeSprite, deathSprite; ///red and green
+    sf::Clock clock;
+     ///red and green
 
 public:
-            Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
             Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap);
     void    loadPlayerSprite(TextureHolder* Textures);
     void    processLogic();
@@ -59,7 +48,7 @@ public:
     void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures);
     void    renderWeapons(sf::RenderWindow& mWindow);
 
-    void    drawLife(sf::RenderWindow& mWindow);
+    //void    drawLife(sf::RenderWindow& mWindow);
 
     void    onCommand(sf::Event e);
     void    attack();

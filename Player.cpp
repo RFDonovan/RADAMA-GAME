@@ -1,21 +1,5 @@
 #include "Player.h"
 
-Player::Player(sf::RenderWindow& mWindow, b2World* world,TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h)
-    : Entity(mWindow,world, Textures, radius, x, y, w, h)
-    //, desiredVel(0)
-{
-    maxLife = 100;
-    desiredVel = 0;
-    kind = Entity::Player;
-    std::cout<< "creation*******";
-
-    loadPlayerSprite(Textures);
-    currentAnimation = &stopRight;///POUR LE STANDBY ANIMATION
-    ///createWeapons(); je vais desactiver celui ci
-
-    currentProjectile = nameToWeapon["lefona"];
-}
-
 Player::Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap)
     : Entity(mWindow, world, Textures,radius, bDList, jMap)
     //, desiredVel(0)
@@ -162,34 +146,6 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
 //*/
 
 
-}
-
-void Player::drawLife(sf::RenderWindow& mWindow)
-{
-    lifeSprite.setColor(sf::Color(255-(m_life*255/100), 255-180+(m_life*180/100), 100, 255));
-
-    if(m_life<30)
-    {
-        if(lifeClock.getElapsedTime().asMilliseconds()<=50)
-            deathSprite.setColor(sf::Color(100, 0, 0, 150));
-        if(lifeClock.getElapsedTime().asMilliseconds()>=100)
-            deathSprite.setColor(sf::Color(0, 0, 0, 150));
-        if(lifeClock.getElapsedTime().asMilliseconds()>=200)
-            lifeClock.restart();
-    }
-    else
-        deathSprite.setColor(sf::Color(0, 0, 0, 150));
-
-    deathSprite.setPosition(animatedSprite.getPosition().x - deathTex->getSize().x/2,
-                     animatedSprite.getPosition().y - 100);
-    mWindow.draw(deathSprite);
-
-    lifeSprite.setPosition(animatedSprite.getPosition().x - lifeTex->getSize().x/2,
-                     animatedSprite.getPosition().y - 100+1);
-
-    lifeSprite.setScale(m_life/(float)maxLife,1.f);
-
-    mWindow.draw(lifeSprite);
 }
 
 void Player::onCommand(sf::Event e)
@@ -402,17 +358,6 @@ void Player::fire(int projectile)
 
     switch (projectile)
     {
-    case lefona:
-    {
-        float angle = weaponsMap[ProjectileType::lefona]->GetAngle();
-        float x,y;
-        x = std::cos(angle) * 500;//cosinus*hypotenuse
-        y = std::sin(angle) * 500;
-        std::cout<< "lefona be!"<<projectile;
-        //weaponsMap[currentProjectile]->ApplyLinearImpulse(b2Vec2(x, y), m_body->GetWorldCenter());
-        weaponsMap[currentProjectile]->ApplyLinearImpulse(b2Vec2(x, y), weaponsMap[currentProjectile]->GetWorldPoint(b2Vec2(50.f/RATIO,0.f)), true);
-
-    }
 
     break;
 
