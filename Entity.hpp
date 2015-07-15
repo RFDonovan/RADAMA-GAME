@@ -90,7 +90,6 @@ public:
     Projectile* weaponDispo;
 
 public:
-            Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, float32 x, float32 y, float w, float h);
             Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap);
     //void    loadPlayerSprite(TextureHolder* Textures);
     //void    processLogic();
