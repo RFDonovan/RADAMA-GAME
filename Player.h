@@ -44,7 +44,7 @@ public:
 
     float distortionFactor = .2f;
     float riseFactor = .5f;
-    sf::Clock clock;
+    sf::Clock clock,lifeClock;
 
 
     sf::Texture *lifeTex, *deathTex;

@@ -21,6 +21,7 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
     //, desiredVel(0)
 {
     maxLife = 100;
+    m_life = 10;
     desiredVel = 0;
     kind = Entity::Player;
     std::cout<< "creation*******";
@@ -35,8 +36,10 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
     deathTex = new sf::Texture();
     lifeTex->loadFromFile("life.png");
     lifeSprite.setTexture(*lifeTex);
+
     deathTex->loadFromFile("death.png");
     deathSprite.setTexture(*deathTex);
+    deathSprite.setColor(sf::Color(0, 0, 0, 150));
     ///lifeSprite.setOrigin(lifeTex->getSize().x/2, lifeTex->getSize().y/2);
     ///deathSprite.setOrigin(deathTex->getSize().x/2, deathTex->getSize().y/2);
 
@@ -163,12 +166,25 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
 
 void Player::drawLife(sf::RenderWindow& mWindow)
 {
+    lifeSprite.setColor(sf::Color(255-(m_life*255/100), 255-180+(m_life*180/100), 100, 255));
+
+    if(m_life<30)
+    {
+        if(lifeClock.getElapsedTime().asMilliseconds()<=50)
+            deathSprite.setColor(sf::Color(100, 0, 0, 150));
+        if(lifeClock.getElapsedTime().asMilliseconds()>=100)
+            deathSprite.setColor(sf::Color(0, 0, 0, 150));
+        if(lifeClock.getElapsedTime().asMilliseconds()>=200)
+            lifeClock.restart();
+    }
+    else
+        deathSprite.setColor(sf::Color(0, 0, 0, 150));
 
     deathSprite.setPosition(animatedSprite.getPosition().x - deathTex->getSize().x/2,
                      animatedSprite.getPosition().y - 100);
     mWindow.draw(deathSprite);
 
-    lifeSprite.setPosition(animatedSprite.getPosition().x-2 - lifeTex->getSize().x/2,
+    lifeSprite.setPosition(animatedSprite.getPosition().x - lifeTex->getSize().x/2,
                      animatedSprite.getPosition().y - 100+1);
 
     lifeSprite.setScale(m_life/(float)maxLife,1.f);

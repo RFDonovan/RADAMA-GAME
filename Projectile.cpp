@@ -65,6 +65,14 @@ void Projectile::stickIt()
 {
 //    if(!fired)
 //        return;
+    /*//PUISQUE CETTE FONCTION EST APPELLE JUSTE APRES LE STEP, JE VAIS METTRE ICI
+
+    /*if(fired)
+        realData.body->SetAwake(true);
+    else
+        realData.body->SetAwake(false);*/
+    ///*-------------------------*
+
    /// std::cout<<"Projectile::Sticking  ->Start"<<std::endl;
     if(!canStick)
         return;
