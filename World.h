@@ -132,6 +132,7 @@ public:
     // Operations
 public:
             explicit World (sf::RenderWindow& window);
+    void    update (/*sf::Time dt*/);
     void    draw (sf::Time frameTime);
     void    loadTextures ();
     void    buildScene (std::string CurrentDir);

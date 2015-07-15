@@ -17,6 +17,7 @@ void Game::run()
     while (mWindow.isOpen()){
         processInput();
         sf::Time frameTime = frameClock.restart();
+        update();
         render(frameTime);
     }
 
@@ -34,6 +35,10 @@ void Game::processInput()
 
 }
 
+void Game::update()
+{
+    mWorld.update();
+}
 
 void Game::render(sf::Time frameTime)
 {

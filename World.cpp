@@ -151,6 +151,23 @@ void World::updateView(sf::Vector2f view)
 
 }
 
+void World::update()
+{
+    //*
+
+    if(paused)/// ******************************************************************>>>>PAUSE
+        return;
+
+    sf::Vector2f playerPosition(0.0f,0.0f);
+
+
+    ePlayer->processLogic();
+    mWorldView.move(playerPosition);
+    adaptViewToPlayer();
+
+
+}
+
 void World::sticking()
 {
     for (int i = 0; i < pList.size(); i++)
