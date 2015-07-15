@@ -1,0 +1,16 @@
+<RADAMA>
+	<level name="" path="Resources/L1/">
+		<items>
+			<item name="" type="" x="" y="" life="" mana="" icon="" />
+		</items>
+		<weapons>
+			<weapon name="lefona" type="sticky" x="" y="" damage="" file=""/>
+		</weapons>
+		<enemies>
+			<enemy name="1" type="human" x="800" y="200" finiteState="calm" facing="right" file="ePlayer.xml" />
+		</enemies>
+		<sceneries>
+			<scenery name="trano" x="" y="" />
+		</sceneries>
+	</level>
+</RADAMA>

@@ -135,6 +135,9 @@ public:
     void    update (/*sf::Time dt*/);
     void    draw (sf::Time frameTime);
     void    loadTextures ();
+
+    void    loadInfo(std::string xmlCfg);
+
     void    buildScene (std::string CurrentDir);
     void    rebuildScene ();
     void    adaptViewToPlayer();

@@ -322,15 +322,15 @@ void World::buildScene(std::string CurrentDir)
 
     std::cout<<"creation d'une deuxieme entite";
 
-    ///LOADING OTHER ENTITIES
+    /*//LOADING OTHER ENTITIES
     std::vector<bodyData> bDListH = xLoad->loadXML(CurrentDir + "ePlayer.xml", CurrentDir);
     std::map<std::string, b2Joint*> jMapH = xLoad->GetCurrentJointMap();
     Human* e = new Human(mWindow,&p_world, &Textures, 1.f , &bDListH, &jMapH);
 //    Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H);
     e->setPosition(sf::Vector2f(400.f,200.f));
     humans.push_back(e);
-    ///--------------
-
+    //*/ //--------------
+    loadInfo("Resources/config.xml");
     ///LOADING WEAPONS
     std::string weaponDir(CurrentDir + "Weapons/");
     DIR* dir;
@@ -378,6 +378,43 @@ void World::buildScene(std::string CurrentDir)
     //adaptViewToPlayer();
 
 }
+
+void World::loadInfo(std::string xmlCfg)
+{
+    pugi::xml_document XMLDoc;
+    if (!XMLDoc.load_file(xmlCfg.c_str()))
+    {
+        std::cout << "World::loadInfo -> error on loading "<<xmlCfg<< "\n";
+        return;
+    }
+    pugi::xml_node levelNode = XMLDoc.child("RADAMA").child("level");
+
+    ///LOADING OTHER ENTITIES
+    pugi::xml_node entitiesNode = levelNode.child("enemies");
+    for (pugi::xml_node node = entitiesNode.first_child(); node ; node = node.next_sibling())
+        ///Entities ITERATION
+    {
+        std::stringstream ss;
+        ss <<levelNode.attribute("path").as_string();
+        std::string directory = ss.str();
+        std::stringstream ss2;
+        ss2 <<node.attribute("file").as_string();
+        std::string filename = ss2.str();
+        ///ajoutez un / a la fin du path
+        std::vector<bodyData> bDListH = xLoad->loadXML(directory + filename, directory);
+        std::map<std::string, b2Joint*> jMapH = xLoad->GetCurrentJointMap();
+        Human* e = new Human(mWindow,&p_world, &Textures, 1.f , &bDListH, &jMapH);
+//    Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H);
+        e->setPosition(sf::Vector2f(
+                                    node.attribute("x").as_float(),
+                                    node.attribute("y").as_float()
+                                    )
+                       );
+        humans.push_back(e);
+    }
+    ///--------------
+}
+
 bool World::fileExist(std::string& filename)
 {
     struct stat buffer;
