@@ -151,23 +151,6 @@ void World::updateView(sf::Vector2f view)
 
 }
 
-void World::update()
-{
-    //*
-
-    if(paused)/// ******************************************************************>>>>PAUSE
-        return;
-
-    sf::Vector2f playerPosition(0.0f,0.0f);
-
-
-    ePlayer->processLogic();
-    mWorldView.move(playerPosition);
-    adaptViewToPlayer();
-
-
-}
-
 void World::sticking()
 {
     for (int i = 0; i < pList.size(); i++)
@@ -228,13 +211,6 @@ void World::draw(sf::Time frameTime)
 
 ///RENDU DU JOUEUR
     ePlayer->render(mWindow, frameTime, &Textures);
-
-    for (int i = 0; i < grounds.size(); i++)
-        grounds[i]->render(mWindow, &shader);
-
-
-
-
 
     for (int i = 0 ; i < humans.size() ; i++ )
     {
@@ -444,43 +420,7 @@ sf::Vector2f World::getMousePos()
 ///>>>>>>>>>>>>>>>->>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ///>>>>>>>>>CREATING THINGS>>>>>>>>>>
 
-void World::createGround(b2World& world, float X, float Y, float W, float H)
-{
-    //int sizeSide = 10;
-    Ground* g = new Ground(&world, &Textures, X, Y, W, H);
-    grounds.push_back(g);
-}
 
-void World::createBox(b2World& world, int MouseX, int MouseY)
-{
-
-
-    b2BodyDef BodyDef;
-    BodyDef.position.Set(MouseX/RATIO, MouseY/RATIO);
-    BodyDef.type = b2_dynamicBody;
-    b2Body* Body1 = world.CreateBody(&BodyDef);
-    //b2Body *Body1;
-    //Body1 = world.CreateBody(&BodyDef);
-
-    b2PolygonShape Shape;
-    Shape.SetAsBox((32.f/2)/RATIO, (32.f/2)/RATIO);
-    b2FixtureDef FixtureDef;
-    FixtureDef.density = 1.f;
-    //FixtureDef.friction = 1.0f;
-    FixtureDef.friction = 0.7f;
-    FixtureDef.restitution = .3f;
-    FixtureDef.shape = &Shape;
-
-
-
-    Body1->CreateFixture(&FixtureDef);
-}
-
-void World::createEntity(b2World& world, int MouseX, int MouseY)
-{
-    Human* e = new Human(mWindow,&world, &Textures, 1.f , (float32)MouseX, (float32)MouseY, BOXSIZE_W, BOXSIZE_H);
-    humans.push_back(e);
-}
 
 void World::pause()
 {

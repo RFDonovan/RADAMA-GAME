@@ -9,8 +9,8 @@
 //formula to convert radians to degrees = (radians * (pi/180))
 #define RADTODEG (b2_pi / 180.0)
 
-#define WINDOW_W    800
-#define WINDOW_H    600
+#define WINDOW_W    1024//800
+#define WINDOW_H    768//600
 
 #define BOXSIZE_W 36.f //74
 #define BOXSIZE_H 150.f

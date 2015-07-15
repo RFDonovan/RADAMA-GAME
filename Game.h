@@ -22,8 +22,6 @@ public:
     void run ();
     //void processInput ();
     void processInput();
-    void update ();
     void render (sf::Time frameTime);
-    void loadAllPhysics();
 };
 

@@ -84,7 +84,6 @@ public:
 
     std::vector<Human*>         humans;
     std::vector<Human*>         listOfDeletedHuman;
-    std::vector<Ground*>        grounds;
     //std::vector<bodyData>   WeaponList;
     std::vector<bodyData>       LevelObjectList;
     std::vector<bodyData>       bDList;
@@ -133,7 +132,6 @@ public:
     // Operations
 public:
             explicit World (sf::RenderWindow& window);
-    void    update (/*sf::Time dt*/);
     void    draw (sf::Time frameTime);
     void    loadTextures ();
     void    buildScene (std::string CurrentDir);
@@ -149,9 +147,7 @@ public:
     bool    fileExist(std::string& filename);
 
     /**CREATING SOMETHINGS*/
-    void    createGround(b2World& world, float X, float Y, float W = 600.f, float H = 16.f);
-    void    createBox(b2World& world, int MouseX, int MouseY);
-    void    createEntity(b2World& world, int MouseX, int MouseY);
+    //void    createEntity(b2World& world, int MouseX, int MouseY);
 
     void    sheduleRemove(float elapsedTime);
 
