@@ -293,80 +293,10 @@ void World::loadTextures()
 
 void World::buildScene(std::string CurrentDir)
 {
-    /**prepare layers*/
-    /**add background*/
-    /**add player*/
-    //createBox(p_world, 10, 10);
     std::cout<<"\n**********************************INITIALISATION**************************************\n";
     std::cout<<"**************************************************************************************\n";
-    //std::string CurrentDir("./Resources/L1/");
 
-
-    ///LOADING LEVEL
-    xLoad = new XMLLoader(&p_world);
-    LevelObjectList = xLoad->loadXML(CurrentDir + "level.xml", CurrentDir);
-    Ground * level = new Ground(&p_world, &LevelObjectList);
-    ///--------------
-    ///LOADING ITEMS
-    itemList = xLoad->loadItems(CurrentDir);
-    //Item* item = new Item(&p_world, "exemple.png", 600.f, 500.f, 10, 10);
-    ///------------------
-
-    ///LOADING PLAYER
-    //ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , (float32)150, (float32)150, BOXSIZE_W, BOXSIZE_H);
-
-    std::vector<bodyData> bDListP = xLoad->loadXML(CurrentDir + "ePlayer.xml", CurrentDir);
-    std::map<std::string, b2Joint*> jMap = xLoad->GetCurrentJointMap();
-    ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , &bDListP, &jMap);
-
-
-    std::cout<<"creation d'une deuxieme entite";
-
-    /*//LOADING OTHER ENTITIES
-    std::vector<bodyData> bDListH = xLoad->loadXML(CurrentDir + "ePlayer.xml", CurrentDir);
-    std::map<std::string, b2Joint*> jMapH = xLoad->GetCurrentJointMap();
-    Human* e = new Human(mWindow,&p_world, &Textures, 1.f , &bDListH, &jMapH);
-//    Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H);
-    e->setPosition(sf::Vector2f(400.f,200.f));
-    humans.push_back(e);
-    //*/ //--------------
     loadInfo("Resources/config.xml");
-    ///LOADING WEAPONS
-    std::string weaponDir(CurrentDir + "Weapons/");
-    DIR* dir;
-    dirent* pdir;
-    dir = opendir(weaponDir.c_str());
-
-    bDList.clear();
-    while (pdir = readdir(dir))
-    {
-        std::string fichier(pdir->d_name);
-        std::size_t found = fichier.find(".xml");
-        if (found!=std::string::npos)
-        {
-            std::stringstream ss;
-            ss << weaponDir<<fichier;
-
-            bDList = xLoad->loadXML(ss.str(),weaponDir);
-
-
-            for (int i = 0; i < bDList.size(); i++)
-            {
-                pList.push_back(new Projectile(&p_world, bDList[i]));
-            }
-            std::cout<<"**>fichier "<< ss.str() << " chargE " <<std::endl;
-            std::cout<<"**>dir:  "<< weaponDir << " OK " <<std::endl;
-        }
-
-    }
-    closedir(dir);
-
-    ///------------------
-    ///LOADING ITEMS
-    //Item* item = new Item(&p_world, "exemple.png", 600.f, 500.f, 10, 10);
-    ///------------------
-    std::map<std::string, b2Joint*> jMap2 = xLoad->GetCurrentJointMap();
-
 
     sf::FloatRect r(sf::Vector2f(0.f,0.f),
                               mWorldView.getSize()
@@ -375,7 +305,6 @@ void World::buildScene(std::string CurrentDir)
     BG_pause.setPosition(sf::Vector2f(0.f,0.f));
     pauseLayer.setPosition(sf::Vector2f(0.f,0.f));
     mWorldView.reset(r);
-    //adaptViewToPlayer();
 
 }
 
@@ -389,14 +318,56 @@ void World::loadInfo(std::string xmlCfg)
     }
     pugi::xml_node levelNode = XMLDoc.child("RADAMA").child("level");
 
+    std::stringstream ss;
+    ss <<levelNode.attribute("path").as_string();
+    std::string directory = ss.str();
+
+    xLoad = new XMLLoader(&p_world);
+    LevelObjectList = xLoad->loadXML(directory + "level.xml", directory);
+    Ground * level = new Ground(&p_world, &LevelObjectList);
+
+    ///LOADING ITEMS
+    pugi::xml_node itemsNode = levelNode.child("items");
+    for (pugi::xml_node node = itemsNode.first_child(); node ; node = node.next_sibling())
+        ///Entities ITERATION
+    {
+
+        std::stringstream ss;
+        ss <<node.attribute("image").as_string();
+        std::string Ifilename = ss.str();
+
+        Item* item = new Item(&p_world,
+                              Ifilename,
+                              (float32)node.attribute("x").as_float(),
+                              -(float32)node.attribute("y").as_float(),
+                              (int)node.attribute("mana").as_float(),
+                              (int)node.attribute("life").as_float()
+                              );
+        itemList.push_back(item);
+    }
+    ///-------------
+    ///LOADING PLAYER
+
+    pugi::xml_node playerNode = levelNode.child("player");
+        std::stringstream ss3;
+        ss3 <<playerNode.attribute("file").as_string();
+        std::string Pfilename = ss3.str();
+    std::vector<bodyData> bDListP = xLoad->loadXML(directory + Pfilename, directory);
+    std::map<std::string, b2Joint*> jMap = xLoad->GetCurrentJointMap();
+    ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , &bDListP, &jMap);
+    ePlayer->setPosition(sf::Vector2f(
+                                    playerNode.attribute("x").as_float(),
+                                    playerNode.attribute("y").as_float()
+                                    )
+                       );
+    ///---------------
+
     ///LOADING OTHER ENTITIES
     pugi::xml_node entitiesNode = levelNode.child("enemies");
     for (pugi::xml_node node = entitiesNode.first_child(); node ; node = node.next_sibling())
         ///Entities ITERATION
     {
-        std::stringstream ss;
-        ss <<levelNode.attribute("path").as_string();
-        std::string directory = ss.str();
+
         std::stringstream ss2;
         ss2 <<node.attribute("file").as_string();
         std::string filename = ss2.str();
@@ -404,7 +375,6 @@ void World::loadInfo(std::string xmlCfg)
         std::vector<bodyData> bDListH = xLoad->loadXML(directory + filename, directory);
         std::map<std::string, b2Joint*> jMapH = xLoad->GetCurrentJointMap();
         Human* e = new Human(mWindow,&p_world, &Textures, 1.f , &bDListH, &jMapH);
-//    Human* e = new Human(mWindow,&p_world, &Textures, 1.f , (float32)400, (float32)200, BOXSIZE_W, BOXSIZE_H);
         e->setPosition(sf::Vector2f(
                                     node.attribute("x").as_float(),
                                     node.attribute("y").as_float()
@@ -413,6 +383,26 @@ void World::loadInfo(std::string xmlCfg)
         humans.push_back(e);
     }
     ///--------------
+
+    ///LOADING WEAPONS
+    bDList.clear();
+    pugi::xml_node weaponsNode = levelNode.child("weapons");
+    for (pugi::xml_node node = weaponsNode.first_child(); node ; node = node.next_sibling())
+        ///Entities ITERATION
+    {
+
+        std::stringstream ss2;
+        ss2 <<node.attribute("file").as_string();
+        std::string filename = ss2.str();
+        bDList = xLoad->loadXML(directory+filename,directory+"/Weapons/");
+
+
+            for (int i = 0; i < bDList.size(); i++)
+            {
+                pList.push_back(new Projectile(&p_world, bDList[i]));
+            }
+    }
+    ///---------------
 }
 
 bool World::fileExist(std::string& filename)

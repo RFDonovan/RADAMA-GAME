@@ -1,13 +1,37 @@
 <RADAMA>
 	<level name="" path="Resources/L1/">
+		<player x="900" y="200" file="ePlayer.xml" spriteParam="sprite.xml"/>
 		<items>
 			<item name="" type="" x="" y="" life="" mana="" icon="" />
+			<item name="null" type="null" x="7620" y="-428" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="7634" y="-307" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="7669" y="-133" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="7621" y="1" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="5856" y="-137" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="5286" y="-334" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="4887" y="-154" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="4427" y="-421" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="3889" y="-334" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="3544" y="-197" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="2896" y="-311" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="2858" y="-270" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="2944" y="-264" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="2897" y="-254" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="2899" y="-169" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="1735" y="-328" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="1667" y="-331" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="1569" y="-341" radius="0" life="10" image="lifefire.png"/>
+			<item name="null" type="null" x="906" y="-269" radius="0" life="10" image="lifefire.png"/>
+			<item name="null12" type="null" x="710" y="-333" radius="0" life="10" image="lifefire.png"/>
+			<item name="null23" type="null" x="282" y="-285" radius="0" life="10" image="lifefire.png"/>
 		</items>
 		<weapons>
-			<weapon name="lefona" type="sticky" x="" y="" damage="" file=""/>
+			<weapon name="lefona" type="sticky" x="1500" y="200" damage="" file="Weapons/lefona.xml"/>
+			<weapon name="lefona2" type="sticky" x="200" y="200" damage="" file="Weapons/lefonaMiloko.xml"/>
 		</weapons>
 		<enemies>
 			<enemy name="1" type="human" x="800" y="200" finiteState="calm" facing="right" file="ePlayer.xml" />
+			<enemy name="1" type="human" x="1500" y="200" finiteState="calm" facing="right" file="ePlayer.xml" />
 		</enemies>
 		<sceneries>
 			<scenery name="trano" x="" y="" />
