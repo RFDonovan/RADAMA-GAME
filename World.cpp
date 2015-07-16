@@ -363,6 +363,12 @@ void World::loadInfo(std::string xmlCfg)
     ///---------------
 
     ///LOADING OTHER ENTITIES
+    std::cout << "World::loadInfo -> loading spritemap\n";
+    SpriteMapping* s_map = new SpriteMapping();
+    s_map->loadXML("spritemap.xml");
+    std::cout << "World::loadInfo -> getting spritemap\n";
+    //std::map<std::string, Animation>* animationList = s_map->getAnimationList();
+    std::cout << "World::loadInfo -> getting spritemap OK\n";
     pugi::xml_node entitiesNode = levelNode.child("enemies");
     for (pugi::xml_node node = entitiesNode.first_child(); node ; node = node.next_sibling())
         ///Entities ITERATION
@@ -374,7 +380,8 @@ void World::loadInfo(std::string xmlCfg)
         ///ajoutez un / a la fin du path
         std::vector<bodyData> bDListH = xLoad->loadXML(directory + filename, directory);
         std::map<std::string, b2Joint*> jMapH = xLoad->GetCurrentJointMap();
-        Human* e = new Human(mWindow,&p_world, &Textures, 1.f , &bDListH, &jMapH);
+
+        Human* e = new Human(mWindow,&p_world, &Textures, 1.f , &bDListH, &jMapH, s_map->getAnimationList());
         e->setPosition(sf::Vector2f(
                                     node.attribute("x").as_float(),
                                     node.attribute("y").as_float()
@@ -399,17 +406,13 @@ void World::loadInfo(std::string xmlCfg)
 
             for (int i = 0; i < bDList.size(); i++)
             {
-                pList.push_back(new Projectile(&p_world, bDList[i]));
+                if(strcmp(node.attribute("type").as_string(), "projectile") == 0)
+                    pList.push_back(new Projectile(&p_world, bDList[i]));
             }
     }
     ///---------------
 }
 
-bool World::fileExist(std::string& filename)
-{
-    struct stat buffer;
-    return (stat (filename.c_str(), &buffer) == 0);
-}
 void World::rebuildScene()
 {
     //level->clearAll();

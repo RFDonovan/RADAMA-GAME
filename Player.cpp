@@ -93,6 +93,7 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
     sf::Vector2i screenDimensions(800,600);
 
     //start animation:
+    ///animatedSprite.setFrameTime(sf::seconds(0.01));
     animatedSprite.play(*currentAnimation);
 
 /// AJOUTER UNE ANIMATION EN FONCTION DE L'ACTUEL AU LIEU DE FAIRE UN STOP

@@ -26,11 +26,11 @@
 			<item name="null23" type="null" x="282" y="-285" radius="0" life="10" image="lifefire.png"/>
 		</items>
 		<weapons>
-			<weapon name="lefona" type="sticky" x="1500" y="200" damage="" file="Weapons/lefona.xml"/>
-			<weapon name="lefona2" type="sticky" x="200" y="200" damage="" file="Weapons/lefonaMiloko.xml"/>
+			<weapon name="lefona" type="projectile" x="1500" y="200" damage="" file="Weapons/lefona.xml"/>
+			<weapon name="lefona2" type="projectile" x="200" y="200" damage="" file="Weapons/lefonaMiloko.xml"/>
 		</weapons>
 		<enemies>
-			<enemy name="1" type="human" x="800" y="200" finiteState="calm" facing="right" file="ePlayer.xml" />
+			<enemy name="1" type="human" x="800" y="200" finiteState="calm" facing="right" file="ePlayer.xml" spriteFile="vortex1.xml"/>
 			<enemy name="1" type="human" x="1500" y="200" finiteState="calm" facing="right" file="ePlayer.xml" />
 		</enemies>
 		<sceneries>

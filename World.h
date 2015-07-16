@@ -21,6 +21,7 @@
 #include "Structures.hpp"
 #include "Projectile.hpp"
 #include "Item.hpp"
+#include "SpriteMapping.hpp"
 
 #include "ContactListener.inl"
 #include "DestructionListener.inl"
@@ -146,9 +147,6 @@ public:
 
     void    updateView(sf::Vector2f view);
     void    processInput(sf::Event);
-
-    /**TEST SYSTEM*////
-    bool    fileExist(std::string& filename);
 
     /**CREATING SOMETHINGS*/
     //void    createEntity(b2World& world, int MouseX, int MouseY);

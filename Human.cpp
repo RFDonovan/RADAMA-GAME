@@ -1,7 +1,8 @@
 #include "Human.hpp"
 
-Human::Human(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap)
+Human::Human(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap, std::map<std::string, Animation>* animationList)
     : Entity(mWindow, world, Textures,radius, bDList, jMap)
+    , animList(animationList)
     //, desiredVel(0)
 {
     maxLife = 80;
@@ -9,6 +10,7 @@ Human::Human(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures,
     std::cout<< "creation*******";
 
     loadSprite(Textures);
+    walkingAnimationLeft = (*animList)["Animation0"];
     currentAnimation = &stopLeft;///POUR LE STANDBY ANIMATION
 
 
@@ -20,7 +22,7 @@ Human::Human(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures,
 void Human::loadSprite(TextureHolder* Textures)
 {
     texture = Textures->getTexture(TextureHolder::Player);
-
+    /*
     walkingAnimationLeft.setSpriteSheet(*texture);
     walkingAnimationLeft.addFrame(sf::IntRect(9, 163, 74, 149));
     walkingAnimationLeft.addFrame(sf::IntRect(107, 162, 74, 150));
@@ -34,7 +36,7 @@ void Human::loadSprite(TextureHolder* Textures)
     walkingAnimationLeft.addFrame(sf::IntRect(891, 160, 43, 149));
     walkingAnimationLeft.addFrame(sf::IntRect(986, 161, 39, 147));
     walkingAnimationLeft.addFrame(sf::IntRect(1062, 162, 64, 146));
-
+    */
     //Animation walkingAnimationRight;
     walkingAnimationRight.setSpriteSheet(*texture);
     walkingAnimationRight.addFrame(sf::IntRect(10, 324, 75, 148));
