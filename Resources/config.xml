@@ -1,6 +1,6 @@
 <RADAMA>
 	<level name="" path="Resources/L1/">
-		<player x="900" y="200" file="ePlayer.xml" spriteParam="sprite.xml"/>
+		<player x="900" y="200" file="ePlayer.xml" sprite="humanSprite.xml"/>
 		<items>
 			<item name="" type="" x="" y="" life="" mana="" icon="" />
 			<item name="null" type="null" x="7620" y="-428" radius="0" life="10" image="lifefire.png"/>
@@ -29,9 +29,9 @@
 			<weapon name="lefona" type="projectile" x="1500" y="200" damage="" file="Weapons/lefona.xml"/>
 			<weapon name="lefona2" type="projectile" x="200" y="200" damage="" file="Weapons/lefonaMiloko.xml"/>
 		</weapons>
-		<enemies>
-			<enemy name="1" type="human" x="800" y="200" finiteState="calm" facing="right" file="ePlayer.xml" spriteFile="vortex1.xml"/>
-			<enemy name="1" type="human" x="1500" y="200" finiteState="calm" facing="right" file="ePlayer.xml" />
+		<enemies sprite="humanSprite.xml">
+			<enemy name="1" type="human" x="800" y="200" finiteState="calm" facing="right" file="ePlayer.xml" moveLeft="walkLeft" moveRight="walkRight" stop="" jump=""/>
+			<enemy name="1" type="human" x="1500" y="200" finiteState="calm" facing="right" file="ePlayer.xml" sprite="humanSprite.xml" />
 		</enemies>
 		<sceneries>
 			<scenery name="trano" x="" y="" />

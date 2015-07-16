@@ -1,9 +1,10 @@
 #include "Player.h"
 
-Player::Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap)
+Player::Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap, std::map<std::string, Animation>* animationList)
     : Entity(mWindow, world, Textures,radius, bDList, jMap)
     //, desiredVel(0)
 {
+    animList = animationList;
     maxLife = 100;
     m_life = 10;
     desiredVel = 0;
@@ -11,6 +12,10 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
     std::cout<< "creation*******";
 
     loadPlayerSprite(Textures);
+
+    walkingAnimationLeft = (*animList)["walkLeft"];
+    walkingAnimationRight = (*animList)["walkRight"];
+
     currentAnimation = &stopRight;
 
     currentProjectile = weaponsMap.size() - 1;//nameToWeapon["lefona"];
@@ -36,7 +41,7 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
 void Player::loadPlayerSprite(TextureHolder* Textures)
 {
     texture = Textures->getTexture(TextureHolder::Player);
-
+/*
     walkingAnimationLeft.setSpriteSheet(*texture);
     walkingAnimationLeft.addFrame(sf::IntRect(9, 163, 74, 149));
     walkingAnimationLeft.addFrame(sf::IntRect(107, 162, 74, 150));
@@ -65,7 +70,7 @@ void Player::loadPlayerSprite(TextureHolder* Textures)
     walkingAnimationRight.addFrame(sf::IntRect(877, 323, 44, 148));
     walkingAnimationRight.addFrame(sf::IntRect(976, 324, 39, 147));
     walkingAnimationRight.addFrame(sf::IntRect(1067, 323, 63, 148));
-
+*/
     stopRight.setSpriteSheet(*texture);
     stopRight.addFrame(sf::IntRect(877, 323, 44, 148));
     stopLeft.setSpriteSheet(*texture);

@@ -41,7 +41,7 @@ public:
      ///red and green
 
 public:
-            Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap);
+            Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap, std::map<std::string, Animation>* animationList);
     void    loadPlayerSprite(TextureHolder* Textures);
     void    processLogic();
     void    processLogic(sf::RenderWindow& mWindow);

@@ -231,7 +231,7 @@ void World::draw(sf::Time frameTime)
 
     for (int i = 0 ; i < humans.size() ; i++ )
     {
-        humans[i]->render(mWindow, frameTime, &Textures);
+        humans[i]->render(mWindow, frameTime, &Textures, &shader);
         ///teste une suppression d'Entité morts: ASSEZ BIEN!!!
         if(humans[i]->getY() > mWindow.getSize().y || humans[i]->isDead())
         {
@@ -349,12 +349,14 @@ void World::loadInfo(std::string xmlCfg)
     ///LOADING PLAYER
 
     pugi::xml_node playerNode = levelNode.child("player");
+    SpriteMapping* ps_map = new SpriteMapping();
+    ps_map->loadXML(playerNode.attribute("sprite").as_string());
         std::stringstream ss3;
         ss3 <<playerNode.attribute("file").as_string();
         std::string Pfilename = ss3.str();
     std::vector<bodyData> bDListP = xLoad->loadXML(directory + Pfilename, directory);
     std::map<std::string, b2Joint*> jMap = xLoad->GetCurrentJointMap();
-    ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , &bDListP, &jMap);
+    ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , &bDListP, &jMap, ps_map->getAnimationList());
     ePlayer->setPosition(sf::Vector2f(
                                     playerNode.attribute("x").as_float(),
                                     playerNode.attribute("y").as_float()
@@ -365,11 +367,10 @@ void World::loadInfo(std::string xmlCfg)
     ///LOADING OTHER ENTITIES
     std::cout << "World::loadInfo -> loading spritemap\n";
     SpriteMapping* s_map = new SpriteMapping();
-    s_map->loadXML("spritemap.xml");
-    std::cout << "World::loadInfo -> getting spritemap\n";
-    //std::map<std::string, Animation>* animationList = s_map->getAnimationList();
-    std::cout << "World::loadInfo -> getting spritemap OK\n";
     pugi::xml_node entitiesNode = levelNode.child("enemies");
+
+    s_map->loadXML(entitiesNode.attribute("sprite").as_string());
+    std::cout << "World::loadInfo -> getting spritemap\n";
     for (pugi::xml_node node = entitiesNode.first_child(); node ; node = node.next_sibling())
         ///Entities ITERATION
     {

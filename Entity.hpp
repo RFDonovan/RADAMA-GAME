@@ -61,6 +61,7 @@ public:
     Animation* currentAnimation;
     Animation walkingAnimationLeft, walkingAnimationRight, stopLeft, stopRight;
     AnimatedSprite animatedSprite;
+    std::map<std::string, Animation>* animList;
 
     sf::Vector2f mouseInit, mousePos, playerPos, velocityForce;
 

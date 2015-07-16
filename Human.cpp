@@ -2,15 +2,16 @@
 
 Human::Human(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap, std::map<std::string, Animation>* animationList)
     : Entity(mWindow, world, Textures,radius, bDList, jMap)
-    , animList(animationList)
     //, desiredVel(0)
 {
+    animList = animationList;
     maxLife = 80;
     kind = Entity::Human;
     std::cout<< "creation*******";
 
     loadSprite(Textures);
-    walkingAnimationLeft = (*animList)["Animation0"];
+    walkingAnimationLeft = (*animList)["walkLeft"];
+    walkingAnimationRight = (*animList)["walkRight"];
     currentAnimation = &stopLeft;///POUR LE STANDBY ANIMATION
 
 
@@ -36,7 +37,7 @@ void Human::loadSprite(TextureHolder* Textures)
     walkingAnimationLeft.addFrame(sf::IntRect(891, 160, 43, 149));
     walkingAnimationLeft.addFrame(sf::IntRect(986, 161, 39, 147));
     walkingAnimationLeft.addFrame(sf::IntRect(1062, 162, 64, 146));
-    */
+
     //Animation walkingAnimationRight;
     walkingAnimationRight.setSpriteSheet(*texture);
     walkingAnimationRight.addFrame(sf::IntRect(10, 324, 75, 148));
@@ -51,7 +52,7 @@ void Human::loadSprite(TextureHolder* Textures)
     walkingAnimationRight.addFrame(sf::IntRect(877, 323, 44, 148));
     walkingAnimationRight.addFrame(sf::IntRect(976, 324, 39, 147));
     walkingAnimationRight.addFrame(sf::IntRect(1067, 323, 63, 148));
-
+*/
     stopRight.setSpriteSheet(*texture);
     stopRight.addFrame(sf::IntRect(877, 323, 44, 148));
     stopLeft.setSpriteSheet(*texture);
@@ -59,7 +60,7 @@ void Human::loadSprite(TextureHolder* Textures)
 
 }
 
-void Human::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder* Textures)
+void Human::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder* Textures, sf::Shader* shader)
 {
 
             sf::Time frameTime1 = frameClock.restart();
@@ -108,7 +109,12 @@ void Human::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder*
             animatedSprite.setRotation(m_body->GetAngle() * 180/b2_pi);
             ///Draw:
             drawLife(mWindow);
-            mWindow.draw(animatedSprite);
+
+            shader->setParameter("time", clock.getElapsedTime().asSeconds());
+            shader->setParameter("distortionFactor", .002f);
+            shader->setParameter("riseFactor", .3f);
+
+            mWindow.draw(animatedSprite, shader);
 
 //*/
 }
