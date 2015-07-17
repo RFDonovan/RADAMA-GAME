@@ -83,6 +83,11 @@ public:
     bool fsm_alert = false;
     bool fsm_shocked = false;
     bool fsm_normal = true;
+    ///SENSOR
+    sf::Clock visionClock;
+    float rayRange = 300.f;
+    sf::Texture *visionTex;
+    sf::Sprite visionSprite;
 
 
     ///LIFE HANDLER
@@ -150,6 +155,7 @@ public:
     virtual void    doShockedThings()=0;
     void    resetFSM();
     ///DRAWING SOMETHING
+    void    drawVision(sf::RenderWindow& mWindow);
     void    drawLife(sf::RenderWindow& mWindow);
     void    speak(sf::RenderWindow& mWindow);
     void    say(std::string,int delay=5);

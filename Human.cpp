@@ -71,13 +71,15 @@ void    Human::doNormalThings()
         say("Meuh...",1);
         return;
     }
+    if((int)fsmClock.getElapsedTime().asSeconds()%15<1)
+        say("..Te hatory za zany...");
 
-    float rayRange = 300.f/RATIO;
+    //rayRange = rayRange/RATIO;
     int changeDirection = -1;
     if(currentAnimation == &walkingAnimationLeft || currentAnimation == &stopLeft)
             changeDirection = -changeDirection;
     callback.m_hit=false;
-    p_world->RayCast(&callback,m_body->GetPosition(), b2Vec2(m_body->GetPosition().x-(rayRange*changeDirection),m_body->GetPosition().y));
+    p_world->RayCast(&callback,m_head->GetPosition(), b2Vec2(m_head->GetPosition().x-(rayRange/RATIO*changeDirection),m_head->GetPosition().y));
     if(callback.m_hit)
     {
         std::cout<< "//////////HIT HIT HIT\n";
@@ -93,12 +95,11 @@ void    Human::doAlertThings()
     if(fsmClock.getElapsedTime().asSeconds()<15.f)
         say("?!??",15);
 
-    float rayRange = 300.f/RATIO;
     int changeDirection = -1;
     if(currentAnimation == &walkingAnimationLeft || currentAnimation == &stopLeft)
             changeDirection = -changeDirection;
     callback.m_hit=false;
-    p_world->RayCast(&callback,m_body->GetPosition(), b2Vec2(m_body->GetPosition().x-(rayRange*changeDirection),m_body->GetPosition().y));
+    p_world->RayCast(&callback,m_head->GetPosition(), b2Vec2(m_head->GetPosition().x-(rayRange/RATIO*changeDirection),m_head->GetPosition().y));
     //if(fsmClock.getElapsedTime().asSeconds()<15.f)
     if(callback.m_hit)
     {
@@ -125,9 +126,9 @@ void    Human::doHuntingThings()
     ///HUNTING BLOCK:
     {
         int o = 1;
-        if(targetBody->GetPosition().x - m_body->GetPosition().x <0.f)
+        if(targetBody->GetPosition().x - m_head->GetPosition().x <0.f)
             o=-1;
-        if(std::abs(targetBody->GetPosition().x - m_body->GetPosition().x) > secureDistance/RATIO)
+        if(std::abs(targetBody->GetPosition().x - m_head->GetPosition().x) > secureDistance/RATIO)
         {
             goTo(b2Vec2(targetBody->GetPosition().x+(secureDistance*o),targetBody->GetPosition().y));
             fsm_attack = false;
@@ -146,12 +147,12 @@ void    Human::doHuntingThings()
     std::cout<<(int)fsmClock.getElapsedTime().asSeconds()%4<<"<- elapsedtime%4"<<std::endl;
     //if((int)fsmClock.getElapsedTime().asSeconds()%6<=1)
     {
-        float rayRange = 300.f/RATIO;
+
         int changeDirection = -1;
         if(currentAnimation == &walkingAnimationLeft || currentAnimation == &stopLeft)
                 changeDirection = -changeDirection;
         callback.m_hit=false;
-        p_world->RayCast(&callback,m_body->GetPosition(), b2Vec2(m_body->GetPosition().x-(rayRange*changeDirection),m_body->GetPosition().y));
+        p_world->RayCast(&callback,m_head->GetPosition(), b2Vec2(m_head->GetPosition().x-(rayRange/RATIO*changeDirection),m_head->GetPosition().y));
         std::cout<<"<- checking"<<std::endl;
         if(!callback.m_hit)
         {
@@ -252,8 +253,8 @@ void Human::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder*
             shader->setParameter("distortionFactor", .002f);
             shader->setParameter("riseFactor", .3f);
 
+            drawVision(mWindow);
             mWindow.draw(animatedSprite, shader);
-
 //*/
 }
 

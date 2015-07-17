@@ -11,6 +11,12 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
 , textureHolder(Textures)
 ,animatedSprite(sf::seconds(0.08), true, false)
 {
+
+    visionTex = new sf::Texture();
+    visionTex->loadFromFile("Resources/vision.png");
+    visionSprite.setTexture(*visionTex);
+    visionSprite.setOrigin(0,visionTex->getSize().y/2);
+
     lifeTex = new sf::Texture();
     deathTex = new sf::Texture();
     lifeTex->loadFromFile("life.png");
@@ -551,6 +557,31 @@ void Entity::drawLife(sf::RenderWindow& mWindow)
     mWindow.draw(lifeSprite);
     speak(mWindow);
 }
+
+void Entity::drawVision(sf::RenderWindow& mWindow)
+{
+    if(currentAnimation == &walkingAnimationLeft||currentAnimation == &stopLeft)
+    {
+        if(visionSprite.getScale().x> -1.f)
+            if((int)visionClock.getElapsedTime().asMilliseconds()%20<20)
+                visionSprite.setScale(visionSprite.getScale().x-0.2f,1.f);
+
+        //visionSprite.setScale(-1.f,1.f);
+    }
+
+    if(currentAnimation == &walkingAnimationRight||currentAnimation == &stopRight)
+    {
+        if(visionSprite.getScale().x< 1.f)
+            if((int)visionClock.getElapsedTime().asMilliseconds()%20<20)
+                visionSprite.setScale(visionSprite.getScale().x+0.2f,1.f);
+    }
+
+    visionSprite.setColor(sf::Color(229,255,7,100));
+    visionSprite.setPosition(m_head->GetPosition().x * RATIO,
+                             m_head->GetPosition().y * RATIO);
+    mWindow.draw(visionSprite);
+}
+
 void    Entity::speak(sf::RenderWindow& mWindow)
 {
 
@@ -564,7 +595,16 @@ void    Entity::speak(sf::RenderWindow& mWindow)
     {
 
         if(textClock.getElapsedTime().asSeconds()<textDelay)///faire disparaitre apres 10s
+        {
+
+            Text.setColor(sf::Color(255,255,255,55));
             mWindow.draw(Text);
+            Text.setPosition(animatedSprite.getPosition().x - lifeTex->getSize().x/2-2,
+                     animatedSprite.getPosition().y - 150-1);
+            Text.setColor(sf::Color(0,0,0,255));
+            mWindow.draw(Text);
+        }
+
         else
         {
             haveToSpeak=false;
