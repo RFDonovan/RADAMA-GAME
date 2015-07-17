@@ -16,6 +16,7 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
     visionTex->loadFromFile("Resources/vision.png");
     visionSprite.setTexture(*visionTex);
     visionSprite.setOrigin(0,visionTex->getSize().y/2);
+    visionSprite.setColor(sf::Color(229,255,7,100));
 
     lifeTex = new sf::Texture();
     deathTex = new sf::Texture();
@@ -575,8 +576,13 @@ void Entity::drawVision(sf::RenderWindow& mWindow)
             if((int)visionClock.getElapsedTime().asMilliseconds()%20<20)
                 visionSprite.setScale(visionSprite.getScale().x+0.2f,1.f);
     }
+    if((int)visionClock.getElapsedTime().asSeconds()%4<1)
+        if((int)visionClock.getElapsedTime().asMilliseconds()%1000<500)
+            visionSprite.setRotation(visionSprite.getRotation()+.02f);
+        else
+            visionSprite.setRotation(visionSprite.getRotation()-.02f);
 
-    visionSprite.setColor(sf::Color(229,255,7,100));
+
     visionSprite.setPosition(m_head->GetPosition().x * RATIO,
                              m_head->GetPosition().y * RATIO);
     mWindow.draw(visionSprite);

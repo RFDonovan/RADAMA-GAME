@@ -65,7 +65,9 @@ void Human::loadSprite(TextureHolder* Textures)
 void    Human::doNormalThings()
 {
     std::cout<< "//////////HUMAN-> NORMAL MODE\n";
+    visionSprite.setColor(sf::Color(50,255,50,200));
 
+    //visionSprite.setRotation()
     if(fsmClock.getElapsedTime().asSeconds()<1.f)
     {
         say("Meuh...",1);
@@ -91,6 +93,7 @@ void    Human::doNormalThings()
 }
 void    Human::doAlertThings()
 {
+    visionSprite.setColor(sf::Color(229,255,7,200));
     std::cout<< "//////////HUMAN-> ALERT MODE\n";
     if(fsmClock.getElapsedTime().asSeconds()<15.f)
         say("?!??",15);
@@ -118,6 +121,7 @@ void    Human::doAlertThings()
 }
 void    Human::doHuntingThings()
 {
+    visionSprite.setColor(sf::Color(255,7,7,200));
     std::cout<< "//////////HUMAN-> HUNTING MODE\n";
     if(fsmClock.getElapsedTime().asSeconds()<10.f)
         if(!fsm_attack)
@@ -177,6 +181,7 @@ void    Human::doHuntingThings()
 }
 void    Human::doShockedThings()
 {
+    visionSprite.setColor(sf::Color(229,255,7,20));
     std::cout<< "//////////HUMAN-> SHOCKED MODE\n";
     if(fsmClock.getElapsedTime().asSeconds()<1.f)
     {
@@ -190,6 +195,7 @@ void    Human::doShockedThings()
 
 void    Human::doAttackThings()
 {
+    visionSprite.setColor(sf::Color(229,255,7,0));
     std::cout<< "//////////HUMAN-> ATTACK MODE\n";
     if((int)fsmClock.getElapsedTime().asSeconds()%5<2)
     {
