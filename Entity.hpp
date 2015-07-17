@@ -86,6 +86,11 @@ public:
     sf::Texture *lifeTex, *deathTex;
     sf::Sprite lifeSprite, deathSprite;
 
+    sf::Clock textClock;
+    sf::Text Text;
+    sf::Font MyFont;
+    bool haveToSpeak = false;
+
     ///WEAPON TAKING
     bool        isWeaponDispo = false;
     Projectile* weaponDispo;
@@ -127,8 +132,11 @@ public:
     void    doTheDead();
     void    takeItem(Item* item);
 
+
     ///DRAWING SOMETHING
     void    drawLife(sf::RenderWindow& mWindow);
+    void    speak(sf::RenderWindow& mWindow);
+    void    say(std::string);
             ~Entity();
 };
 

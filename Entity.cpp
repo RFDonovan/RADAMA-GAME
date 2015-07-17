@@ -19,6 +19,16 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
     deathSprite.setTexture(*deathTex);
     deathSprite.setColor(sf::Color(0, 0, 0, 150));
 
+    if (!MyFont.loadFromFile("Resources/CHIZZ___.ttf"))
+    {
+        // Error...
+    }
+
+    Text.setFont(MyFont);
+    Text.setCharacterSize(20);
+    Text.setString("Andrana");
+    //Text.setFont(sf::Font::GetDefaultFont());
+    Text.setColor(sf::Color::Cyan);
 
 //    m_body->SetUserData(this);
 //    m_legs->SetUserData(this);
@@ -81,6 +91,8 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
     std::cout<<"\n\n\n\n-----jMap-"<<jMap->size()<<std::endl;
 
     std::cout<<"\n\n\n\n------------------------------------------------------"<<std::endl;
+
+    say("HOOLY SHIIIIT!!");
 }
 
 void Entity::exportToXML(std::string filename)
@@ -317,6 +329,7 @@ void Entity::sense()
         std::cout<< "//////////HIT HIT HIT\n";
         hunting = true;
         targetBody = callback.m_body;
+        say("!!");
     }
 
 }
@@ -512,6 +525,38 @@ void Entity::drawLife(sf::RenderWindow& mWindow)
     lifeSprite.setScale(m_life/(float)maxLife,1.f);
 
     mWindow.draw(lifeSprite);
+    speak(mWindow);
+}
+void    Entity::speak(sf::RenderWindow& mWindow)
+{
+
+
+    //Text.setRotation(90.f);
+    //Text.setScale(2.f, 2.f);
+    Text.setPosition(animatedSprite.getPosition().x - lifeTex->getSize().x/2,
+                     animatedSprite.getPosition().y - 150+1);
+    //Text.move(100.f, 200.f);
+    if(haveToSpeak)
+    {
+
+        if(textClock.getElapsedTime().asSeconds()<5)///faire disparaitre apres 10s
+            mWindow.draw(Text);
+        else
+        {
+            haveToSpeak=false;
+            textClock.restart();
+        }
+
+    }
+
+
+}
+
+void    Entity::say(std::string text)
+{
+    Text.setString(text);
+    haveToSpeak = true;
+    textClock.restart();
 }
 
 Entity::~Entity()
