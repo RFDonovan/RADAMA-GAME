@@ -31,6 +31,7 @@ public:
             {
             case ENTITY:
             {
+                m_hit = false;
 
                 std::cout<<"EntitE vu ->";
                 int eClass = (static_cast<ObjectType*>(userData))->getClassName();
@@ -55,12 +56,14 @@ public:
             }
             break;
             case GROUND:
+                m_hit = false;
                 m_ground = true;
                 return fraction;
                 break;
 
             default:
                 //return -1.0f;
+                m_hit = false;
                 return fraction;
                 break;
             }

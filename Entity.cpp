@@ -295,19 +295,44 @@ void Entity::wipeJoints()
     std::cout<<"Entity::wipeJoints ->jointList vidE"<<std::endl;
 }
 
+void Entity::resetFSM()
+{
+    fsm_normal = false;
+    fsm_shocked = false;
+    fsm_alert = false;
+    ///normalement hunting et attack doit etre combinE sinon le player peut disparaitre des yeux de l'ennemie pendant qu'il attaque
+    fsm_hunting = false;
+    fsm_attack = false;
+    fsmClock.restart();
+    stateClock.restart();
+    desiredVel = 0.f;
+}
+
 void Entity::sense()
 {
+    if(fsm_normal)
+        doNormalThings();
+    if(fsm_shocked)
+        doShockedThings();
+    if(fsm_alert)
+        doAlertThings();
+    if(fsm_attack)
+        doAttackThings();
+    if(fsm_hunting)
+        doHuntingThings();
 
-    RayCastCallback callback;
+    commitLogic();
+
+    /*
     float rayRange = 300.f/RATIO;
-    float secureDistance = 200.f;
+
     int changeDirection = -1;
     if(currentAnimation == &walkingAnimationLeft || currentAnimation == &stopLeft)
             changeDirection = -changeDirection;
 
     //jumpOnObstacle();
-
-    if(hunting)
+    float secureDistance = 200.f;
+    if(fsm_hunting)
     {
         int o = 1;
         if(targetBody->GetPosition().x - m_body->GetPosition().x <0.f)
@@ -327,11 +352,11 @@ void Entity::sense()
     if(callback.m_hit)
     {
         std::cout<< "//////////HIT HIT HIT\n";
-        hunting = true;
+        fsm_hunting = true;
         targetBody = callback.m_body;
-        say("!!");
+        say("!!",2);
     }
-
+*/
 }
 
 void Entity::jumpOnObstacle()
@@ -366,10 +391,9 @@ void Entity::jumpOnObstacle()
 void Entity::goTo(b2Vec2 newPos)
 {
 //find path to a position
+
     if(std::abs(m_body->GetPosition().x-newPos.x)<=10.f/RATIO)
     {
-        desiredVel = .0f;
-        hunting = false;
         return;
     }
     else
@@ -438,8 +462,8 @@ void Entity::commitLogic()
 
     vel = m_body->GetLinearVelocity();
     float velChange = desiredVel - vel.x;
-    if (!hunting)
-        velChange = 0.f;
+//    if (!fsm_hunting)
+//        velChange = 0.f;
 
     float force = getMass() * velChange / (1/60.0);// f = mv/t
     if(jump>0)
@@ -539,7 +563,7 @@ void    Entity::speak(sf::RenderWindow& mWindow)
     if(haveToSpeak)
     {
 
-        if(textClock.getElapsedTime().asSeconds()<5)///faire disparaitre apres 10s
+        if(textClock.getElapsedTime().asSeconds()<textDelay)///faire disparaitre apres 10s
             mWindow.draw(Text);
         else
         {
@@ -552,8 +576,9 @@ void    Entity::speak(sf::RenderWindow& mWindow)
 
 }
 
-void    Entity::say(std::string text)
+void    Entity::say(std::string text, int delay)
 {
+    textDelay = delay;
     Text.setString(text);
     haveToSpeak = true;
     textClock.restart();

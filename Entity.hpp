@@ -68,13 +68,21 @@ public:
     float desiredVel;
     float velocityLimit = 5.f;
     float jumpLimit = 5.f;
-    b2Body* targetBody;
+
 
     sf::Clock clock;
 
     ///ATTACK DEF INTERACTION
     bool isAttacked = false;
-    bool hunting = false;
+    ///FINITE STATE MACHINE
+    RayCastCallback callback;
+    b2Body* targetBody;
+    sf::Clock fsmClock,stateClock;
+    bool fsm_hunting = false;
+    bool fsm_attack = false;
+    bool fsm_alert = false;
+    bool fsm_shocked = false;
+    bool fsm_normal = true;
 
 
     ///LIFE HANDLER
@@ -90,6 +98,7 @@ public:
     sf::Text Text;
     sf::Font MyFont;
     bool haveToSpeak = false;
+    int textDelay=5;
 
     ///WEAPON TAKING
     bool        isWeaponDispo = false;
@@ -133,10 +142,17 @@ public:
     void    takeItem(Item* item);
 
 
+    ///FINITE STATE MACHINE
+    virtual void    doNormalThings()=0;
+    virtual void    doAlertThings()=0;
+    virtual void    doHuntingThings()=0;
+    virtual void    doAttackThings()=0;
+    virtual void    doShockedThings()=0;
+    void    resetFSM();
     ///DRAWING SOMETHING
     void    drawLife(sf::RenderWindow& mWindow);
     void    speak(sf::RenderWindow& mWindow);
-    void    say(std::string);
+    void    say(std::string,int delay=5);
             ~Entity();
 };
 

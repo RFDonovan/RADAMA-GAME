@@ -63,6 +63,13 @@ public:
 
     void    clearAll();
 
+    ///FINITE STATE MACHINE
+    void    doNormalThings(){}
+    void    doAlertThings(){}
+    void    doHuntingThings(){}
+    void    doAttackThings(){}
+    void    doShockedThings(){}
+
 };
 
 

@@ -59,7 +59,145 @@ void Human::loadSprite(TextureHolder* Textures)
     stopLeft.addFrame(sf::IntRect(891, 160, 43, 149));
 
 }
+/// ////////////////////// ///////////////////
+/// ///////FINITE STATE MACHINE///////////////
+/// ////////////////////// ///////////////////
+void    Human::doNormalThings()
+{
+    std::cout<< "//////////HUMAN-> NORMAL MODE\n";
 
+    if(fsmClock.getElapsedTime().asSeconds()<1.f)
+    {
+        say("Meuh...",1);
+        return;
+    }
+
+    float rayRange = 300.f/RATIO;
+    int changeDirection = -1;
+    if(currentAnimation == &walkingAnimationLeft || currentAnimation == &stopLeft)
+            changeDirection = -changeDirection;
+    callback.m_hit=false;
+    p_world->RayCast(&callback,m_body->GetPosition(), b2Vec2(m_body->GetPosition().x-(rayRange*changeDirection),m_body->GetPosition().y));
+    if(callback.m_hit)
+    {
+        std::cout<< "//////////HIT HIT HIT\n";
+        resetFSM();
+        fsm_shocked = true;
+        targetBody = callback.m_body;
+        say("!!",2);
+    }
+}
+void    Human::doAlertThings()
+{
+    std::cout<< "//////////HUMAN-> ALERT MODE\n";
+    if(fsmClock.getElapsedTime().asSeconds()<15.f)
+        say("?!??",15);
+
+    float rayRange = 300.f/RATIO;
+    int changeDirection = -1;
+    if(currentAnimation == &walkingAnimationLeft || currentAnimation == &stopLeft)
+            changeDirection = -changeDirection;
+    callback.m_hit=false;
+    p_world->RayCast(&callback,m_body->GetPosition(), b2Vec2(m_body->GetPosition().x-(rayRange*changeDirection),m_body->GetPosition().y));
+    //if(fsmClock.getElapsedTime().asSeconds()<15.f)
+    if(callback.m_hit)
+    {
+
+        resetFSM();
+        fsm_hunting = true;
+        targetBody = callback.m_body;
+    }
+
+    if((int)stateClock.getElapsedTime().asSeconds()>6)
+    {
+        resetFSM();
+        fsm_normal = true;
+    }
+
+}
+void    Human::doHuntingThings()
+{
+    std::cout<< "//////////HUMAN-> HUNTING MODE\n";
+    if(fsmClock.getElapsedTime().asSeconds()<10.f)
+        if(!fsm_attack)
+            say("MARATRAKO ELA NIANY!!!",10);
+    float secureDistance = 200.f;
+    ///HUNTING BLOCK:
+    {
+        int o = 1;
+        if(targetBody->GetPosition().x - m_body->GetPosition().x <0.f)
+            o=-1;
+        if(std::abs(targetBody->GetPosition().x - m_body->GetPosition().x) > secureDistance/RATIO)
+        {
+            goTo(b2Vec2(targetBody->GetPosition().x+(secureDistance*o),targetBody->GetPosition().y));
+            fsm_attack = false;
+            //commitLogic();
+        }
+        else///normalement on attaque
+        {
+            std::cout <<" GOTO---->ON Y EST"<<std::endl;
+            resetFSM();///desiredVel 0
+            fsm_attack = true;
+            fsm_hunting = true;
+        }
+
+    }
+    ///checker tous les X secondes si PLAYER est toujours devant
+    std::cout<<(int)fsmClock.getElapsedTime().asSeconds()%4<<"<- elapsedtime%4"<<std::endl;
+    //if((int)fsmClock.getElapsedTime().asSeconds()%6<=1)
+    {
+        float rayRange = 300.f/RATIO;
+        int changeDirection = -1;
+        if(currentAnimation == &walkingAnimationLeft || currentAnimation == &stopLeft)
+                changeDirection = -changeDirection;
+        callback.m_hit=false;
+        p_world->RayCast(&callback,m_body->GetPosition(), b2Vec2(m_body->GetPosition().x-(rayRange*changeDirection),m_body->GetPosition().y));
+        std::cout<<"<- checking"<<std::endl;
+        if(!callback.m_hit)
+        {
+            std::cout<< "//////////HIT HIT HIT\n";
+            ///S IL NE LE VOIT PAS PENDANT UN CERTAINS TEMPS ON PASSE EN MODE ALERT
+            if((int)stateClock.getElapsedTime().asSeconds()>6)
+            {
+                resetFSM();
+                fsm_alert = true;
+            }
+
+
+        }
+        else
+        {
+            std::cout<< "//////////m_hit = true\n";
+            ///S IL LE VOIT ON RECOMMENCE LE COMPTE A REBOUR
+            stateClock.restart();
+        }
+    }
+
+}
+void    Human::doShockedThings()
+{
+    std::cout<< "//////////HUMAN-> SHOCKED MODE\n";
+    if(fsmClock.getElapsedTime().asSeconds()<1.f)
+    {
+        say("!!",1);
+        return;
+    }
+
+    resetFSM();
+    fsm_alert = true;
+}
+
+void    Human::doAttackThings()
+{
+    std::cout<< "//////////HUMAN-> ATTACK MODE\n";
+    if((int)fsmClock.getElapsedTime().asSeconds()%5<2)
+    {
+        say("KTI KDA KDOUUUU!!!",1);
+        return;
+    }
+}
+/// ////////////////////// ///////////////////
+/// ////////////////////// ///////////////////
 void Human::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder* Textures, sf::Shader* shader)
 {
 

@@ -29,6 +29,12 @@ public:
     void    loadSprite(TextureHolder* Textures);
     void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures, sf::Shader* shader);
     int     getClassName(){return HUMAN;}
+
+    void    doNormalThings();
+    void    doAlertThings();
+    void    doHuntingThings();
+    void    doAttackThings();
+    void    doShockedThings();
 //    void    drawLife(sf::RenderWindow& mWindow);
 
 };
