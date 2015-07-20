@@ -9,7 +9,8 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
 : p_world(world)
 , mWindow(mWindow)
 , textureHolder(Textures)
-,animatedSprite(sf::seconds(0.08), true, false)
+, animatedSprite(sf::seconds(0.08), true, false)
+,fixtureOnSensor(nullptr)
 {
 
     visionTex = new sf::Texture();
@@ -48,6 +49,7 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
         std::string bodyName("m_body");
         std::string headName("m_head");
         std::string legsName("m_legs");
+        std::string sensorName("m_sensor");
 
 
 
@@ -78,7 +80,12 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
         {
             std::cout<<i<<"----legs\n";
             m_legs = (*bDList)[i].body;
+        }else if(sensorName.compare((*bDList)[i].name)==0)
+        {
+            std::cout<<i<<"----sensor\n";
+            m_sensor = (*bDList)[i].body;
         }
+
         (*bDList)[i].body->SetUserData(this);
     }
 
@@ -241,6 +248,11 @@ bool Entity::isGrounded()
 void Entity::startContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
 {
     std::cout<< "CONTACT BEGIN";
+    if(fixture->GetBody() == m_sensor)
+    {
+        std::cout<< "-------CONTACT SENSOR BEGIN\n";
+        fixtureOnSensor = fixtureB;
+    }
     if((int)fixtureB->GetUserData()>20000 && (int)fixtureB->GetUserData()<30000)
     {
         Projectile* p = (Projectile*)(fixtureB->GetBody()->GetUserData());
@@ -260,6 +272,7 @@ void Entity::startContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
         }*/
         std::cout<< "CONTACT++";
         grounded = true;
+        if(!fixtureB->IsSensor())
             nb_contacts++;
         std::cout<< "CONTACT++"<<nb_contacts;
         //std::cout<< "fixture ok";
@@ -271,6 +284,11 @@ void Entity::endContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
 {
 
     std::cout<< "CONTACT END";
+    if(fixture->GetBody() == m_sensor)
+    {
+        std::cout<< "-------CONTACT SENSOR END\n";
+        fixtureOnSensor=nullptr;
+    }
     if((int)fixtureB->GetUserData()>20000 && (int)fixtureB->GetUserData()<30000)
     {
         isWeaponDispo = false;
@@ -284,7 +302,8 @@ void Entity::endContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
             return;
         }*/
         grounded = false;
-        nb_contacts--;
+        if(!fixtureB->IsSensor())
+            nb_contacts--;
         std::cout<< "CONTACT--"<<nb_contacts;
         //std::cout<< "fixture ko";
     }
@@ -431,6 +450,7 @@ void Entity::doTheDead()
     m_body->SetFixedRotation(false);
     m_legs->SetFixedRotation(false);
     m_head->SetFixedRotation(false);
+    m_sensor->SetFixedRotation(false);
     b2Filter filter;
     for (auto b : bodyList)
     {
@@ -495,11 +515,16 @@ void Entity::commitLogic()
 void Entity::getHit(int damage, float impulse)
 {
     float degat = 10;
-    if(impulse > 40)
+    if(impulse >= 40)
         degat = (float)damage;
 
+    if(degat<defense)
+        degat = 0;
+    else
+        degat = degat-defense;
+
     //std::cout<<"TOUCHEEEEEEEEEEEEEEEEEEEEEE avec impulse = "<<impulse<<std::endl;
-    if(m_life>10)
+    if(m_life>0)
         m_life = m_life - degat;
     if(m_life<0)
         m_life = 0;
@@ -507,6 +532,12 @@ void Entity::getHit(int damage, float impulse)
     //std::cout<<"m_life = "<<m_life<<std::endl;
 }
 
+void Entity::applyForce(float f)
+{
+    m_body->ApplyLinearImpulse(b2Vec2(-f*10, -f*10), m_body->GetWorldCenter(), true);
+    //m_body->ApplyLinearImpulse(b2Vec2(-f*100, 0.f), m_body->GetWorldCenter(), true);
+
+}
 
 bool Entity::isDead()
 {
@@ -578,9 +609,16 @@ void Entity::drawVision(sf::RenderWindow& mWindow)
     }
     if((int)visionClock.getElapsedTime().asSeconds()%4<1)
         if((int)visionClock.getElapsedTime().asMilliseconds()%1000<500)
+        {
             visionSprite.setRotation(visionSprite.getRotation()+.02f);
+            visionSprite.setScale(visionSprite.getScale().x,visionSprite.getScale().y+.02f);
+        }
         else
+        {
+            visionSprite.setScale(visionSprite.getScale().x,visionSprite.getScale().y-.02f);
             visionSprite.setRotation(visionSprite.getRotation()-.02f);
+        }
+
 
 
     visionSprite.setPosition(m_head->GetPosition().x * RATIO,
@@ -640,6 +678,7 @@ Entity::~Entity()
     p_world->DestroyBody(m_legs);
     std::cout<<"Entity::~Entity -> DELETING head"<<std::endl;
     p_world->DestroyBody(m_head);
+    p_world->DestroyBody(m_sensor);
 //
 //    m_body->SetActive(false);
 //    m_legs->SetActive(false);

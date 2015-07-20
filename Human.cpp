@@ -121,7 +121,7 @@ void    Human::doAlertThings()
 }
 void    Human::doHuntingThings()
 {
-    visionSprite.setColor(sf::Color(255,7,7,200));
+
     std::cout<< "//////////HUMAN-> HUNTING MODE\n";
     if(fsmClock.getElapsedTime().asSeconds()<10.f)
         if(!fsm_attack)
@@ -134,6 +134,7 @@ void    Human::doHuntingThings()
             o=-1;
         if(std::abs(targetBody->GetPosition().x - m_head->GetPosition().x) > secureDistance/RATIO)
         {
+            visionSprite.setColor(sf::Color(255,7,7,200));
             goTo(b2Vec2(targetBody->GetPosition().x+(secureDistance*o),targetBody->GetPosition().y));
             fsm_attack = false;
             //commitLogic();
@@ -195,12 +196,36 @@ void    Human::doShockedThings()
 
 void    Human::doAttackThings()
 {
-    visionSprite.setColor(sf::Color(229,255,7,0));
+    visionSprite.setColor(sf::Color(229,255,7,150));
     std::cout<< "//////////HUMAN-> ATTACK MODE\n";
-    if((int)fsmClock.getElapsedTime().asSeconds()%5<2)
+    if((int)fsmClock.getElapsedTime().asSeconds()%8<2)
     {
+        if(atkClock.getElapsedTime().asSeconds()>2.f)
+            if(fixtureOnSensor != nullptr)
+            {
+                punchOn(fixtureOnSensor);
+                atkClock.restart();
+            }
+
         say("KTI KDA KDOUUUU!!!",1);
         return;
+    }
+
+
+
+
+}
+void Human::punchOn(b2Fixture* fixt)
+{
+    void* userData = fixt->GetBody()->GetUserData();
+
+    if(userData && ((ObjectType*)userData)->getObjectType() == ENTITY)///si le touchE est une entitE
+    {
+            ((Entity*)userData)->getHit(/*damage*/12.f,40.f);
+            if(fixt->GetBody()->GetPosition().x - m_body->GetPosition().x <0)
+                ((Entity*)userData)->applyForce(-5.f);
+            else
+                ((Entity*)userData)->applyForce(5.f);
     }
 }
 /// ////////////////////// ///////////////////

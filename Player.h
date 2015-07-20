@@ -52,6 +52,7 @@ public:
 
     void    onCommand(sf::Event e);
     void    attack();
+    void    attackOn(b2Fixture* fixt);
     void    fire(int projectile);
 
     void    createWeapons();
@@ -69,6 +70,9 @@ public:
     void    doHuntingThings(){}
     void    doAttackThings(){}
     void    doShockedThings(){}
+
+    ///ATK RANGE
+    void    addAttackRange(){}
 
 };
 

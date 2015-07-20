@@ -37,6 +37,10 @@ public:
     void    doShockedThings();
 //    void    drawLife(sf::RenderWindow& mWindow);
 
+    ///ATK RANGE
+    void    addAttackRange(){}
+    void    punchOn(b2Fixture* fixt);
+
 };
 
 

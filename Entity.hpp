@@ -37,7 +37,7 @@ public:
         std::string bodyB;
     };
 
-    b2Body* m_body, *m_legs, *m_head;
+    b2Body* m_body, *m_legs, *m_head, *m_sensor;
     float   m_radius;
     Type    kind;
     std::vector<b2Joint *>      jointList;
@@ -72,8 +72,6 @@ public:
 
     sf::Clock clock;
 
-    ///ATTACK DEF INTERACTION
-    bool isAttacked = false;
     ///FINITE STATE MACHINE
     RayCastCallback callback;
     b2Body* targetBody;
@@ -109,6 +107,13 @@ public:
     bool        isWeaponDispo = false;
     Projectile* weaponDispo;
 
+    ///ATTACK DEF INTERACTION
+    bool isAttacked = false;
+    int defense = 0;
+    b2Fixture*  fixtureOnSensor;
+    bool isAttacking = false;
+    sf::Clock atkClock;
+
 public:
             Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap);
     //void    loadPlayerSprite(TextureHolder* Textures);
@@ -142,6 +147,7 @@ public:
     void    goTo(b2Vec2);
     void    commitLogic();
     void    getHit(int damage, float impulse);
+    void    applyForce(float f);
     bool    isDead();
     void    doTheDead();
     void    takeItem(Item* item);
@@ -159,6 +165,10 @@ public:
     void    drawLife(sf::RenderWindow& mWindow);
     void    speak(sf::RenderWindow& mWindow);
     void    say(std::string,int delay=5);
+
+    ///ATTACK RANGE
+    virtual void    addAttackRange() = 0;
+
             ~Entity();
 };
 

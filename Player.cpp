@@ -6,7 +6,7 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
 {
     animList = animationList;
     maxLife = 100;
-    m_life = 10;
+    m_life = 50;
     desiredVel = 0;
     kind = Entity::Player;
     std::cout<< "creation*******";
@@ -214,7 +214,8 @@ void Player::onCommand(sf::Event e)
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        //std::cout<< "click";
+
+        /*/std::cout<< "click";
         mousePos = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
         playerPos = animatedSprite.getPosition();
         desiredVel = (mousePos.x - mouseInit.x )/20.f;
@@ -230,6 +231,7 @@ void Player::onCommand(sf::Event e)
             desiredVel = -velocityLimit;
 
         noKeyWasPressed = false;
+        */
     }
 
     switch(e.type)
@@ -239,7 +241,7 @@ void Player::onCommand(sf::Event e)
 
         if(e.mouseButton.button == sf::Mouse::Middle)
         {
-            mouseInit = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
+            //mouseInit = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
 
             weaponsMap[currentProjectile]->SetLinearVelocity(b2Vec2(0,0));
             weaponsMap[currentProjectile]->SetActive(false);
@@ -247,6 +249,13 @@ void Player::onCommand(sf::Event e)
     }
     break;
     case sf::Event::MouseButtonReleased:
+        if(e.mouseButton.button == sf::Mouse::Left)
+        {
+            if(fixtureOnSensor != nullptr)
+            {
+                attackOn(fixtureOnSensor);
+            }
+        }
         if(weaponsMap.size() <=0 )
                 return;
         if(e.mouseButton.button == sf::Mouse::Middle)
@@ -254,6 +263,7 @@ void Player::onCommand(sf::Event e)
             weaponsMap[currentProjectile]->SetActive(true);
             fire(currentProjectile);
         }
+
         break;
     case sf::Event::KeyReleased:
         if(e.key.code == sf::Keyboard::Space)
@@ -296,6 +306,19 @@ void Player::onCommand(sf::Event e)
 
 }
 
+void Player::attackOn(b2Fixture* fixt)
+{
+    void* userData = fixt->GetBody()->GetUserData();
+
+    if(userData && ((ObjectType*)userData)->getObjectType() == ENTITY)///si le touchE est une entitE
+    {
+            ((Entity*)userData)->getHit(/*damage*/12.f,40.f);
+            if(fixt->GetBody()->GetPosition().x - m_body->GetPosition().x <0)
+                ((Entity*)userData)->applyForce(-5.f);
+            else
+                ((Entity*)userData)->applyForce(5.f);
+    }
+}
 int Player::nextProjectile()
 {
     bool trouve = false;
@@ -354,9 +377,6 @@ void Player::attack()
 {
     if(isAttacked)
         return;
-
-
-
 }
 
 void Player::fire(int projectile)

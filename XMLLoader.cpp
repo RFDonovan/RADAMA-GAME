@@ -97,7 +97,7 @@ std::vector<bodyData> XMLLoader::loadXML(std::string XMLFile, std::string dir)
             bodyDataList.push_back(bData);
         }
 
-
+        //std::cout<<"XMLLoader::loadXML----fin for\n";
 
     }
     //if(bodyList.size()>0)
