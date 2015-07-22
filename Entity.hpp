@@ -57,12 +57,13 @@ public:
     b2Fixture   *basFixture;
     int jump = 0;
 
+    ///ANIMATION
     sf::Clock frameClock;
     Animation* currentAnimation;
     Animation walkingAnimationLeft, walkingAnimationRight, stopLeft, stopRight;
     AnimatedSprite animatedSprite;
     std::map<std::string, Animation>* animList;
-
+    float max_width = 0;
     sf::Vector2f mouseInit, mousePos, playerPos, velocityForce;
 
     float desiredVel;

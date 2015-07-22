@@ -9,9 +9,11 @@ Human::Human(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures,
     kind = Entity::Human;
     std::cout<< "creation*******";
 
-    loadSprite(Textures);
+    //loadSprite(Textures);
     walkingAnimationLeft = (*animList)["walkLeft"];
     walkingAnimationRight = (*animList)["walkRight"];
+    stopRight = (*animList)["stopRight"];
+    stopLeft = (*animList)["stopLeft"];
     currentAnimation = &stopLeft;///POUR LE STANDBY ANIMATION
 
 
@@ -273,7 +275,11 @@ void Human::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder*
 
 
             ///emplacement:
-            animatedSprite.setOrigin((BOXSIZE_W),(BOXSIZE_H/2));
+            animatedSprite.setOrigin((animatedSprite.getAnimation()->getFrame(0).width/2),(BOXSIZE_H/2));
+
+//            animatedSprite.sets
+//            animatedSprite.setOrigin((currentAnimation->getSize().x),(currentAnimation->getSize().y/2));
+
             animatedSprite.setPosition(m_body->GetPosition().x * RATIO,
                                         m_body->GetPosition().y * RATIO);
             animatedSprite.setRotation(m_body->GetAngle() * 180/b2_pi);

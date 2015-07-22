@@ -64,7 +64,15 @@ void SpriteMapping::createAnimation(pugi::xml_node animationNode)
     anim.setSpriteSheet(SpriteSheet);
 
     pugi::xml_node framesNode = animationNode.child("Frames");
-
+    ///-------BIDOUILLAGE POURQUE TOUS LES DECOUPES ONT LES MEMES TAILLE(MALGRE CE QUE GENERE SPRITEVORTEX
+    int max_width = 0;
+    for(pugi::xml_node node = framesNode.first_child(); node; node = node.next_sibling())
+    {
+        SpriteInfo s_info = spriteList[node.attribute("SpriteId").as_int()];
+        if (max_width< s_info.w)
+            max_width = s_info.w;
+    }
+    ///**************************************
     for(pugi::xml_node node = framesNode.first_child(); node; node = node.next_sibling())
     {
         SpriteInfo s_info = spriteList[node.attribute("SpriteId").as_int()];
@@ -75,14 +83,13 @@ void SpriteMapping::createAnimation(pugi::xml_node animationNode)
         std::cout << "--SpriteMapping::getSpriteInfo -> s_info y:"<< s_info.y<<std::endl;
         std::cout << "--SpriteMapping::getSpriteInfo -> s_info w:"<< s_info.w<<std::endl;
         std::cout << "--SpriteMapping::getSpriteInfo -> s_info h:"<< s_info.h<<std::endl;
-
-        anim.addFrame(sf::IntRect(s_info.x
+        int  xAdd = max_width - s_info.w;
+        anim.addFrame(sf::IntRect(s_info.x - (xAdd/2)
                                   ,s_info.y
-                                  ,s_info.w
+                                  ,max_width ///IL NE FAUT SURTOUT PAS QUE SPRITEVORTEX CREE UN PACKAGE DU SPRITE(IL FAUT AERER LES SPRITES).MODIFIER LE PARAMETRE
                                   ,s_info.h
                                   )
                       );
-
     }
 
     animationList[ss.str()]=anim;

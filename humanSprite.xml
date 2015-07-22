@@ -406,6 +406,11 @@
             <Frame SpriteId="23" OriginX="32" OriginY="73" OffSetX="0" OffSetY="0" Duration="0,04347826" />
          </Frames>
       </Animation>
+	  <Animation Name="stopLeft" FrameRate="23" Loop="True" PingPong="False">
+         <Frames>
+            <Frame SpriteId="15" OriginX="21" OriginY="76" OffSetX="0" OffSetY="0" Duration="0,04347826" />
+         </Frames>
+      </Animation>
       <Animation Name="walkRight" FrameRate="20" Loop="True" PingPong="False">
          <Frames>
             <Frame SpriteId="24" OriginX="37,5" OriginY="74" OffSetX="0" OffSetY="0" Duration="0,05" />
@@ -420,6 +425,11 @@
             <Frame SpriteId="33" OriginX="22" OriginY="74" OffSetX="0" OffSetY="0" Duration="0,05" />
             <Frame SpriteId="34" OriginX="19,5" OriginY="73,5" OffSetX="0" OffSetY="0" Duration="0,05" />
             <Frame SpriteId="35" OriginX="31,5" OriginY="74" OffSetX="0" OffSetY="0" Duration="0,05" />
+         </Frames>
+      </Animation>
+	  <Animation Name="stopRight" FrameRate="20" Loop="True" PingPong="False">
+         <Frames>
+            <Frame SpriteId="27" OriginX="20,5" OriginY="76" OffSetX="0" OffSetY="0" Duration="0,05" />
          </Frames>
       </Animation>
    </Animations>

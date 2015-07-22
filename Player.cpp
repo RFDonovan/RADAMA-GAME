@@ -11,10 +11,12 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
     kind = Entity::Player;
     std::cout<< "creation*******";
 
-    loadPlayerSprite(Textures);
+    //loadPlayerSprite(Textures);
 
     walkingAnimationLeft = (*animList)["walkLeft"];
     walkingAnimationRight = (*animList)["walkRight"];
+    stopRight = (*animList)["stopRight"];
+    stopLeft = (*animList)["stopLeft"];
 
     currentAnimation = &stopRight;
 
@@ -136,7 +138,8 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
 
 
     ///emplacement:
-    animatedSprite.setOrigin((BOXSIZE_W),(BOXSIZE_H/2));
+    //animatedSprite.setOrigin((BOXSIZE_W),(BOXSIZE_H/2));
+    animatedSprite.setOrigin((animatedSprite.getAnimation()->getFrame(0).width/2),(BOXSIZE_H/2));
     animatedSprite.setPosition(m_body->GetPosition().x * RATIO,
                                m_body->GetPosition().y * RATIO);
     animatedSprite.setRotation(m_body->GetAngle() * 180/b2_pi);
