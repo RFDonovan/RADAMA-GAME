@@ -1,5 +1,5 @@
 <RADAMA>
-	<level name="" path="Resources/L1/">
+	<level name="" path="Resources/L1/" spriteList="">
 		<player x="900" y="200" file="ePlayer.xml" sprite="humanSprite.xml"/>
 		<items>
 			<item name="" type="" x="" y="" life="" mana="" icon="" />
@@ -30,7 +30,7 @@
 			<weapon name="lefona2" type="projectile" x="200" y="200" damage="" file="Weapons/lefonaMiloko.xml"/>
 		</weapons>
 		<enemies sprite1="humanSprite.xml" sprite="monster.xml">
-			<enemy name="1" type="human" x="800" y="200" finiteState="calm" facing="right" file="ePlayer.xml" visionRange="300" />
+			<enemy name="1" type="rakakabe" x="800" y="200" finiteState="calm" facing="right" file="ePlayer.xml" visionRange="300" />
 			<enemy name="1" type="human" x="1500" y="200" finiteState="calm" facing="right" file="ePlayer.xml" visionRange="300" />
 		</enemies>
 		<sceneries>

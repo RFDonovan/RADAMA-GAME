@@ -3,6 +3,7 @@
 #include<iostream>
 #include<functional>
 #include<vector>
+#include<map>
 #include<algorithm>
 #include<sys/stat.h>
 
@@ -90,6 +91,7 @@ public:
     std::vector<bodyData>       bDList;
     std::vector<Projectile*>    pList;
     std::vector<Item*>          itemList;
+    std::map<std::string, SpriteMapping*>   spriteMap;
 
     bool rebuild = false;
 
@@ -136,20 +138,25 @@ public:
     void    update (/*sf::Time dt*/);
     void    draw (sf::Time frameTime);
     void    loadTextures ();
-
+    ///LOADING LEVEL
     void    loadInfo(std::string xmlCfg);
-
+    ///LOADING SPRITES
+    void    loadSprites(std::string listFile);
+    ///BUILDING SCENE
     void    buildScene (std::string CurrentDir);
     void    rebuildScene ();
+
+    ///VIEW CONTROLLER
     void    adaptViewToPlayer();
+
+    ///GETTERS
     b2World&    getWorld();
     sf::Vector2f    getMousePos();
 
     void    updateView(sf::Vector2f view);
     void    processInput(sf::Event);
 
-    /**CREATING SOMETHINGS*/
-    //void    createEntity(b2World& world, int MouseX, int MouseY);
+    ///REMOVE
 
     void    sheduleRemove(float elapsedTime);
 

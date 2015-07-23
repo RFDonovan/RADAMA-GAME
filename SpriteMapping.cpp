@@ -77,12 +77,12 @@ void SpriteMapping::createAnimation(pugi::xml_node animationNode)
     {
         SpriteInfo s_info = spriteList[node.attribute("SpriteId").as_int()];
 
-        std::cout << "--SpriteMapping::getSpriteInfo -> s_info name:"<< s_info.name<<std::endl;
-        std::cout << "--SpriteMapping::getSpriteInfo -> s_info i:"<< s_info.Id<<std::endl;
-        std::cout << "--SpriteMapping::getSpriteInfo -> s_info x:"<< s_info.x<<std::endl;
-        std::cout << "--SpriteMapping::getSpriteInfo -> s_info y:"<< s_info.y<<std::endl;
-        std::cout << "--SpriteMapping::getSpriteInfo -> s_info w:"<< s_info.w<<std::endl;
-        std::cout << "--SpriteMapping::getSpriteInfo -> s_info h:"<< s_info.h<<std::endl;
+//        std::cout << "--SpriteMapping::getSpriteInfo -> s_info name:"<< s_info.name<<std::endl;
+//        std::cout << "--SpriteMapping::getSpriteInfo -> s_info i:"<< s_info.Id<<std::endl;
+//        std::cout << "--SpriteMapping::getSpriteInfo -> s_info x:"<< s_info.x<<std::endl;
+//        std::cout << "--SpriteMapping::getSpriteInfo -> s_info y:"<< s_info.y<<std::endl;
+//        std::cout << "--SpriteMapping::getSpriteInfo -> s_info w:"<< s_info.w<<std::endl;
+//        std::cout << "--SpriteMapping::getSpriteInfo -> s_info h:"<< s_info.h<<std::endl;
         int  xAdd = max_width - s_info.w;
         anim.addFrame(sf::IntRect(s_info.x - (xAdd/2)
                                   ,s_info.y

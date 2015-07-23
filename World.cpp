@@ -308,6 +308,26 @@ void World::buildScene(std::string CurrentDir)
 
 }
 
+void World::loadSprites(std::string listFile)
+{
+    pugi::xml_document XMLDoc;
+    if (!XMLDoc.load_file(listFile.c_str()))
+    {
+        std::cout << "World::loadSprites -> error on loading "<<listFile<< "\n";
+        return;
+    }
+    pugi::xml_node spritesNode = XMLDoc.child("RADAMA").child("spriteList");
+    for (pugi::xml_node node = spritesNode.first_child(); node ; node = node.next_sibling())
+        ///LOADING ALL SPRITES TO A HASHTABLE
+    {
+        SpriteMapping* ps_map = new SpriteMapping();
+        ps_map->loadXML(node.attribute("file").as_string());
+        spriteMap[node.attribute("name").as_string()] = ps_map;
+        std::cout << "World::loadSprites -> loading "<<node.attribute("name").as_string() <<spriteMap[node.attribute("name").as_string()]<< ps_map<<">>>>>>>>>>>>**************\n";
+    }
+    //exit(-1);
+}
+
 void World::loadInfo(std::string xmlCfg)
 {
     pugi::xml_document XMLDoc;
@@ -326,6 +346,7 @@ void World::loadInfo(std::string xmlCfg)
     LevelObjectList = xLoad->loadXML(directory + "level.xml", directory);
     Ground * level = new Ground(&p_world, &LevelObjectList);
 
+    loadSprites(directory+"spriteList.xml");
     ///LOADING ITEMS
     pugi::xml_node itemsNode = levelNode.child("items");
     for (pugi::xml_node node = itemsNode.first_child(); node ; node = node.next_sibling())
@@ -366,10 +387,8 @@ void World::loadInfo(std::string xmlCfg)
 
     ///LOADING OTHER ENTITIES
     std::cout << "World::loadInfo -> loading spritemap\n";
-    SpriteMapping* s_map = new SpriteMapping();
     pugi::xml_node entitiesNode = levelNode.child("enemies");
 
-    s_map->loadXML(entitiesNode.attribute("sprite").as_string());
     std::cout << "World::loadInfo -> getting spritemap\n";
     for (pugi::xml_node node = entitiesNode.first_child(); node ; node = node.next_sibling())
         ///Entities ITERATION
@@ -382,14 +401,22 @@ void World::loadInfo(std::string xmlCfg)
         std::vector<bodyData> bDListH = xLoad->loadXML(directory + filename, directory);
         std::map<std::string, b2Joint*> jMapH = xLoad->GetCurrentJointMap();
 
-        Human* e = new Human(mWindow,&p_world, &Textures, 1.f , &bDListH, &jMapH, s_map->getAnimationList());
+
+        Human* e = new Human(mWindow,&p_world, &Textures, 1.f
+                             , &bDListH
+                             , &jMapH
+                             , (spriteMap[node.attribute("type").as_string()])->getAnimationList()
+                             );
         e->setPosition(sf::Vector2f(
                                     node.attribute("x").as_float(),
                                     node.attribute("y").as_float()
                                     )
                        );
         humans.push_back(e);
+        std::cout << "World::loadInfo -> "<<spriteMap[node.attribute("type").as_string()]<<std::endl;
     }
+
+    //exit(-1);
     ///--------------
 
     ///LOADING WEAPONS
