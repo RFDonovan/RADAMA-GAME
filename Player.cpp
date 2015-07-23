@@ -38,6 +38,16 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
 
 }
 
+void Player::addJumpSprite(std::map<std::string, Animation>* animationList)
+{
+    jumpRight = (*animationList)["jumpRight"];
+    jumpLeft = (*animationList)["jumpLeft"];
+//    (*animList)["jumpRight"] = (*animationList)["jumpRight"];
+//    (*animList)["jumpLeft"] = (*animationList)["jumpLeft"];
+//
+//    jumpRight = (*animList)["jumpRight"];
+//    jumpLeft = (*animList)["jumpLeft"];
+}
 /// //////////////
 
 void Player::loadPlayerSprite(TextureHolder* Textures)
@@ -120,18 +130,17 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
         else///QUAND IL SAUTE
         {
             if(currentAnimation == &walkingAnimationLeft)
-                currentAnimation = &stopLeft;
+                currentAnimation = &jumpLeft;
             if(currentAnimation == &walkingAnimationRight)
-                currentAnimation = &stopRight;
+                currentAnimation = &jumpRight;
         }
     else///QUAND IL NE BOUGE PLUS OU BOUGE PETIT
     {
-        if(currentAnimation == &walkingAnimationLeft)
+        if(currentAnimation == &walkingAnimationLeft||currentAnimation == &jumpLeft)
             currentAnimation = &stopLeft;
-        if(currentAnimation == &walkingAnimationRight)
+        if(currentAnimation == &walkingAnimationRight||currentAnimation == &jumpRight)
             currentAnimation = &stopRight;
     }
-
 
     noKeyWasPressed = true;
     animatedSprite.update(frameTime1);

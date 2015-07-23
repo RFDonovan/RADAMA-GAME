@@ -270,7 +270,7 @@ void Human::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder*
 
             if(!isDead())
                 animatedSprite.play(*currentAnimation);
-
+            animatedSprite.setLooped(false);
             animatedSprite.update(frameTime1);
 
 

@@ -323,6 +323,15 @@ void World::loadSprites(std::string listFile)
         SpriteMapping* ps_map = new SpriteMapping();
         ps_map->loadXML(node.attribute("file").as_string());
         spriteMap[node.attribute("name").as_string()] = ps_map;
+
+        if(strcmp(node.attribute("jump").as_string(), "") == 0)
+            continue;
+        std::stringstream ss;
+        ss<<node.attribute("jump").as_string();
+        SpriteMapping* ps_map2 = new SpriteMapping();
+        ps_map2->loadXML(node.attribute("jump").as_string());
+        spriteMap[ss.str()] = ps_map2;
+
         std::cout << "World::loadSprites -> loading "<<node.attribute("name").as_string() <<spriteMap[node.attribute("name").as_string()]<< ps_map<<">>>>>>>>>>>>**************\n";
     }
     //exit(-1);
@@ -342,11 +351,15 @@ void World::loadInfo(std::string xmlCfg)
     ss <<levelNode.attribute("path").as_string();
     std::string directory = ss.str();
 
+    ///LOADING ALL ANIMATED SPRITES
+    loadSprites(directory+"spriteList.xml");
+
+    ///LOADING GROUNDS
     xLoad = new XMLLoader(&p_world);
     LevelObjectList = xLoad->loadXML(directory + "level.xml", directory);
     Ground * level = new Ground(&p_world, &LevelObjectList);
 
-    loadSprites(directory+"spriteList.xml");
+
     ///LOADING ITEMS
     pugi::xml_node itemsNode = levelNode.child("items");
     for (pugi::xml_node node = itemsNode.first_child(); node ; node = node.next_sibling())
@@ -370,14 +383,13 @@ void World::loadInfo(std::string xmlCfg)
     ///LOADING PLAYER
 
     pugi::xml_node playerNode = levelNode.child("player");
-    SpriteMapping* ps_map = new SpriteMapping();
-    ps_map->loadXML(playerNode.attribute("sprite").as_string());
         std::stringstream ss3;
         ss3 <<playerNode.attribute("file").as_string();
         std::string Pfilename = ss3.str();
     std::vector<bodyData> bDListP = xLoad->loadXML(directory + Pfilename, directory);
     std::map<std::string, b2Joint*> jMap = xLoad->GetCurrentJointMap();
-    ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , &bDListP, &jMap, ps_map->getAnimationList());
+    ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , &bDListP, &jMap, (spriteMap[playerNode.attribute("type").as_string()])->getAnimationList());
+    ePlayer->addJumpSprite((spriteMap[playerNode.attribute("jump").as_string()])->getAnimationList());
     ePlayer->setPosition(sf::Vector2f(
                                     playerNode.attribute("x").as_float(),
                                     playerNode.attribute("y").as_float()
