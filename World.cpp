@@ -9,6 +9,7 @@ World::World(sf::RenderWindow& window)
     , mWorldView(window.getDefaultView())
     , pauseLayer(sf::Vector2f(WINDOW_W, WINDOW_H))
     , levelPath("./Resources/L1/")
+    , statInfo(mWindow)
 
 {
 
@@ -266,11 +267,10 @@ void World::draw(sf::Time frameTime)
 
     }
 
-    ///je teste si ce truck change la distorsion pixelshader--->oui
-    //clock.restart();
-    //std::cout<<"\n\t\t\t\t\t\t\t\t\t\tTIME: "<<(int)clock.getElapsedTime().asSeconds()%7<<std::endl;
+///RENDU DES STATS
+    statInfo.render(frameTime, &shader);
 
-
+///---------------
 }
 
 void World::loadTextures()
@@ -327,12 +327,14 @@ void World::loadSprites(std::string listFile)
         if(strcmp(node.attribute("jump").as_string(), "") == 0)
             continue;
         std::stringstream ss;
-        ss<<node.attribute("jump").as_string();
+//        ss<<node.attribute("jump").as_string();
+        ss<<node.attribute("jump").as_string();//<<"jump";
         SpriteMapping* ps_map2 = new SpriteMapping();
         ps_map2->loadXML(node.attribute("jump").as_string());
         spriteMap[ss.str()] = ps_map2;
 
         std::cout << "World::loadSprites -> loading "<<node.attribute("name").as_string() <<spriteMap[node.attribute("name").as_string()]<< ps_map<<">>>>>>>>>>>>**************\n";
+        std::cout << "World::loadSprites -> jumploading "<<node.attribute("jump").as_string() <<spriteMap[node.attribute("jump").as_string()]<< ps_map2<<">>>>>>>>>>>>**************\n";
     }
     //exit(-1);
 }
@@ -389,12 +391,18 @@ void World::loadInfo(std::string xmlCfg)
     std::vector<bodyData> bDListP = xLoad->loadXML(directory + Pfilename, directory);
     std::map<std::string, b2Joint*> jMap = xLoad->GetCurrentJointMap();
     ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , &bDListP, &jMap, (spriteMap[playerNode.attribute("type").as_string()])->getAnimationList());
-    ePlayer->addJumpSprite((spriteMap[playerNode.attribute("jump").as_string()])->getAnimationList());
+
+    //ePlayer->addJumpSprite((spriteMap["monsterJump"])->getAnimationList());
+    std::cout << "World::loadInfo -> playerjump infojump "<<playerNode.attribute("jump").as_string() <<spriteMap[playerNode.attribute("jump").as_string()]<<">>>>>>>>>>>>**************\n";
+    //exit(-1);
+
+
     ePlayer->setPosition(sf::Vector2f(
                                     playerNode.attribute("x").as_float(),
                                     playerNode.attribute("y").as_float()
                                     )
                        );
+    ePlayer->addJumpSprite((spriteMap[playerNode.attribute("jump").as_string()])->getAnimationList());
     ///---------------
 
     ///LOADING OTHER ENTITIES
@@ -451,6 +459,8 @@ void World::loadInfo(std::string xmlCfg)
             }
     }
     ///---------------
+
+
 }
 
 void World::rebuildScene()
@@ -465,6 +475,7 @@ void World::rebuildScene()
     listOfDeletedHuman.clear();
     pList.clear();
     itemList.clear();
+    spriteMap.clear();
     ///--------------
     rebuild = true;
 
@@ -487,6 +498,7 @@ void World::adaptViewToPlayer()
         BG_pause.move(sf::Vector2f(vel.x/2,0));
         pauseLayer.move(sf::Vector2f(vel.x/2,0));
         BG.move(sf::Vector2f((vel.x)/2.5, 0));
+        statInfo.adaptPosition(sf::Vector2f(vel.x/2,0));
 
 
     }

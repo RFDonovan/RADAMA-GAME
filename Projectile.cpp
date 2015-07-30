@@ -21,6 +21,7 @@ Projectile::Projectile(b2World* world, bodyData dataa)
     std::cout<<"**************data*************"<<std::endl;
     std::cout<<"name: "<<data->name<<std::endl;
     std::cout<<"***************************"<<std::endl;
+    data->sprite->setColor(sf::Color::Black);
 }
 
 

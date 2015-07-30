@@ -23,6 +23,7 @@
 #include "Projectile.hpp"
 #include "Item.hpp"
 #include "SpriteMapping.hpp"
+#include "Statistiques.hpp"
 
 #include "ContactListener.inl"
 #include "DestructionListener.inl"
@@ -131,6 +132,8 @@ public:
     bool editMode = true;
     std::string     levelPath;
 
+    ///STATISTIQUES
+    Statistiques statInfo;
 
     // Operations
 public:
