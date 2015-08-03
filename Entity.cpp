@@ -598,6 +598,8 @@ void Entity::drawLife(sf::RenderWindow& mWindow)
 
 void Entity::drawVision(sf::RenderWindow& mWindow)
 {
+    if(isDead())
+        return;
     if(currentAnimation == &walkingAnimationLeft||currentAnimation == &stopLeft)
     {
         if(visionSprite.getScale().x> -1.f)

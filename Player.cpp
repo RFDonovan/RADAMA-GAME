@@ -170,6 +170,8 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
 
 void Player::onCommand(sf::Event e)
 {
+    if(isDead())
+        return;
     if(sf::Keyboard::isKeyPressed(K_LEFT))
     {
         //currentAnimation = &walkingAnimationLeft;
