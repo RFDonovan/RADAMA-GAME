@@ -49,7 +49,8 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
         std::string bodyName("m_body");
         std::string headName("m_head");
         std::string legsName("m_legs");
-        std::string sensorName("m_sensor");
+        std::string sensorNameL("m_sensorL");
+        std::string sensorNameR("m_sensorR");
 
 
 
@@ -80,10 +81,14 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Texture
         {
             std::cout<<i<<"----legs\n";
             m_legs = (*bDList)[i].body;
-        }else if(sensorName.compare((*bDList)[i].name)==0)
+        }else if(sensorNameL.compare((*bDList)[i].name)==0)
         {
-            std::cout<<i<<"----sensor\n";
-            m_sensor = (*bDList)[i].body;
+            std::cout<<i<<"----sensorL\n";
+            m_sensorL = (*bDList)[i].body;
+        }else if(sensorNameR.compare((*bDList)[i].name)==0)
+        {
+            std::cout<<i<<"----sensorR\n";
+            m_sensorR = (*bDList)[i].body;
         }
 
         (*bDList)[i].body->SetUserData(this);
@@ -249,6 +254,8 @@ bool Entity::isGrounded()
 
 void Entity::startContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
 {
+    if(isDead())
+        return;
     std::cout<< "CONTACT BEGIN";
     if(fixture->GetBody() == m_sensor)
     {
@@ -284,7 +291,8 @@ void Entity::startContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
 }
 void Entity::endContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
 {
-
+    if(isDead())
+        return;
     std::cout<< "CONTACT END";
     if(fixture->GetBody() == m_sensor)
     {
@@ -338,6 +346,8 @@ void Entity::resetFSM()
 
 void Entity::sense()
 {
+
+
     if(fsm_normal)
         doNormalThings();
     if(fsm_shocked)
@@ -452,7 +462,8 @@ void Entity::doTheDead()
     m_body->SetFixedRotation(false);
     m_legs->SetFixedRotation(false);
     m_head->SetFixedRotation(false);
-    m_sensor->SetFixedRotation(false);
+    m_sensorL->SetFixedRotation(false);
+    m_sensorR->SetFixedRotation(false);
     b2Filter filter;
     for (auto b : bodyList)
     {
@@ -488,6 +499,11 @@ void Entity::commitLogic()
 {
     if(isDead())
         return;
+
+    if(currentAnimation == &walkingAnimationLeft||currentAnimation==&stopLeft)
+        m_sensor = m_sensorL;
+    if(currentAnimation == &walkingAnimationRight||currentAnimation==&stopRight)
+        m_sensor = m_sensorR;
 
     vel = m_body->GetLinearVelocity();
     float velChange = desiredVel - vel.x;
@@ -680,13 +696,16 @@ Entity::~Entity()
 {
     std::cout<<"Entity::~Entity -> DELETING ENTITY"<<std::endl;
     wipeJoints();
+    p_world->DestroyBody(m_sensorL);
+    p_world->DestroyBody(m_sensor);
+    p_world->DestroyBody(m_sensorR);
     std::cout<<"Entity::~Entity -> DELETING body"<<std::endl;
     p_world->DestroyBody(m_body);
     std::cout<<"Entity::~Entity -> DELETING Legs"<<std::endl;
     p_world->DestroyBody(m_legs);
     std::cout<<"Entity::~Entity -> DELETING head"<<std::endl;
     p_world->DestroyBody(m_head);
-    p_world->DestroyBody(m_sensor);
+
 //
 //    m_body->SetActive(false);
 //    m_legs->SetActive(false);

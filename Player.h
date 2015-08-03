@@ -52,7 +52,6 @@ public:
     //void    drawLife(sf::RenderWindow& mWindow);
 
     void    onCommand(sf::Event e);
-    void    attack();
     void    attackOn(b2Fixture* fixt);
     void    fire(int projectile);
 

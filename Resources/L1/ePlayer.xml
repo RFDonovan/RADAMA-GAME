@@ -27,7 +27,12 @@
 				<fixture categoryBits="0x0003" maskBits="0x0003" name="1" restitution="0" density="10" friction="1" isSensor="false" shapeType="circleShape" circleRadius="18" />
 			</fixtures>
 		</body>
-		<body name="m_sensor" x="150.053329" y="-299.65564" type="dynamic" bullet="false" fixedRotation="true" image="null">
+		<body name="m_sensorL" x="150.053329" y="-299.65564" type="dynamic" bullet="false" fixedRotation="true" image="null">
+			<fixtures>
+				<fixture categoryBits="0x0003" maskBits="0x0003" name="1" restitution="0" density="10" friction="1" isSensor="true" shapeType="circleShape" circleRadius="5" />
+			</fixtures>
+		</body>
+		<body name="m_sensorR" x="150.053329" y="-299.65564" type="dynamic" bullet="false" fixedRotation="true" image="null">
 			<fixtures>
 				<fixture categoryBits="0x0003" maskBits="0x0003" name="1" restitution="0" density="10" friction="1" isSensor="true" shapeType="circleShape" circleRadius="5" />
 			</fixtures>
@@ -36,7 +41,8 @@
 	<joints>
 		<joint name="legJoint" bodyA="m_body" bodyB="m_legs" collideConnected="false" Ax="" Ay="" Bx="" By="-55" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
 		<joint name="headJoint" bodyA="m_body" bodyB="m_head" collideConnected="false" Ax="" Ay="" Bx="" By="55" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
-		<joint name="sensJoint" bodyA="m_body" bodyB="m_sensor" collideConnected="false" Ax="" Ay="" Bx="80" By="20" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
+		<joint name="sensJoint1" bodyA="m_body" bodyB="m_sensorL" collideConnected="false" Ax="" Ay="" Bx="80" By="20" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
+		<joint name="sensJoint2" bodyA="m_body" bodyB="m_sensorR" collideConnected="false" Ax="" Ay="" Bx="-81" By="20" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
 	</joints>
 	<images />
 </box2d>

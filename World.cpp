@@ -598,6 +598,10 @@ void World::sheduleRemove(float elapsedTime)
         {
             if(humans[j]->isDead())
             {
+                /// ///////////
+                ///ATTENTION, LA SUPPRESSION DES JOINTS DOIT SE FAIRE EN DEHORS DE TOUT INTERACTION SUR WORLD DONC ICI AVANT LA CREATION DES ITEMS!!!
+                /// //////////
+                humans[j]->wipeJoints();
                 Item* item = new Item(&p_world,
                               "Resources/L1/lifefire.png",
                               humans[j]->getX(),
@@ -612,8 +616,7 @@ void World::sheduleRemove(float elapsedTime)
                             pList[i]->unStick();
                     }
                 itemList.push_back(item);
-                std::cout<<"world::scheduleRemove ->gonna wipe joint one more time"<<std::endl;
-                humans[j]->wipeJoints();
+
                 std::cout<<"world::scheduleRemove ->joint wiped"<<std::endl;
                 delete humans[j];///SETACTIVE = FALSE
                 std::cout<<"world::scheduleRemove ->human[j] deleted"<<std::endl;

@@ -328,6 +328,8 @@ void Player::attackOn(b2Fixture* fixt)
 
     if(userData && ((ObjectType*)userData)->getObjectType() == ENTITY)///si le touchE est une entitE
     {
+        if((Entity*)userData == this)
+            return;
             ((Entity*)userData)->getHit(/*damage*/12.f,40.f);
             if(fixt->GetBody()->GetPosition().x - m_body->GetPosition().x <0)
                 ((Entity*)userData)->applyForce(-5.f);
@@ -363,7 +365,12 @@ int Player::prevProjectile()
 void Player::processLogic()
 {
 
-
+    if(isDead())
+        return;
+    if(currentAnimation == &walkingAnimationLeft||currentAnimation==&stopLeft)
+        m_sensor = m_sensorL;
+    if(currentAnimation == &walkingAnimationRight||currentAnimation==&stopRight)
+        m_sensor = m_sensorR;
     vel = m_body->GetLinearVelocity();
     float velChange = desiredVel - vel.x;
     if (noKeyWasPressed)
@@ -387,12 +394,6 @@ void Player::processLogic()
     else if(vel.y < -1.0f) //|| vel.y > 2.0f)//vel.x != 0 &&
         m_body->ApplyForce(b2Vec2(force, 0), m_body->GetWorldCenter(), true);
 
-}
-
-void Player::attack()
-{
-    if(isAttacked)
-        return;
 }
 
 void Player::fire(int projectile)

@@ -37,7 +37,7 @@ public:
         std::string bodyB;
     };
 
-    b2Body* m_body, *m_legs, *m_head, *m_sensor;
+    b2Body* m_body, *m_legs, *m_head, *m_sensor, *m_sensorL, *m_sensorR;
     float   m_radius;
     Type    kind;
     std::vector<b2Joint *>      jointList;
