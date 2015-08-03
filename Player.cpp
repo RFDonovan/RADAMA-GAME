@@ -152,7 +152,9 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
     animatedSprite.setPosition(m_body->GetPosition().x * RATIO,
                                m_body->GetPosition().y * RATIO);
     animatedSprite.setRotation(m_body->GetAngle() * 180/b2_pi);
-    drawLife(mWindow);
+
+
+    //drawLife(mWindow);
     ///weapon render
     renderWeapons(mWindow);
     ///Draw:

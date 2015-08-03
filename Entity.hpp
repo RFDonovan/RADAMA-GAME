@@ -91,6 +91,7 @@ public:
 
     ///LIFE HANDLER
     int m_life = 80; // sur 100
+    int m_mana = 100; // sur 100
     int maxLife;
     bool deleted = false;
 

@@ -166,6 +166,8 @@ void World::update()
     mWorldView.move(playerPosition);
     adaptViewToPlayer();
 
+    statInfo.updateLife(ePlayer->m_life);
+    statInfo.updateMana(ePlayer->m_mana);
 
 }
 

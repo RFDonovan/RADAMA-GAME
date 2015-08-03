@@ -27,7 +27,8 @@
 		</items>
 		<weapons>
 			<weapon name="lefona" type="projectile" x="1500" y="200" damage="" file="Weapons/lefona.xml"/>
-			<weapon name="lefona2" type="projectile" x="200" y="200" damage="" file="Weapons/lefonaMiloko.xml"/>
+			<weapon name="lefona1" type="projectile" x="1500" y="200" damage="" file="Weapons/lefona.xml"/>
+			<!--weapon name="lefona2" type="projectile" x="200" y="200" damage="" file="Weapons/lefonaMiloko.xml"/-->
 		</weapons>
 		<enemies sprite1="humanSprite.xml" sprite="monster.xml">
 			<enemy name="1" type="rakakabe" x="800" y="200" finiteState="calm" facing="right" file="ePlayer.xml" visionRange="300" />

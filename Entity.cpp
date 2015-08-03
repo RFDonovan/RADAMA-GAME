@@ -544,7 +544,11 @@ void Entity::applyForce(float f)
 bool Entity::isDead()
 {
     if(m_life <= 0)
+    {
+        say("Aaaaaaaaah!!!!!...", 5);
         return true;
+    }
+
     else
         return false;
 }
