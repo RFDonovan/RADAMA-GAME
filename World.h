@@ -160,7 +160,6 @@ public:
     void    processInput(sf::Event);
 
     ///REMOVE
-
     void    sheduleRemove(float elapsedTime);
 
     /**STICKING PROJECTILE**/

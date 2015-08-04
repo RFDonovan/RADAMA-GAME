@@ -198,9 +198,16 @@ void World::draw(sf::Time frameTime)
         sticking();///create joint for sticky projectile
         p_world.Step(1/60.f,6,2);
         /// LES FONCTIONS QUI SONT EN DEHORS DU STEP : suppressions securisE des bodies ou changements des datas comme setActive
-
-        //ePlayer->stickAll();
-        ///maskAndCategoryBit(clock.getElapsedTime().asSeconds());
+        ///REMOVE JOINTS FIRST
+        if((int)clock.getElapsedTime().asSeconds()%10==0)
+            for (int j = 0 ; j < humans.size() ; j++ )
+            {
+                if(humans[j]->isDead())
+                {
+                    humans[j]->wipeJoints();
+                }
+            }
+        ///----------------------
         sheduleRemove(clock.getElapsedTime().asSeconds());
 
         /// ----------------------------------------
@@ -546,6 +553,48 @@ void World::resume()
 
 void World::sheduleRemove(float elapsedTime)
 {
+
+
+    if((int)elapsedTime%10 == 0)
+        deletetime_restart = true;
+    if(deletetime_restart)
+    {
+        std::cout<<"world::scheduleRemove ->declanchement du 10s"<<std::endl;
+        for (int j = 0 ; j < humans.size() ; j++ )
+        {
+            if(humans[j]->isDead())
+            {
+                /// ///////////
+                ///ATTENTION, LA SUPPRESSION DES JOINTS DOIT SE FAIRE EN DEHORS DE TOUT AUTRES CHOSES, Un ici et un autre DANS draw!!!
+                /// //////////
+                humans[j]->wipeJoints();
+                ///Unstick all projectiles
+                for (int i=0; i< pList.size(); i++)
+                    {
+                        if(pList[i]->stickOnEntity)
+                            pList[i]->unStick();
+                    }
+                Item* item = new Item(&p_world,
+                              "Resources/L1/lifefire.png",
+                              humans[j]->getX(),
+                              humans[j]->getY() - 100,
+                              10.f,
+                              5.f
+                              );
+                itemList.push_back(item);
+
+                std::cout<<"world::scheduleRemove ->joint wiped"<<std::endl;
+                delete humans[j];///SETACTIVE = FALSE
+                std::cout<<"world::scheduleRemove ->human[j] deleted"<<std::endl;
+                humans.erase(humans.begin()+j);
+                std::cout<<"world::scheduleRemove ->human[j] erased from list"<<std::endl;
+            }
+
+
+        }
+    }
+    deletetime_restart = false;
+
     ///RECHARGER COMPLETEMENT TOUS LES SCENES
     if(rebuild)
     {
@@ -589,45 +638,6 @@ void World::sheduleRemove(float elapsedTime)
     ///--------------------------------------
 
 
-    if((int)elapsedTime%10 == 0)
-        deletetime_restart = true;
-    if(deletetime_restart)
-    {
-        std::cout<<"world::scheduleRemove ->declanchement du 10s"<<std::endl;
-        for (int j = 0 ; j < humans.size() ; j++ )
-        {
-            if(humans[j]->isDead())
-            {
-                /// ///////////
-                ///ATTENTION, LA SUPPRESSION DES JOINTS DOIT SE FAIRE EN DEHORS DE TOUT INTERACTION SUR WORLD DONC ICI AVANT LA CREATION DES ITEMS!!!
-                /// //////////
-                humans[j]->wipeJoints();
-                Item* item = new Item(&p_world,
-                              "Resources/L1/lifefire.png",
-                              humans[j]->getX(),
-                              humans[j]->getY() - 100,
-                              10.f,
-                              5.f
-                              );
-                ///Unstick all projectiles
-                for (int i=0; i< pList.size(); i++)
-                    {
-                        if(pList[i]->stickOnEntity)
-                            pList[i]->unStick();
-                    }
-                itemList.push_back(item);
-
-                std::cout<<"world::scheduleRemove ->joint wiped"<<std::endl;
-                delete humans[j];///SETACTIVE = FALSE
-                std::cout<<"world::scheduleRemove ->human[j] deleted"<<std::endl;
-                humans.erase(humans.begin()+j);
-                std::cout<<"world::scheduleRemove ->human[j] erased from list"<<std::endl;
-            }
-
-
-        }
-    }
-    deletetime_restart = false;
 }
 ///MOUSE TRICKS************************************
 

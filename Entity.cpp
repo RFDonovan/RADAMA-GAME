@@ -346,8 +346,8 @@ void Entity::resetFSM()
 
 void Entity::sense()
 {
-
-
+    if(isDead())
+        return;
     if(fsm_normal)
         doNormalThings();
     if(fsm_shocked)
@@ -697,7 +697,7 @@ Entity::~Entity()
     std::cout<<"Entity::~Entity -> DELETING ENTITY"<<std::endl;
     wipeJoints();
     p_world->DestroyBody(m_sensorL);
-    p_world->DestroyBody(m_sensor);
+    //p_world->DestroyBody(m_sensor);
     p_world->DestroyBody(m_sensorR);
     std::cout<<"Entity::~Entity -> DELETING body"<<std::endl;
     p_world->DestroyBody(m_body);
