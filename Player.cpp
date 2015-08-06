@@ -48,6 +48,18 @@ void Player::addJumpSprite(std::map<std::string, Animation>* animationList)
 //    jumpRight = (*animList)["jumpRight"];
 //    jumpLeft = (*animList)["jumpLeft"];
 }
+
+void Player::addShiftSprite(std::map<std::string, Animation>* animationList)
+{
+    shiftRight = (*animationList)["shiftRight"];
+    shiftLeft = (*animationList)["shiftLeft"];
+//    (*animList)["jumpRight"] = (*animationList)["jumpRight"];
+//    (*animList)["jumpLeft"] = (*animationList)["jumpLeft"];
+//
+//    jumpRight = (*animList)["jumpRight"];
+//    jumpLeft = (*animList)["jumpLeft"];
+}
+
 /// //////////////
 
 void Player::loadPlayerSprite(TextureHolder* Textures)
@@ -117,9 +129,15 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
     if(std::abs(getVelocity().x)>1)///SI IL BOUGE PLUS QUE NECESSAIRE---------POUR EVITER LE TREMBLEMENT DES SPRITES
         if(nb_contacts>0)
             if (getVelocity().x>0)
-                currentAnimation = &walkingAnimationRight;
+                if(!isShifted)
+                    currentAnimation = &walkingAnimationRight;
+                else
+                    currentAnimation = &shiftRight;
             else if (getVelocity().x<0)
-                currentAnimation = &walkingAnimationLeft;
+                if(!isShifted)
+                    currentAnimation = &walkingAnimationLeft;
+                else
+                    currentAnimation = &shiftLeft;
             else
             {
                 if(currentAnimation == &walkingAnimationLeft)
@@ -172,17 +190,52 @@ void Player::onCommand(sf::Event e)
 {
     if(isDead())
         return;
+
+    if(shiftClock.getElapsedTime().asSeconds()>= 8)
+        canShift = true;
+    if(isShifted)
+    {
+        if(shiftClock.getElapsedTime().asSeconds()>=8)
+            shiftClock.restart();
+        if( shifter - ((int)shiftClock.getElapsedTime().asSeconds()%6) <= 0 )
+        {
+            canShift = false;
+            isShifted = false;
+        }
+        else
+        {
+            canShift = true;
+        }
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+    {
+        if(canShift)
+            isShifted = true;
+        else
+            isShifted = false;
+    }else
+        isShifted = false;
+
     if(sf::Keyboard::isKeyPressed(K_LEFT))
     {
         //currentAnimation = &walkingAnimationLeft;
-        desiredVel = -5.0f;
+        if (isShifted)
+            desiredVel = -15.0f;
+        else
+            desiredVel = -5.0f;
         noKeyWasPressed = false;
 
     }
+
+
     if (sf::Keyboard::isKeyPressed(K_RIGHT))
     {
         //currentAnimation = &walkingAnimationRight;
-        desiredVel = 5.0f;
+        if (isShifted)
+            desiredVel = 15.0f;
+        else
+            desiredVel = 5.0f;
         noKeyWasPressed = false;
     }
 
@@ -281,12 +334,22 @@ void Player::onCommand(sf::Event e)
         }
 
         break;
+
+    case sf::Event::KeyPressed:
+//        if(e.key.code == sf::Keyboard::LShift)
+//        {
+//            isShifted = true;
+//        }
+        break;
     case sf::Event::KeyReleased:
         if(e.key.code == sf::Keyboard::Space)
         {
             //jump++;
         }
-
+//        if(e.key.code == sf::Keyboard::LShift)
+//        {
+//            isShifted = false;
+//        }
         break;
     case sf::Event::MouseMoved:
 

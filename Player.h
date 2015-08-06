@@ -38,12 +38,19 @@ public:
     float distortionFactor = .2f;
     float riseFactor = .5f;
     sf::Clock clock;
+
+    ///SPRINT MAX
+    sf::Clock shiftClock;
+    bool isShifted = false;
+    bool canShift = true;
+    int shifter = 2;
      ///red and green
 
 public:
             Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap, std::map<std::string, Animation>* animationList);
     void    loadPlayerSprite(TextureHolder* Textures);
     void    addJumpSprite(std::map<std::string, Animation>* animationList);
+    void    addShiftSprite(std::map<std::string, Animation>* animationList);
     void    processLogic();
     void    processLogic(sf::RenderWindow& mWindow);
     void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures);
