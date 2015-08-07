@@ -114,7 +114,7 @@ public:
     int defense = 0;
     b2Fixture*  fixtureOnSensor;
     bool isAttacking = false;
-    sf::Clock atkClock;
+    sf::Clock atkClock, atackedClock;
 
 public:
             Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap);

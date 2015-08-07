@@ -131,7 +131,7 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
     animatedSprite.play(*currentAnimation);
 
 /// AJOUTER UNE ANIMATION EN FONCTION DE L'ACTUEL AU LIEU DE FAIRE UN STOP
-    if(std::abs(getVelocity().x)>1)///SI IL BOUGE PLUS QUE NECESSAIRE---------POUR EVITER LE TREMBLEMENT DES SPRITES
+    if(std::abs(getVelocity().x)>1&& !isDead())///SI IL BOUGE PLUS QUE NECESSAIRE---------POUR EVITER LE TREMBLEMENT DES SPRITES
         if(nb_contacts>0)
             if (getVelocity().x>0)
                 if(!isShifted)
@@ -184,7 +184,7 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
     mWindow.draw(animatedSprite);
 
 
-    if(isShifted)
+    if(isShifted && !isDead())
     {
 
         shader->setParameter("time", clock.getElapsedTime().asSeconds());
@@ -424,9 +424,9 @@ void Player::attackOn(b2Fixture* fixt)
             return;
             ((Entity*)userData)->getHit(/*damage*/12.f,40.f);
             if(fixt->GetBody()->GetPosition().x - m_body->GetPosition().x <0)
-                ((Entity*)userData)->applyForce(-5.f);
+                ((Entity*)userData)->applyForce(-50.f);
             else
-                ((Entity*)userData)->applyForce(5.f);
+                ((Entity*)userData)->applyForce(200.f);
     }
 }
 int Player::nextProjectile()

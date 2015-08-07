@@ -505,6 +505,14 @@ void Entity::commitLogic()
     if(currentAnimation == &walkingAnimationRight||currentAnimation==&stopRight)
         m_sensor = m_sensorR;
 
+    if(atackedClock.getElapsedTime().asSeconds()>1)
+        isAttacked = false;
+
+    if(isAttacked)
+    {
+        return;
+    }
+
     vel = m_body->GetLinearVelocity();
     float velChange = desiredVel - vel.x;
 //    if (!fsm_hunting)
@@ -532,6 +540,8 @@ void Entity::commitLogic()
 
 void Entity::getHit(int damage, float impulse)
 {
+    atackedClock.restart();
+    isAttacked = true;
     float degat = 10;
     if(impulse >= 40)
         degat = (float)damage;
@@ -552,7 +562,7 @@ void Entity::getHit(int damage, float impulse)
 
 void Entity::applyForce(float f)
 {
-    m_body->ApplyLinearImpulse(b2Vec2(-f*10, -f*10), m_body->GetWorldCenter(), true);
+    m_body->ApplyLinearImpulse(b2Vec2(f*10, -500.f), m_body->GetWorldCenter(), true);
     //m_body->ApplyLinearImpulse(b2Vec2(-f*100, 0.f), m_body->GetWorldCenter(), true);
 
 }
