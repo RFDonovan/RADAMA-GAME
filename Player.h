@@ -12,6 +12,7 @@ public:
     //animation control
 
     sf::Sprite stuffSprite, weaponSprite;
+
     sf::Shader *Shader;
 
     bool noKeyWasPressed = true;
@@ -40,10 +41,15 @@ public:
     sf::Clock clock;
 
     ///SPRINT MAX
-    sf::Clock shiftClock;
+    sf::Clock shiftClock, canShiftClock;
     bool isShifted = false;
     bool canShift = true;
     int shifter = 2;
+    int shifterLimit = 3; //en seconde
+    int lastTime = 0;
+
+    sf::Texture shiftTexture;
+    sf::Sprite shiftSprite;
      ///red and green
 
 public:
@@ -53,7 +59,7 @@ public:
     void    addShiftSprite(std::map<std::string, Animation>* animationList);
     void    processLogic();
     void    processLogic(sf::RenderWindow& mWindow);
-    void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures);
+    void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures, sf::Shader* shader);
     void    renderWeapons(sf::RenderWindow& mWindow);
 
     //void    drawLife(sf::RenderWindow& mWindow);

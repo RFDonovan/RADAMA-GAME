@@ -237,7 +237,7 @@ void World::draw(sf::Time frameTime)
 
 
 ///RENDU DU JOUEUR
-    ePlayer->render(mWindow, frameTime, &Textures);
+    ePlayer->render(mWindow, frameTime, &Textures, &shader);
     if(ePlayer->getY() > mWindow.getSize().y || ePlayer->isDead())
     {
         if(!ePlayer->deleted)

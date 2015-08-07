@@ -53,6 +53,11 @@ void Player::addShiftSprite(std::map<std::string, Animation>* animationList)
 {
     shiftRight = (*animationList)["shiftRight"];
     shiftLeft = (*animationList)["shiftLeft"];
+
+    shiftTexture.loadFromFile("Resources/shiftPower.png");
+    shiftSprite.setTexture(shiftTexture);
+    shiftSprite.setOrigin(shiftTexture.getSize().x/2, shiftTexture.getSize().y/2);
+    shiftSprite.setScale(-1.f,1.2f);
 //    (*animList)["jumpRight"] = (*animationList)["jumpRight"];
 //    (*animList)["jumpLeft"] = (*animationList)["jumpLeft"];
 //
@@ -110,7 +115,7 @@ void Player::loadPlayerSprite(TextureHolder* Textures)
 
 }
 
-void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder* Textures)
+void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder* Textures, sf::Shader* shader)
 {
 
 
@@ -178,6 +183,23 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
     ///Draw:
     mWindow.draw(animatedSprite);
 
+
+    if(isShifted)
+    {
+
+        shader->setParameter("time", clock.getElapsedTime().asSeconds());
+            shader->setParameter("distortionFactor", .02f);
+            shader->setParameter("riseFactor", 1.3f);
+        shiftSprite.setPosition(m_body->GetPosition().x * RATIO,
+                               m_body->GetPosition().y * RATIO);
+        if(getVelocity().x<0)
+            shiftSprite.setScale(-1.f,1.f);
+        else
+            shiftSprite.setScale(1.f,1.f);
+        mWindow.draw(shiftSprite, shader);
+    }
+
+
     //std::cout<< "\n******rendu ok*******";
 
 
@@ -191,31 +213,38 @@ void Player::onCommand(sf::Event e)
     if(isDead())
         return;
 
-    if(shiftClock.getElapsedTime().asSeconds()>= 8)
-        canShift = true;
-    if(isShifted)
+    if(!isShifted)
     {
-        if(shiftClock.getElapsedTime().asSeconds()>=8)
-            shiftClock.restart();
-        if( shifter - ((int)shiftClock.getElapsedTime().asSeconds()%6) <= 0 )
+        int realTime = (int)shiftClock.getElapsedTime().asSeconds()%4;
+        if(lastTime != realTime)
         {
-            canShift = false;
-            isShifted = false;
-        }
-        else
-        {
-            canShift = true;
+            shifter = shifter + 1;
+            lastTime = realTime;
         }
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
     {
-        if(canShift)
-            isShifted = true;
-        else
-            isShifted = false;
+            if(shifter>0)
+            {
+                isShifted = true;
+                int realTime = (int)shiftClock.getElapsedTime().asSeconds()%4;
+                if(lastTime != realTime)
+                {
+                    shifter = shifter - 1;
+                    lastTime = realTime;
+                }
+            }
+            else
+            {
+                isShifted = false;
+            }
+
     }else
+    {
         isShifted = false;
+    }
+
 
     if(sf::Keyboard::isKeyPressed(K_LEFT))
     {
