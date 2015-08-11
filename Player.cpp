@@ -58,11 +58,12 @@ void Player::addShiftSprite(std::map<std::string, Animation>* animationList)
     shiftSprite.setTexture(shiftTexture);
     shiftSprite.setOrigin(shiftTexture.getSize().x/2, shiftTexture.getSize().y/2);
     shiftSprite.setScale(-1.f,1.2f);
-//    (*animList)["jumpRight"] = (*animationList)["jumpRight"];
-//    (*animList)["jumpLeft"] = (*animationList)["jumpLeft"];
-//
-//    jumpRight = (*animList)["jumpRight"];
-//    jumpLeft = (*animList)["jumpLeft"];
+}
+
+void Player::addAtkSprite(std::map<std::string, Animation>* animationList)
+{
+    atkRight = (*animationList)["atkRight"];
+    atkLeft = (*animationList)["atkLeft"];
 }
 
 /// //////////////
@@ -131,6 +132,7 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
     animatedSprite.play(*currentAnimation);
 
 /// AJOUTER UNE ANIMATION EN FONCTION DE L'ACTUEL AU LIEU DE FAIRE UN STOP
+
     if(std::abs(getVelocity().x)>1&& !isDead())///SI IL BOUGE PLUS QUE NECESSAIRE---------POUR EVITER LE TREMBLEMENT DES SPRITES
         if(nb_contacts>0)
             if (getVelocity().x>0)
@@ -152,17 +154,32 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
             }
         else///QUAND IL SAUTE
         {
-            if(currentAnimation == &walkingAnimationLeft)
+            if(currentAnimation == &walkingAnimationLeft || currentAnimation == &atkLeft || currentAnimation == &stopLeft)
+            {
                 currentAnimation = &jumpLeft;
-            if(currentAnimation == &walkingAnimationRight)
+            }
+
+            if(currentAnimation == &walkingAnimationRight || currentAnimation == &atkRight || currentAnimation == &stopRight)
+            {
                 currentAnimation = &jumpRight;
+                //rotate 45%
+            }
+
         }
     else///QUAND IL NE BOUGE PLUS OU BOUGE PETIT
     {
-        if(currentAnimation == &walkingAnimationLeft||currentAnimation == &jumpLeft)
+        if(currentAnimation == &walkingAnimationLeft||currentAnimation == &jumpLeft || currentAnimation == &atkLeft)
             currentAnimation = &stopLeft;
-        if(currentAnimation == &walkingAnimationRight||currentAnimation == &jumpRight)
+        if(currentAnimation == &walkingAnimationRight||currentAnimation == &jumpRight || currentAnimation == &atkRight)
             currentAnimation = &stopRight;
+    }
+
+    if(isAttacking)
+    {
+        if(m_sensor == m_sensorL)
+            currentAnimation = &atkLeft;
+        else
+            currentAnimation = &atkRight;
     }
 
     noKeyWasPressed = true;
@@ -213,6 +230,8 @@ void Player::onCommand(sf::Event e)
     if(isDead())
         return;
 
+    if(atkClock.getElapsedTime().asMilliseconds()>300.0f)
+        isAttacking = false;
     if(!isShifted)
     {
         int realTime = (int)shiftClock.getElapsedTime().asSeconds()%4;
@@ -319,23 +338,6 @@ void Player::onCommand(sf::Event e)
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
 
-        /*/std::cout<< "click";
-        mousePos = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow), mWindow.getView());
-        playerPos = animatedSprite.getPosition();
-        desiredVel = (mousePos.x - mouseInit.x )/20.f;
-
-        //PROPRIETE DE PYTHAGORE
-        //float force = std::pow(mouseInit.x - mousePos.x, 2.0f) + std::pow(mouseInit.y - mousePos.y, 2.0f);
-        //force = std::sqrt(force);
-        velocityForce = sf::Vector2f();
-
-        if (desiredVel > velocityLimit)
-            desiredVel = velocityLimit;
-        if (desiredVel <- velocityLimit)
-            desiredVel = -velocityLimit;
-
-        noKeyWasPressed = false;
-        */
     }
 
     switch(e.type)
@@ -350,6 +352,11 @@ void Player::onCommand(sf::Event e)
             weaponsMap[currentProjectile]->SetLinearVelocity(b2Vec2(0,0));
             weaponsMap[currentProjectile]->SetActive(false);
         }
+        if(e.mouseButton.button == sf::Mouse::Left)
+        {
+            isAttacking =true;
+            atkClock.restart();
+        }
     }
     break;
     case sf::Event::MouseButtonReleased:
@@ -358,6 +365,7 @@ void Player::onCommand(sf::Event e)
             if(fixtureOnSensor != nullptr)
             {
                 attackOn(fixtureOnSensor);
+                //isAttacking = false;
             }
         }
         if(weaponsMap.size() <=0 )

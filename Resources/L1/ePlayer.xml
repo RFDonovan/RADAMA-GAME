@@ -41,8 +41,8 @@
 	<joints>
 		<joint name="legJoint" bodyA="m_body" bodyB="m_legs" collideConnected="false" Ax="" Ay="" Bx="" By="-55" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
 		<joint name="headJoint" bodyA="m_body" bodyB="m_head" collideConnected="false" Ax="" Ay="" Bx="" By="55" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
-		<joint name="sensJoint1" bodyA="m_body" bodyB="m_sensorL" collideConnected="false" Ax="" Ay="" Bx="80" By="20" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
-		<joint name="sensJoint2" bodyA="m_body" bodyB="m_sensorR" collideConnected="false" Ax="" Ay="" Bx="-81" By="20" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
+		<joint name="sensJoint1" bodyA="m_body" bodyB="m_sensorL" collideConnected="false" Ax="" Ay="" Bx="50" By="50" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
+		<joint name="sensJoint2" bodyA="m_body" bodyB="m_sensorR" collideConnected="false" Ax="" Ay="" Bx="-51" By="50" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
 	</joints>
 	<images>
 		<image path="circle.png" name="circle.png" x="150.053329" y="-299.65564" rotation="0" scaleX="1" scaleY="1" zDepth="0" pinned="false" atlas="09"/>

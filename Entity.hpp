@@ -59,8 +59,9 @@ public:
 
     ///ANIMATION
     sf::Clock frameClock;
-    Animation* currentAnimation;
+    Animation *currentAnimation;
     Animation walkingAnimationLeft, walkingAnimationRight, stopLeft, stopRight, jumpLeft, jumpRight, shiftRight, shiftLeft;
+    Animation atkLeft, atkRight;
     AnimatedSprite animatedSprite;
     std::map<std::string, Animation>* animList;
     float max_width = 0;

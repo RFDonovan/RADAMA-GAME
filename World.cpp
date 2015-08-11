@@ -351,15 +351,25 @@ void World::loadSprites(std::string listFile)
         if(strcmp(node.attribute("shift").as_string(), "") == 0)
             continue;
         std::stringstream ss2;
-//        ss<<node.attribute("jump").as_string();
         ss2<<node.attribute("shift").as_string();//<<"jump";
         SpriteMapping* ps_map3 = new SpriteMapping();
         ps_map3->loadXML(node.attribute("shift").as_string());
         spriteMap[ss2.str()] = ps_map3;
 
-        std::cout << "World::loadSprites -> loading "<<node.attribute("name").as_string() <<spriteMap[node.attribute("name").as_string()]<< ps_map<<">>>>>>>>>>>>**************\n";
-        std::cout << "World::loadSprites -> jumploading "<<node.attribute("jump").as_string() <<spriteMap[node.attribute("jump").as_string()]<< ps_map2<<">>>>>>>>>>>>**************\n";
-        std::cout << "World::loadSprites -> shiftloading "<<node.attribute("shift").as_string() <<spriteMap[node.attribute("shift").as_string()]<< ps_map3<<">>>>>>>>>>>>**************\n";
+        ///LOADING ATK SPRITES
+        if(strcmp(node.attribute("atk").as_string(), "") == 0)
+            continue;
+        std::stringstream ss3;
+        ss3<<node.attribute("atk").as_string();//<<"atk";
+        SpriteMapping* ps_map4 = new SpriteMapping();
+        ps_map4->loadXML(node.attribute("atk").as_string());
+        spriteMap[ss3.str()] = ps_map4;
+
+
+//
+//        std::cout << "World::loadSprites -> loading "<<node.attribute("name").as_string() <<spriteMap[node.attribute("name").as_string()]<< ps_map<<">>>>>>>>>>>>**************\n";
+//        std::cout << "World::loadSprites -> jumploading "<<node.attribute("jump").as_string() <<spriteMap[node.attribute("jump").as_string()]<< ps_map2<<">>>>>>>>>>>>**************\n";
+//        std::cout << "World::loadSprites -> shiftloading "<<node.attribute("shift").as_string() <<spriteMap[node.attribute("shift").as_string()]<< ps_map3<<">>>>>>>>>>>>**************\n";
     }
     //exit(-1);
 }
@@ -429,6 +439,7 @@ void World::loadInfo(std::string xmlCfg)
                        );
     ePlayer->addJumpSprite((spriteMap[playerNode.attribute("jump").as_string()])->getAnimationList());
     ePlayer->addShiftSprite((spriteMap[playerNode.attribute("shift").as_string()])->getAnimationList());
+    ePlayer->addAtkSprite((spriteMap[playerNode.attribute("atk").as_string()])->getAnimationList());
     ///---------------
 
     ///LOADING OTHER ENTITIES

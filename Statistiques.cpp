@@ -46,7 +46,8 @@ void Statistiques::render(sf::Time frameTime, sf::Shader* shader)
     mWindow.draw(manaBar);
     manaBar.setPosition(manaBar.getPosition().x+2,manaBar.getPosition().y+2);
     manaBar.setColor(sf::Color::White);
-    mWindow.draw(manaBar);
+    if(playerMana>0)
+        mWindow.draw(manaBar);
 
     manaBar.setPosition(manaBar.getPosition().x-2,manaBar.getPosition().y-2);
 
@@ -88,7 +89,8 @@ void Statistiques::render(sf::Time frameTime, sf::Shader* shader)
     }
     else if(playerLife>30 && playerLife<80)
         lifeBar.setColor(sf::Color::Yellow);
-    mWindow.draw(lifeBar);
+    if(playerLife>0)
+        mWindow.draw(lifeBar);
 
     lifeBar.setPosition(lifeBar.getPosition().x-2,lifeBar.getPosition().y-2);
 
