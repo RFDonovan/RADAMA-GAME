@@ -218,20 +218,26 @@ void Player::onCommand(sf::Event e)
         int realTime = (int)shiftClock.getElapsedTime().asSeconds()%4;
         if(lastTime != realTime)
         {
-            shifter = shifter + 1;
+            //shifter = shifter + 1;
+            if (m_mana<100)
+                m_mana = m_mana + 5;
+            else
+                m_mana = 100;
             lastTime = realTime;
         }
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
     {
-            if(shifter>0)
+            if(m_mana>0)
             {
                 isShifted = true;
                 int realTime = (int)shiftClock.getElapsedTime().asSeconds()%4;
                 if(lastTime != realTime)
                 {
-                    shifter = shifter - 1;
+                    //shifter = shifter - 1;
+                    if (m_mana>=5)
+                        m_mana = m_mana - 20;
                     lastTime = realTime;
                 }
             }

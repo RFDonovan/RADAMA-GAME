@@ -41,11 +41,8 @@ public:
     sf::Clock clock;
 
     ///SPRINT MAX
-    sf::Clock shiftClock, canShiftClock;
+    sf::Clock shiftClock;
     bool isShifted = false;
-    bool canShift = true;
-    int shifter = 2;
-    int shifterLimit = 3; //en seconde
     int lastTime = 0;
 
     sf::Texture shiftTexture;
