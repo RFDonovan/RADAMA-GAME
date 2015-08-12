@@ -70,6 +70,7 @@ public:
     float desiredVel;
     float velocityLimit = 5.f;
     float jumpLimit = 5.f;
+    sf::Clock jumpClock;
 
 
     sf::Clock clock;

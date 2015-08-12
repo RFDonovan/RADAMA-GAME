@@ -515,6 +515,9 @@ void World::rebuildScene()
     spriteMap.clear();
     ///--------------
     rebuild = true;
+    BG_pause.setPosition(sf::Vector2f(0.f,0.f));
+    pauseLayer.setPosition(sf::Vector2f(0.f,0.f));
+    statInfo.resetView();
 
 }
 

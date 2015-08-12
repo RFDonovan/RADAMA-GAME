@@ -48,6 +48,9 @@ public:
     sf::Texture shiftTexture;
     sf::Sprite shiftSprite;
      ///red and green
+     ///ANIMATION JUMP
+
+     int jumpAngle = 360;
 
 public:
             Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap, std::map<std::string, Animation>* animationList);

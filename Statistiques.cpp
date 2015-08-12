@@ -116,3 +116,10 @@ void Statistiques::updateMana(int mana)
 {
     playerMana = mana;
 }
+
+void Statistiques::resetView()
+{
+    spriteBar.setPosition(0,0);
+    lifeBar.setPosition(60,35);
+    manaBar.setPosition(65,10);
+}

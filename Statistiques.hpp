@@ -26,6 +26,7 @@ public:
     void    adaptPosition(sf::Vector2f place);
     void    updateLife(int life);
     void    updateMana(int mana);
+    void    resetView();
 
 };
 

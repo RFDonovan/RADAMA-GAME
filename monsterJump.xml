@@ -258,10 +258,21 @@
             <Frame SpriteId="7" OriginX="46,5" OriginY="62" OffSetX="0" OffSetY="0" Duration="0,05" />
             <Frame SpriteId="8" OriginX="49" OriginY="62" OffSetX="0" OffSetY="0" Duration="0,05" />
             <Frame SpriteId="9" OriginX="50" OriginY="59,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+			
             <Frame SpriteId="10" OriginX="50" OriginY="57,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+            <Frame SpriteId="10" OriginX="50" OriginY="57,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+            <Frame SpriteId="10" OriginX="50" OriginY="57,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+            <Frame SpriteId="10" OriginX="50" OriginY="57,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+            <Frame SpriteId="10" OriginX="50" OriginY="57,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+			
             <Frame SpriteId="11" OriginX="50" OriginY="62" OffSetX="0" OffSetY="0" Duration="0,05" />
             <Frame SpriteId="12" OriginX="48,5" OriginY="65" OffSetX="0" OffSetY="0" Duration="0,05" />
             <Frame SpriteId="13" OriginX="47" OriginY="68,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+			
+            <Frame SpriteId="14" OriginX="46,5" OriginY="68,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+            <Frame SpriteId="14" OriginX="46,5" OriginY="68,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+            <Frame SpriteId="14" OriginX="46,5" OriginY="68,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+            <Frame SpriteId="14" OriginX="46,5" OriginY="68,5" OffSetX="0" OffSetY="0" Duration="0,05" />
             <Frame SpriteId="14" OriginX="46,5" OriginY="68,5" OffSetX="0" OffSetY="0" Duration="0,05" />
          </Frames>
       </Animation>
@@ -277,10 +288,21 @@
             <Frame SpriteId="22" OriginX="46,5" OriginY="62" OffSetX="0" OffSetY="0" Duration="0,05" />
             <Frame SpriteId="21" OriginX="49" OriginY="62" OffSetX="0" OffSetY="0" Duration="0,05" />
             <Frame SpriteId="20" OriginX="50" OriginY="59,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+			
             <Frame SpriteId="19" OriginX="50" OriginY="57,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+            <Frame SpriteId="19" OriginX="50" OriginY="57,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+            <Frame SpriteId="19" OriginX="50" OriginY="57,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+            <Frame SpriteId="19" OriginX="50" OriginY="57,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+            <Frame SpriteId="19" OriginX="50" OriginY="57,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+			
             <Frame SpriteId="18" OriginX="50" OriginY="62" OffSetX="0" OffSetY="0" Duration="0,05" />
             <Frame SpriteId="17" OriginX="48,5" OriginY="65" OffSetX="0" OffSetY="0" Duration="0,05" />
             <Frame SpriteId="16" OriginX="47" OriginY="68,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+			
+            <Frame SpriteId="15" OriginX="46,5" OriginY="68,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+            <Frame SpriteId="15" OriginX="46,5" OriginY="68,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+            <Frame SpriteId="15" OriginX="46,5" OriginY="68,5" OffSetX="0" OffSetY="0" Duration="0,05" />
+            <Frame SpriteId="15" OriginX="46,5" OriginY="68,5" OffSetX="0" OffSetY="0" Duration="0,05" />
             <Frame SpriteId="15" OriginX="46,5" OriginY="68,5" OffSetX="0" OffSetY="0" Duration="0,05" />
          </Frames>
       </Animation>

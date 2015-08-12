@@ -176,11 +176,14 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
 
     if(isAttacking)
     {
+        //if(m_body->GetAngle() != -45.f*b2_pi)
+            //m_body->SetTransform(m_body->GetPosition(), 10);
         if(m_sensor == m_sensorL)
             currentAnimation = &atkLeft;
         else
             currentAnimation = &atkRight;
     }
+
 
     noKeyWasPressed = true;
     animatedSprite.update(frameTime1);
@@ -193,6 +196,39 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
                                m_body->GetPosition().y * RATIO);
     animatedSprite.setRotation(m_body->GetAngle() * 180/b2_pi);
 
+    ///JUST SPRITE ANIMATION BLOCK
+    {
+            if(isAttacking)
+        {
+            if(currentAnimation==&atkLeft)
+                animatedSprite.setRotation(animatedSprite.getRotation()-10.f);
+            if(currentAnimation==&atkRight)
+                animatedSprite.setRotation(animatedSprite.getRotation()+10.f);
+            animatedSprite.setPosition(animatedSprite.getPosition().x, animatedSprite.getPosition().y+5);
+        }
+
+        if(nb_contacts<=0 && !isDead())
+        {
+            if((int)jumpClock.getElapsedTime().asMilliseconds()>300 &&(int)jumpClock.getElapsedTime().asMilliseconds() < 360+300)
+            {
+                if(currentAnimation==&jumpRight || currentAnimation == &shiftRight)
+                    animatedSprite.setRotation(animatedSprite.getRotation()
+                                           +
+                                           (int)jumpClock.getElapsedTime().asMilliseconds()-300
+                                           );
+                if(currentAnimation==&jumpLeft || currentAnimation == &shiftLeft)
+                    animatedSprite.setRotation(animatedSprite.getRotation()
+                                           -
+                                           (int)jumpClock.getElapsedTime().asMilliseconds()-300
+                                           );
+            }
+
+
+        }
+        else
+            jumpClock.restart();
+
+    }///JUST SPRITE ANIMATION BLOCK
 
     //drawLife(mWindow);
     ///weapon render
