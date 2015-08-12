@@ -146,7 +146,31 @@ std::cout<<"userdata exist\n";
         void * userDataA = contact->GetFixtureA()->GetBody()->GetUserData();
         void * userDataB = contact->GetFixtureB()->GetBody()->GetUserData();
 
+        ///***********FOR HUMAN********************
+        ///*********************************************
+        if(userDataB && ((ObjectType*)userDataB)->getObjectType() == ENTITY)///si le touchE est une entitE
+        {
+            if(((ObjectType*)userDataB)->getClassName() == PLAYER)
+            {
+                if(((Entity*)userDataB)->isShifted)
+                {
+                    if(userDataA && ((ObjectType*)userDataA)->getObjectType() == ENTITY)
+                    {
+                        ((Entity*)userDataA)->getHit(5, 50.f);
+                    }
+                    contact->GetFixtureA()->GetBody()->ApplyLinearImpulse(
+                                                                          b2Vec2(10, -100.f),
+                                                                          contact->GetFixtureA()->GetBody()->GetWorldCenter(),
+                                                                          true
+                                                                          );
+                }
 
+            }
+        }
+
+
+        ///***********FOR PROJECTILE********************
+        ///*********************************************
         if(userDataA && ((ObjectType*)userDataA)->getClassName() == PROJECTILE)//&&fixture->GetBody()->GetLinearVelocity().x
         {
             //b2Body* arrowBody = fixtureA->GetBody();

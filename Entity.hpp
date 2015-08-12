@@ -72,6 +72,13 @@ public:
     float jumpLimit = 5.f;
     sf::Clock jumpClock;
 
+    ///SPRINT MAX
+    sf::Clock shiftClock;
+    bool isShifted = false;
+    int lastTime = 0;
+
+    sf::Texture shiftTexture;
+    sf::Sprite shiftSprite;
 
     sf::Clock clock;
 

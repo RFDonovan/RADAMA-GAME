@@ -40,13 +40,7 @@ public:
     float riseFactor = .5f;
     sf::Clock clock;
 
-    ///SPRINT MAX
-    sf::Clock shiftClock;
-    bool isShifted = false;
-    int lastTime = 0;
 
-    sf::Texture shiftTexture;
-    sf::Sprite shiftSprite;
      ///red and green
      ///ANIMATION JUMP
 
