@@ -5,6 +5,7 @@ World::World(sf::RenderWindow& window)
     , gravity(0.f,12.f)
 //, gravity(0.f,9.8f)
     , p_world(gravity)//, true)--2.2.0
+    , p_world2(b2Vec2(0.f,0.f))
     , debugDrawInstance(window)
     , mWorldView(window.getDefaultView())
     , pauseLayer(sf::Vector2f(WINDOW_W, WINDOW_H))
@@ -16,6 +17,7 @@ World::World(sf::RenderWindow& window)
     m_mouseJoint = NULL;
     window.setVerticalSyncEnabled(true);
     p_world.SetDebugDraw(&debugDrawInstance);
+    p_world2.SetDebugDraw(&debugDrawInstance);
 
     debugDrawInstance.SetFlags(b2Draw::e_shapeBit|b2Draw::e_jointBit);
 
@@ -24,8 +26,14 @@ World::World(sf::RenderWindow& window)
     buildScene(levelPath);
     BG = sf::Sprite(*Textures.getTexture(TextureHolder::Background1));
     BG_pause = sf::Sprite(*Textures.getTexture(TextureHolder::Pause));
-    BG.scale(.6f,.6f);
-    BG_pause.setPosition(0.0f, 0.0f);
+//    BG.scale(.6f,.6f);
+//BG.scale(WINDOW_W/800,WINDOW_H/800);
+//    BG_pause.scale(WINDOW_W/(*Textures.getTexture(TextureHolder::Pause)).getSize().x,WINDOW_H/(*Textures.getTexture(TextureHolder::Pause)).getSize().y);
+    BG_pause.setOrigin(BG_pause.getTexture()->getSize().x/2, BG_pause.getTexture()->getSize().y/2);
+    BG_pause.setPosition(WINDOW_W/2, WINDOW_H/2);
+//    BG_pause.setPosition(0.0f, 0.0f);
+//    BG_pause.getTexture()->getSize().x/2
+    BG_pause.scale(1.2f,1.2f);
     //BG_pause.scale(.9f,.9f);
 
     p_world.SetContactListener(&CL_Instance);
@@ -60,8 +68,12 @@ World::World(sf::RenderWindow& window)
 
 
     ///***********************************
+
+    xLoad2 = new XMLLoader(&p_world2);
+    xLoad2->loadXML("./pause.xml", "./");
+
     b2BodyDef bodyDef;
-    m_groundBody = p_world.CreateBody(&bodyDef);
+    m_groundBody = p_world.CreateBody(&bodyDef);///pour le jointmouse
 }
 
 void World::processInput(sf::Event e)
@@ -266,11 +278,17 @@ void World::draw(sf::Time frameTime)
         //std::cout<<"\n draw- after render\n";
     }
 
+    ///RENDU DES STATS
+    statInfo.render(frameTime, &shader);
+
+    ///---------------
     p_world.DrawDebugData();
     if(paused)
     {
 
-        pauseLayer.setFillColor(sf::Color(0, 0, 0, 150));
+        xLoad2->render(mWindow, &shader);
+//        pauseLayer.setFillColor(sf::Color(0, 0, 0, 150));
+        pauseLayer.setFillColor(sf::Color(0, 0, 0, 220));
 
         mWindow.draw(pauseLayer);
         distortionFactor = .01f;
@@ -278,14 +296,12 @@ void World::draw(sf::Time frameTime)
         shader.setParameter("time", clock.getElapsedTime().asSeconds());
         shader.setParameter("distortionFactor", distortionFactor);
         shader.setParameter("riseFactor", riseFactor);
-        mWindow.draw(BG_pause, &shader);
+        mWindow.draw(BG_pause);
+//        mWindow.draw(BG_pause, &shader);
 
     }
 
-///RENDU DES STATS
-    statInfo.render(frameTime, &shader);
 
-///---------------
 }
 
 void World::loadTextures()

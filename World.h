@@ -74,6 +74,7 @@ public:
     ///>>>Physic World init
     b2Vec2      gravity;
     b2World     p_world;
+    b2World     p_world2;
     //b2Body* Body1;
 
     DebugDraw   debugDrawInstance;
@@ -84,6 +85,7 @@ public:
 
     //GameLevel*  level;
     XMLLoader* xLoad;
+    XMLLoader* xLoad2;
 
     std::vector<Human*>         humans;
     std::vector<Human*>         listOfDeletedHuman;
