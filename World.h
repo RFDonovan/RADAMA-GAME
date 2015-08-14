@@ -86,6 +86,7 @@ public:
     //GameLevel*  level;
     XMLLoader* xLoad;
     XMLLoader* xLoad2;
+    std::vector<sf::IntRect> spriteRectList;
 
     std::vector<Human*>         humans;
     std::vector<Human*>         listOfDeletedHuman;
@@ -137,6 +138,9 @@ public:
     ///STATISTIQUES
     Statistiques statInfo;
 
+
+    ///PAUSE ANIMATION
+    int change = -1;
     // Operations
 public:
             explicit World (sf::RenderWindow& window);
@@ -171,6 +175,8 @@ public:
     bool paused = false;
     void pause();
     void resume();
+
+    bool    mouseIsOnTheSprite(sf::IntRect , sf::Vector2f mousePos);
 
     /**MOUSE DRAG STUFF**/
     void    MouseDown(const b2Vec2& p);

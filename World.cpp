@@ -88,6 +88,7 @@ void World::processInput(sf::Event e)
         }
 
 
+
     if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
     {
         if(editMode)
@@ -100,6 +101,7 @@ void World::processInput(sf::Event e)
     {
         if(editMode)
             MouseDown(b2Vec2(getMousePos().x/RATIO, getMousePos().y/RATIO));
+
         //std::cout<<"positon mouse:" <<getMousePos().y<<std::endl;
     }
     break;
@@ -107,12 +109,20 @@ void World::processInput(sf::Event e)
     {
         if(editMode)
             MouseUp();
+        if(paused)
+        {
+
+        }
     }
     break;
     case sf::Event::KeyReleased:
         if(e.key.code == sf::Keyboard::Escape)
         {
-            paused = !paused;
+            //paused = !paused;
+            if(paused)
+                resume();
+            else
+                pause();
         }
         if(e.key.code == sf::Keyboard::BackSpace)
         {
@@ -148,6 +158,24 @@ void World::processInput(sf::Event e)
         }
 
         break;
+        case sf::Event::MouseMoved :
+            if (paused)
+            {
+                for (int i = 0; i < spriteRectList.size(); i++)
+                {
+
+                    std::cout << "World::oncommand width "<<spriteRectList[i].width<<std::endl;
+                    std::cout << "World::oncommand top "<<spriteRectList[i].top<<std::endl;
+                    std::cout << "World::oncommand left "<<spriteRectList[i].left<<std::endl;
+                    if(mouseIsOnTheSprite(
+                                       spriteRectList[i], getMousePos()
+                                       ))
+                    std::cout << "World:: "<<mouseIsOnTheSprite(
+                                       spriteRectList[i], getMousePos()
+                                       )<<std::endl;
+                }
+            }
+        break;
 
     }
 
@@ -157,6 +185,21 @@ void World::processInput(sf::Event e)
     if (e.type == sf::Event::GainedFocus)
         resume();
 
+}
+
+bool World::mouseIsOnTheSprite(sf::IntRect sp, sf::Vector2f mousePos)
+{
+    if(mousePos.x > sp.left
+       &&
+       mousePos.x < (sp.left+sp.width))
+
+       {
+           if(mousePos.y > sp.top
+               &&
+               mousePos.y < (sp.top + sp.height))
+              return true;
+       }
+    return false;
 }
 
 void World::updateView(sf::Vector2f view)
@@ -526,6 +569,8 @@ void World::loadInfo(std::string xmlCfg)
     std::string directory2("./");
     xLoad2 = new XMLLoader(&p_world2);
     xLoad2->loadXML(directory2 + "pause.xml", directory2);
+
+    spriteRectList = xLoad2->getSpriteRectList();
    // exit(-1);
 
 }
@@ -601,6 +646,18 @@ sf::Vector2f World::getMousePos()
 void World::pause()
 {
     paused = true;
+    ///APPLY FORCES ON EVERY BODY
+    b2Body * bp = p_world2.GetBodyList();
+    srand (time(NULL));
+    p_world2.SetGravity(b2Vec2(1/2 * std::pow(-1 ,rand()%3),1/2 * std::pow(-1 ,rand()%5)));
+    while(bp)
+    {
+        b2Body* tmpbp = bp;
+        bp = bp->GetNext();
+        tmpbp->ApplyAngularImpulse(change*2.f, true);
+        change = std::pow(-1 ,rand()%3);
+        tmpbp->ApplyLinearImpulse(b2Vec2(rand()%3*change, rand()%3*change), tmpbp->GetWorldCenter(), true);
+    }
 }
 
 void World::resume()
@@ -611,7 +668,6 @@ void World::resume()
 
 void World::sheduleRemove(float elapsedTime)
 {
-
 
     if((int)elapsedTime%10 == 0)
         deletetime_restart = true;

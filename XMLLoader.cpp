@@ -401,7 +401,8 @@ sf::Sprite* XMLLoader::loadImage(std::string imageName, std::string dir)
     pugi::xml_node imagesNode = XMLDocument.child("box2d").child("images");
     pugi::xml_node image = imagesNode.find_child_by_attribute("image","name",imageName.c_str());
     std::stringstream ss;
-    ss <<dir<<imageName; ///PEUT ETRE CHANGER?
+//    ss <<dir<<imageName; ///PEUT ETRE CHANGER?
+    ss <<dir<<image.attribute("path").as_string(); ///PEUT ETRE CHANGER?
     std::string filename = ss.str();
 
     sf::Sprite imgSprite;
@@ -430,6 +431,12 @@ sf::Sprite* XMLLoader::loadImage(std::string imageName, std::string dir)
         (tex.getSize().y)/2
     );
     spriteList.push_back(imgSprite);
+///TROP STATIQUE !!!!!!
+    spriteRectList.push_back(sf::IntRect(imgSprite.getPosition().x, imgSprite.getPosition().y,
+                                         imgSprite.getTexture()->getSize().x*imgSprite.getScale().x,
+                                         imgSprite.getTexture()->getSize().y*imgSprite.getScale().y
+                                         )
+                             );
     texList.push_back(tex);
     std::cout<<filename<<" loadE........\n";
     return &imgSprite;
@@ -461,7 +468,13 @@ void XMLLoader::move(float x, float y)
     for (b2Body* s : bodyList )
     {
         s->SetTransform(b2Vec2(s->GetPosition().x + x/RATIO, s->GetPosition().y),s->GetAngle());
-    }
+        ///! LES BODIES QUI N ONT PAS D IMAGES NE SONT PAS AJOUTE DANS LE BODYLIST
+        //s->ApplyLinearImpulse(b2Vec2(std::pow(-1,(int)randomClock.getElapsedTime().asSeconds()), 5*std::pow(-1,(int)randomClock.getElapsedTime().asMilliseconds())), s->GetWorldCenter(), true);
+//        srand (time(NULL));
+        //s->ApplyForce( s->GetMass() * -p_world->GetGravity()+b2Vec2(rand()%3,rand()%3), s->GetWorldCenter(), true );
 
+    }
+    if(randomClock.getElapsedTime().asSeconds()>6)
+        randomClock.restart();
 }
 

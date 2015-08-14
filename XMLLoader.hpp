@@ -24,6 +24,7 @@ public:
     pugi::xml_document          XMLDocument;
 
     std::vector<sf::Sprite>     spriteList;
+    std::vector<sf::IntRect>     spriteRectList;
     std::vector<sf::Texture>    texList;
     std::vector<b2Body*>        bodyList;
     std::vector<b2Vec2>         ratioList;
@@ -32,6 +33,7 @@ public:
     std::map<std::string, b2Joint*> jointMap;
 
     std::map<std::string, int>  attributeMap;
+    sf::Clock randomClock;
 
 public:
         XMLLoader(b2World* world);
@@ -56,6 +58,9 @@ public:
 
     void        render(sf::RenderWindow& mWindow, sf::Shader* shader);
     void        move(float x, float y);
+
+    std::vector<sf::IntRect>    getSpriteRectList(){return spriteRectList;}
+
 
 
     int     getObjectType()
