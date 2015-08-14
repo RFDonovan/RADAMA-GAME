@@ -53,7 +53,9 @@ public:
     std::map<std::string, b2Joint*> GetCurrentJointMap();
 
     sf::Sprite*        loadImage(std::string imageName, std::string dir);
+
     void        render(sf::RenderWindow& mWindow, sf::Shader* shader);
+    void        move(float x, float y);
 
 
     int     getObjectType()

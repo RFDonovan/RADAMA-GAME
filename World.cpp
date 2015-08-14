@@ -69,8 +69,9 @@ World::World(sf::RenderWindow& window)
 
     ///***********************************
 
-    xLoad2 = new XMLLoader(&p_world2);
-    xLoad2->loadXML("./pause.xml", "./");
+//    xLoad2 = new XMLLoader(&p_world2);
+//    xLoad2->loadXML("./pause.xml", "./");
+//    exit(-1);
 
     b2BodyDef bodyDef;
     m_groundBody = p_world.CreateBody(&bodyDef);///pour le jointmouse
@@ -209,6 +210,7 @@ void World::draw(sf::Time frameTime)
     {
         sticking();///create joint for sticky projectile
         p_world.Step(1/60.f,6,2);
+
         /// LES FONCTIONS QUI SONT EN DEHORS DU STEP : suppressions securisE des bodies ou changements des datas comme setActive
         ///REMOVE JOINTS FIRST
         if((int)clock.getElapsedTime().asSeconds()%10==0)
@@ -231,6 +233,7 @@ void World::draw(sf::Time frameTime)
     else
     {
         mWindow.setMouseCursorVisible(true);
+        p_world2.Step(1/60.f,6,2);
     }
 
     mWindow.setView(mWorldView);
@@ -282,21 +285,25 @@ void World::draw(sf::Time frameTime)
     statInfo.render(frameTime, &shader);
 
     ///---------------
+
     p_world.DrawDebugData();
+
     if(paused)
     {
 
-        xLoad2->render(mWindow, &shader);
+
 //        pauseLayer.setFillColor(sf::Color(0, 0, 0, 150));
         pauseLayer.setFillColor(sf::Color(0, 0, 0, 220));
-
         mWindow.draw(pauseLayer);
+        xLoad2->render(mWindow, &shader);
         distortionFactor = .01f;
         riseFactor = .5f;
         shader.setParameter("time", clock.getElapsedTime().asSeconds());
         shader.setParameter("distortionFactor", distortionFactor);
         shader.setParameter("riseFactor", riseFactor);
         mWindow.draw(BG_pause);
+
+        p_world2.DrawDebugData();
 //        mWindow.draw(BG_pause, &shader);
 
     }
@@ -514,6 +521,13 @@ void World::loadInfo(std::string xmlCfg)
     ///---------------
 
 
+    ///loading pause
+    //xLoad2->loadXML(std::string("pause.xml"), std::string(""));
+    std::string directory2("./");
+    xLoad2 = new XMLLoader(&p_world2);
+    xLoad2->loadXML(directory2 + "pause.xml", directory2);
+   // exit(-1);
+
 }
 
 void World::rebuildScene()
@@ -552,8 +566,11 @@ void World::adaptViewToPlayer()
         //std::cout<< "vel x:"<<vel.x; //RA VO LAVA BE LE VELX DE MIPLANTE LE APP
         updateView(sf::Vector2f(vel.x/2,0));
         BG_pause.move(sf::Vector2f(vel.x/2,0));
+        xLoad2->move(vel.x/2, 0.f);
+
         pauseLayer.move(sf::Vector2f(vel.x/2,0));
         BG.move(sf::Vector2f((vel.x)/2.5, 0));
+
         statInfo.adaptPosition(sf::Vector2f(vel.x/2,0));
 
 

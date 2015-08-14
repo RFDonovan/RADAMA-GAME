@@ -46,14 +46,16 @@ std::vector<bodyData> XMLLoader::loadXML(std::string XMLFile, std::string dir)
 {
     std::vector<bodyData> bodyDataList;
     std::cout << "directory: "<<dir<< "\n";
+    std::cout << "file: "<<XMLFile<< "\n";
 
     if (!XMLDocument.load_file(XMLFile.c_str()))
     {
         std::cout << "error on loading "<<XMLFile<< "\n";
         //return NULL;
     }
+    std::cout << "on cherche les bodiesnode....\n";
     pugi::xml_node bodiesNode = XMLDocument.child("box2d").child("bodies");
-
+    std::cout << "file: "<<XMLFile<< "\n";
     for (pugi::xml_node node = bodiesNode.first_child(); node ; node = node.next_sibling())
         ///BODIES ITERATION
     {
@@ -453,4 +455,13 @@ void XMLLoader::render(sf::RenderWindow& mWindow, sf::Shader* shader)
 
 }
 
+
+void XMLLoader::move(float x, float y)
+{
+    for (b2Body* s : bodyList )
+    {
+        s->SetTransform(b2Vec2(s->GetPosition().x + x/RATIO, s->GetPosition().y),s->GetAngle());
+    }
+
+}
 
