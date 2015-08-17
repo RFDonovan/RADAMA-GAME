@@ -19,7 +19,7 @@ World::World(sf::RenderWindow& window)
     p_world.SetDebugDraw(&debugDrawInstance);
     p_world2.SetDebugDraw(&debugDrawInstance);
 
-    debugDrawInstance.SetFlags(b2Draw::e_shapeBit|b2Draw::e_jointBit);
+    ///debugDrawInstance.SetFlags(b2Draw::e_shapeBit|b2Draw::e_jointBit);
 
 
     loadTextures();
@@ -383,7 +383,7 @@ void World::buildScene(std::string CurrentDir)
                               mWorldView.getSize()
                );
 
-    BG_pause.setPosition(sf::Vector2f(0.f,0.f));
+    //BG_pause.setPosition(sf::Vector2f(0.f,0.f));
     pauseLayer.setPosition(sf::Vector2f(0.f,0.f));
     mWorldView.reset(r);
 
@@ -590,7 +590,12 @@ void World::rebuildScene()
     spriteMap.clear();
     ///--------------
     rebuild = true;
-    BG_pause.setPosition(sf::Vector2f(0.f,0.f));
+        BG_pause.setOrigin(BG_pause.getTexture()->getSize().x/2, BG_pause.getTexture()->getSize().y/2);
+    BG_pause.setPosition(WINDOW_W/2, WINDOW_H/2);
+//    BG_pause.setPosition(0.0f, 0.0f);
+//    BG_pause.getTexture()->getSize().x/2
+   // BG_pause.scale(1.2f,1.2f);
+    //BG_pause.setPosition(sf::Vector2f(0.f,0.f));
     pauseLayer.setPosition(sf::Vector2f(0.f,0.f));
     statInfo.resetView();
 
@@ -731,7 +736,7 @@ void World::sheduleRemove(float elapsedTime)
             j = j->GetNext();
             p_world.DestroyJoint(j1);
         }
-
+        ///VIDER TOUS LES BODIES
         b2Body * b = p_world.GetBodyList();
         while(b)
         {
@@ -739,6 +744,15 @@ void World::sheduleRemove(float elapsedTime)
             b = b->GetNext();
             p_world.DestroyBody(b1);
         }
+
+        b2Body * b2 = p_world2.GetBodyList();
+        while(b2)
+        {
+            b2Body* b1 = b2;
+            b2 = b2->GetNext();
+            p_world2.DestroyBody(b1);
+        }
+        ///*********************
         ePlayer = nullptr;
 
         rebuild = false;

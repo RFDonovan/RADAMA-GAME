@@ -207,6 +207,7 @@ void    Human::doAttackThings()
             {
                 punchOn(fixtureOnSensor);
                 atkClock.restart();
+                fixtureOnSensor = nullptr; ///HARD WAY!!!!!!!!!
             }
 
         say("KTI KDA KDOUUUU!!!",1);
@@ -219,15 +220,28 @@ void    Human::doAttackThings()
 }
 void Human::punchOn(b2Fixture* fixt)
 {
+//    void* userData = fixt->GetBody()->GetUserData();
+//
+//    if(userData && ((ObjectType*)userData)->getObjectType() == ENTITY)///si le touchE est une entitE
+//    {
+//            ((Entity*)userData)->getHit(/*damage*/12.f,40.f);
+//            if(fixt->GetBody()->GetPosition().x - m_body->GetPosition().x <0)
+//                ((Entity*)userData)->applyForce(-5.f);
+//            else
+//                ((Entity*)userData)->applyForce(5.f);
+//    }
+
     void* userData = fixt->GetBody()->GetUserData();
 
     if(userData && ((ObjectType*)userData)->getObjectType() == ENTITY)///si le touchE est une entitE
     {
+        if((Entity*)userData == this)
+            return;
             ((Entity*)userData)->getHit(/*damage*/12.f,40.f);
             if(fixt->GetBody()->GetPosition().x - m_body->GetPosition().x <0)
-                ((Entity*)userData)->applyForce(-5.f);
+                ((Entity*)userData)->applyForce(-50.f);
             else
-                ((Entity*)userData)->applyForce(5.f);
+                ((Entity*)userData)->applyForce(200.f);
     }
 }
 /// ////////////////////// ///////////////////

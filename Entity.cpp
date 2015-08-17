@@ -257,11 +257,59 @@ void Entity::startContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
     if(isDead())
         return;
     std::cout<< "CONTACT BEGIN";
+    ///------POUR LES ATTAQUES---------
+    //fixtureOnSensor = nullptr;
     if(fixture->GetBody() == m_sensor)
     {
+        //fixtureOnSensor = nullptr;
         std::cout<< "-------CONTACT SENSOR BEGIN\n";
-        fixtureOnSensor = fixtureB;
+        for (b2ContactEdge* edge = m_sensor->GetContactList(); edge; edge = edge->next)///on prend  en compte tous les contacts avec le sensor
+        {
+            if(noRestartClock.getElapsedTime().asSeconds() > 3)///tous les bodies sont supposE bien chargE et separE aprEs 3 seconde
+            {
+
+                if(edge->contact->GetFixtureA() == fixtureB || edge->contact->GetFixtureB() == fixtureB)
+                    if(!fixtureB->IsSensor()) ///on ne prend pas en compte si  c'est un contact avec un sensor
+                    {
+                        void * userData = fixtureB->GetBody()->GetUserData();
+                        if(userData && ((ObjectType*)userData)->getObjectType() == ENTITY) ///on ne detecte que les entitEs
+                            if(((Entity*)userData) != this) ///c'est pas sur lui meme
+                            {
+                                std::cout<<"Entity:: startContact  -> userdataA != this"<<std::endl;
+                                fixtureOnSensor = fixtureB;
+                                //exit(-1);
+
+                            }
+                    }
+
+//                void * userDataA = edge->contact->GetFixtureA()->GetBody()->GetUserData();
+//                if(userDataA && ((ObjectType*)userDataA)->getObjectType() == ENTITY)
+//                {
+//                    if(((Entity*)userDataA) != this)
+//                    {
+//                        std::cout<<"Entity:: startContact  -> userdataA != this"<<std::endl;
+//                        fixtureOnSensor = edge->contact->GetFixtureA();
+//                        //exit(-1);
+//
+//                    }
+//                }
+//                void * userDataB = edge->contact->GetFixtureB()->GetBody()->GetUserData();
+//                if(userDataB && ((ObjectType*)userDataB)->getObjectType() == ENTITY)
+//                {
+//                    if(((Entity*)userDataB) != this)
+//                    {
+//                        std::cout<<"Entity:: startContact  -> userdataA != this"<<std::endl;
+//                        fixtureOnSensor = edge->contact->GetFixtureB();
+//                        //exit(-1);
+//
+//                    }
+//                }
+            }
+        }
+
     }
+    ///--------fin POUR LES ATTAQUES---------
+
     if((int)fixtureB->GetUserData()>20000 && (int)fixtureB->GetUserData()<30000)
     {
         Projectile* p = (Projectile*)(fixtureB->GetBody()->GetUserData());
@@ -294,11 +342,36 @@ void Entity::endContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
     if(isDead())
         return;
     std::cout<< "CONTACT END";
-    if(fixture->GetBody() == m_sensor)
+
+    ///------POUR LES ATTAQUES---------
+    fixtureOnSensor = nullptr;
+    if(fixture->GetBody() == m_sensor||fixtureB->GetBody() == m_sensor)
     {
-        std::cout<< "-------CONTACT SENSOR END\n";
-        fixtureOnSensor=nullptr;
+
+        for (b2ContactEdge* edge = m_sensor->GetContactList(); edge; edge = edge->next)
+        {
+            if(noRestartClock.getElapsedTime().asSeconds() > 3)
+            {
+                if(edge->contact->GetFixtureA()->GetBody() != m_sensor)
+                {
+                    void * userData = edge->contact->GetFixtureA()->GetBody()->GetUserData();
+                    if(userData && ((ObjectType*)userData)->getObjectType() == ENTITY)
+                        if(edge->contact->IsTouching())
+                            fixtureOnSensor = edge->contact->GetFixtureA();
+                }
+                if(edge->contact->GetFixtureB()->GetBody() != m_sensor)
+                {
+                    void * userData = edge->contact->GetFixtureB()->GetBody()->GetUserData();
+                    if(userData && ((ObjectType*)userData)->getObjectType() == ENTITY)
+                        if(edge->contact->IsTouching())
+                            fixtureOnSensor = edge->contact->GetFixtureB();
+                }
+
+            }
+        }
+
     }
+    ///--------fin POUR LES ATTAQUES---------
     if((int)fixtureB->GetUserData()>20000 && (int)fixtureB->GetUserData()<30000)
     {
         isWeaponDispo = false;

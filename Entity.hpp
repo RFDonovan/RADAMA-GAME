@@ -45,6 +45,7 @@ public:
     std::map<std::string, b2Body*> bodyList;
 
     sf::RenderWindow& mWindow;
+    sf::Clock noRestartClock;
 
     //animation control
     sf::Texture* texture;
