@@ -98,6 +98,8 @@ public:
     sf::Texture *visionTex;
     sf::Sprite visionSprite;
 
+    bool showFX = false;
+
 
     ///LIFE HANDLER
     int m_life = 80; // sur 100
@@ -180,6 +182,7 @@ public:
 
     ///ATTACK RANGE
     virtual void    addAttackRange() = 0;
+    b2Vec2  getSensorPosition();
 
             ~Entity();
 };

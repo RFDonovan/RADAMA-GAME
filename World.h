@@ -107,8 +107,8 @@ public:
     sf::Vector2f            mPlayerPosition;
     Player                  *ePlayer;
 
-    sf::Sprite   BG;
-    sf::Sprite   BG_pause;
+    ///sf::Sprite   BG;
+    ///sf::Sprite   BG_pause;
     sf::Vector2f            mBGPosition;
 
     sf::Texture t_ground;
@@ -129,6 +129,11 @@ public:
 
     bool deletetime_restart = false;
 
+    /** ATTACK FX**/
+    sf::Clock atkFXClock;
+    sf::Texture damageFXTex;
+    sf::Sprite  damageFXSprite;
+
     ///FOR DRAGABLE:
     b2Body* m_groundBody;
     b2MouseJoint* m_mouseJoint;
@@ -146,7 +151,11 @@ public:
 public:
             explicit World (sf::RenderWindow& window);
     void    update (/*sf::Time dt*/);
+
     void    draw (sf::Time frameTime);
+    void    drawFX(sf::Time frameTime, sf::Shader* shad);
+    void    showFXon(float x, float y);
+
     void    loadTextures ();
     ///LOADING LEVEL
     void    loadInfo(std::string xmlCfg);

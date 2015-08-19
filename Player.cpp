@@ -478,6 +478,9 @@ void Player::attackOn(b2Fixture* fixt)
             else
                 ((Entity*)userData)->applyForce(200.f);
     }
+
+    showFX = true;
+
 }
 int Player::nextProjectile()
 {

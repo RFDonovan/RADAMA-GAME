@@ -24,16 +24,16 @@ World::World(sf::RenderWindow& window)
 
     loadTextures();
     buildScene(levelPath);
-    BG = sf::Sprite(*Textures.getTexture(TextureHolder::Background1));
-    BG_pause = sf::Sprite(*Textures.getTexture(TextureHolder::Pause));
+    ///BG = sf::Sprite(*Textures.getTexture(TextureHolder::Background1));
+    ///BG_pause = sf::Sprite(*Textures.getTexture(TextureHolder::Pause));
 //    BG.scale(.6f,.6f);
 //BG.scale(WINDOW_W/800,WINDOW_H/800);
 //    BG_pause.scale(WINDOW_W/(*Textures.getTexture(TextureHolder::Pause)).getSize().x,WINDOW_H/(*Textures.getTexture(TextureHolder::Pause)).getSize().y);
-    BG_pause.setOrigin(BG_pause.getTexture()->getSize().x/2, BG_pause.getTexture()->getSize().y/2);
-    BG_pause.setPosition(WINDOW_W/2, WINDOW_H/2);
+    ///BG_pause.setOrigin(BG_pause.getTexture()->getSize().x/2, BG_pause.getTexture()->getSize().y/2);
+    ///BG_pause.setPosition(WINDOW_W/2, WINDOW_H/2);
 //    BG_pause.setPosition(0.0f, 0.0f);
 //    BG_pause.getTexture()->getSize().x/2
-    BG_pause.scale(1.2f,1.2f);
+    ///BG_pause.scale(1.2f,1.2f);
     //BG_pause.scale(.9f,.9f);
 
     p_world.SetContactListener(&CL_Instance);
@@ -246,7 +246,7 @@ void World::draw(sf::Time frameTime)
 
     //BG.setColor(sf::Color(0, 0, 0, 200));
 
-    mWindow.draw(BG);
+    ///mWindow.draw(BG);
 
 
     if(!paused)/// ******************************************************************>>>>PAUSE
@@ -359,23 +359,87 @@ void World::draw(sf::Time frameTime)
 //        mWindow.draw(BG_pause, &shader);
 
     }
+    else
+    {
+        distortionFactor = .01f;
+        riseFactor = .5f;
+        shader.setParameter("time", clock.getElapsedTime().asSeconds());
+        shader.setParameter("distortionFactor", distortionFactor);
+        shader.setParameter("riseFactor", riseFactor);
 
 
+        for( int i = 0; i< humans.size(); i++)
+        {
+            if(humans[i]->showFX)
+            {
+//                humans[i]->m_sensor->GetPosition().x*RATIO
+                showFXon(humans[i]->m_sensor->GetPosition().x*RATIO,
+                         humans[i]->m_sensor->GetPosition().y*RATIO
+                         );
+                         humans[i]->showFX = false;
+            }
+        }
+        if(ePlayer->showFX)
+        {
+            showFXon(ePlayer->m_sensor->GetPosition().x*RATIO,
+                         ePlayer->m_sensor->GetPosition().y*RATIO
+                         );
+            ePlayer->showFX = false;
+
+        }
+        drawFX(frameTime, &shader);
+    }
+
+}
+
+void World::drawFX(sf::Time frameTime, sf::Shader* shad)
+{
+    if(atkFXClock.getElapsedTime().asMilliseconds() < 1500.f)
+    {
+        if(damageFXSprite.getColor().a>0)
+        {
+            damageFXSprite.setColor(sf::Color(255,255,255,
+
+                                              255 - (int)(atkFXClock.getElapsedTime().asMilliseconds()*255/1500)
+                                              ));
+            mWindow.draw(damageFXSprite, shad);
+        }
+
+    }
+
+}
+
+void World::showFXon(float x, float y)
+{
+    damageFXSprite.setPosition(x, y);
+    damageFXSprite.setColor(sf::Color(255,255,255,255));
+    atkFXClock.restart();
 }
 
 void World::loadTextures()
 {
     /**Load the animated sprites & more**/
-    Textures.loadFromFile(TextureHolder::Player, "pGGbv.png");
-    Textures.loadFromFile(TextureHolder::Ground, "ground.png");
-    Textures.loadFromFile(TextureHolder::Ground1, "ground1.png");
-    Textures.loadFromFile(TextureHolder::Ground2, "ground2.png");
-    Textures.loadFromFile(TextureHolder::Background1, "background.png");
-    Textures.loadFromFile(TextureHolder::Pause, "pause.png");
-    Textures.loadFromFile(TextureHolder::Fire, "fire.png");
-    Textures.loadFromFile(TextureHolder::Lefona, "lefona.png");
+//    Textures.loadFromFile(TextureHolder::Player, "pGGbv.png");
+//    Textures.loadFromFile(TextureHolder::Ground, "ground.png");
+//    Textures.loadFromFile(TextureHolder::Ground1, "ground1.png");
+//    Textures.loadFromFile(TextureHolder::Ground2, "ground2.png");
+//    Textures.loadFromFile(TextureHolder::Background1, "background.png");
+//    Textures.loadFromFile(TextureHolder::Pause, "pause.png");
+//    Textures.loadFromFile(TextureHolder::Fire, "fire.png");
+//    Textures.loadFromFile(TextureHolder::Lefona, "lefona.png");
 
     //*/
+
+    /*damageTexture FX*/
+
+    Textures.loadFromFile("damage", "fire.png");
+    damageFXSprite = sf::Sprite(*Textures.getTexture("damage"));
+    float fxSize = 60.f;
+
+    damageFXSprite.scale(fxSize/damageFXSprite.getTexture()->getSize().x,
+                         fxSize/damageFXSprite.getTexture()->getSize().y
+                         );
+    damageFXSprite.setOrigin(Textures.getTexture("damage")->getSize().x/2, Textures.getTexture("damage")->getSize().x/2);
 
 }
 
@@ -600,8 +664,8 @@ void World::rebuildScene()
     spriteMap.clear();
     ///--------------
     rebuild = true;
-        BG_pause.setOrigin(BG_pause.getTexture()->getSize().x/2, BG_pause.getTexture()->getSize().y/2);
-    BG_pause.setPosition(WINDOW_W/2, WINDOW_H/2);
+        ///BG_pause.setOrigin(BG_pause.getTexture()->getSize().x/2, BG_pause.getTexture()->getSize().y/2);
+    ///BG_pause.setPosition(WINDOW_W/2, WINDOW_H/2);
 //    BG_pause.setPosition(0.0f, 0.0f);
 //    BG_pause.getTexture()->getSize().x/2
    // BG_pause.scale(1.2f,1.2f);
@@ -625,11 +689,11 @@ void World::adaptViewToPlayer()
         b2Vec2 vel = ePlayer->getVelocity();
         //std::cout<< "vel x:"<<vel.x; //RA VO LAVA BE LE VELX DE MIPLANTE LE APP
         updateView(sf::Vector2f(vel.x/2,0));
-        BG_pause.move(sf::Vector2f(vel.x/2,0));
+        ///BG_pause.move(sf::Vector2f(vel.x/2,0));
         xLoad2->move(vel.x/2, 0.f);
 
         pauseLayer.move(sf::Vector2f(vel.x/2,0));
-        BG.move(sf::Vector2f((vel.x)/2.5, 0));
+        ///BG.move(sf::Vector2f((vel.x)/2.5, 0));
 
         statInfo.adaptPosition(sf::Vector2f(vel.x/2,0));
 

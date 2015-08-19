@@ -775,6 +775,11 @@ void    Entity::say(std::string text, int delay)
     textClock.restart();
 }
 
+b2Vec2  Entity::getSensorPosition()
+{
+    return m_sensor->GetPosition();
+}
+
 Entity::~Entity()
 {
     std::cout<<"Entity::~Entity -> DELETING ENTITY"<<std::endl;
