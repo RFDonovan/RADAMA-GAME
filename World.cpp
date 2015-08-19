@@ -394,16 +394,21 @@ void World::draw(sf::Time frameTime)
 
 void World::drawFX(sf::Time frameTime, sf::Shader* shad)
 {
-    if(atkFXClock.getElapsedTime().asMilliseconds() < 1500.f)
+    if(atkFXClock.getElapsedTime().asMilliseconds() < 800.f)
     {
-        if(damageFXSprite.getColor().a>0)
+        if(damageFXSprite.getColor().a>0&& (int)(atkFXClock.getElapsedTime().asMilliseconds()*255/800) > 150)
         {
             damageFXSprite.setColor(sf::Color(255,255,255,
 
-                                              255 - (int)(atkFXClock.getElapsedTime().asMilliseconds()*255/1500)
+                                              255 - (int)(atkFXClock.getElapsedTime().asMilliseconds()*255/800)
                                               ));
-            mWindow.draw(damageFXSprite, shad);
+            damageFXSprite.setRotation(damageFXSprite.getRotation()+1);
+            //damageFXSprite.setScale(damageFXSprite.getScale().x+ 0.005f, damageFXSprite.getScale().y+0.005f);
+            damageFXSprite.setPosition(damageFXSprite.getPosition().x, damageFXSprite.getPosition().y - .3f);
+
         }
+        mWindow.draw(damageFXSprite, shad);
+
 
     }
 
@@ -413,6 +418,11 @@ void World::showFXon(float x, float y)
 {
     damageFXSprite.setPosition(x, y);
     damageFXSprite.setColor(sf::Color(255,255,255,255));
+    float fxSize = 60.f;
+
+//    damageFXSprite.scale(fxSize/damageFXSprite.getTexture()->getSize().x,
+//                         fxSize/damageFXSprite.getTexture()->getSize().y
+//                         );
     atkFXClock.restart();
 }
 

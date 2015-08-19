@@ -184,6 +184,11 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
             currentAnimation = &atkRight;
     }
 
+    if(isDead())
+        if(m_sensor == m_sensorL)
+            currentAnimation = &stopLeft;
+        else
+            currentAnimation = &stopRight;
 
     noKeyWasPressed = true;
     animatedSprite.update(frameTime1);
