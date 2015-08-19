@@ -48,7 +48,8 @@ World::World(sf::RenderWindow& window)
     }
 
     /**SHADER STUFF**/
-    if(!distortionMap.loadFromFile("perlin_noise.jpg"/*"shade.png"*/))
+//    Textures.loadFromFile("distortionMap", "Resources/Images/perlin_noise.jpg");
+    if(!distortionMap.loadFromFile("Resources/Images/perlin_noise.jpg"/*"shade.png"*/))
         return;
     distortionMap.setRepeated(true);
     distortionMap.setSmooth(true);
@@ -60,6 +61,7 @@ World::World(sf::RenderWindow& window)
 
     shader.setParameter("currentTexture", sf::Shader::CurrentTexture);
     shader.setParameter("distortionMapTexture", distortionMap);
+//    shader.setParameter("distortionMapTexture", *Textures.getTexture("distortionMap"));
     if(!fogShader.loadFromFile("fog_shader.fs", sf::Shader::Fragment))
     {
         sf::err() << "Failed to load shader, exiting..." << std::endl;
