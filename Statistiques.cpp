@@ -4,26 +4,20 @@ Statistiques::Statistiques(sf::RenderWindow& window)
 : mWindow(window)
 {
     ///BAR CONTAINER
-    texBar = new sf::Texture();
-    texBar->loadFromFile("Resources/lifebar_.png");
-    texBar->setSmooth(true);
-    spriteBar.setTexture(*texBar);
+    Textures.loadFromFile("barContainer", "Resources/Images/lifebar_.png");
+    spriteBar.setTexture(*Textures.getTexture("barContainer"));
     spriteBar.setPosition(0,0);
     spriteList.push_back(spriteBar);
 
     ///LIFEBAR
-    texLifeBar = new sf::Texture();
-    texLifeBar->loadFromFile("Resources/lifebar2.png");
-    texLifeBar->setSmooth(true);
-    lifeBar.setTexture(*texLifeBar);
+    Textures.loadFromFile("pLifeBar", "Resources/Images/lifebar2.png");
+    lifeBar.setTexture(*Textures.getTexture("pLifeBar"));
     lifeBar.setPosition(60,35);
     spriteList.push_back(lifeBar);
 
     ///MANABAR
-    texManaBar = new sf::Texture();
-    texManaBar->loadFromFile("Resources/manabar.png");
-    texManaBar->setSmooth(true);
-    manaBar.setTexture(*texManaBar);
+    Textures.loadFromFile("pManaBar", "Resources/Images/manabar.png");
+    manaBar.setTexture(*Textures.getTexture("pManaBar"));
     manaBar.setPosition(65,10);
     spriteList.push_back(manaBar);
     //lifeBar.scale(0.5f,0.5f);
@@ -41,7 +35,7 @@ void Statistiques::render(sf::Time frameTime, sf::Shader* shader)
     spriteBar.setPosition(spriteBar.getPosition().x-2,spriteBar.getPosition().y-2);
     /// DRAW MANABAR
 
-    manaBar.setTextureRect(sf::IntRect(0,0,playerMana*texManaBar->getSize().x/100,texManaBar->getSize().y));
+    manaBar.setTextureRect(sf::IntRect(0,0,playerMana*Textures.getTexture("pManaBar")->getSize().x/100,Textures.getTexture("pManaBar")->getSize().y));
     manaBar.setColor(sf::Color::Black);
     mWindow.draw(manaBar);
     manaBar.setPosition(manaBar.getPosition().x+2,manaBar.getPosition().y+2);
@@ -52,7 +46,7 @@ void Statistiques::render(sf::Time frameTime, sf::Shader* shader)
     manaBar.setPosition(manaBar.getPosition().x-2,manaBar.getPosition().y-2);
 
     /// DRAW LIFEBAR
-    lifeBar.setTextureRect(sf::IntRect(0,0,playerLife*texLifeBar->getSize().x/100,texLifeBar->getSize().y));
+    lifeBar.setTextureRect(sf::IntRect(0,0,playerLife*Textures.getTexture("pLifeBar")->getSize().x/100,Textures.getTexture("pLifeBar")->getSize().y));
     lifeBar.setColor(sf::Color::Black);
     mWindow.draw(lifeBar);
     lifeBar.setPosition(lifeBar.getPosition().x+2,lifeBar.getPosition().y+2);

@@ -2,18 +2,18 @@
 #define STATISTIQUES_HPP_INCLUDED
 #include<SFML/Graphics.hpp>
 #include<vector>
+#include "TextureHolder.h"
 
 
 class Statistiques
 {
 public:
+    TextureHolder Textures;
+
     sf::RenderWindow& mWindow;
-    sf::Texture* texLifeBar;
     sf::Sprite lifeBar;
-    sf::Texture* texManaBar;
     sf::Sprite manaBar;
 
-    sf::Texture* texBar;
     sf::Sprite spriteBar;
     int     playerLife = 0;
     int     playerMana = 0;
