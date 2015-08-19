@@ -496,6 +496,8 @@ void World::loadSprites(std::string listFile)
         SpriteMapping* ps_map2 = new SpriteMapping();
         ps_map2->loadXML(node.attribute("jump").as_string());
         spriteMap[ss.str()] = ps_map2;
+//        std::cout<<"World::loadSprite -> jumpSprite "<<ss.str()<<std::endl;
+//        exit(-1);
         ///LOADING SHIFT SPRITES
         if(strcmp(node.attribute("shift").as_string(), "") == 0)
             continue;
