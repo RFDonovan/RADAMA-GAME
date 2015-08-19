@@ -48,14 +48,14 @@ public:
 
 public:
             Player(sf::RenderWindow& mWindow, b2World* world, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap, std::map<std::string, Animation>* animationList);
-    void    loadPlayerSprite(TextureHolder* Textures);
+
     void    addJumpSprite(std::map<std::string, Animation>* animationList);
     void    addShiftSprite(std::map<std::string, Animation>* animationList);
     void    addAtkSprite(std::map<std::string, Animation>* animationList);
     void    processLogic();
     void    processLogic(sf::RenderWindow& mWindow);
     void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures, sf::Shader* shader);
-    void    renderWeapons(sf::RenderWindow& mWindow);
+
 
     //void    drawLife(sf::RenderWindow& mWindow);
 

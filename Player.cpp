@@ -74,54 +74,6 @@ void Player::addAtkSprite(std::map<std::string, Animation>* animationList)
 
 /// //////////////
 
-void Player::loadPlayerSprite(TextureHolder* Textures)
-{
-    texture = Textures->getTexture(TextureHolder::Player);
-/*
-    walkingAnimationLeft.setSpriteSheet(*texture);
-    walkingAnimationLeft.addFrame(sf::IntRect(9, 163, 74, 149));
-    walkingAnimationLeft.addFrame(sf::IntRect(107, 162, 74, 150));
-    walkingAnimationLeft.addFrame(sf::IntRect(210, 163, 68, 149));
-    walkingAnimationLeft.addFrame(sf::IntRect( 319, 160, 42, 152));
-    walkingAnimationLeft.addFrame(sf::IntRect( 413, 160, 44, 153));
-    walkingAnimationLeft.addFrame(sf::IntRect( 494, 161, 57, 150));
-    walkingAnimationLeft.addFrame(sf::IntRect(578, 161, 74, 149));
-    walkingAnimationLeft.addFrame(sf::IntRect(683, 161, 73, 149));
-    walkingAnimationLeft.addFrame(sf::IntRect( 785, 162, 68, 147));
-    walkingAnimationLeft.addFrame(sf::IntRect(891, 160, 43, 149));
-    walkingAnimationLeft.addFrame(sf::IntRect(986, 161, 39, 147));
-    walkingAnimationLeft.addFrame(sf::IntRect(1062, 162, 64, 146));
-
-    //Animation walkingAnimationRight;
-    walkingAnimationRight.setSpriteSheet(*texture);
-    walkingAnimationRight.addFrame(sf::IntRect(10, 324, 75, 148));
-    walkingAnimationRight.addFrame(sf::IntRect(100, 325, 76, 150));
-    walkingAnimationRight.addFrame(sf::IntRect(196, 325, 68, 149));
-    walkingAnimationRight.addFrame(sf::IntRect( 304, 323, 41, 152));
-    walkingAnimationRight.addFrame(sf::IntRect( 399, 323, 44, 152));
-    walkingAnimationRight.addFrame(sf::IntRect( 496, 324, 57, 150));
-    walkingAnimationRight.addFrame(sf::IntRect(583, 323, 77, 150));
-    walkingAnimationRight.addFrame(sf::IntRect(668, 325, 78, 147));
-    walkingAnimationRight.addFrame(sf::IntRect( 764, 323, 71, 149));
-    walkingAnimationRight.addFrame(sf::IntRect(877, 323, 44, 148));
-    walkingAnimationRight.addFrame(sf::IntRect(976, 324, 39, 147));
-    walkingAnimationRight.addFrame(sf::IntRect(1067, 323, 63, 148));
-*/
-    stopRight.setSpriteSheet(*texture);
-    stopRight.addFrame(sf::IntRect(877, 323, 44, 148));
-    stopLeft.setSpriteSheet(*texture);
-    stopLeft.addFrame(sf::IntRect(891, 160, 43, 149));
-
-    noKeyWasPressed = true;
-
-    ///WEAPONS
-    texture = Textures->getTexture(TextureHolder::Lefona);
-    weaponSprite.setTexture(*texture);
-    weaponSprite.setScale(sf::Vector2f(1.2f,1.f));
-    texture->setSmooth(true);
-
-}
-
 void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder* Textures, sf::Shader* shader)
 {
 
@@ -241,9 +193,6 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
 
     }///JUST SPRITE ANIMATION BLOCK
 
-    //drawLife(mWindow);
-    ///weapon render
-    renderWeapons(mWindow);
     ///Draw:
     mWindow.draw(animatedSprite);
 
@@ -662,22 +611,6 @@ void    Player::loadWeapon(bodyData* data)
     std::cout<<"***************************"<<std::endl;
     currentProjectile = numero;
 }
-
-void Player::renderWeapons(sf::RenderWindow& mWindow)
-{
-    return;
-    for(auto iterator : weaponsMap)
-    {
-        //std::cout<< iterator.first;
-        b2Body* wBody = weaponsMap[iterator.first];
-        weaponSprite.setOrigin(texture->getSize().x/2,texture->getSize().y/2);
-        weaponSprite.setPosition(wBody->GetPosition().x * RATIO, wBody->GetPosition().y * RATIO);
-        weaponSprite.setRotation(wBody->GetAngle()/ RADTODEG);
-        mWindow.draw(weaponSprite);
-
-    }
-}
-
 
 void Player::clearAll()
 {
