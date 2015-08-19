@@ -50,6 +50,7 @@ public:
     //animation control
     sf::Texture* texture;
     TextureHolder* textureHolder;
+    TextureHolder Textures;
 
     bool grounded = false;
     int  nb_contacts = 0;
@@ -78,7 +79,6 @@ public:
     bool isShifted = false;
     int lastTime = 0;
 
-    sf::Texture shiftTexture;
     sf::Sprite shiftSprite;
 
     sf::Clock clock;
@@ -95,7 +95,7 @@ public:
     ///SENSOR
     sf::Clock visionClock;
     float rayRange = 300.f;
-    sf::Texture *visionTex;
+//    sf::Texture *visionTex;
     sf::Sprite visionSprite;
 
     bool showFX = false;
@@ -129,7 +129,7 @@ public:
     sf::Clock atkClock, atackedClock;
 
 public:
-            Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap);
+            Entity(sf::RenderWindow& mWindow, b2World* world, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap);
     //void    loadPlayerSprite(TextureHolder* Textures);
     //void    processLogic();
     //void    processLogic(sf::RenderWindow& mWindow);

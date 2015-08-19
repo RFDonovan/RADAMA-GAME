@@ -576,7 +576,7 @@ void World::loadInfo(std::string xmlCfg)
         std::string Pfilename = ss3.str();
     std::vector<bodyData> bDListP = xLoad->loadXML(directory + Pfilename, directory);
     std::map<std::string, b2Joint*> jMap = xLoad->GetCurrentJointMap();
-    ePlayer = new Player(mWindow,&p_world, &Textures, 1.f , &bDListP, &jMap, (spriteMap[playerNode.attribute("type").as_string()])->getAnimationList());
+    ePlayer = new Player(mWindow,&p_world, 1.f , &bDListP, &jMap, (spriteMap[playerNode.attribute("type").as_string()])->getAnimationList());
 
     //ePlayer->addJumpSprite((spriteMap["monsterJump"])->getAnimationList());
     std::cout << "World::loadInfo -> playerjump infojump "<<playerNode.attribute("jump").as_string() <<spriteMap[playerNode.attribute("jump").as_string()]<<">>>>>>>>>>>>**************\n";
@@ -610,7 +610,7 @@ void World::loadInfo(std::string xmlCfg)
         std::map<std::string, b2Joint*> jMapH = xLoad->GetCurrentJointMap();
 
 
-        Human* e = new Human(mWindow,&p_world, &Textures, 1.f
+        Human* e = new Human(mWindow,&p_world, 1.f
                              , &bDListH
                              , &jMapH
                              , (spriteMap[node.attribute("type").as_string()])->getAnimationList()

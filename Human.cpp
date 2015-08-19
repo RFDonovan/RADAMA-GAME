@@ -1,7 +1,7 @@
 #include "Human.hpp"
 
-Human::Human(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap, std::map<std::string, Animation>* animationList)
-    : Entity(mWindow, world, Textures,radius, bDList, jMap)
+Human::Human(sf::RenderWindow& mWindow, b2World* world, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap, std::map<std::string, Animation>* animationList)
+    : Entity(mWindow, world,radius, bDList, jMap)
     //, desiredVel(0)
 {
     animList = animationList;

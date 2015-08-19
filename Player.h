@@ -47,7 +47,7 @@ public:
      int jumpAngle = 360;
 
 public:
-            Player(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap, std::map<std::string, Animation>* animationList);
+            Player(sf::RenderWindow& mWindow, b2World* world, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap, std::map<std::string, Animation>* animationList);
     void    loadPlayerSprite(TextureHolder* Textures);
     void    addJumpSprite(std::map<std::string, Animation>* animationList);
     void    addShiftSprite(std::map<std::string, Animation>* animationList);

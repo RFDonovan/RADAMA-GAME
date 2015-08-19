@@ -5,18 +5,16 @@ void Entity::processLogic()
 }
 */
 
-Entity::Entity(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap)
+Entity::Entity(sf::RenderWindow& mWindow, b2World* world, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap)
 : p_world(world)
 , mWindow(mWindow)
-, textureHolder(Textures)
 , animatedSprite(sf::seconds(0.08), true, false)
 ,fixtureOnSensor(nullptr)
 {
 
-    visionTex = new sf::Texture();
-    visionTex->loadFromFile("Resources/vision.png");
-    visionSprite.setTexture(*visionTex);
-    visionSprite.setOrigin(0,visionTex->getSize().y/2);
+    Textures.loadFromFile("vision", "Resources/Images/vision.png");
+    visionSprite.setTexture(*Textures.getTexture("vision"));
+    visionSprite.setOrigin(0,Textures.getTexture("vision")->getSize().y/2);
     visionSprite.setColor(sf::Color(229,255,7,100));
 
     lifeTex = new sf::Texture();

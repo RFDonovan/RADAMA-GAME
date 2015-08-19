@@ -25,7 +25,7 @@ public:
 
 
 public:
-            Human(sf::RenderWindow& mWindow, b2World* world, TextureHolder* Textures, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap, std::map<std::string, Animation>* animationList);
+            Human(sf::RenderWindow& mWindow, b2World* world, float radius, std::vector<bodyData> *bDList, std::map<std::string, b2Joint*> *jMap, std::map<std::string, Animation>* animationList);
     void    loadSprite(TextureHolder* Textures);
     void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures, sf::Shader* shader);
     int     getClassName(){return HUMAN;}
