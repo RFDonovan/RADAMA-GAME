@@ -87,6 +87,7 @@ public:
     XMLLoader* xLoad;
     XMLLoader* xLoad2;
     std::vector<sf::IntRect> spriteRectList;
+    std::map<std::string, sf::Sprite*>  nameToSprite;
 
     std::vector<Human*>         humans;
     std::vector<Human*>         listOfDeletedHuman;

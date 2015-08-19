@@ -338,13 +338,22 @@ void World::draw(sf::Time frameTime)
 //        pauseLayer.setFillColor(sf::Color(0, 0, 0, 150));
         pauseLayer.setFillColor(sf::Color(0, 0, 0, 220));
         mWindow.draw(pauseLayer);
+        //sf::Sprite::getTransform()
+//        pauseLayer.setPosition(300,300);
+//        nameToSprite = xLoad2->getNameToSpriteList();
+//
+//        std::cout<<
+//        (nameToSprite["quit.png"])->getPosition().x
+//        <<std::endl;
+//        exit(-1);
         xLoad2->render(mWindow, &shader);
+
         distortionFactor = .01f;
         riseFactor = .5f;
         shader.setParameter("time", clock.getElapsedTime().asSeconds());
         shader.setParameter("distortionFactor", distortionFactor);
         shader.setParameter("riseFactor", riseFactor);
-        mWindow.draw(BG_pause);
+        ///mWindow.draw(BG_pause);
 
         p_world2.DrawDebugData();
 //        mWindow.draw(BG_pause, &shader);
@@ -571,6 +580,7 @@ void World::loadInfo(std::string xmlCfg)
     xLoad2->loadXML(directory2 + "pause.xml", directory2);
 
     spriteRectList = xLoad2->getSpriteRectList();
+
    // exit(-1);
 
 }

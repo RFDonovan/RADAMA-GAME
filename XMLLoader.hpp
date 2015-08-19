@@ -30,6 +30,7 @@ public:
     std::vector<b2Vec2>         ratioList;
     std::vector<float>          angleRatioList;
     std::map<std::string, b2Body*>  nameToBody;
+    std::map<std::string, sf::Sprite*>  nameToSprite;
     std::map<std::string, b2Joint*> jointMap;
 
     std::map<std::string, int>  attributeMap;
@@ -60,6 +61,7 @@ public:
     void        move(float x, float y);
 
     std::vector<sf::IntRect>    getSpriteRectList(){return spriteRectList;}
+    std::map<std::string, sf::Sprite*>    getNameToSpriteList(){return nameToSprite;}
 
 
 

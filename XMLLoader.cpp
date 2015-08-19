@@ -439,6 +439,7 @@ sf::Sprite* XMLLoader::loadImage(std::string imageName, std::string dir)
                              );
     texList.push_back(tex);
     std::cout<<filename<<" loadE........\n";
+    nameToSprite[imageName] = &imgSprite;
     return &imgSprite;
 }
 
