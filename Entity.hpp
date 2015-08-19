@@ -95,7 +95,6 @@ public:
     ///SENSOR
     sf::Clock visionClock;
     float rayRange = 300.f;
-//    sf::Texture *visionTex;
     sf::Sprite visionSprite;
 
     bool showFX = false;
@@ -108,7 +107,7 @@ public:
     bool deleted = false;
 
     sf::Clock lifeClock;
-    sf::Texture *lifeTex, *deathTex;
+//    sf::Texture *lifeTex, *deathTex;
     sf::Sprite lifeSprite, deathSprite;
 
     sf::Clock textClock;

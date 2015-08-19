@@ -23,13 +23,18 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world, float radius, std::vec
     currentProjectile = weaponsMap.size() - 1;//nameToWeapon["lefona"];
 
 
-    lifeTex = new sf::Texture();
-    deathTex = new sf::Texture();
-    lifeTex->loadFromFile("life.png");
-    lifeSprite.setTexture(*lifeTex);
+//    lifeTex = new sf::Texture();
+//    deathTex = new sf::Texture();
+//    lifeTex->loadFromFile("life.png");
 
-    deathTex->loadFromFile("death.png");
-    deathSprite.setTexture(*deathTex);
+    Textures.loadFromFile("lifeBar", "Resources/Images/life.png");
+    Textures.loadFromFile("deathBar", "Resources/Images/death.png");
+//    lifeSprite.setTexture(*lifeTex);
+    lifeSprite.setTexture(*Textures.getTexture("lifeBar"));
+
+//    deathTex->loadFromFile("death.png");
+//    deathSprite.setTexture(*deathTex);
+    lifeSprite.setTexture(*Textures.getTexture("deathBar"));
     deathSprite.setColor(sf::Color(0, 0, 0, 150));
     ///lifeSprite.setOrigin(lifeTex->getSize().x/2, lifeTex->getSize().y/2);
     ///deathSprite.setOrigin(deathTex->getSize().x/2, deathTex->getSize().y/2);

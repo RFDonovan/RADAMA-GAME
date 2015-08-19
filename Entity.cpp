@@ -13,16 +13,19 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world, float radius, std::vec
 {
 
     Textures.loadFromFile("vision", "Resources/Images/vision.png");
+    Textures.loadFromFile("lifeBar", "Resources/Images/life.png");
+    Textures.loadFromFile("deathBar", "Resources/Images/death.png");
+
     visionSprite.setTexture(*Textures.getTexture("vision"));
     visionSprite.setOrigin(0,Textures.getTexture("vision")->getSize().y/2);
     visionSprite.setColor(sf::Color(229,255,7,100));
 
-    lifeTex = new sf::Texture();
-    deathTex = new sf::Texture();
-    lifeTex->loadFromFile("life.png");
-    lifeSprite.setTexture(*lifeTex);
-    deathTex->loadFromFile("death.png");
-    deathSprite.setTexture(*deathTex);
+//    lifeTex = new sf::Texture();
+//    deathTex = new sf::Texture();
+//    lifeTex->loadFromFile("life.png");
+    lifeSprite.setTexture(*Textures.getTexture("lifeBar"));
+//    deathTex->loadFromFile("death.png");
+    deathSprite.setTexture(*Textures.getTexture("deathBar"));
     deathSprite.setColor(sf::Color(0, 0, 0, 150));
 
     if (!MyFont.loadFromFile("Resources/CHIZZ___.ttf"))
@@ -680,11 +683,11 @@ void Entity::drawLife(sf::RenderWindow& mWindow)
     else
         deathSprite.setColor(sf::Color(0, 0, 0, 150));
 
-    deathSprite.setPosition(animatedSprite.getPosition().x - deathTex->getSize().x/2,
+    deathSprite.setPosition(animatedSprite.getPosition().x - Textures.getTexture("deathBar")->getSize().x/2,
                      animatedSprite.getPosition().y - 100);
     mWindow.draw(deathSprite);
 
-    lifeSprite.setPosition(animatedSprite.getPosition().x - lifeTex->getSize().x/2,
+    lifeSprite.setPosition(animatedSprite.getPosition().x - Textures.getTexture("lifeBar")->getSize().x/2,
                      animatedSprite.getPosition().y - 100+1);
 
     lifeSprite.setScale(m_life/(float)maxLife,1.f);
@@ -737,7 +740,7 @@ void    Entity::speak(sf::RenderWindow& mWindow)
 
     //Text.setRotation(90.f);
     //Text.setScale(2.f, 2.f);
-    Text.setPosition(animatedSprite.getPosition().x - lifeTex->getSize().x/2,
+    Text.setPosition(animatedSprite.getPosition().x - Textures.getTexture("lifeBar")->getSize().x/2,
                      animatedSprite.getPosition().y - 150+1);
     //Text.move(100.f, 200.f);
     if(haveToSpeak)
@@ -748,7 +751,7 @@ void    Entity::speak(sf::RenderWindow& mWindow)
 
             Text.setColor(sf::Color(255,255,255,55));
             mWindow.draw(Text);
-            Text.setPosition(animatedSprite.getPosition().x - lifeTex->getSize().x/2-2,
+            Text.setPosition(animatedSprite.getPosition().x - Textures.getTexture("lifeBar")->getSize().x/2-2,
                      animatedSprite.getPosition().y - 150-1);
             Text.setColor(sf::Color(0,0,0,255));
             mWindow.draw(Text);
