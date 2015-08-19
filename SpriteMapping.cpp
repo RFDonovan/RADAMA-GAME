@@ -23,6 +23,7 @@ void SpriteMapping::loadXML(std::string XMLFile)
     if ( !SpriteSheet.loadFromFile(ss.str()) )
         std::cout << "SpriteMapping::loadXML -> loading texture ERROR!\n";
     std::cout << "SpriteMapping::loadXML -> loading Sprites ...\n";
+    SpriteSheet.setSmooth(true);
     for(pugi::xml_node node = spritesNode.first_child(); node; node = node.next_sibling())
         ///SPRITES
     {

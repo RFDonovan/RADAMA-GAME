@@ -442,7 +442,7 @@ void World::loadTextures()
 
     /*damageTexture FX*/
 
-    Textures.loadFromFile("damage", "fire.png");
+    Textures.loadFromFile("damage", "damage.png");
     damageFXSprite = sf::Sprite(*Textures.getTexture("damage"));
     float fxSize = 60.f;
 
