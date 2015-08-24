@@ -439,8 +439,9 @@ sf::Sprite* XMLLoader::loadImage(std::string imageName, std::string dir)
                              );
     texList.push_back(tex);
     std::cout<<filename<<" loadE........\n";
-    nameToSprite[imageName] = &imgSprite;
-    return &imgSprite;
+
+    nameToSprite[imageName] = &spriteList[spriteList.size()-1];
+    return &spriteList[spriteList.size()-1];
 }
 
 void XMLLoader::render(sf::RenderWindow& mWindow, sf::Shader* shader)
