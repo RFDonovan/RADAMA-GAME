@@ -1,4 +1,5 @@
 
+#include <TGUI/TGUI.hpp>
 
 //#include "Animation.hpp"
 #include "AnimatedSprite.hpp"
@@ -17,6 +18,7 @@ private:
     World mWorld;
     //Player mPlayer;
     // Operations
+//    tgui::Gui gui;
 public:
          Game();
     void run ();

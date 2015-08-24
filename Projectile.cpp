@@ -21,7 +21,7 @@ Projectile::Projectile(b2World* world, bodyData dataa)
     std::cout<<"**************data*************"<<std::endl;
     std::cout<<"name: "<<data->name<<std::endl;
     std::cout<<"***************************"<<std::endl;
-    data->sprite->setColor(sf::Color::Black);
+    //data->sprite->setColor(sf::Color::Black);
 }
 
 
@@ -117,6 +117,14 @@ void Projectile::unStick()
 
     stickOnEntity = false;
     std::cout<<"Projectile::unStick ->all joints supprimE"<<std::endl;
+}
+
+void Projectile::setVisible(bool visible)
+{
+    if(!visible)
+        realData.sprite->setColor(sf::Color(0,0,0,50));
+    else
+        realData.sprite->setColor(sf::Color(255,255,255,255));
 }
 
 Projectile::~Projectile()

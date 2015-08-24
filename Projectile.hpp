@@ -53,6 +53,7 @@ public:
         void    stickIt();
         void    stickProjectile(b2Fixture* fixtureTarget);
         bool    isFired(){return fired;}
+        void    setVisible(bool visible);
 
 
 };

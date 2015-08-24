@@ -209,6 +209,7 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
             shiftSprite.setScale(-1.f,1.f);
         else
             shiftSprite.setScale(1.f,1.f);
+        shiftSprite.setColor(sf::Color(255,255,255,155+m_mana));
         mWindow.draw(shiftSprite, shader);
     }
 
@@ -531,6 +532,7 @@ void Player::fire(int projectile)
     ///DROP IT
     void * prData = weaponsMap[currentProjectile]->GetUserData();
     ((Projectile*)prData)->dejaPris = false;
+    ((Projectile*)prData)->setVisible(true);
     //std::cout<<"PLAYER::fire weaponsMap.size = "<<weaponsMap.size()<<std::endl;
     weaponsMap.erase(currentProjectile);
     ///on utilise ceci car les key dans weaponsMap ne sont pas forcement continue
@@ -548,6 +550,7 @@ void Player::takeWeapon()
     weaponDispo->unStick();
     loadWeapon(weaponDispo->getBodyData());
     weaponDispo->dejaPris = true;
+    weaponDispo->setVisible(false);
 
 }
 
