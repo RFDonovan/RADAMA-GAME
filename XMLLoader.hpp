@@ -60,7 +60,7 @@ public:
     void        render(sf::RenderWindow& mWindow, sf::Shader* shader);
     void        move(float x, float y);
 
-    std::vector<sf::IntRect>    getSpriteRectList(){return spriteRectList;}
+//    std::vector<sf::IntRect>    getSpriteRectList(){return spriteRectList;}
     std::map<std::string, sf::Sprite*>    getNameToSpriteList(){return nameToSprite;}
 
 

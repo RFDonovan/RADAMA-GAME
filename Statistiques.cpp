@@ -21,6 +21,17 @@ Statistiques::Statistiques(sf::RenderWindow& window)
     manaBar.setPosition(65,10);
     spriteList.push_back(manaBar);
     //lifeBar.scale(0.5f,0.5f);
+
+    ///NB PROJECTILE
+    if (!MyFont.loadFromFile("Resources/CHIZZ___.ttf"))
+    {
+        // Error...
+    }
+
+    nbProjectile.setFont(MyFont);
+    nbProjectile.setCharacterSize(40);
+    nbProjectile.setString("Andrana");
+    nbProjectile.setColor(sf::Color::Cyan);
 }
 
 void Statistiques::render(sf::Time frameTime, sf::Shader* shader)
@@ -88,7 +99,12 @@ void Statistiques::render(sf::Time frameTime, sf::Shader* shader)
 
     lifeBar.setPosition(lifeBar.getPosition().x-2,lifeBar.getPosition().y-2);
 
-
+    ///nb projectile based on lifebar position
+    std::stringstream ss;
+    ss<<"x"<<projectileCount;
+    nbProjectile.setString(ss.str());
+    nbProjectile.setPosition(lifeBar.getPosition().x+250,lifeBar.getPosition().y);
+    mWindow.draw(nbProjectile);
 }
 
 void Statistiques::adaptPosition(sf::Vector2f place)
@@ -110,7 +126,10 @@ void Statistiques::updateMana(int mana)
 {
     playerMana = mana;
 }
-
+void Statistiques::updateProjectile(int pCount)
+{
+    projectileCount = pCount;
+}
 void Statistiques::resetView()
 {
     spriteBar.setPosition(0,0);

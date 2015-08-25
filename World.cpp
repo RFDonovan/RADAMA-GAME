@@ -81,6 +81,8 @@ World::World(sf::RenderWindow& window)
 
 void World::processInput(sf::Event e)
 {
+    pauseMenu pM;
+
     if(!paused) /// ******************************************************************>>>>PAUSE
         if(!editMode)
         {
@@ -163,19 +165,8 @@ void World::processInput(sf::Event e)
         case sf::Event::MouseMoved :
             if (paused)
             {
-                for (int i = 0; i < spriteRectList.size(); i++)
-                {
 
-                    std::cout << "World::oncommand width "<<spriteRectList[i].width<<std::endl;
-                    std::cout << "World::oncommand top "<<spriteRectList[i].top<<std::endl;
-                    std::cout << "World::oncommand left "<<spriteRectList[i].left<<std::endl;
-                    if(mouseIsOnTheSprite(
-                                       spriteRectList[i], getMousePos()
-                                       ))
-                    std::cout << "World:: "<<mouseIsOnTheSprite(
-                                       spriteRectList[i], getMousePos()
-                                       )<<std::endl;
-                }
+
             }
         break;
 
@@ -186,19 +177,67 @@ void World::processInput(sf::Event e)
 
     if (e.type == sf::Event::GainedFocus)
         resume();
+    if(paused)
+    {
+        nameToSprite["resume.png"]->setColor(sf::Color(255,255,255,255));
+        nameToSprite["quit.png"]->setColor(sf::Color(255,255,255,255));
+        nameToSprite["reload.png"]->setColor(sf::Color(255,255,255,255));
+        pM = pauseMenu::NONE;
+
+        if(mouseIsOnTheSprite(nameToSprite["resume.png"], getMousePos()))
+        {
+            nameToSprite["resume.png"]->setColor(sf::Color(255,255,255,150));
+            pM = pauseMenu::RESUME;
+
+        }
+        if(mouseIsOnTheSprite(nameToSprite["quit.png"], getMousePos()))
+        {
+            nameToSprite["quit.png"]->setColor(sf::Color(255,255,255,150));
+            pM = pauseMenu::QUIT;
+
+        }
+        if(mouseIsOnTheSprite(nameToSprite["reload.png"], getMousePos()))
+        {
+            nameToSprite["reload.png"]->setColor(sf::Color(255,255,255,150));
+            pM = pauseMenu::RESTART;
+
+        }
+
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            switch(pM)
+            {
+            case pauseMenu::RESUME:
+                resume();
+            break;
+            case pauseMenu::RESTART:
+                resume();q
+                rebuildScene();
+
+            break;
+            case pauseMenu::QUIT:
+                exit(-1);
+            break;
+            default:
+                break;
+            }
+        }
+    }
+
+
 
 }
 
-bool World::mouseIsOnTheSprite(sf::IntRect sp, sf::Vector2f mousePos)
+bool World::mouseIsOnTheSprite(sf::Sprite* sp, sf::Vector2f mousePos)
 {
-    if(mousePos.x > sp.left
+    if(mousePos.x > sp->getPosition().x - sp->getOrigin().x
        &&
-       mousePos.x < (sp.left+sp.width))
+       mousePos.x < (sp->getPosition().x - sp->getOrigin().x + sp->getLocalBounds().width))
 
        {
-           if(mousePos.y > sp.top
+           if(mousePos.y > sp->getPosition().y - sp->getOrigin().y
                &&
-               mousePos.y < (sp.top + sp.height))
+               mousePos.y < (sp->getPosition().y - sp->getOrigin().y + sp->getLocalBounds().height))
               return true;
        }
     return false;
@@ -226,6 +265,7 @@ void World::update()
 
     statInfo.updateLife(ePlayer->m_life);
     statInfo.updateMana(ePlayer->m_mana);
+    statInfo.updateProjectile(ePlayer->getProjectileCount());
 
 }
 
@@ -656,8 +696,9 @@ void World::loadInfo(std::string xmlCfg)
     std::string directory2("./");
     xLoad2 = new XMLLoader(&p_world2);
     xLoad2->loadXML(directory2 + "pause.xml", directory2);
+    nameToSprite = xLoad2->getNameToSpriteList();
 
-    spriteRectList = xLoad2->getSpriteRectList();
+//    spriteRectList = xLoad2->getSpriteRectList();
 
    // exit(-1);
 

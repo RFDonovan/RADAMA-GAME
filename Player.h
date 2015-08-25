@@ -70,6 +70,8 @@ public:
     int     nextProjectile();
     int     prevProjectile();
 
+    int     getProjectileCount(){return weaponsMap.size();}
+
     void    clearAll();
 
     ///FINITE STATE MACHINE

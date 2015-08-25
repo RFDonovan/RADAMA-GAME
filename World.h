@@ -69,6 +69,14 @@ class World
     // Attributes
 public:
 
+    enum pauseMenu
+    {
+        RESUME,
+        RESTART,
+        QUIT,
+        NONE,
+    };
+
     sf::RenderWindow& mWindow;
     TextureHolder Textures;
     ///>>>Physic World init
@@ -86,7 +94,7 @@ public:
     //GameLevel*  level;
     XMLLoader* xLoad;
     XMLLoader* xLoad2;
-    std::vector<sf::IntRect> spriteRectList;
+//    std::vector<sf::IntRect> spriteRectList;
     std::map<std::string, sf::Sprite*>  nameToSprite;
 
     std::vector<Human*>         humans;
@@ -94,6 +102,7 @@ public:
     //std::vector<bodyData>   WeaponList;
     std::vector<bodyData>       LevelObjectList;
     std::vector<bodyData>       bDList;
+    std::vector<bodyData>       bDPauseList;
     std::vector<Projectile*>    pList;
     std::vector<Item*>          itemList;
     std::map<std::string, SpriteMapping*>   spriteMap;
@@ -186,7 +195,7 @@ public:
     void pause();
     void resume();
 
-    bool    mouseIsOnTheSprite(sf::IntRect , sf::Vector2f mousePos);
+    bool    mouseIsOnTheSprite(sf::Sprite* sp , sf::Vector2f mousePos);
 
     /**MOUSE DRAG STUFF**/
     void    MouseDown(const b2Vec2& p);

@@ -448,16 +448,29 @@ void XMLLoader::render(sf::RenderWindow& mWindow, sf::Shader* shader)
 {
     int i = 0;
     //std::cout << "TEXLIST"<<texList.size()<< "ratioLIST"<<ratioList.size()<< "spriteLIST"<<spriteList.size()<< "bodyLIST"<< bodyList.size() << std::endl;
-    for (sf::Sprite s : spriteList )
+//    for (sf::Sprite s : spriteList )
+//    {
+//        s.setTexture(texList[i]);
+//        if(bodyList[i]->GetType() == b2_dynamicBody)
+//        {
+//            s.setPosition((bodyList[i]->GetPosition().x*RATIO)-ratioList[i].x,  (bodyList[i]->GetPosition().y*RATIO)+ratioList[i].y);
+//            s.setRotation(bodyList[i]->GetAngle()/ RADTODEG - angleRatioList[i]);
+//        }
+//
+//        mWindow.draw(s);
+//
+//        i++;
+//    }
+    for (int it = 0 ; it < spriteList.size(); it++)
     {
-        s.setTexture(texList[i]);
+        spriteList[it].setTexture(texList[i]);
         if(bodyList[i]->GetType() == b2_dynamicBody)
         {
-            s.setPosition((bodyList[i]->GetPosition().x*RATIO)-ratioList[i].x,  (bodyList[i]->GetPosition().y*RATIO)+ratioList[i].y);
-            s.setRotation(bodyList[i]->GetAngle()/ RADTODEG - angleRatioList[i]);
+            spriteList[it].setPosition((bodyList[i]->GetPosition().x*RATIO)-ratioList[i].x,  (bodyList[i]->GetPosition().y*RATIO)+ratioList[i].y);
+            spriteList[it].setRotation(bodyList[i]->GetAngle()/ RADTODEG - angleRatioList[i]);
         }
 
-        mWindow.draw(s);
+        mWindow.draw(spriteList[it]);
 
         i++;
     }
