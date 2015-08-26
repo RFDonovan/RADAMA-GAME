@@ -211,7 +211,7 @@ void World::processInput(sf::Event e)
                 resume();
             break;
             case pauseMenu::RESTART:
-                resume();q
+                resume();
                 rebuildScene();
 
             break;
@@ -338,7 +338,7 @@ void World::draw(sf::Time frameTime)
 
 ///RENDU DU JOUEUR
     ePlayer->render(mWindow, frameTime, &Textures, &shader);
-    if(ePlayer->getY() > mWindow.getSize().y || ePlayer->isDead())
+    if(/*ePlayer->getY() > mWindow.getSize().y || */ePlayer->isDead())
     {
         if(!ePlayer->deleted)
         {
@@ -349,7 +349,7 @@ void World::draw(sf::Time frameTime)
     {
         humans[i]->render(mWindow, frameTime, &Textures, &shader);
         ///teste une suppression d'Entité morts: ASSEZ BIEN!!!
-        if(humans[i]->getY() > mWindow.getSize().y || humans[i]->isDead())
+        if(/*humans[i]->getY() > mWindow.getSize().y ||*/ humans[i]->isDead())
         {
             ///RENDER A DEAD VERSION
             if(!humans[i]->deleted)
@@ -685,7 +685,16 @@ void World::loadInfo(std::string xmlCfg)
             for (int i = 0; i < bDList.size(); i++)
             {
                 if(strcmp(node.attribute("type").as_string(), "projectile") == 0)
-                    pList.push_back(new Projectile(&p_world, bDList[i]));
+                {
+                    Projectile * p = new Projectile(&p_world, bDList[i]);
+                    p->setPosition(sf::Vector2f(
+                                    node.attribute("x").as_float(),
+                                    node.attribute("y").as_float()
+                                    )
+                                    );
+                    pList.push_back(p);
+                }
+
             }
     }
     ///---------------
@@ -741,16 +750,28 @@ void World::adaptViewToPlayer()
 
     try
     {
+
+//        //-----X
         b2Vec2 vel = ePlayer->getVelocity();
-        //std::cout<< "vel x:"<<vel.x; //RA VO LAVA BE LE VELX DE MIPLANTE LE APP
-        updateView(sf::Vector2f(vel.x/2,0));
+//        //std::cout<< "vel x:"<<vel.x; //RA VO LAVA BE LE VELX DE MIPLANTE LE APP
+//        updateView(sf::Vector2f(vel.x/2,0));
+//        ///BG_pause.move(sf::Vector2f(vel.x/2,0));
+//        xLoad2->move(vel.x/2, 0.f);
+//
+//        pauseLayer.move(sf::Vector2f(vel.x/2,0));
+//        ///BG.move(sf::Vector2f((vel.x)/2.5, 0));
+//
+//        statInfo.adaptPosition(sf::Vector2f(vel.x/2,0));
+
+        //-------XY
+        updateView(sf::Vector2f(vel.x/2,vel.y/2));
         ///BG_pause.move(sf::Vector2f(vel.x/2,0));
         xLoad2->move(vel.x/2, 0.f);
 
-        pauseLayer.move(sf::Vector2f(vel.x/2,0));
+        pauseLayer.move(sf::Vector2f(vel.x/2,vel.y/2));
         ///BG.move(sf::Vector2f((vel.x)/2.5, 0));
 
-        statInfo.adaptPosition(sf::Vector2f(vel.x/2,0));
+        statInfo.adaptPosition(sf::Vector2f(vel.x/2,vel.y/2));
 
 
     }

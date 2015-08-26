@@ -61,6 +61,10 @@ void Projectile::stickProjectile(b2Fixture* fixtureTarget)
     fired = true;
 }
 
+void Projectile::setPosition(sf::Vector2f position)
+{
+    realData.body->SetTransform(b2Vec2(position.x/RATIO,position.y/RATIO),realData.body->GetAngle());
+}
 
 void Projectile::stickIt()
 {

@@ -55,6 +55,8 @@ public:
         bool    isFired(){return fired;}
         void    setVisible(bool visible);
 
+        void setPosition(sf::Vector2f position);
+
 
 };
 
