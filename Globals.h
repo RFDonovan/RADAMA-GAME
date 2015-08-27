@@ -17,6 +17,8 @@
 
 #define K_LEFT sf::Keyboard::Q
 #define K_RIGHT sf::Keyboard::D
+#define K_UP sf::Keyboard::Z
+#define K_DOWN sf::Keyboard::S
 
 /*
 enum objectType{
