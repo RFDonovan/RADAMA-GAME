@@ -38,7 +38,7 @@ void LevelDesign::processInput()
 
 void LevelDesign::basicInput(sf::Event e)
 {
-    float unit = 20.f;
+    ///VIEW CONTROL: UP, DOWN, LEFT, RIGHT, ZOOM
     if (sf::Keyboard::isKeyPressed(K_RIGHT))
     {
         mWorldView.move(sf::Vector2f(unit,0.f));
@@ -66,6 +66,16 @@ void LevelDesign::basicInput(sf::Event e)
     {
         mWorldView.zoom(1.3f);
     }
+
+
+
+    ///CREATE AN ASSET FROM CURRENT IMAGE AND NODE
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+    {
+        if(imageList.size()>0)
+            createAsset();
+    }
+    ///OPEN IMAGE FILE
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::O))
     {
         const char *filters[] = {"*.jpg","*.png"};
@@ -97,6 +107,8 @@ void LevelDesign::basicInput(sf::Event e)
         }
     }
 
+
+
     switch(e.type)
     {
         case sf::Event::KeyReleased:
@@ -104,9 +116,31 @@ void LevelDesign::basicInput(sf::Event e)
             {
                 vertexMode = !vertexMode;
             }
+            if(e.key.code == sf::Keyboard::A)///VERTEX EDIT
+            {
+                showAssets = !showAssets;
+            }
+            ///PINNING OR UNPINNING ASSETS
+            if(e.key.code == sf::Keyboard::P)
+            {
+                if(tmpAsset!=nullptr)
+                {
+                    tmpAsset->pinned = !(tmpAsset->pinned);
+                }
+            }
         break;
 
+
     }
+}
+
+void LevelDesign::createAsset()
+{
+    assetList.push_back(Asset(imageList[0],vertexList));
+    vertexList.clear();
+    imageList.clear();
+    tmpNode = nullptr;
+    tmpSprite = nullptr;
 }
 
 void LevelDesign::mouseInput(sf::Event e)
@@ -118,16 +152,27 @@ void LevelDesign::mouseInput(sf::Event e)
         {
             if(isMoving)
             {
-                if(vertexMode)
+                ///MANIPULATION DES ASSETS
+                if(showAssets)
                 {
-                    if(tmpNode != nullptr)
-                    {
-                        tmpNode->setPosition(getMousePos());
-                    }
+                    if(tmpAsset != nullptr)//ajouter if pinned
+                        if(!tmpAsset->isPinned())
+                            tmpAsset->setPosition(getMousePos());
                 }
-                else
-                    if(tmpSprite != nullptr)
-                        tmpSprite->setPosition(getMousePos());
+                else ///--------AUTRES
+                {
+                    if(vertexMode)
+                    {
+                        if(tmpNode != nullptr)
+                        {
+                            tmpNode->setPosition(getMousePos());
+                        }
+                    }
+                    else
+                        if(tmpSprite != nullptr)
+                            tmpSprite->setPosition(getMousePos());
+                }
+
             }
         }
     break;
@@ -135,33 +180,51 @@ void LevelDesign::mouseInput(sf::Event e)
         {
             if(e.mouseButton.button == sf::Mouse::Right)
             {
-                if(vertexMode)
+                ///MANIPULATION DES ASSETS
+                if(showAssets)
                 {
-                    for(int i=0 ; i < vertexList.size(); i++)
+
+                    for (int i=0; i < assetList.size(); i++)
                     {
-                        if(vertexList[i].getGlobalBounds().contains(getMousePos()))
+                        if(assetList[i].getGlobalBounds().contains(getMousePos()))
                         {
                             isMoving = true;
-                            tmpNode = &(vertexList[i]);
-                            tmpNode->setFillColor(sf::Color(255,10,10));
+                            tmpAsset = &(assetList[i]);
                             break;
                         }
                     }
                 }
-                else
+                else///--------AUTRES
                 {
-                   for(int i=0 ; i < imageList.size(); i++)
+                   if(vertexMode)
                     {
-    //                    sf::Sprite.getGlobalBounds().contains(getMousePos())
-                        if(imageList[i].getGlobalBounds().contains(getMousePos()))
+                        for(int i=0 ; i < vertexList.size(); i++)
                         {
-                            isMoving = true;
-                            //imageList.erase(imageList.begin()+i);
-                            tmpSprite = &(imageList[i]);
-                            break;
+                            if(vertexList[i].getGlobalBounds().contains(getMousePos()))
+                            {
+                                isMoving = true;
+                                tmpNode = &(vertexList[i]);
+                                tmpNode->setFillColor(sf::Color(255,10,10));
+                                break;
+                            }
                         }
-
                     }
+                    else
+                    {
+                       for(int i=0 ; i < imageList.size(); i++)
+                        {
+        //                    sf::Sprite.getGlobalBounds().contains(getMousePos())
+                            if(imageList[i].getGlobalBounds().contains(getMousePos()))
+                            {
+                                isMoving = true;
+                                //imageList.erase(imageList.begin()+i);
+                                tmpSprite = &(imageList[i]);
+                                break;
+                            }
+
+                        }
+                    }
+
                 }
 
             }
@@ -169,18 +232,33 @@ void LevelDesign::mouseInput(sf::Event e)
     break;
     case sf::Event::MouseButtonReleased:
         {
-            if(tmpNode!=nullptr)
+            ///MANIPULATION DES ASSETS
+            if(showAssets)
             {
-                tmpNode->setFillColor(sf::Color(100, 250, 50));
+                if(e.mouseButton.button == sf::Mouse::Right)
+                {
+                    tmpAsset = nullptr;
+                    isMoving = false;
+                }
+
+
             }
-            tmpNode = nullptr;
-            tmpSprite = nullptr;
-            if(e.mouseButton.button == sf::Mouse::Right)
-                isMoving = false;
-            if(e.mouseButton.button == sf::Mouse::Left)
+            else///--------AUTRES
             {
-                vertexList.push_back(createVertex(getMousePos()));
+                if(tmpNode!=nullptr)
+                {
+                    tmpNode->setFillColor(sf::Color(100, 250, 50));
+                }
+                tmpNode = nullptr;
+                tmpSprite = nullptr;
+                if(e.mouseButton.button == sf::Mouse::Right)
+                    isMoving = false;
+                if(e.mouseButton.button == sf::Mouse::Left)
+                {
+                    vertexList.push_back(createVertex(getMousePos()));
+                }
             }
+
 
         }
     break;
@@ -248,10 +326,20 @@ void LevelDesign::render(sf::Time frameTime)
     else
         mWindow.clear(sf::Color::White);
 
-    if(showImages)
-        renderImages(frameTime);
-    if(showVertex)
-        renderVertex(frameTime);
+    if(showAssets)
+    {
+        mWindow.clear(sf::Color::White);
+        mWindow.clear(sf::Color(10,100,10,50));
+        renderAssets(frameTime);
+    }
+    else
+    {
+        if(showImages)
+            renderImages(frameTime);
+        if(showVertex)
+            renderVertex(frameTime);
+    }
+
 
     mWindow.display();
 }
@@ -289,6 +377,15 @@ void LevelDesign::renderVertex(sf::Time frameTime)
             mWindow.draw(line, 2, sf::Lines);
         }
         mWindow.draw(vertexList[i]);
+    }
+}
+
+
+void LevelDesign::renderAssets(sf::Time frameTime)
+{
+    for(int i=0; i < assetList.size(); i++)
+    {
+        assetList[i].render(mWindow);
     }
 }
 

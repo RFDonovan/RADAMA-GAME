@@ -9,6 +9,7 @@
 #include "Globals.h"
 #include "TextureHolder.h"
 #include "tinyfiledialogs.h"
+#include "Asset.hpp"
 
 class LevelDesign
 {
@@ -22,15 +23,22 @@ public:
     bool showImages = true;
     bool showVertex = true;
 
-    sf::Sprite* tmpSprite;
-    sf::CircleShape* tmpNode;
-    bool isMoving = false;
+    bool showAssets = false;
 
     std::vector<sf::CircleShape>    vertexList;
-
-    std::map<std::string, std::vector<sf::CircleShape>> vertexGroupList;
-
     std::vector<sf::Sprite>    imageList;
+    std::vector<Asset>          assetList;
+
+
+    sf::Sprite*         tmpSprite = nullptr;
+    sf::CircleShape*    tmpNode = nullptr;
+    Asset*              tmpAsset = nullptr;
+    bool isMoving = false;
+
+    float unit = 20.f;
+
+
+
 
 public:
 
@@ -42,15 +50,17 @@ public:
     void    mouseInput(sf::Event e);
 
     sf::CircleShape     createVertex(sf::Vector2f pos);
-    void    deleteNode(sf::CircleShape* node);
+    void                deleteNode(sf::CircleShape* node);
     sf::Sprite          loadImage(std::string);
-    void    deleteImage(sf::Sprite* image);
+    void                deleteImage(sf::Sprite* image);
+    void                createAsset();
 
     void    update ();
     void    render (sf::Time frameTime);
 
     void    renderImages(sf::Time frameTime);
     void    renderVertex(sf::Time frameTime);
+    void    renderAssets(sf::Time frameTime);
 
 
     ///MOUSE POSITION
