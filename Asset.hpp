@@ -3,10 +3,13 @@
 #include<vector>
 #include<iostream>
 #include<string>
+#include<sstream>
 #include<string.h>
 
 #include "Globals.h"
 #include "TextureHolder.h"
+#include "tinyfiledialogs.h"
+#include "pugixml.hpp"
 
 class Asset
 {
@@ -15,9 +18,12 @@ public:
     std::vector<sf::CircleShape> nodeList;
     std::vector<sf::Vector2f>    nodeRatio;
     bool pinned = false;
+    std::string path;
+    TextureHolder                textureHolder;
 
 public:
-            Asset(sf::Sprite image, std::vector<sf::CircleShape> nodeList);
+            Asset(sf::Sprite image, std::vector<sf::CircleShape> nodeList,std::string filename);
+            Asset(std::string filename);
     void    render(sf::RenderWindow& mWindow);
 
     void    setPosition(sf::Vector2f pos);
@@ -27,6 +33,8 @@ public:
 
     sf::FloatRect   getGlobalBounds(){return aSprite.getGlobalBounds();}
 
+    void            exportToXML(std::string filename);
+    pugi::xml_node  createNode();
     bool            isPinned(){return pinned;}
 
 };

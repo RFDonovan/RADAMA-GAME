@@ -28,6 +28,7 @@ public:
     std::vector<sf::CircleShape>    vertexList;
     std::vector<sf::Sprite>    imageList;
     std::vector<Asset>          assetList;
+    std::vector<std::string>    filenameList;
 
 
     sf::Sprite*         tmpSprite = nullptr;
@@ -49,11 +50,13 @@ public:
     void    basicInput(sf::Event e);
     void    mouseInput(sf::Event e);
 
-    sf::CircleShape     createVertex(sf::Vector2f pos);
-    void                deleteNode(sf::CircleShape* node);
+    sf::CircleShape     createVertex(sf::Vector2f pos); ///>creer un noeud
     sf::Sprite          loadImage(std::string);
-    void                deleteImage(sf::Sprite* image);
     void                createAsset();
+    void                deleteImage(sf::Sprite* image);
+    void                deleteNode(sf::CircleShape* node);
+    void                deleteAsset(Asset* asset);
+
 
     void    update ();
     void    render (sf::Time frameTime);

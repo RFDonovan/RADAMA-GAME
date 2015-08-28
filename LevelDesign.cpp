@@ -60,11 +60,27 @@ void LevelDesign::basicInput(sf::Event e)
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
     {
-        mWorldView.zoom(0.7f);
+        if(isMoving)
+        {
+            if(tmpSprite != nullptr)
+            {
+                tmpSprite->setScale(tmpSprite->getScale()+sf::Vector2f(.05f,.05f));
+            }
+        }
+        else
+            mWorldView.zoom(0.7f);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract))
     {
-        mWorldView.zoom(1.3f);
+        if(isMoving)
+        {
+            if(tmpSprite != nullptr)
+            {
+                tmpSprite->setScale(tmpSprite->getScale()-sf::Vector2f(.05f,.05f));
+            }
+        }
+        else
+            mWorldView.zoom(1.3f);
     }
 
 
@@ -72,23 +88,52 @@ void LevelDesign::basicInput(sf::Event e)
     ///CREATE AN ASSET FROM CURRENT IMAGE AND NODE
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
     {
-        if(imageList.size()>0)
-            createAsset();
+        if(showAssets)
+        {
+
+        }
+        else
+            if(imageList.size()>0)
+                createAsset();
     }
     ///OPEN IMAGE FILE
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::O))
     {
-        const char *filters[] = {"*.jpg","*.png"};
+        if(showAssets)
+        {
+            const char *filters[] = {"*.ast","*.xml"};
+            const char *fn = tinyfd_openFileDialog("Open Asset","",2,filters,"Asset files", 0);
+            if(fn)
+                assetList.push_back(Asset(fn));
+//                imageList.push_back(loadImage(fn));
+            std::cout <<"Loading of "<<fn << std::endl;
+        }
+        else
+        {
+            const char *filters[] = {"*.jpg","*.png"};
+            const char *fn = tinyfd_openFileDialog("Open Image","",2,filters,"image files", 0);
+            if(fn)
+            {
+                imageList.push_back(loadImage(fn));
+                filenameList.push_back(fn);
+            }
 
-        //char const * lThePassword = tinyfd_inputBox( "a password box","your password will be revealed",NULL);
-        const char *fn = tinyfd_openFileDialog("Open Image","",2,filters,"image files", 0);
-        if(fn)
-            imageList.push_back(loadImage(fn));
-        std::cout <<"Loading of "<<fn << std::endl;
+            std::cout <<"Loading of "<<fn << std::endl;
+        }
+
     }
     ///DELETING IMAGE OR NODE
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Delete))
     {
+        if(showAssets)
+        {
+            if(tmpAsset != nullptr)
+            {
+                deleteAsset(tmpAsset);
+                tmpAsset = nullptr;
+            }
+        }
+        else
         if(vertexMode)
         {
             if(tmpNode != nullptr)
@@ -128,6 +173,19 @@ void LevelDesign::basicInput(sf::Event e)
                     tmpAsset->pinned = !(tmpAsset->pinned);
                 }
             }
+
+            if(e.key.code == sf::Keyboard::Return)
+            {
+                if(showAssets)
+                {
+                    if(tmpAsset != nullptr)
+                    {
+        //                Asset a = *tmpAsset;
+                        assetList.push_back(*tmpAsset);
+                    }
+                }
+            }
+
         break;
 
 
@@ -136,9 +194,10 @@ void LevelDesign::basicInput(sf::Event e)
 
 void LevelDesign::createAsset()
 {
-    assetList.push_back(Asset(imageList[0],vertexList));
+    assetList.push_back(Asset(imageList[0],vertexList,filenameList[0]));
     vertexList.clear();
     imageList.clear();
+    filenameList.clear();
     tmpNode = nullptr;
     tmpSprite = nullptr;
 }
@@ -315,6 +374,16 @@ void LevelDesign::deleteImage(sf::Sprite* image)
             imageList.erase(imageList.begin()+i);
     }
 }
+
+void LevelDesign::deleteAsset(Asset* asset)
+{
+    for(int i=0 ; i < assetList.size(); i++)
+    {
+        if(asset == &assetList[i])
+            assetList.erase(assetList.begin()+i);
+    }
+}
+
 //***END DELETING THINGS***//
 
 void LevelDesign::render(sf::Time frameTime)
