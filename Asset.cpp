@@ -9,12 +9,12 @@ Asset::Asset(sf::Sprite image, std::vector<sf::CircleShape> nodeList,std::string
     {
         nodeRatio.push_back(aSprite.getPosition()-nodeList[i].getPosition());
     }
-    const char *filters[] = {"*.xml"};
-    const char *fn = tinyfd_saveFileDialog("Save as", "", 1, filters,"XML File");
-    std::stringstream ss;
-    ss<<fn;
-
-    exportToXML(ss.str());
+//    const char *filters[] = {"*.xml"};
+//    const char *fn = tinyfd_saveFileDialog("Save as", "", 1, filters,"XML File");
+//    std::stringstream ss;
+//    ss<<fn;
+//
+//    exportToXML(ss.str());
 
     std::stringstream ssName;
     ssName<<PathFindFileName(filename.c_str());
@@ -39,6 +39,7 @@ Asset::Asset(std::string filename)
     ssName<<PathFindFileName(imageN.attribute("path").as_string());
 
     name = ssName.str();
+    path = imageN.attribute("path").as_string();
 
 
     aSprite.setTexture(*textureHolder.getTexture("Aname"));

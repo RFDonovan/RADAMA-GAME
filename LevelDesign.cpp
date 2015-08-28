@@ -5,7 +5,12 @@ LevelDesign::LevelDesign()
 , mWorldView(mWindow.getDefaultView())
 {
 
-
+    if (!MyFont.loadFromFile("Resources/CHIZZ___.ttf"))
+        {
+            // Error...
+        }
+    t.setFont(MyFont);
+    t.setColor(sf::Color(0,0,255,100));
 }
 
 
@@ -54,9 +59,17 @@ void LevelDesign::basicInput(sf::Event e)
         mWorldView.move(sf::Vector2f(0.f,-unit));
     }
 
+
     if (sf::Keyboard::isKeyPressed(K_DOWN))
     {
-        mWorldView.move(sf::Vector2f(0.f,unit));
+        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ||
+            !sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
+            mWorldView.move(sf::Vector2f(0.f,unit));
+    }
+    ///RESET VIEW
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
+    {
+        mWorldView.setCenter(WINDOW_W/2,WINDOW_H/2);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
     {
@@ -101,8 +114,8 @@ void LevelDesign::basicInput(sf::Event e)
     {
         if(showAssets)
         {
-            const char *filters[] = {"*.ast","*.xml"};
-            const char *fn = tinyfd_openFileDialog("Open Asset","",2,filters,"Asset files", 1);
+            const char *filters[] = {"*.asset","*.xml"};
+            const char *fn = tinyfd_openFileDialog("Open Assets","",2,filters,"Asset files", 1);
 
             if(fn)
             {
@@ -112,11 +125,8 @@ void LevelDesign::basicInput(sf::Event e)
                 for(int i=0; i<pathList.size(); i++)
                 {
                     std::cout <<"Loading of "<<pathList[i] << std::endl;
-                    assetList.push_back(pathList[i]);
+                    assetList.push_back(Asset(pathList[i]));
                 }
-//                    assetList.push_back(Asset(fn));
-//    //                imageList.push_back(loadImage(fn));
-//                std::cout <<"Loading of "<<fn << std::endl;
             }
 
         }
@@ -183,6 +193,12 @@ void LevelDesign::basicInput(sf::Event e)
                 if(tmpAsset!=nullptr)
                 {
                     tmpAsset->pinned = !(tmpAsset->pinned);
+//                    if(tmpAsset->pinned)
+//                    {
+//                        downZIndex(tmpAsset);
+//                        tmpAsset = nullptr;
+//                    }
+
                 }
             }
             ///DUPLICATE ASSET
@@ -206,6 +222,16 @@ void LevelDesign::basicInput(sf::Event e)
                 }
 
             }
+            ///SAVE ASSETS
+            if(e.key.code == sf::Keyboard::S)
+            {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)|| sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
+                {
+                    if(showAssets)
+                        saveAssets();
+                }
+            }
+
 
         break;
 
@@ -342,6 +368,17 @@ void LevelDesign::mouseInput(sf::Event e)
 
         }
     break;
+    case sf::Event::MouseWheelMoved:
+        {
+            if(e.mouseWheel.delta>0)
+                mWorldView.zoom(0.7f);
+            if(e.mouseWheel.delta<0)
+                mWorldView.zoom(1.3f);
+
+        }
+        std::cout << e.mouseWheel.delta << '\n';
+    break;
+
     }
 }
 
@@ -362,7 +399,9 @@ sf::Sprite LevelDesign::loadImage(std::string fn)
     sf::Sprite s;
     s.setTexture(*(textureHolder.getTexture(fn)));
     s.setOrigin(textureHolder.getTexture(fn)->getSize().x/2,textureHolder.getTexture(fn)->getSize().y/2);
-    s.setPosition(textureHolder.getTexture(fn)->getSize().x/2,textureHolder.getTexture(fn)->getSize().y/2);
+
+//    s.setPosition(textureHolder.getTexture(fn)->getSize().x/2,textureHolder.getTexture(fn)->getSize().y/2);
+    s.setPosition(mWorldView.getCenter().x,mWorldView.getCenter().y);
     s.setColor(sf::Color(255,255,255,150));
     return s;
 }
@@ -405,15 +444,27 @@ void LevelDesign::deleteAsset(Asset* asset)
     }
 }
 
+void LevelDesign::downZIndex(Asset* asset)
+{
+    for(int i=0 ; i < assetList.size(); i++)
+    {
+        if(asset == &assetList[i])
+        {
+//            assetList.insert(assetList.begin()+0, *asset);
+            assetList.push_back(Asset(asset->aSprite, asset->nodeList, asset->path));
+            assetList.erase(assetList.begin()+i);
+        }
+
+    }
+
+}
+
 //***END DELETING THINGS***//
 
 void LevelDesign::render(sf::Time frameTime)
 {
     mWindow.setView(mWorldView);
-    /*AXIS*/
-    sf::RectangleShape line(sf::Vector2f(5000, 2));
-    line.setFillColor(sf::Color(255,0,0,200));
-    line.setPosition(sf::Vector2f(.0f,.0f));
+
 
 
 
@@ -421,11 +472,6 @@ void LevelDesign::render(sf::Time frameTime)
         mWindow.clear(sf::Color(50,50,50,50));
     else
         mWindow.clear(sf::Color::White);
-
-    line.setRotation(0);
-    mWindow.draw(line);
-    line.setRotation(90);
-    mWindow.draw(line);
 
     if(showAssets)
     {
@@ -441,6 +487,26 @@ void LevelDesign::render(sf::Time frameTime)
             renderVertex(frameTime);
     }
 
+    /**AXIS LINE*/
+    sf::RectangleShape line(sf::Vector2f(5000, 2));
+    line.setFillColor(sf::Color(255,0,0,200));
+    line.setPosition(sf::Vector2f(.0f,.0f));
+    line.setRotation(0);
+    mWindow.draw(line);
+    line.setRotation(90);
+    mWindow.draw(line);
+    for(int i=0; i < 50; i++)
+    {
+        std::stringstream ss;
+        ss<<"-"<<i<<"00-";
+
+        t.setCharacterSize(20);
+        t.setString(ss.str());
+        t.setPosition(i*100, 10.f);
+
+        mWindow.draw(t);
+    }
+    /************/
 
     mWindow.display();
 }
@@ -570,5 +636,17 @@ void LevelDesign::saveLevel()
     doc.save_file(ss.str().c_str());
 }
 
+
+void LevelDesign::saveAssets()
+{
+    const char *filters[] = {"*.asset"};
+    const char *fn = tinyfd_saveFileDialog("Save all assets as", "", 1, filters,"Asset Files");
+    for(int i=0; i< assetList.size(); i++)
+    {
+        std::stringstream ss;
+        ss<<fn<<i<<".asset";
+        assetList[i].exportToXML(ss.str());
+    }
+}
 
 

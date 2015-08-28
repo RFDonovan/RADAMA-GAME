@@ -18,6 +18,8 @@ public:
     sf::RenderWindow mWindow;
     sf::View    mWorldView;
 
+    sf::Font MyFont;
+    sf::Text t;
     TextureHolder textureHolder;
 
     bool vertexMode = false;
@@ -57,10 +59,12 @@ public:
     void                deleteImage(sf::Sprite* image);
     void                deleteNode(sf::CircleShape* node);
     void                deleteAsset(Asset* asset);
+    void                downZIndex(Asset* asset);
 
     ///SAVE LEVEL
 
     void                saveLevel();
+    void                saveAssets();
 
 
     void    update ();
@@ -90,6 +94,7 @@ public:
         return arr;
     }
 
+    ///SPLITTER-------------------------------------------
 
 };
 
