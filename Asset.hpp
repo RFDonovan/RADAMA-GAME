@@ -10,6 +10,7 @@
 #include "TextureHolder.h"
 #include "tinyfiledialogs.h"
 #include "pugixml.hpp"
+#include "shlwapi.h"
 
 class Asset
 {
@@ -19,6 +20,7 @@ public:
     std::vector<sf::Vector2f>    nodeRatio;
     bool pinned = false;
     std::string path;
+    std::string name;
     TextureHolder                textureHolder;
 
 public:

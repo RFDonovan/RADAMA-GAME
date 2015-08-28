@@ -10,6 +10,7 @@
 #include "TextureHolder.h"
 #include "tinyfiledialogs.h"
 #include "Asset.hpp"
+#include "Splitter.hpp"
 
 class LevelDesign
 {
@@ -57,6 +58,10 @@ public:
     void                deleteNode(sf::CircleShape* node);
     void                deleteAsset(Asset* asset);
 
+    ///SAVE LEVEL
+
+    void                saveLevel();
+
 
     void    update ();
     void    render (sf::Time frameTime);
@@ -69,6 +74,21 @@ public:
     ///MOUSE POSITION
     sf::Vector2f    getMousePos();
     bool    mouseIsOnTheSprite(sf::Sprite* sp, sf::Vector2f mousePos);
+
+
+    ///SPLITTER-------------------------------------------
+    std::vector<std::string> splitPerso(std::string str,std::string sep)
+    {
+        char* cstr=const_cast<char*>(str.c_str());
+        char* current;
+        std::vector<std::string> arr;
+        current=strtok(cstr,sep.c_str());
+        while(current!=NULL){
+            arr.push_back(current);
+            current=strtok(NULL,sep.c_str());
+        }
+        return arr;
+    }
 
 
 };

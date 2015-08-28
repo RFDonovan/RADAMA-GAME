@@ -5,10 +5,12 @@
 int main (){
     try
 	{
+	    std::cout << "\nRunning... "<< std::endl;
 //		Game game;
 //		game.run();
 		LevelDesign lDesign;
 		lDesign.run();
+
 	}
 	catch (std::exception& e)
 	{

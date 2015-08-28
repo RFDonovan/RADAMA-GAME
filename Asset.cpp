@@ -15,6 +15,11 @@ Asset::Asset(sf::Sprite image, std::vector<sf::CircleShape> nodeList,std::string
     ss<<fn;
 
     exportToXML(ss.str());
+
+    std::stringstream ssName;
+    ssName<<PathFindFileName(filename.c_str());
+
+    name = ssName.str();
 }
 
 Asset::Asset(std::string filename)
@@ -29,6 +34,13 @@ Asset::Asset(std::string filename)
 
     pugi::xml_node imageN = XMLDocument.child("Asset").child("image");
     textureHolder.loadFromFile("Aname",imageN.attribute("path").as_string());
+
+    std::stringstream ssName;
+    ssName<<PathFindFileName(imageN.attribute("path").as_string());
+
+    name = ssName.str();
+
+
     aSprite.setTexture(*textureHolder.getTexture("Aname"));
     aSprite.setOrigin(textureHolder.getTexture("Aname")->getSize().x/2, textureHolder.getTexture("Aname")->getSize().y/2);
     aSprite.setScale(imageN.attribute("scaleX").as_float(),imageN.attribute("scaleY").as_float());
@@ -121,6 +133,8 @@ void  Asset::exportToXML(std::string filename)
         pugi::xml_node nodeN = nodesN.append_child("node");
         nodeN.append_attribute("x") = nodeList[i].getPosition().x;
         nodeN.append_attribute("y") = nodeList[i].getPosition().y;
+//        nodeN.append_attribute("x") = nodeRatio[i].x;
+//        nodeN.append_attribute("y") = nodeRatio[i].y;
     }
 
     doc.save_file(filename.c_str());
