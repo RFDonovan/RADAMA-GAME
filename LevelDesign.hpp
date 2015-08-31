@@ -6,6 +6,8 @@
 #include<string>
 #include<string.h>
 
+#include <TGUI/TGUI.hpp>
+
 #include "Globals.h"
 #include "TextureHolder.h"
 #include "tinyfiledialogs.h"
@@ -41,12 +43,16 @@ public:
 
     float unit = 20.f;
 
-
+    /*TGUI*/
+    tgui::Gui gui;
+    /******/
 
 
 public:
 
             LevelDesign();
+    void    createGUI();
+    void    tguiEventHandler();
     void    run ();
 
     void    processInput();
@@ -73,6 +79,7 @@ public:
     void    renderImages(sf::Time frameTime);
     void    renderVertex(sf::Time frameTime);
     void    renderAssets(sf::Time frameTime);
+//    void    renderGUI(sf::Time frameTime);
 
 
     ///MOUSE POSITION

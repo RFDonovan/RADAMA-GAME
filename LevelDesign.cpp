@@ -3,7 +3,9 @@
 LevelDesign::LevelDesign()
 : mWindow(sf::VideoMode(WINDOW_W, WINDOW_H), "Level Designer", sf::Style::Close)
 , mWorldView(mWindow.getDefaultView())
+, gui(mWindow)
 {
+    createGUI();
 
     if (!MyFont.loadFromFile("Resources/CHIZZ___.ttf"))
         {
@@ -11,8 +13,30 @@ LevelDesign::LevelDesign()
         }
     t.setFont(MyFont);
     t.setColor(sf::Color(0,0,255,100));
+
+
 }
 
+void LevelDesign::createGUI()
+{
+    gui.setGlobalFont("fonts/DejaVuSans.ttf");
+    tgui::Button::Ptr button(gui);
+
+    tgui::Label::Ptr labelUsername(gui);
+    labelUsername->setText("Username:");
+    labelUsername->setPosition(200, 100);
+    labelUsername->setTextColor(sf::Color::Red);
+
+
+
+
+    button->load("widgets/Black.conf");
+    button->setSize(260, 60);
+    button->setPosition(270, 440);
+    button->setText("EJDKJSF");
+    button->bindCallback(tgui::Button::LeftMouseClicked);
+    button->setCallbackId(1);
+}
 
 void LevelDesign::run()
 {
@@ -23,21 +47,43 @@ void LevelDesign::run()
         sf::Time frameTime = frameClock.restart();
         update();
         render(frameTime);
+        /*TGUI RENDER*/
+        gui.draw();
+        /*************/
+        mWindow.display();
     }
 
+}
+
+void LevelDesign::tguiEventHandler()
+{
+    tgui::Callback callback;
+    while (gui.pollCallback(callback))
+    {
+        // Make sure tha callback comes from the button
+        if (callback.id == 1)
+        {
+            //exit(-1);
+        }
+    }
 }
 
 void LevelDesign::processInput()
 {
     sf::Event event;
+    tguiEventHandler();
+
     while (mWindow.pollEvent(event))
     {
         if(event.type == sf::Event::Closed)
             mWindow.close();
 
+        gui.handleEvent(event);
+
         basicInput(event);
         mouseInput(event);
     }
+
 
 }
 
@@ -466,8 +512,6 @@ void LevelDesign::render(sf::Time frameTime)
     mWindow.setView(mWorldView);
 
 
-
-
     if(vertexMode)
         mWindow.clear(sf::Color(50,50,50,50));
     else
@@ -508,7 +552,9 @@ void LevelDesign::render(sf::Time frameTime)
     }
     /************/
 
-    mWindow.display();
+
+
+//    mWindow.display();
 }
 
 void LevelDesign::renderImages(sf::Time frameTime)
