@@ -142,4 +142,35 @@ void  Asset::exportToXML(std::string filename)
 
 }
 
+void  Asset::shrink()
+{
+    for(int i=0; i < nodeRatio.size(); i++)
+    {
+//        if(nodeRatio[i].x>aSprite.getPosition().x)
+//            nodeRatio[i].x = nodeRatio[i].x -1.f;
+//        if(nodeRatio[i].x<aSprite.getPosition().x)
+//            nodeRatio[i].x = nodeRatio[i].x +1.f;
+//        if(nodeRatio[i].y>aSprite.getPosition().y)
+//            nodeRatio[i].y = nodeRatio[i].y -1.f;
+//        if(nodeRatio[i].y<aSprite.getPosition().y)
+//            nodeRatio[i].y = nodeRatio[i].y +1.f;
 
+        nodeRatio[i] = nodeRatio[i] - sf::Vector2f(1.f,1.f);
+        if(aSprite.getPosition().x>nodeList[i].getPosition().x)
+            nodeList[i].setPosition(nodeList[i].getPosition() - sf::Vector2f(1.f,0.f));
+        if(aSprite.getPosition().x<nodeList[i].getPosition().x)
+            nodeList[i].setPosition(nodeList[i].getPosition() + sf::Vector2f(1.f,0.f));
+
+        if(aSprite.getPosition().y>nodeList[i].getPosition().y)
+            nodeList[i].setPosition(nodeList[i].getPosition() - sf::Vector2f(0.f,1.f));
+        if(aSprite.getPosition().y<nodeList[i].getPosition().y)
+            nodeList[i].setPosition(nodeList[i].getPosition() + sf::Vector2f(0.f,1.f));
+
+        nodeRatio[i] = aSprite.getPosition()-nodeList[i].getPosition();
+    }
+}
+
+void  Asset::expand()
+{
+
+}

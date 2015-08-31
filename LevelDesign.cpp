@@ -22,11 +22,11 @@ void LevelDesign::createGUI()
     gui.setGlobalFont("fonts/DejaVuSans.ttf");
 
 
-//    tgui::Label::Ptr labelUsername(gui);
-//    labelUsername->setText("Username:");
-//    labelUsername->setPosition(200, 100);
-//    labelUsername->setTextColor(sf::Color::Red);
-
+    tgui::Label::Ptr labelMousePos(gui, "MousePos");
+    labelMousePos->setText("[;]");
+    labelMousePos->setPosition(WINDOW_W - 120, listMenu2.size()*50+100);
+    labelMousePos->setTextColor(sf::Color::Red);
+    labelMousePos->setTextSize(12);
 
 
     for (int i=0; i< listMenu2.size(); i++)
@@ -149,7 +149,8 @@ void LevelDesign::tguiEventHandler()
         break;
         case 203://RESET ALL
             {
-                assetList.clear();
+                if(tinyfd_messageBox("CLEAR ALL", "T'es SUR?!","yesno","warning",0))
+                    assetList.clear();
             }
         break;
         case 204://ASSET CREATOR
@@ -261,8 +262,7 @@ void LevelDesign::basicInput(sf::Event e)
 
         }
         else
-            if(imageList.size()>0)
-                createAsset();
+           createAsset();
     }
     ///OPEN IMAGE FILE
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::O))
@@ -373,6 +373,10 @@ void LevelDesign::zoomIN()
             {
                 tmpSprite->setScale(tmpSprite->getScale()+sf::Vector2f(.05f,.05f));
             }
+            if(tmpAsset != nullptr)
+            {
+//                tmpAsset->shrink(); MDR
+            }
         }
         else
             mWorldView.zoom(0.7f);
@@ -425,6 +429,8 @@ void LevelDesign::loadFiles()
 }
 void LevelDesign::createAsset()
 {
+    if(imageList.size()<=0)
+        return;
     assetList.push_back(Asset(imageList[0],vertexList,filenameList[0]));
     vertexList.clear();
     imageList.clear();
@@ -440,6 +446,10 @@ void LevelDesign::mouseInput(sf::Event e)
     {
     case sf::Event::MouseMoved:
         {
+            if(moveView)
+            {
+                mWorldView.move(clickPos - getMousePos());
+            }
             if(isMoving)
             {
                 ///MANIPULATION DES ASSETS
@@ -518,10 +528,19 @@ void LevelDesign::mouseInput(sf::Event e)
                 }
 
             }
+            if(e.mouseButton.button == sf::Mouse::Middle)
+            {
+                clickPos = getMousePos();
+                moveView = true;
+            }
         }
     break;
     case sf::Event::MouseButtonReleased:
         {
+            if(e.mouseButton.button == sf::Mouse::Middle)
+            {
+                moveView = false;
+            }
             ///MANIPULATION DES ASSETS
             if(showAssets)
             {
@@ -545,7 +564,8 @@ void LevelDesign::mouseInput(sf::Event e)
                     isMoving = false;
                 if(e.mouseButton.button == sf::Mouse::Left)
                 {
-                    vertexList.push_back(createVertex(getMousePos()));
+                    if(vertexMode)
+                        vertexList.push_back(createVertex(getMousePos()));
                 }
             }
 
@@ -670,13 +690,31 @@ void LevelDesign::render(sf::Time frameTime)
     }
 
     /**AXIS LINE*/
-    sf::RectangleShape line(sf::Vector2f(5000, 2));
-    line.setFillColor(sf::Color(255,0,0,200));
+    sf::RectangleShape line(sf::Vector2f(5000, 10));
+    if(showAssets)
+    {
+        line.setFillColor(sf::Color(255,100,100,200));
+        t.setColor(sf::Color::Black);
+    }
+    else
+        if(!vertexMode)
+        {
+            line.setFillColor(sf::Color(255,0,0,200));
+            t.setColor(sf::Color(0,0,255,100));
+        }
+
+        else
+        {
+            line.setFillColor(sf::Color(255,255,255,200));
+            t.setColor(sf::Color::White);
+        }
+
     line.setPosition(sf::Vector2f(.0f,.0f));
     line.setRotation(0);
     mWindow.draw(line);
     line.setRotation(90);
     mWindow.draw(line);
+
     for(int i=0; i < 50; i++)
     {
         std::stringstream ss;
@@ -684,14 +722,28 @@ void LevelDesign::render(sf::Time frameTime)
 
         t.setCharacterSize(20);
         t.setString(ss.str());
+        t.setOrigin(t.getLocalBounds().width/2,t.getLocalBounds().height/2);
         t.setPosition(i*100, 10.f);
+
+        mWindow.draw(t);
+    }
+
+    for(int i=0; i < 50; i++)
+    {
+        std::stringstream ss;
+        ss<<"-"<<i<<"00-";
+
+        t.setCharacterSize(20);
+        t.setString(ss.str());
+        t.setOrigin(t.getLocalBounds().width/2,t.getLocalBounds().height/2);
+        t.setPosition(10.f, i*100);
 
         mWindow.draw(t);
     }
     /************/
 
 
-
+    renderGUI(frameTime);
 //    mWindow.display();
 }
 
@@ -731,7 +783,6 @@ void LevelDesign::renderVertex(sf::Time frameTime)
     }
 }
 
-
 void LevelDesign::renderAssets(sf::Time frameTime)
 {
     for(int i=0; i < assetList.size(); i++)
@@ -740,6 +791,17 @@ void LevelDesign::renderAssets(sf::Time frameTime)
     }
 }
 
+void LevelDesign::renderGUI(sf::Time frameTime)
+{
+    std::stringstream ss;
+    ss<<"x: "<<(int)getMousePos().x<<", y:"<<(int)getMousePos().y;
+    tgui::Label::Ptr labelMousePos = gui.get("MousePos");
+    labelMousePos->setText(ss.str());
+    if(showAssets)
+        labelMousePos->setTextColor(sf::Color::White);
+    else
+        labelMousePos->setTextColor(sf::Color::Red);
+}
 bool LevelDesign::mouseIsOnTheSprite(sf::Sprite* sp, sf::Vector2f mousePos)
 {
     if(mousePos.x > sp->getPosition().x - sp->getOrigin().x

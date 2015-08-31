@@ -30,6 +30,9 @@ public:
 
     void    setPosition(sf::Vector2f pos);
 
+    void    shrink();
+    void    expand();
+
 
     sf::Vector2f    getPosition(){return aSprite.getPosition();}
 

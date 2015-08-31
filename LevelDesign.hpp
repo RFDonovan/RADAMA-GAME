@@ -18,7 +18,12 @@ class LevelDesign
 {
 public:
     sf::RenderWindow mWindow;
+
+    /*VIEW CONTROL*/
     sf::View    mWorldView;
+    bool        moveView=false;
+    sf::Vector2f    clickPos;
+    /**************/
 
     sf::Font MyFont;
     sf::Text t;
@@ -89,7 +94,7 @@ public:
     void    renderImages(sf::Time frameTime);
     void    renderVertex(sf::Time frameTime);
     void    renderAssets(sf::Time frameTime);
-//    void    renderGUI(sf::Time frameTime);
+    void    renderGUI(sf::Time frameTime);
 
 
     ///MOUSE POSITION
