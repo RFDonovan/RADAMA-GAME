@@ -63,7 +63,8 @@ void LevelDesign::tguiEventHandler()
         // Make sure tha callback comes from the button
         if (callback.id == 1)
         {
-            //exit(-1);
+            exit(-1);
+
         }
     }
 }
@@ -78,10 +79,13 @@ void LevelDesign::processInput()
         if(event.type == sf::Event::Closed)
             mWindow.close();
 
-        gui.handleEvent(event);
+        if(!gui.handleEvent(event))
+            //SEULEMENT SI LES TGUI NE SONT PAS CONCERNE
+        {
+            basicInput(event);
+            mouseInput(event);
+        }
 
-        basicInput(event);
-        mouseInput(event);
     }
 
 
