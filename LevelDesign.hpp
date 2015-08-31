@@ -45,6 +45,8 @@ public:
 
     /*TGUI*/
     tgui::Gui gui;
+    std::vector<std::string> listMenu1 = {"Add Image", "Commit", "Clear", "Switch Mode", "Level Editor"};
+    std::vector<std::string> listMenu2 = {"Import", "Export", "Save", "Reset All", "Asset Creator"};
     /******/
 
 
@@ -52,7 +54,14 @@ public:
 
             LevelDesign();
     void    createGUI();
+    /******EVENT HANDLER*******/
     void    tguiEventHandler();
+    void    toggleAssetMode();
+    void    loadFiles();
+    void    zoomIN();
+    void    zoomOUT();
+    /******END EVENT HANDLER*******/
+
     void    run ();
 
     void    processInput();
@@ -71,6 +80,7 @@ public:
 
     void                saveLevel();
     void                saveAssets();
+    void                saveAsset(Asset a);
 
 
     void    update ();

@@ -20,22 +20,42 @@ LevelDesign::LevelDesign()
 void LevelDesign::createGUI()
 {
     gui.setGlobalFont("fonts/DejaVuSans.ttf");
-    tgui::Button::Ptr button(gui);
-
-    tgui::Label::Ptr labelUsername(gui);
-    labelUsername->setText("Username:");
-    labelUsername->setPosition(200, 100);
-    labelUsername->setTextColor(sf::Color::Red);
 
 
+//    tgui::Label::Ptr labelUsername(gui);
+//    labelUsername->setText("Username:");
+//    labelUsername->setPosition(200, 100);
+//    labelUsername->setTextColor(sf::Color::Red);
 
 
-    button->load("widgets/Black.conf");
-    button->setSize(260, 60);
-    button->setPosition(270, 440);
-    button->setText("EJDKJSF");
-    button->bindCallback(tgui::Button::LeftMouseClicked);
-    button->setCallbackId(1);
+
+    for (int i=0; i< listMenu2.size(); i++)
+    {
+        tgui::Button::Ptr btn(gui,listMenu2[i]+"LM2");
+        btn->load("widgets/Black.conf");
+        btn->setTextSize(12);
+        btn->setSize(85, 30);
+//        btn->setPosition(100* i + 100, WINDOW_H - 50);
+        btn->setPosition(WINDOW_W - 120, 50* i + 100);
+        btn->setText(listMenu2[i]);
+        btn->bindCallback(tgui::Button::LeftMouseClicked);
+        btn->setCallbackId(200+i);
+        btn->hide();
+    }
+
+    for (int i=0; i< listMenu1.size(); i++)
+    {
+        tgui::Button::Ptr btn(gui,listMenu1[i]+"LM1");
+        btn->load("widgets/Black.conf");
+        btn->setTextSize(12);
+        btn->setSize(85, 30);
+//        btn->setPosition(100* i + 100, WINDOW_H - 50);
+        btn->setPosition(WINDOW_W - 120, 50* i + 100);
+        btn->setText(listMenu1[i]);
+        btn->bindCallback(tgui::Button::LeftMouseClicked);
+        btn->setCallbackId(100+i);
+    }
+
 }
 
 void LevelDesign::run()
@@ -63,8 +83,109 @@ void LevelDesign::tguiEventHandler()
         // Make sure tha callback comes from the button
         if (callback.id == 1)
         {
-            exit(-1);
+//            exit(-1);
+//            gui.get("Clear")->hide();
 
+        }
+        switch(callback.id)
+        {
+        case 100://LOAD image
+            {
+//                saveAsset(Asset(imageList[0],vertexList,filenameList[0]));
+                loadFiles();
+            }
+        break;
+
+//        case 100://SAVE image
+//            {
+////                saveAsset(Asset(imageList[0],vertexList,filenameList[0]));
+//            }
+//        break;
+
+        case 101://COMMIT: create asset from this
+            {
+                createAsset();
+                toggleAssetMode();
+            }
+        break;
+        case 102://CLEAR ALL NODES AND ASSETS
+            {
+//                mWorldView.setCenter(WINDOW_W/2,WINDOW_H/2);
+                vertexList.clear();
+                imageList.clear();
+                filenameList.clear();
+                tmpNode = nullptr;
+                tmpSprite = nullptr;
+            }
+        break;
+        case 103://SWITCH VERTEX MODE
+            {
+                vertexMode = !vertexMode;
+            }
+        break;
+        case 104://LEVEL EDITOR
+            {
+                toggleAssetMode();
+            }
+        break;
+        case 200://IMPORT assets
+            {
+                loadFiles();
+            }
+        break;
+        case 201://EXPORT as level
+            {
+                if(showAssets)
+                {
+                    saveLevel();
+                }
+            }
+        break;
+        case 202://SAVE
+            {
+                if(showAssets)
+                    saveAssets();
+            }
+        break;
+        case 203://RESET ALL
+            {
+                assetList.clear();
+            }
+        break;
+        case 204://ASSET CREATOR
+            {
+                toggleAssetMode();
+
+            }
+        break;
+
+        }
+    }
+}
+void LevelDesign::toggleAssetMode()
+{
+    if(showAssets)
+    {
+        for (int i=0; i< listMenu1.size(); i++)
+        {
+            gui.get(listMenu1[i]+"LM1")->show();
+        }
+        showAssets = false;
+        for (int i=0; i< listMenu2.size(); i++)
+        {
+            gui.get(listMenu2[i]+"LM2")->hide();
+        }
+    }
+    else
+    {
+        for (int i=0; i< listMenu1.size(); i++)
+        {
+            gui.get(listMenu1[i]+"LM1")->hide();
+        }
+        showAssets = true;
+        for (int i=0; i< listMenu2.size(); i++)
+        {
+            gui.get(listMenu2[i]+"LM2")->show();
         }
     }
 }
@@ -123,27 +244,11 @@ void LevelDesign::basicInput(sf::Event e)
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
     {
-        if(isMoving)
-        {
-            if(tmpSprite != nullptr)
-            {
-                tmpSprite->setScale(tmpSprite->getScale()+sf::Vector2f(.05f,.05f));
-            }
-        }
-        else
-            mWorldView.zoom(0.7f);
+        zoomIN();
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract))
     {
-        if(isMoving)
-        {
-            if(tmpSprite != nullptr)
-            {
-                tmpSprite->setScale(tmpSprite->getScale()-sf::Vector2f(.05f,.05f));
-            }
-        }
-        else
-            mWorldView.zoom(1.3f);
+        zoomOUT();
     }
 
 
@@ -162,36 +267,7 @@ void LevelDesign::basicInput(sf::Event e)
     ///OPEN IMAGE FILE
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::O))
     {
-        if(showAssets)
-        {
-            const char *filters[] = {"*.asset","*.xml"};
-            const char *fn = tinyfd_openFileDialog("Open Assets","",2,filters,"Asset files", 1);
-
-            if(fn)
-            {
-                std::vector<std::string> pathList;
-                pathList = splitPerso(fn, "|");
-
-                for(int i=0; i<pathList.size(); i++)
-                {
-                    std::cout <<"Loading of "<<pathList[i] << std::endl;
-                    assetList.push_back(Asset(pathList[i]));
-                }
-            }
-
-        }
-        else
-        {
-            const char *filters[] = {"*.jpg","*.png"};
-            const char *fn = tinyfd_openFileDialog("Open Image","",2,filters,"image files", 0);
-            if(fn)
-            {
-                imageList.push_back(loadImage(fn));
-                filenameList.push_back(fn);
-            }
-
-            std::cout <<"Loading of "<<fn << std::endl;
-        }
+        loadFiles();
 
     }
     ///DELETING IMAGE OR NODE
@@ -289,6 +365,64 @@ void LevelDesign::basicInput(sf::Event e)
     }
 }
 
+void LevelDesign::zoomIN()
+{
+    if(isMoving)
+        {
+            if(tmpSprite != nullptr)
+            {
+                tmpSprite->setScale(tmpSprite->getScale()+sf::Vector2f(.05f,.05f));
+            }
+        }
+        else
+            mWorldView.zoom(0.7f);
+}
+void LevelDesign::zoomOUT()
+{
+    if(isMoving)
+        {
+            if(tmpSprite != nullptr)
+            {
+                tmpSprite->setScale(tmpSprite->getScale()-sf::Vector2f(.05f,.05f));
+            }
+        }
+        else
+            mWorldView.zoom(1.3f);
+}
+
+void LevelDesign::loadFiles()
+{
+    if(showAssets)
+        {
+            const char *filters[] = {"*.asset"};
+            const char *fn = tinyfd_openFileDialog("Open Assets","",1,filters,"Asset files", 1);
+
+            if(fn)
+            {
+                std::vector<std::string> pathList;
+                pathList = splitPerso(fn, "|");
+
+                for(int i=0; i<pathList.size(); i++)
+                {
+                    std::cout <<"Loading of "<<pathList[i] << std::endl;
+                    assetList.push_back(Asset(pathList[i]));
+                }
+            }
+
+        }
+        else
+        {
+            const char *filters[] = {"*.jpg","*.png"};
+            const char *fn = tinyfd_openFileDialog("Open Image","",2,filters,"image files", 0);
+            if(fn)
+            {
+                imageList.push_back(loadImage(fn));
+                filenameList.push_back(fn);
+            }
+
+            std::cout <<"Loading of "<<fn << std::endl;
+        }
+}
 void LevelDesign::createAsset()
 {
     assetList.push_back(Asset(imageList[0],vertexList,filenameList[0]));
@@ -421,9 +555,9 @@ void LevelDesign::mouseInput(sf::Event e)
     case sf::Event::MouseWheelMoved:
         {
             if(e.mouseWheel.delta>0)
-                mWorldView.zoom(0.7f);
+                zoomIN();
             if(e.mouseWheel.delta<0)
-                mWorldView.zoom(1.3f);
+                zoomOUT();
 
         }
         std::cout << e.mouseWheel.delta << '\n';
@@ -697,6 +831,16 @@ void LevelDesign::saveAssets()
         ss<<fn<<i<<".asset";
         assetList[i].exportToXML(ss.str());
     }
+}
+
+void LevelDesign::saveAsset(Asset a)
+{
+    const char *filters[] = {"*.asset"};
+    const char *fn = tinyfd_saveFileDialog("Save Asset as", "", 1, filters,"Asset File");
+    std::stringstream ss;
+    ss<<fn;
+
+    a.exportToXML(ss.str());
 }
 
 
