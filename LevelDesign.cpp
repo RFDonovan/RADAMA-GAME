@@ -275,11 +275,15 @@ void LevelDesign::basicInput(sf::Event e)
     {
         if(showAssets)
         {
-            if(tmpAsset != nullptr)
-            {
-                deleteAsset(tmpAsset);
-                tmpAsset = nullptr;
-            }
+//            if(tmpAsset != nullptr)
+//            {
+//                deleteAsset(tmpAsset);
+//                tmpAsset = nullptr;
+//            }
+//            for(int i=0; i < selectedAsset.size(); i++)
+//            {
+//                deleteAsset(selectedAsset[i]);
+//            }
         }
         else
         if(vertexMode)
@@ -358,6 +362,24 @@ void LevelDesign::basicInput(sf::Event e)
                 }
             }
 
+            if(e.key.code == sf::Keyboard::Delete)
+            {
+                if(showAssets)
+                {
+                    for(int i=0; i < selectedAsset.size(); i++)
+                    {
+                        deleteAsset(selectedAsset[i]);
+//                        selectedAsset[i]->pinned = true;
+                        //selectedAsset.erase(selectedAsset.begin()+i);
+                    }
+                    selectedAsset.clear();
+                    if(tmpAsset != nullptr)
+                    {
+                        deleteAsset(tmpAsset);
+                        tmpAsset = nullptr;
+                    }
+                }
+            }
 
         break;
 
@@ -376,6 +398,10 @@ void LevelDesign::zoomIN()
             if(tmpAsset != nullptr)
             {
 //                tmpAsset->shrink(); MDR
+                if(tmpAsset->zIndex < 2)
+                    tmpAsset->zIndex++;
+                else
+                    tmpAsset->zIndex = 0;
             }
         }
         else
@@ -388,6 +414,14 @@ void LevelDesign::zoomOUT()
             if(tmpSprite != nullptr)
             {
                 tmpSprite->setScale(tmpSprite->getScale()-sf::Vector2f(.05f,.05f));
+            }
+            if(tmpAsset != nullptr)
+            {
+//                tmpAsset->shrink(); MDR
+                if(tmpAsset->zIndex > 0)
+                    tmpAsset->zIndex--;
+                else
+                    tmpAsset->zIndex = 2;
             }
         }
         else
@@ -446,6 +480,17 @@ void LevelDesign::mouseInput(sf::Event e)
     {
     case sf::Event::MouseMoved:
         {
+            if(showAssets)
+            {
+                if(selectOn)
+                {
+                    selectRectangle.setPosition(clickPos);
+                    selectRectangle.setSize(sf::Vector2f(getMousePos().x - clickPos.x, getMousePos().y - clickPos.y));
+
+                }
+
+            }
+
             if(moveView)
             {
                 mWorldView.move(clickPos - getMousePos());
@@ -478,6 +523,15 @@ void LevelDesign::mouseInput(sf::Event e)
     break;
     case sf::Event::MouseButtonPressed:
         {
+            if(e.mouseButton.button == sf::Mouse::Left)
+            {
+                if(showAssets)
+                {
+                    selectedAsset.clear();
+                    selectOn = true;
+                    clickPos = getMousePos();
+                }
+            }
             if(e.mouseButton.button == sf::Mouse::Right)
             {
                 ///MANIPULATION DES ASSETS
@@ -537,6 +591,31 @@ void LevelDesign::mouseInput(sf::Event e)
     break;
     case sf::Event::MouseButtonReleased:
         {
+            if(e.mouseButton.button == sf::Mouse::Left)
+            {
+                if(showAssets)
+                {
+                    if(selectOn)
+                    {
+
+                        for (int i=0; i < assetList.size(); i++)
+                        {
+//                            std::cout<<"rect Lb:"<<selectRectangle.getGlobalBounds().top<<selectRectangle.getGlobalBounds().left<<selectRectangle.getGlobalBounds().width<<selectRectangle.getGlobalBounds().height
+//                            <<"\t pos asset:"<<assetList[i].getPosition().x<<assetList[i].getPosition().y<<std::endl;
+                            if(selectRectangle.getGlobalBounds().contains(assetList[i].getPosition() ))
+                            {
+//                                assetList[i].pinned = true;
+                                selectedAsset.push_back(&assetList[i]);
+                                //selectedAsset[selectedAsset.size()-1]->pinned = true;
+                            }
+                        }
+
+                        selectRectangle.setSize(sf::Vector2f(0.f,0.f));
+                        selectOn = false;
+                    }
+
+                }
+            }
             if(e.mouseButton.button == sf::Mouse::Middle)
             {
                 moveView = false;
@@ -742,7 +821,8 @@ void LevelDesign::render(sf::Time frameTime)
     }
     /************/
 
-
+    if(selectOn)
+        mWindow.draw(selectRectangle);
     renderGUI(frameTime);
 //    mWindow.display();
 }
@@ -785,9 +865,13 @@ void LevelDesign::renderVertex(sf::Time frameTime)
 
 void LevelDesign::renderAssets(sf::Time frameTime)
 {
-    for(int i=0; i < assetList.size(); i++)
+    for (int z = 0; z <= 2; z++) // zIndex
     {
-        assetList[i].render(mWindow);
+        for(int i=0; i < assetList.size(); i++)
+        {
+            if(assetList[i].zIndex == z)
+                assetList[i].render(mWindow);
+        }
     }
 }
 
@@ -838,45 +922,52 @@ void LevelDesign::saveLevel()
 
 
     ///CREATE BODIES
-    for(int i=0; i< assetList.size(); i++)
+    for (int z = 0; z <= 2; z++) // zIndex
     {
-        //*********body**********
-        pugi::xml_node bodyN = bodies.append_child("body");
-        bodyN.append_attribute("name") = i;
-        bodyN.append_attribute("type") = "static";
-        bodyN.append_attribute("x") = assetList[i].getPosition().x;
-        bodyN.append_attribute("y") = -assetList[i].getPosition().y;
-        bodyN.append_attribute("image") = assetList[i].name.c_str();
-        //*********end body**********
-
-        //*********fixtures**********
-        pugi::xml_node fixturesN = bodyN.append_child("fixtures");
-        pugi::xml_node fixtureN = fixturesN.append_child("fixture");
-        fixtureN.append_attribute("name") = i;
-        fixtureN.append_attribute("restitution") = "0";
-        fixtureN.append_attribute("friction") = "0";
-        fixtureN.append_attribute("isSensor") = "false";
-        fixtureN.append_attribute("shapeType") = "polygonShape";
-        fixtureN.append_attribute("categoryBits") = "0x0003";
-        fixtureN.append_attribute("maskBits") = "0x0002";
-        for(int j = 0; j < assetList[i].nodeRatio.size(); j++)
+        for(int i=0; i< assetList.size(); i++)
         {
-            pugi::xml_node vertexN = fixtureN.append_child("vertex");
-            vertexN.append_attribute("x") = -assetList[i].nodeRatio[j].x;
-            vertexN.append_attribute("y") = -assetList[i].nodeRatio[j].y;
+            if(assetList[i].zIndex != z)
+                continue;
+            std::stringstream ss;
+            ss<<i;
+            //*********body**********
+            pugi::xml_node bodyN = bodies.append_child("body");
+            bodyN.append_attribute("name") = i;
+            bodyN.append_attribute("type") = "static";
+            bodyN.append_attribute("x") = assetList[i].getPosition().x;
+            bodyN.append_attribute("y") = -assetList[i].getPosition().y;
+            bodyN.append_attribute("image") = (assetList[i].name+ss.str()).c_str();
+            //*********end body**********
+
+            //*********fixtures**********
+            pugi::xml_node fixturesN = bodyN.append_child("fixtures");
+            pugi::xml_node fixtureN = fixturesN.append_child("fixture");
+            fixtureN.append_attribute("name") = i;
+            fixtureN.append_attribute("restitution") = "0";
+            fixtureN.append_attribute("friction") = "1";
+            fixtureN.append_attribute("isSensor") = "false";
+            fixtureN.append_attribute("shapeType") = "polygonShape";
+            fixtureN.append_attribute("categoryBits") = "0x0003";
+            fixtureN.append_attribute("maskBits") = "0x0002";
+            for(int j = 0; j < assetList[i].nodeRatio.size(); j++)
+            {
+                pugi::xml_node vertexN = fixtureN.append_child("vertex");
+                vertexN.append_attribute("x") = -assetList[i].nodeRatio[j].x;
+                vertexN.append_attribute("y") = -assetList[i].nodeRatio[j].y;
+            }
+            //*********end fixtures**********
+
+            //*********Images**********
+            pugi::xml_node imageN = images.append_child("image");
+            imageN.append_attribute("name") = (assetList[i].name+ss.str()).c_str();
+            imageN.append_attribute("path") = assetList[i].name.c_str();
+            imageN.append_attribute("x") = assetList[i].getPosition().x;
+            imageN.append_attribute("y") = -assetList[i].getPosition().y;
+            imageN.append_attribute("scaleX") = assetList[i].aSprite.getScale().x;
+            imageN.append_attribute("scaleY") = assetList[i].aSprite.getScale().y;
+            //*********end Images**********
+
         }
-        //*********end fixtures**********
-
-        //*********Images**********
-        pugi::xml_node imageN = images.append_child("image");
-        imageN.append_attribute("name") = assetList[i].name.c_str();
-        imageN.append_attribute("path") = assetList[i].name.c_str();
-        imageN.append_attribute("x") = assetList[i].getPosition().x;
-        imageN.append_attribute("y") = -assetList[i].getPosition().y;
-        imageN.append_attribute("scaleX") = assetList[i].aSprite.getScale().x;
-        imageN.append_attribute("scaleY") = assetList[i].aSprite.getScale().y;
-        //*********end Images**********
-
     }
 
     doc.save_file(ss.str().c_str());

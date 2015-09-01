@@ -408,7 +408,7 @@ sf::Sprite* XMLLoader::loadImage(std::string imageName, std::string dir)
 
     sf::Sprite imgSprite;
 
-    textureHolder->loadFromFile(imageName, filename);
+    textureHolder->loadFromFile(filename, filename);
 
 ////    sf::Texture  tex;
 ////    if ( !tex.loadFromFile(filename) )
@@ -420,7 +420,7 @@ sf::Sprite* XMLLoader::loadImage(std::string imageName, std::string dir)
 
 
 ////    tex.setSmooth(true);
-    imgSprite.setTexture(*textureHolder->getTexture(imageName));
+    imgSprite.setTexture(*textureHolder->getTexture(filename));
     imgSprite.setScale(
         image.attribute("scaleX").as_float(),
         image.attribute("scaleY").as_float()
@@ -431,8 +431,8 @@ sf::Sprite* XMLLoader::loadImage(std::string imageName, std::string dir)
     );
     imgSprite.setRotation(image.attribute("rotation").as_float());
     imgSprite.setOrigin(
-        (textureHolder->getTexture(imageName)->getSize().x)/2,
-        (textureHolder->getTexture(imageName)->getSize().y)/2
+        (textureHolder->getTexture(filename)->getSize().x)/2,
+        (textureHolder->getTexture(filename)->getSize().y)/2
     );
     spriteList.push_back(imgSprite);
 ///TROP STATIQUE !!!!!!
@@ -442,7 +442,7 @@ sf::Sprite* XMLLoader::loadImage(std::string imageName, std::string dir)
                                          )
                              );
 ////    texList.push_back(*textureHolder->getTexture(imageName));
-    texNames.push_back(imageName);
+    texNames.push_back(filename);
     std::cout<<filename<<" loadE........\n";
 
     nameToSprite[imageName] = &spriteList[spriteList.size()-1];

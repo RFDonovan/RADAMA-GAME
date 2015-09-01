@@ -46,6 +46,7 @@ Asset::Asset(std::string filename)
     aSprite.setOrigin(textureHolder.getTexture("Aname")->getSize().x/2, textureHolder.getTexture("Aname")->getSize().y/2);
     aSprite.setScale(imageN.attribute("scaleX").as_float(),imageN.attribute("scaleY").as_float());
     aSprite.setPosition(imageN.attribute("x").as_float(),imageN.attribute("y").as_float());
+    zIndex = imageN.attribute("z").as_int();
 
 ///LOAD NODES
     pugi::xml_node nodesN = XMLDocument.child("Asset").child("nodes");
@@ -84,7 +85,7 @@ void  Asset::render(sf::RenderWindow& mWindow)
     }
     else
     {
-        aSprite.setColor(sf::Color(255,255,255,150));
+        aSprite.setColor(sf::Color(255,255,255,250));
     }
     mWindow.draw(aSprite);
     for(int i=0; i < nodeList.size(); i++)
@@ -125,6 +126,8 @@ void  Asset::exportToXML(std::string filename)
 
     imageN.append_attribute("x") = aSprite.getPosition().x;
     imageN.append_attribute("y") = aSprite.getPosition().y;
+    imageN.append_attribute("z") = zIndex;
+
     imageN.append_attribute("scaleX") = aSprite.getScale().x;
     imageN.append_attribute("scaleY") = aSprite.getScale().y;
     imageN.append_attribute("path") = path.c_str();

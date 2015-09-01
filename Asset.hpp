@@ -23,6 +23,8 @@ public:
     std::string name;
     TextureHolder                textureHolder;
 
+    int zIndex = 0;
+
 public:
             Asset(sf::Sprite image, std::vector<sf::CircleShape> nodeList,std::string filename);
             Asset(std::string filename);

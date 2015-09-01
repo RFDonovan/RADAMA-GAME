@@ -38,6 +38,8 @@ public:
     std::vector<sf::CircleShape>    vertexList;
     std::vector<sf::Sprite>    imageList;
     std::vector<Asset>          assetList;
+    std::vector<Asset*>          selectedAsset;
+
     std::vector<std::string>    filenameList;
 
 
@@ -45,6 +47,8 @@ public:
     sf::CircleShape*    tmpNode = nullptr;
     Asset*              tmpAsset = nullptr;
     bool isMoving = false;
+    sf::RectangleShape selectRectangle;
+    bool selectOn = false;
 
     float unit = 20.f;
 
