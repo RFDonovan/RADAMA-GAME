@@ -136,6 +136,7 @@ public:
     //void    onCommand(sf::Event e);
     int     getY();
     int     getX();
+    sf::Vector2f    getPosition();
     void    setPosition(sf::Vector2f position);
 
     bool    isGrounded();

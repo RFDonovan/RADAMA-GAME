@@ -440,7 +440,7 @@ sf::Sprite* XMLLoader::loadImage(std::string imageName, std::string dir)
     texList.push_back(tex);
     std::cout<<filename<<" loadE........\n";
 
-    nameToSprite[imageName] = &spriteList[spriteList.size()-1];
+    //nameToSprite[imageName] = &spriteList[spriteList.size()-1];
     return &spriteList[spriteList.size()-1];
 }
 

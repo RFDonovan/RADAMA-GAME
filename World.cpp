@@ -24,6 +24,7 @@ World::World(sf::RenderWindow& window)
 
     loadTextures();
     buildScene(levelPath);
+    pauseLayer.setOrigin(sf::Vector2f(WINDOW_W/2, WINDOW_H/2));
     ///BG = sf::Sprite(*Textures.getTexture(TextureHolder::Background1));
     ///BG_pause = sf::Sprite(*Textures.getTexture(TextureHolder::Pause));
 //    BG.scale(.6f,.6f);
@@ -512,6 +513,9 @@ void World::buildScene(std::string CurrentDir)
     pauseLayer.setPosition(sf::Vector2f(0.f,0.f));
     mWorldView.reset(r);
 
+    mWorldView.setCenter(WINDOW_W/2,WINDOW_H/2);
+    ePlayer->setPosition(sf::Vector2f(WINDOW_W/2,WINDOW_H/2));
+
 }
 
 void World::loadSprites(std::string listFile)
@@ -737,39 +741,33 @@ void World::rebuildScene()
     pauseLayer.setPosition(sf::Vector2f(0.f,0.f));
     statInfo.resetView();
 
+
 }
 
 void World::adaptViewToPlayer()
 {
     /**player always at 2/3 of scren*/
     /**except at the begining or at the end of the level*/
-
-    if(ePlayer->getX() < WINDOW_W/2)
-        return;
-
-
     try
     {
 
 //        //-----X
         b2Vec2 vel = ePlayer->getVelocity();
-//        //std::cout<< "vel x:"<<vel.x; //RA VO LAVA BE LE VELX DE MIPLANTE LE APP
-//        updateView(sf::Vector2f(vel.x/2,0));
-//        ///BG_pause.move(sf::Vector2f(vel.x/2,0));
-//        xLoad2->move(vel.x/2, 0.f);
-//
-//        pauseLayer.move(sf::Vector2f(vel.x/2,0));
-//        ///BG.move(sf::Vector2f((vel.x)/2.5, 0));
-//
-//        statInfo.adaptPosition(sf::Vector2f(vel.x/2,0));
+    ///ON DOIT SE REFERER A PARTIR DU VIEW PCQ LE RENDERWINDOW EST INFINI
+        if(std::abs(ePlayer->getX() - mWorldView.getCenter().x) <WINDOW_W/6)
+            vel.x = 0.f;
+        if(std::abs(ePlayer->getY() - mWorldView.getCenter().y) <WINDOW_H/6)
+            vel.y = 0.f;
 
-        //-------XY
+
+        if(ePlayer->getX() < WINDOW_W/2)
+            vel.x = 0.f;
+        if(ePlayer->getY() < WINDOW_H/3)
+            vel.y = 0.f;
         updateView(sf::Vector2f(vel.x/2,vel.y/2));
-        ///BG_pause.move(sf::Vector2f(vel.x/2,0));
         xLoad2->move(vel.x/2, 0.f);
 
-        pauseLayer.move(sf::Vector2f(vel.x/2,vel.y/2));
-        ///BG.move(sf::Vector2f((vel.x)/2.5, 0));
+        pauseLayer.setPosition(mWorldView.getCenter());
 
         statInfo.adaptPosition(sf::Vector2f(vel.x/2,vel.y/2));
 
@@ -780,7 +778,6 @@ void World::adaptViewToPlayer()
         std::cout<< "ePlayer deleted";
         return;
     }
-//*/
 }
 
 b2World& World::getWorld()
