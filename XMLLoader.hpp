@@ -23,9 +23,12 @@ public:
     b2World*                    p_world;
     pugi::xml_document          XMLDocument;
 
+    TextureHolder*              textureHolder;
+
     std::vector<sf::Sprite>     spriteList;
     std::vector<sf::IntRect>     spriteRectList;
     std::vector<sf::Texture>    texList;
+    std::vector<std::string>    texNames;
     std::vector<b2Body*>        bodyList;
     std::vector<b2Vec2>         ratioList;
     std::vector<float>          angleRatioList;
@@ -37,7 +40,7 @@ public:
     sf::Clock randomClock;
 
 public:
-        XMLLoader(b2World* world);
+        XMLLoader(b2World* world , TextureHolder* th);
 
     std::vector<Item*>    loadItems(std::string dir);
 

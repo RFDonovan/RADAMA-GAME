@@ -6,8 +6,9 @@
     FRIENDLY_AIRCRAFT = 0x0008,
     ENEMY_AIRCRAFT =    0x0010,
 */
-XMLLoader::XMLLoader(b2World* world)
+XMLLoader::XMLLoader(b2World* world, TextureHolder* th)
     : p_world(world)
+    , textureHolder(th)
 {
     ///BODY TYPES
     attributeMap["dynamic"] = b2_dynamicBody;
@@ -406,17 +407,20 @@ sf::Sprite* XMLLoader::loadImage(std::string imageName, std::string dir)
     std::string filename = ss.str();
 
     sf::Sprite imgSprite;
-    sf::Texture  tex;
-    if ( !tex.loadFromFile(filename) )
-    {
-        std::cout << "Failed to load  spritesheet!" << std::endl;
-    }
+
+    textureHolder->loadFromFile(imageName, filename);
+
+////    sf::Texture  tex;
+////    if ( !tex.loadFromFile(filename) )
+////    {
+////        std::cout << "Failed to load  spritesheet!" << std::endl;
+////    }
 
 
 
 
-    tex.setSmooth(true);
-    imgSprite.setTexture(tex);
+////    tex.setSmooth(true);
+    imgSprite.setTexture(*textureHolder->getTexture(imageName));
     imgSprite.setScale(
         image.attribute("scaleX").as_float(),
         image.attribute("scaleY").as_float()
@@ -427,8 +431,8 @@ sf::Sprite* XMLLoader::loadImage(std::string imageName, std::string dir)
     );
     imgSprite.setRotation(image.attribute("rotation").as_float());
     imgSprite.setOrigin(
-        (tex.getSize().x)/2,
-        (tex.getSize().y)/2
+        (textureHolder->getTexture(imageName)->getSize().x)/2,
+        (textureHolder->getTexture(imageName)->getSize().y)/2
     );
     spriteList.push_back(imgSprite);
 ///TROP STATIQUE !!!!!!
@@ -437,10 +441,11 @@ sf::Sprite* XMLLoader::loadImage(std::string imageName, std::string dir)
                                          imgSprite.getTexture()->getSize().y*imgSprite.getScale().y
                                          )
                              );
-    texList.push_back(tex);
+////    texList.push_back(*textureHolder->getTexture(imageName));
+    texNames.push_back(imageName);
     std::cout<<filename<<" loadE........\n";
 
-    //nameToSprite[imageName] = &spriteList[spriteList.size()-1];
+    nameToSprite[imageName] = &spriteList[spriteList.size()-1];
     return &spriteList[spriteList.size()-1];
 }
 
@@ -463,7 +468,8 @@ void XMLLoader::render(sf::RenderWindow& mWindow, sf::Shader* shader)
 //    }
     for (int it = 0 ; it < spriteList.size(); it++)
     {
-        spriteList[it].setTexture(texList[i]);
+////        spriteList[it].setTexture(texList[i]);
+        spriteList[it].setTexture(*textureHolder->getTexture(texNames[i]));
         if(bodyList[i]->GetType() == b2_dynamicBody)
         {
             spriteList[it].setPosition((bodyList[i]->GetPosition().x*RATIO)-ratioList[i].x,  (bodyList[i]->GetPosition().y*RATIO)+ratioList[i].y);

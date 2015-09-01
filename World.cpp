@@ -589,7 +589,7 @@ void World::loadInfo(std::string xmlCfg)
     loadSprites(directory+"spriteList.xml");
 
     ///LOADING GROUNDS
-    xLoad = new XMLLoader(&p_world);
+    xLoad = new XMLLoader(&p_world, &Textures);
     LevelObjectList = xLoad->loadXML(directory + "level.xml", directory);
     Ground * level = new Ground(&p_world, &LevelObjectList);
 
@@ -707,7 +707,7 @@ void World::loadInfo(std::string xmlCfg)
     ///loading pause
     //xLoad2->loadXML(std::string("pause.xml"), std::string(""));
     std::string directory2("./");
-    xLoad2 = new XMLLoader(&p_world2);
+    xLoad2 = new XMLLoader(&p_world2, &Textures);
     xLoad2->loadXML(directory2 + "pause.xml", directory2);
     nameToSprite = xLoad2->getNameToSpriteList();
 
