@@ -24,13 +24,17 @@ public:
     TextureHolder                textureHolder;
 
     int zIndex = 0;
+    bool deleted = false;
+    bool selected = false;
 
 public:
             Asset(sf::Sprite image, std::vector<sf::CircleShape> nodeList,std::string filename);
             Asset(std::string filename);
+            ~Asset();
     void    render(sf::RenderWindow& mWindow);
 
     void    setPosition(sf::Vector2f pos);
+    void    move(sf::Vector2f pos);
 
     void    shrink();
     void    expand();

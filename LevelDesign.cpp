@@ -361,18 +361,12 @@ void LevelDesign::basicInput(sf::Event e)
                         saveAssets();
                 }
             }
-
+            ///DELETE ASSETS
             if(e.key.code == sf::Keyboard::Delete)
             {
                 if(showAssets)
                 {
-                    for(int i=0; i < selectedAsset.size(); i++)
-                    {
-                        deleteAsset(selectedAsset[i]);
-//                        selectedAsset[i]->pinned = true;
-                        //selectedAsset.erase(selectedAsset.begin()+i);
-                    }
-                    selectedAsset.clear();
+                    deleteAsset(nullptr);
                     if(tmpAsset != nullptr)
                     {
                         deleteAsset(tmpAsset);
@@ -443,6 +437,8 @@ void LevelDesign::loadFiles()
                 for(int i=0; i<pathList.size(); i++)
                 {
                     std::cout <<"Loading of "<<pathList[i] << std::endl;
+//                    Asset a(pathList[i]);
+//                    assetList.push_back(a);
                     assetList.push_back(Asset(pathList[i]));
                 }
             }
@@ -465,12 +461,30 @@ void LevelDesign::createAsset()
 {
     if(imageList.size()<=0)
         return;
+//    std::cout<<"creating asset...."<<std::endl;
+//    Asset a(imageList[0],vertexList,filenameList[0]);
+//    std::cout<<"pushing the asset...."<<std::endl;
+//    assetList.push_back(a);
     assetList.push_back(Asset(imageList[0],vertexList,filenameList[0]));
+//    std::cout<<"clearing all...."<<std::endl;
     vertexList.clear();
     imageList.clear();
     filenameList.clear();
     tmpNode = nullptr;
     tmpSprite = nullptr;
+//    std::cout<<"done!!"<<std::endl;
+}
+
+void LevelDesign::selectAsset(Asset* asset)
+{
+    asset->selected = true;
+}
+void LevelDesign::unselectAllA()
+{
+    for(int i=0; i < assetList.size(); i++)
+    {
+        assetList[i].selected = false;
+    }
 }
 
 void LevelDesign::mouseInput(sf::Event e)
@@ -527,9 +541,12 @@ void LevelDesign::mouseInput(sf::Event e)
             {
                 if(showAssets)
                 {
-                    selectedAsset.clear();
+
+//                    selectedAsset.clear();
                     selectOn = true;
                     clickPos = getMousePos();
+                    if(!sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)||!sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) )
+                        unselectAllA();
                 }
             }
             if(e.mouseButton.button == sf::Mouse::Right)
@@ -544,6 +561,9 @@ void LevelDesign::mouseInput(sf::Event e)
                         {
                             isMoving = true;
                             tmpAsset = &(assetList[i]);
+                            if(!sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)||!sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) )
+                                unselectAllA();
+                            tmpAsset->selected = true;
                             break;
                         }
                     }
@@ -604,8 +624,8 @@ void LevelDesign::mouseInput(sf::Event e)
 //                            <<"\t pos asset:"<<assetList[i].getPosition().x<<assetList[i].getPosition().y<<std::endl;
                             if(selectRectangle.getGlobalBounds().contains(assetList[i].getPosition() ))
                             {
-//                                assetList[i].pinned = true;
-                                selectedAsset.push_back(&assetList[i]);
+                                assetList[i].selected = true;
+                                //selectedAsset.push_back(&assetList[i]);
                                 //selectedAsset[selectedAsset.size()-1]->pinned = true;
                             }
                         }
@@ -720,11 +740,25 @@ void LevelDesign::deleteImage(sf::Sprite* image)
 
 void LevelDesign::deleteAsset(Asset* asset)
 {
-    for(int i=0 ; i < assetList.size(); i++)
+//    for(int i=0 ; i < assetList.size(); i++)
+//    {
+//        if(assetList[i].selected)
+//        {
+//            assetList.erase(assetList.begin()+i);
+//        }
+//
+//    }
+    for ( std::vector<Asset>::iterator it = assetList.begin(); it != assetList.end(); )
     {
-        if(asset == &assetList[i])
-            assetList.erase(assetList.begin()+i);
+        if((*it).selected )
+           {
+              it = assetList.erase(it);
+           }
+           else {
+              ++it;
+           }
     }
+
 }
 
 void LevelDesign::downZIndex(Asset* asset)

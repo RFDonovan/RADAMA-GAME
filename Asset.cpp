@@ -5,6 +5,7 @@ Asset::Asset(sf::Sprite image, std::vector<sf::CircleShape> nodeList,std::string
 , nodeList(nodeList)
 , path(filename)
 {
+    std::cout << "Asset:: nodelist....\n";
     for(int i=0; i < nodeList.size(); i++)
     {
         nodeRatio.push_back(aSprite.getPosition()-nodeList[i].getPosition());
@@ -20,6 +21,8 @@ Asset::Asset(sf::Sprite image, std::vector<sf::CircleShape> nodeList,std::string
     ssName<<PathFindFileName(filename.c_str());
 
     name = ssName.str();
+    std::cout << "Asset:: done\n";
+    textureHolder.add("Aname", *image.getTexture());
 }
 
 Asset::Asset(std::string filename)
@@ -77,8 +80,21 @@ void  Asset::setPosition(sf::Vector2f pos)
     }
 }
 
+void  Asset::move(sf::Vector2f pos)
+{
+    aSprite.move(pos);
+
+    for(int i=0; i < nodeList.size(); i++)
+    {
+        nodeList[i].move(aSprite.getPosition()-nodeRatio[i]);
+    }
+}
+
 void  Asset::render(sf::RenderWindow& mWindow)
 {
+    if(deleted)
+        return;
+    aSprite.setTexture(*textureHolder.getTexture("Aname"));
     if(pinned)
     {
         aSprite.setColor(sf::Color(55,55,55,150));
@@ -110,6 +126,14 @@ void  Asset::render(sf::RenderWindow& mWindow)
 
 
             mWindow.draw(line, 2, sf::Lines);
+        }
+        if(selected)
+        {
+            nodeList[i].setFillColor(sf::Color::Red);
+        }
+        else
+        {
+            nodeList[i].setFillColor(sf::Color(100, 250, 50));
         }
         mWindow.draw(nodeList[i]);
     }
@@ -176,4 +200,10 @@ void  Asset::shrink()
 void  Asset::expand()
 {
 
+}
+
+Asset::~Asset()
+{
+    std::cout<<"Destruct asset"<<std::endl;
+//    deleted = true;
 }

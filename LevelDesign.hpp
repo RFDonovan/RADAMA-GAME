@@ -38,7 +38,7 @@ public:
     std::vector<sf::CircleShape>    vertexList;
     std::vector<sf::Sprite>    imageList;
     std::vector<Asset>          assetList;
-    std::vector<Asset*>          selectedAsset;
+    //std::vector<Asset*>          selectedAsset;
 
     std::vector<std::string>    filenameList;
 
@@ -85,11 +85,17 @@ public:
     void                deleteAsset(Asset* asset);
     void                downZIndex(Asset* asset);
 
+    /******FEATURES*******/
+    ///CMD
+    void                selectAsset(Asset* asset);
+    void                unselectAllA();
+
     ///SAVE LEVEL
 
     void                saveLevel();
     void                saveAssets();
     void                saveAsset(Asset a);
+    /******END FEATURES*******/
 
 
     void    update ();

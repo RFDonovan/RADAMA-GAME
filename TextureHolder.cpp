@@ -25,6 +25,7 @@ void TextureHolder::loadFromFile(std::string id, std::string filename)
 
 }
 
+
 sf::Texture* TextureHolder::getTexture(TexName type)
 {
     return &mTextureMap[type];
