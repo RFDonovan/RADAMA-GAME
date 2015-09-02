@@ -41,6 +41,7 @@ public:
     float   m_radius;
     Type    kind;
     std::vector<b2Joint *>      jointList;
+    std::vector<b2Fixture *>      FSList;
     std::vector<jointStruct>      jointBodyList;
     std::map<std::string, b2Body*> bodyList;
 
@@ -144,6 +145,7 @@ public:
     float   getMass();
 
     void    startContact(b2Fixture   *fixture, b2Fixture   *fixtureB);
+    void    removeFromFSList(b2Fixture   *fixture);
     void    endContact(b2Fixture   *fixture, b2Fixture   *fixtureB);
 
     //void    attachStuff(sf::Shader* shader, TextureHolder::TexName tex);

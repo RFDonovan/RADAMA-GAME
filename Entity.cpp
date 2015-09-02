@@ -11,7 +11,8 @@ Entity::Entity(sf::RenderWindow& mWindow, b2World* world, float radius, std::vec
 , animatedSprite(sf::seconds(0.08), true, false)
 ,fixtureOnSensor(nullptr)
 {
-
+    FSList.push_back(nullptr);
+    fixtureOnSensor = FSList[FSList.size()-1];
     Textures.loadFromFile("vision", "Resources/Images/vision.png");
     Textures.loadFromFile("lifeBar", "Resources/Images/life.png");
     Textures.loadFromFile("deathBar", "Resources/Images/death.png");
@@ -265,7 +266,7 @@ void Entity::startContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
     std::cout<< "CONTACT BEGIN";
     ///------POUR LES ATTAQUES---------
     //fixtureOnSensor = nullptr;
-    if(fixture->GetBody() == m_sensor)
+    if(fixture->GetBody() == m_sensor && fixtureOnSensor == nullptr)
     {
         //fixtureOnSensor = nullptr;
         std::cout<< "-------CONTACT SENSOR BEGIN\n";
@@ -282,7 +283,9 @@ void Entity::startContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
                             if(((Entity*)userData) != this) ///c'est pas sur lui meme
                             {
                                 std::cout<<"Entity:: startContact  -> userdataA != this"<<std::endl;
-                                fixtureOnSensor = fixtureB;
+//                                fixtureOnSensor = fixtureB;
+                                FSList.push_back(fixtureB);
+                                fixtureOnSensor = FSList[FSList.size()-1];
                                 //exit(-1);
 
                             }
@@ -343,6 +346,14 @@ void Entity::startContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
 //nb_contacts++;
 
 }
+void Entity::removeFromFSList(b2Fixture   *fixture)
+{
+    for (int i=0; i < FSList.size(); i++)
+    {
+        if(FSList[i] == fixture)
+            FSList.erase(FSList.begin()+i);
+    }
+}
 void Entity::endContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
 {
     if(isDead())
@@ -350,34 +361,38 @@ void Entity::endContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
     std::cout<< "CONTACT END";
 
     ///------POUR LES ATTAQUES---------
-    fixtureOnSensor = nullptr;
-    if(fixture->GetBody() == m_sensor||fixtureB->GetBody() == m_sensor)
-    {
+    removeFromFSList(fixtureB);
+    fixtureOnSensor = FSList[FSList.size()-1];
+//    if(fixtureB == fixtureOnSensor)
+//        fixtureOnSensor = nullptr;
 
-        for (b2ContactEdge* edge = m_sensor->GetContactList(); edge; edge = edge->next)
-        {
-            if(noRestartClock.getElapsedTime().asSeconds() > 3)
-            {
-                if(edge->contact->GetFixtureA()->GetBody() != m_sensor)
-                {
-                    void * userData = edge->contact->GetFixtureA()->GetBody()->GetUserData();
-                    if(userData && ((ObjectType*)userData)->getObjectType() == ENTITY)
-                        if(edge->contact->IsTouching())
-                            fixtureOnSensor = edge->contact->GetFixtureA();
-                }
-                if(edge->contact->GetFixtureB()->GetBody() != m_sensor)
-                {
-                    void * userData = edge->contact->GetFixtureB()->GetBody()->GetUserData();
-                    if(userData && ((ObjectType*)userData)->getObjectType() == ENTITY)
-                        if(edge->contact->IsTouching())
-                            fixtureOnSensor = edge->contact->GetFixtureB();
-                }
-
-            }
-        }
-
-    }
-    ///--------fin POUR LES ATTAQUES---------
+//    if(fixture->GetBody() == m_sensor||fixtureB->GetBody() == m_sensor)
+//    {
+//
+//        for (b2ContactEdge* edge = m_sensor->GetContactList(); edge; edge = edge->next)
+//        {
+//            if(noRestartClock.getElapsedTime().asSeconds() > 3)
+//            {
+//                if(edge->contact->GetFixtureA()->GetBody() != m_sensor)
+//                {
+//                    void * userData = edge->contact->GetFixtureA()->GetBody()->GetUserData();
+//                    if(userData && ((ObjectType*)userData)->getObjectType() == ENTITY)
+//                        if(edge->contact->IsTouching())
+//                            fixtureOnSensor = edge->contact->GetFixtureA();
+//                }
+//                if(edge->contact->GetFixtureB()->GetBody() != m_sensor)
+//                {
+//                    void * userData = edge->contact->GetFixtureB()->GetBody()->GetUserData();
+//                    if(userData && ((ObjectType*)userData)->getObjectType() == ENTITY)
+//                        if(edge->contact->IsTouching())
+//                            fixtureOnSensor = edge->contact->GetFixtureB();
+//                }
+//
+//            }
+//        }
+//
+//    }
+//    ///--------fin POUR LES ATTAQUES---------
     if((int)fixtureB->GetUserData()>20000 && (int)fixtureB->GetUserData()<30000)
     {
         isWeaponDispo = false;
@@ -385,11 +400,6 @@ void Entity::endContact(b2Fixture   *fixture, b2Fixture   *fixtureB)
     }
     if(fixture == basFixture)
     {
-        /*if((int)fixtureB->GetUserData()>20000)
-        {
-            nb_contacts = 0;
-            return;
-        }*/
         grounded = false;
         if(!fixtureB->IsSensor())
             nb_contacts--;
