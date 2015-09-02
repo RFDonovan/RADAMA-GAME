@@ -34,7 +34,6 @@ public:
     void    render(sf::RenderWindow& mWindow);
 
     void    setPosition(sf::Vector2f pos);
-    void    move(sf::Vector2f pos);
 
     void    shrink();
     void    expand();

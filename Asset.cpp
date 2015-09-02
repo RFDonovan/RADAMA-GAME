@@ -80,16 +80,6 @@ void  Asset::setPosition(sf::Vector2f pos)
     }
 }
 
-void  Asset::move(sf::Vector2f pos)
-{
-    aSprite.move(pos);
-
-    for(int i=0; i < nodeList.size(); i++)
-    {
-        nodeList[i].move(aSprite.getPosition()-nodeRatio[i]);
-    }
-}
-
 void  Asset::render(sf::RenderWindow& mWindow)
 {
     if(deleted)

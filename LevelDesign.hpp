@@ -38,6 +38,7 @@ public:
     std::vector<sf::CircleShape>    vertexList;
     std::vector<sf::Sprite>    imageList;
     std::vector<Asset>          assetList;
+    std::vector<sf::Vector2f>          assetRatio;
     //std::vector<Asset*>          selectedAsset;
 
     std::vector<std::string>    filenameList;
@@ -89,6 +90,8 @@ public:
     ///CMD
     void                selectAsset(Asset* asset);
     void                unselectAllA();
+    void                getAssetsRatio();
+    void                moveSelectedA(sf::Vector2f pos);
 
     ///SAVE LEVEL
 

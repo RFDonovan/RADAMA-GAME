@@ -514,9 +514,13 @@ void LevelDesign::mouseInput(sf::Event e)
                 ///MANIPULATION DES ASSETS
                 if(showAssets)
                 {
-                    if(tmpAsset != nullptr)//ajouter if pinned
-                        if(!tmpAsset->isPinned())
-                            tmpAsset->setPosition(getMousePos());
+//                    if(tmpAsset != nullptr)//ajouter if pinned
+//                        if(!tmpAsset->isPinned())
+//                            tmpAsset->setPosition(getMousePos());
+                    if(tmpAsset != nullptr)
+                    {
+                        moveSelectedA(getMousePos()-clickPos);
+                    }
                 }
                 else ///--------AUTRES
                 {
@@ -554,16 +558,18 @@ void LevelDesign::mouseInput(sf::Event e)
                 ///MANIPULATION DES ASSETS
                 if(showAssets)
                 {
-
+                    clickPos = getMousePos();
                     for (int i=0; i < assetList.size(); i++)
                     {
                         if(assetList[i].getGlobalBounds().contains(getMousePos()))
                         {
+                            getAssetsRatio();
                             isMoving = true;
                             tmpAsset = &(assetList[i]);
                             if(!sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)||!sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) )
                                 unselectAllA();
-                            tmpAsset->selected = true;
+                            if(!tmpAsset->isPinned())
+                                tmpAsset->selected = true;
                             break;
                         }
                     }
@@ -760,6 +766,33 @@ void LevelDesign::deleteAsset(Asset* asset)
     }
 
 }
+
+void LevelDesign::getAssetsRatio()
+{
+    assetRatio.clear();
+    for(int i = 0; i<assetList.size(); i++)
+    {
+        if(assetList[i].selected)
+            assetRatio.push_back(assetList[i].getPosition());
+    }
+}
+
+void LevelDesign::moveSelectedA(sf::Vector2f pos)
+{
+    int i = 0;
+    for ( std::vector<Asset>::iterator it = assetList.begin(); it != assetList.end(); it++)
+    {
+        if((*it).selected )
+        {
+            (*it).setPosition(pos + assetRatio[i]);
+
+            i++;
+        }
+    }
+
+
+}
+
 
 void LevelDesign::downZIndex(Asset* asset)
 {
