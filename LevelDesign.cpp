@@ -14,7 +14,6 @@ LevelDesign::LevelDesign()
     t.setFont(MyFont);
     t.setColor(sf::Color(0,0,255,100));
 
-
 }
 
 void LevelDesign::createGUI()
@@ -150,7 +149,12 @@ void LevelDesign::tguiEventHandler()
         case 203://RESET ALL
             {
                 if(tinyfd_messageBox("CLEAR ALL", "T'es SUR?!","yesno","warning",0))
+                {
                     assetList.clear();
+                    _assetList.clear();
+                    assetIDList.clear();
+                }
+
             }
         break;
         case 204://ASSET CREATOR
@@ -255,7 +259,6 @@ void LevelDesign::basicInput(sf::Event e)
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::O))
     {
         loadFiles();
-
     }
     ///DELETING IMAGE OR NODE
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Delete))
@@ -424,6 +427,44 @@ void LevelDesign::zoomOUT()
             mWorldView.zoom(1.3f);
 }
 
+void LevelDesign::openProject(std::string filename)
+{
+
+    pugi::xml_document          XMLDocument;
+    if (!XMLDocument.load_file(filename.c_str()))
+    {
+        std::cout << "error on loading Asset: "<<filename<< "\n";
+//        return;
+    }
+    pugi::xml_node assetsN = XMLDocument.child("Assets");
+    pugi::xml_node dupliN = XMLDocument.child("Copies");
+    for (pugi::xml_node node = assetsN.first_child(); node ; node = node.next_sibling())
+    {
+//        Asset a(node);
+//        assetMap[1] = a;
+        _assetList.push_back(Asset(node));
+        assetList.push_back(_assetList[_assetList.size()-1]);
+        assetIDList.push_back(node.attribute("id").as_int());
+    }
+    for (pugi::xml_node node = dupliN.first_child(); node ; node = node.next_sibling())
+    {
+        for(int i=0; i<_assetList.size(); i++)
+        {
+            if(_assetList[i]._id == node.attribute("from").as_int())
+            {
+                assetList.push_back(_assetList[i]);
+                assetList[assetList.size()-1].setPosition(
+                                                          sf::Vector2f(node.attribute("x").as_float(),node.attribute("y").as_float())
+                                                          );
+            }
+        }
+//        assetList.push_back(assetMap[node.attribute("id").as_int()]);
+//        assetList[assetList.size()-1].setPosition(
+//                                                  sf::Vector2f(node.attribute("x").as_float(),node.attribute("y").as_float())
+//                                                  );
+    }
+}
+
 void LevelDesign::loadFiles()
 {
     if(showAssets)
@@ -439,9 +480,9 @@ void LevelDesign::loadFiles()
                 for(int i=0; i<pathList.size(); i++)
                 {
                     std::cout <<"Loading of "<<pathList[i] << std::endl;
-//                    Asset a(pathList[i]);
-//                    assetList.push_back(a);
-                    assetList.push_back(Asset(pathList[i]));
+
+//                    assetList.push_back(Asset(pathList[i]));////
+                    openProject(pathList[i]);
                 }
             }
 
@@ -1075,12 +1116,41 @@ void LevelDesign::saveAssets()
 {
     const char *filters[] = {"*.asset"};
     const char *fn = tinyfd_saveFileDialog("Save all assets as", "", 1, filters,"Asset Files");
+
+    pugi::xml_document doc;
+    pugi::xml_node assetN = doc.append_child("Assets");
+    pugi::xml_node dupliN = doc.append_child("Copies");
+    assetIDList.clear();
     for(int i=0; i< assetList.size(); i++)
     {
-        std::stringstream ss;
-        ss<<fn<<i<<".asset";
-        assetList[i].exportToXML(ss.str());
+        if(!assetIDExist(assetList[i]._id))
+        {
+            assetList[i].addAssetNode(assetN);
+            assetIDList.push_back(assetList[i]._id);
+        }
+        else
+        {
+            assetList[i].addDupliNode(dupliN);
+        }
+
+//        std::stringstream ss;
+//        ss<<fn<<i<<".asset";
+//        assetList[i].exportToXML(ss.str());
     }
+
+    std::stringstream ss;
+    ss<<fn<<".asset";
+    doc.save_file(ss.str().c_str());
+}
+
+bool LevelDesign::assetIDExist(int id)
+{
+    for(int i=0; i<assetIDList.size(); i++)
+    {
+        if(assetIDList[i] == id)
+            return true;
+    }
+    return false;
 }
 
 void LevelDesign::saveAsset(Asset a)

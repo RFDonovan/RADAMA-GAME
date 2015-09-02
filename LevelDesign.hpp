@@ -2,6 +2,7 @@
 #define LEVELDESIGN_HPP_INCLUDED
 
 #include<vector>
+#include<map>
 #include<iostream>
 #include<string>
 #include<string.h>
@@ -37,7 +38,10 @@ public:
 
     std::vector<sf::CircleShape>    vertexList;
     std::vector<sf::Sprite>    imageList;
+//    std::map<int, Asset>        assetMap;
+    std::vector<Asset>          _assetList;
     std::vector<Asset>          assetList;
+    std::vector<int>          assetIDList;
     std::vector<sf::Vector2f>          assetRatio;
     //std::vector<Asset*>          selectedAsset;
 
@@ -85,6 +89,10 @@ public:
     void                deleteNode(sf::CircleShape* node);
     void                deleteAsset(Asset* asset);
     void                downZIndex(Asset* asset);
+
+    bool                assetIDExist(int id);
+
+    void                openProject(std::string filename);
 
     /******FEATURES*******/
     ///CMD

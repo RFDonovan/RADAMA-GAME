@@ -1,10 +1,11 @@
 #include "Asset.hpp"
-
+int Asset::AssetID = 0;
 Asset::Asset(sf::Sprite image, std::vector<sf::CircleShape> nodeList,std::string filename)
 : aSprite(image)
 , nodeList(nodeList)
 , path(filename)
 {
+    _id = AssetID++;
     std::cout << "Asset:: nodelist....\n";
     for(int i=0; i < nodeList.size(); i++)
     {
@@ -21,12 +22,13 @@ Asset::Asset(sf::Sprite image, std::vector<sf::CircleShape> nodeList,std::string
     ssName<<PathFindFileName(filename.c_str());
 
     name = ssName.str();
-    std::cout << "Asset:: done\n";
+    std::cout << "Asset:: n "<<_id<<" done\n";
     textureHolder.add("Aname", *image.getTexture());
 }
 
 Asset::Asset(std::string filename)
 {
+    _id = AssetID++;
     pugi::xml_document          XMLDocument;
     if (!XMLDocument.load_file(filename.c_str()))
     {
@@ -69,6 +71,49 @@ Asset::Asset(std::string filename)
 
 
 }
+
+Asset::Asset(pugi::xml_node parent)
+{
+
+///LOAD IMAGE
+    _id = parent.attribute("id").as_int();
+
+    pugi::xml_node imageN = parent.child("image");
+    textureHolder.loadFromFile("Aname",imageN.attribute("path").as_string());
+
+    std::stringstream ssName;
+    ssName<<PathFindFileName(imageN.attribute("path").as_string());
+
+    name = ssName.str();
+    path = imageN.attribute("path").as_string();
+
+
+    aSprite.setTexture(*textureHolder.getTexture("Aname"));
+    aSprite.setOrigin(textureHolder.getTexture("Aname")->getSize().x/2, textureHolder.getTexture("Aname")->getSize().y/2);
+    aSprite.setScale(imageN.attribute("scaleX").as_float(),imageN.attribute("scaleY").as_float());
+    aSprite.setPosition(imageN.attribute("x").as_float(),imageN.attribute("y").as_float());
+    zIndex = imageN.attribute("z").as_int();
+
+///LOAD NODES
+    pugi::xml_node nodesN = parent.child("nodes");
+    for (pugi::xml_node node = nodesN.first_child(); node ; node = node.next_sibling())
+    {
+        sf::CircleShape cShape(5);
+        cShape.setFillColor(sf::Color(100, 250, 50));
+        cShape.setOrigin(cShape.getRadius(), cShape.getRadius());
+        cShape.setPosition(
+                           node.attribute("x").as_int(),
+                           node.attribute("y").as_int()
+                           );
+        std::cout<<"x:"<<node.attribute("x").as_int()<<std::endl;
+        nodeList.push_back(cShape);
+        nodeRatio.push_back(aSprite.getPosition()-cShape.getPosition());
+    }
+
+
+}
+
+
 
 void  Asset::setPosition(sf::Vector2f pos)
 {
@@ -157,6 +202,50 @@ void  Asset::exportToXML(std::string filename)
 
     doc.save_file(filename.c_str());
 
+}
+
+void  Asset::addAssetNode(pugi::xml_node parent)
+{
+    pugi::xml_node assetN = parent.append_child("Asset");
+
+    std::stringstream ss;
+    ss<<""<<_id;
+    assetN.append_attribute("id") = ss.str().c_str();
+
+    pugi::xml_node nodesN = assetN.append_child("nodes");
+    pugi::xml_node imageN = assetN.append_child("image");
+
+////IMAGE
+
+    imageN.append_attribute("x") = aSprite.getPosition().x;
+    imageN.append_attribute("y") = aSprite.getPosition().y;
+    imageN.append_attribute("z") = zIndex;
+
+    imageN.append_attribute("scaleX") = aSprite.getScale().x;
+    imageN.append_attribute("scaleY") = aSprite.getScale().y;
+    imageN.append_attribute("path") = path.c_str();
+////NODES
+    for(int i=0; i < nodeList.size(); i++)
+    {
+        pugi::xml_node nodeN = nodesN.append_child("node");
+        nodeN.append_attribute("x") = nodeList[i].getPosition().x;
+        nodeN.append_attribute("y") = nodeList[i].getPosition().y;
+//        nodeN.append_attribute("x") = nodeRatio[i].x;
+//        nodeN.append_attribute("y") = nodeRatio[i].y;
+    }
+
+}
+
+void  Asset::addDupliNode(pugi::xml_node parent)
+{
+    pugi::xml_node assetN = parent.append_child("Copy");
+    std::stringstream ss;
+    ss<<""<<_id;
+    assetN.append_attribute("from") = ss.str().c_str();
+
+    assetN.append_attribute("x") = aSprite.getPosition().x;
+    assetN.append_attribute("y") = aSprite.getPosition().y;
+    assetN.append_attribute("z") = zIndex;
 }
 
 void  Asset::shrink()

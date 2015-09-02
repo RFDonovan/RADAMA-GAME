@@ -764,7 +764,9 @@ void World::adaptViewToPlayer()
             vel.x = 0.f;
         if(ePlayer->getY() < WINDOW_H/3)
             vel.y = 0.f;
+
         updateView(sf::Vector2f(vel.x/2,vel.y/2));
+//        updateView(ePlayer->getPosition()-mWorldView.getCenter());
         xLoad2->move(vel.x/2, 0.f);
 
         pauseLayer.setPosition(mWorldView.getCenter());

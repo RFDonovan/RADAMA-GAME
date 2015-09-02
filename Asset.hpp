@@ -12,9 +12,11 @@
 #include "pugixml.hpp"
 #include "shlwapi.h"
 
+
 class Asset
 {
 public:
+    static int AssetID;
     sf::Sprite aSprite;
     std::vector<sf::CircleShape> nodeList;
     std::vector<sf::Vector2f>    nodeRatio;
@@ -27,9 +29,13 @@ public:
     bool deleted = false;
     bool selected = false;
 
+
+    int _id;
+
 public:
             Asset(sf::Sprite image, std::vector<sf::CircleShape> nodeList,std::string filename);
             Asset(std::string filename);
+            Asset(pugi::xml_node parent);
             ~Asset();
     void    render(sf::RenderWindow& mWindow);
 
@@ -44,7 +50,9 @@ public:
     sf::FloatRect   getGlobalBounds(){return aSprite.getGlobalBounds();}
 
     void            exportToXML(std::string filename);
-    pugi::xml_node  createNode();
+    void            addAssetNode(pugi::xml_node parent);
+    void            addDupliNode(pugi::xml_node parent);
+
     bool            isPinned(){return pinned;}
 
 };
