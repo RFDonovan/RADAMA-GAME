@@ -251,19 +251,6 @@ void LevelDesign::basicInput(sf::Event e)
     {
         zoomOUT();
     }
-
-
-
-    ///CREATE AN ASSET FROM CURRENT IMAGE AND NODE
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
-    {
-        if(showAssets)
-        {
-
-        }
-        else
-           createAsset();
-    }
     ///OPEN IMAGE FILE
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::O))
     {
@@ -315,7 +302,17 @@ void LevelDesign::basicInput(sf::Event e)
             }
             if(e.key.code == sf::Keyboard::A)///VERTEX EDIT
             {
-                showAssets = !showAssets;
+                if(showAssets)
+                {
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) || sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
+                    {
+                        selectAllA();
+                    }
+                    else
+                        showAssets = !showAssets;
+                }
+                else
+                    showAssets = !showAssets;
             }
             ///PINNING OR UNPINNING ASSET
             if(e.key.code == sf::Keyboard::P)
@@ -336,12 +333,17 @@ void LevelDesign::basicInput(sf::Event e)
             {
                 if(showAssets)
                 {
-                    if(tmpAsset != nullptr)
-                    {
-        //                Asset a = *tmpAsset;
-                        assetList.push_back(*tmpAsset);
-                    }
+//                    if(tmpAsset != nullptr)
+//                    {
+//        //                Asset a = *tmpAsset;
+//                        assetList.push_back(*tmpAsset);
+//                    }
+                    duplicateSelectedA();
                 }
+                else///CREATE AN ASSET FROM CURRENT IMAGE AND NODES
+                    createAsset();
+
+
             }
             ///SAVE LEVEL
             if(e.key.code == sf::Keyboard::Slash)
@@ -486,6 +488,13 @@ void LevelDesign::unselectAllA()
         assetList[i].selected = false;
     }
 }
+void LevelDesign::selectAllA()
+{
+    for(int i=0; i < assetList.size(); i++)
+    {
+        assetList[i].selected = true;
+    }
+}
 
 void LevelDesign::mouseInput(sf::Event e)
 {
@@ -563,13 +572,14 @@ void LevelDesign::mouseInput(sf::Event e)
                     {
                         if(assetList[i].getGlobalBounds().contains(getMousePos()))
                         {
-                            getAssetsRatio();
                             isMoving = true;
                             tmpAsset = &(assetList[i]);
                             if(!sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)||!sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) )
                                 unselectAllA();
                             if(!tmpAsset->isPinned())
                                 tmpAsset->selected = true;
+
+                            getAssetsRatio();
                             break;
                         }
                     }
@@ -630,7 +640,7 @@ void LevelDesign::mouseInput(sf::Event e)
 //                            <<"\t pos asset:"<<assetList[i].getPosition().x<<assetList[i].getPosition().y<<std::endl;
                             if(selectRectangle.getGlobalBounds().contains(assetList[i].getPosition() ))
                             {
-                                assetList[i].selected = true;
+                                assetList[i].selected = !assetList[i].selected;
                                 //selectedAsset.push_back(&assetList[i]);
                                 //selectedAsset[selectedAsset.size()-1]->pinned = true;
                             }
@@ -789,8 +799,28 @@ void LevelDesign::moveSelectedA(sf::Vector2f pos)
             i++;
         }
     }
+}
 
+void LevelDesign::duplicateSelectedA()
+{
+//    for ( std::vector<Asset>::iterator it = assetList.begin(); it != assetList.end(); it++)
+//    {
+//        if((*it).selected )
+//        {
+////            assetList.push_back((*it));
+//            (*it).selected = false;
+//        }
+//    }
+    for(int i = 0; i<assetList.size(); i++)
+    {
+        if(assetList[i].selected)
+        {
+            assetList[i].selected = false;
+            assetList.push_back(assetList[i]);
+            assetList[i].selected = true;
+        }
 
+    }
 }
 
 

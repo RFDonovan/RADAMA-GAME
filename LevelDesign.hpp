@@ -90,8 +90,10 @@ public:
     ///CMD
     void                selectAsset(Asset* asset);
     void                unselectAllA();
+    void                selectAllA();
     void                getAssetsRatio();
     void                moveSelectedA(sf::Vector2f pos);
+    void                duplicateSelectedA();
 
     ///SAVE LEVEL
 
