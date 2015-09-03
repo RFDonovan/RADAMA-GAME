@@ -116,7 +116,7 @@ public:
     sf::Vector2f            mPlayerPosition;
     Player                  *ePlayer;
 
-    ///sf::Sprite   BG;
+    sf::Sprite   BG;
     ///sf::Sprite   BG_pause;
     sf::Vector2f            mBGPosition;
 

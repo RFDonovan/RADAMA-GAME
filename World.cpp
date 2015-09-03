@@ -25,9 +25,11 @@ World::World(sf::RenderWindow& window)
     loadTextures();
     buildScene(levelPath);
     pauseLayer.setOrigin(sf::Vector2f(WINDOW_W/2, WINDOW_H/2));
-    ///BG = sf::Sprite(*Textures.getTexture(TextureHolder::Background1));
+    Textures.loadFromFile("BG", "Resources/background1.png");
+    BG = sf::Sprite(*Textures.getTexture("BG"));
     ///BG_pause = sf::Sprite(*Textures.getTexture(TextureHolder::Pause));
-//    BG.scale(.6f,.6f);
+    BG.scale(2.6f,2.6f);
+    BG.setPosition(-WINDOW_W/3, -WINDOW_W/3);
 //BG.scale(WINDOW_W/800,WINDOW_H/800);
 //    BG_pause.scale(WINDOW_W/(*Textures.getTexture(TextureHolder::Pause)).getSize().x,WINDOW_H/(*Textures.getTexture(TextureHolder::Pause)).getSize().y);
     ///BG_pause.setOrigin(BG_pause.getTexture()->getSize().x/2, BG_pause.getTexture()->getSize().y/2);
@@ -119,6 +121,16 @@ void World::processInput(sf::Event e)
 
         }
     }
+    break;
+    case sf::Event::MouseWheelMoved:
+        {
+            if(e.mouseWheel.delta>0)
+                mWorldView.zoom(0.9f);
+            if(e.mouseWheel.delta<0)
+                mWorldView.zoom(1.1f);
+
+        }
+        std::cout << e.mouseWheel.delta << '\n';
     break;
     case sf::Event::KeyReleased:
         if(e.key.code == sf::Keyboard::Escape)
@@ -281,15 +293,15 @@ void World::sticking()
 void World::draw(sf::Time frameTime)
 {
 
-    fogShader.setParameter("time",clock.getElapsedTime().asSeconds());
-    //fogShader.setParameter("mouse",400.f, 300.f);
-    fogShader.setParameter("resolution",800.f, 600.f);
+//    fogShader.setParameter("time",clock.getElapsedTime().asSeconds());
+//    fogShader.setParameter("mouse",400.f, 300.f);
+//    fogShader.setParameter("resolution",800.f, 600.f);
     //BG.setColor(sf::Color(0, 0, 0, 255));
-    //mWindow.draw(BG, &fogShader);
+//    mWindow.draw(BG, &fogShader);
 
     //BG.setColor(sf::Color(0, 0, 0, 200));
 
-    ///mWindow.draw(BG);
+    mWindow.draw(BG);
 
 
     if(!paused)/// ******************************************************************>>>>PAUSE
@@ -512,6 +524,7 @@ void World::buildScene(std::string CurrentDir)
     //BG_pause.setPosition(sf::Vector2f(0.f,0.f));
     pauseLayer.setPosition(sf::Vector2f(0.f,0.f));
     mWorldView.reset(r);
+    BG.setPosition(-WINDOW_W/3, -WINDOW_W/3);
 
     mWorldView.setCenter(WINDOW_W/2,WINDOW_H/2);
     ePlayer->setPosition(sf::Vector2f(WINDOW_W/2,WINDOW_H/2));
@@ -743,31 +756,61 @@ void World::rebuildScene()
 
 
 }
-
+/*//
 void World::adaptViewToPlayer()
 {
-    /**player always at 2/3 of scren*/
-    /**except at the begining or at the end of the level*/
+
+    if(ePlayer->getX() < WINDOW_W/2)
+        return;
+
+
+    try
+    {
+        b2Vec2 vel = ePlayer->getVelocity();
+        //std::cout<< "vel x:"<<vel.x; //RA VO LAVA BE LE VELX DE MIPLANTE LE APP
+        updateView(sf::Vector2f(vel.x/2,0));
+        ///BG_pause.move(sf::Vector2f(vel.x/2,0));
+        xLoad2->move(vel.x/2, 0.f);
+
+        pauseLayer.move(sf::Vector2f(vel.x/2,0));
+        ///BG.move(sf::Vector2f((vel.x)/2.5, 0));
+
+        statInfo.adaptPosition(sf::Vector2f(vel.x/2,0));
+
+
+    }
+    catch(int e)
+    {
+        std::cout<< "ePlayer deleted";
+        return;
+    }
+
+}
+//*/
+//*//
+void World::adaptViewToPlayer()
+{
     try
     {
 
 //        //-----X
         b2Vec2 vel = ePlayer->getVelocity();
     ///ON DOIT SE REFERER A PARTIR DU VIEW PCQ LE RENDERWINDOW EST INFINI
-        if(std::abs(ePlayer->getX() - mWorldView.getCenter().x) <WINDOW_W/6)
-            vel.x = 0.f;
-        if(std::abs(ePlayer->getY() - mWorldView.getCenter().y) <WINDOW_H/6)
-            vel.y = 0.f;
-
-
-        if(ePlayer->getX() < WINDOW_W/2)
-            vel.x = 0.f;
-        if(ePlayer->getY() < WINDOW_H/3)
-            vel.y = 0.f;
+//        if(std::abs(ePlayer->getX() - mWorldView.getCenter().x) <WINDOW_W/6)
+//            vel.x = 0.f;
+//        if(std::abs(ePlayer->getY() - mWorldView.getCenter().y) <WINDOW_H/6)
+//            vel.y = 0.f;
+//
+//
+//        if(ePlayer->getX() < WINDOW_W/2)
+//            vel.x = 0.f;
+//        if(ePlayer->getY() < WINDOW_H/3)
+//            vel.y = 0.f;
 
         updateView(sf::Vector2f(vel.x/2,vel.y/2));
 //        updateView(ePlayer->getPosition()-mWorldView.getCenter());
-        xLoad2->move(vel.x/2, 0.f);
+        xLoad2->move(vel.x/2, vel.y/2);
+        BG.move(sf::Vector2f((vel.x)/2.5, (vel.y)/5));
 
         pauseLayer.setPosition(mWorldView.getCenter());
 
@@ -781,6 +824,7 @@ void World::adaptViewToPlayer()
         return;
     }
 }
+//*/
 
 b2World& World::getWorld()
 {
