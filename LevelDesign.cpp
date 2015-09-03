@@ -53,6 +53,7 @@ void LevelDesign::createGUI()
         btn->setText(listMenu1[i]);
         btn->bindCallback(tgui::Button::LeftMouseClicked);
         btn->setCallbackId(100+i);
+
     }
 
 }
@@ -88,9 +89,10 @@ void LevelDesign::tguiEventHandler()
         }
         switch(callback.id)
         {
-        case 100://LOAD image
+        case LOAD_IMAGE://LOAD image
             {
 //                saveAsset(Asset(imageList[0],vertexList,filenameList[0]));
+
                 loadFiles();
             }
         break;
@@ -129,7 +131,9 @@ void LevelDesign::tguiEventHandler()
         break;
         case 200://IMPORT assets
             {
-                loadFiles();
+                loadFiles(
+                          tinyfd_messageBox("PROJECT or ASSET?", "YES: Open a project file \nNO: Open an Asset","yesno","warning",0)
+                          );
             }
         break;
         case 201://EXPORT as level
@@ -143,7 +147,19 @@ void LevelDesign::tguiEventHandler()
         case 202://SAVE
             {
                 if(showAssets)
-                    saveAssets();
+                {
+
+                    if(tinyfd_messageBox("PROJECT or ASSET?", "YES: Save as project file \nNO: Save Assets","yesno","warning",0))
+                    {
+                        saveProject();
+                    }
+                    else
+                    {
+                        saveAssets();
+                    }
+
+                }
+
             }
         break;
         case 203://RESET ALL
@@ -363,7 +379,10 @@ void LevelDesign::basicInput(sf::Event e)
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)|| sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
                 {
                     if(showAssets)
+                    {
                         saveAssets();
+                    }
+
                 }
             }
             ///DELETE ASSETS
@@ -376,6 +395,26 @@ void LevelDesign::basicInput(sf::Event e)
                     {
                         deleteAsset(tmpAsset);
                         tmpAsset = nullptr;
+                    }
+                }
+            }
+            ///EDIT ASSETS
+            if(e.key.code == sf::Keyboard::E)
+            {
+                if(showAssets)
+                {
+                    if(tmpAsset != nullptr)
+                    {
+                        vertexList.clear();
+                        imageList.clear();
+                        filenameList.clear();
+                        tmpNode = nullptr;
+                        tmpSprite = nullptr;
+
+                        vertexList = tmpAsset->nodeList;
+                        imageList.push_back(tmpAsset->aSprite);
+                        filenameList.push_back(tmpAsset->path);
+                        toggleAssetMode();
                     }
                 }
             }
@@ -434,14 +473,11 @@ void LevelDesign::openProject(std::string filename)
     if (!XMLDocument.load_file(filename.c_str()))
     {
         std::cout << "error on loading Asset: "<<filename<< "\n";
-//        return;
     }
     pugi::xml_node assetsN = XMLDocument.child("Assets");
     pugi::xml_node dupliN = XMLDocument.child("Copies");
     for (pugi::xml_node node = assetsN.first_child(); node ; node = node.next_sibling())
     {
-//        Asset a(node);
-//        assetMap[1] = a;
         _assetList.push_back(Asset(node));
         assetList.push_back(_assetList[_assetList.size()-1]);
         assetIDList.push_back(node.attribute("id").as_int());
@@ -458,16 +494,12 @@ void LevelDesign::openProject(std::string filename)
                                                           );
             }
         }
-//        assetList.push_back(assetMap[node.attribute("id").as_int()]);
-//        assetList[assetList.size()-1].setPosition(
-//                                                  sf::Vector2f(node.attribute("x").as_float(),node.attribute("y").as_float())
-//                                                  );
     }
 }
 
-void LevelDesign::loadFiles()
+void LevelDesign::loadFiles(int choice)
 {
-    if(showAssets)
+    if(showAssets && choice != 3)
         {
             const char *filters[] = {"*.asset"};
             const char *fn = tinyfd_openFileDialog("Open Assets","",1,filters,"Asset files", 1);
@@ -481,8 +513,17 @@ void LevelDesign::loadFiles()
                 {
                     std::cout <<"Loading of "<<pathList[i] << std::endl;
 
-//                    assetList.push_back(Asset(pathList[i]));////
-                    openProject(pathList[i]);
+                    if (choice == 1) //YES
+                    {
+                        openProject(pathList[i]);
+                    }
+                    else
+                    {
+                        _assetList.push_back(Asset(pathList[i]));
+                        assetList.push_back(_assetList[_assetList.size()-1]);////
+                    }
+
+
                 }
             }
 
@@ -1068,6 +1109,9 @@ void LevelDesign::saveLevel()
                 continue;
             std::stringstream ss;
             ss<<i;
+
+            if(assetList[i].nodeRatio.size() <3)
+                continue;
             //*********body**********
             pugi::xml_node bodyN = bodies.append_child("body");
             bodyN.append_attribute("name") = i;
@@ -1087,11 +1131,76 @@ void LevelDesign::saveLevel()
             fixtureN.append_attribute("shapeType") = "polygonShape";
             fixtureN.append_attribute("categoryBits") = "0x0003";
             fixtureN.append_attribute("maskBits") = "0x0002";
+            bool isInf8sup3 = false;
+            std::vector<int> Vx;
+            std::vector<int> Vy;
+
+
             for(int j = 0; j < assetList[i].nodeRatio.size(); j++)
             {
                 pugi::xml_node vertexN = fixtureN.append_child("vertex");
                 vertexN.append_attribute("x") = -assetList[i].nodeRatio[j].x;
                 vertexN.append_attribute("y") = -assetList[i].nodeRatio[j].y;
+                if(j%7 == 0 && assetList[i].nodeRatio.size() > 8)
+                {
+                    if(j>0)
+                    {
+                        isInf8sup3 = true;
+                        if((assetList[i].nodeRatio.size() - j) > 3 )
+                        {
+                            fixtureN = fixturesN.append_child("fixture");
+                            fixtureN.append_attribute("name") = i;
+                            fixtureN.append_attribute("restitution") = "0";
+                            fixtureN.append_attribute("friction") = "1";
+                            fixtureN.append_attribute("isSensor") = "false";
+                            fixtureN.append_attribute("shapeType") = "polygonShape";
+                            fixtureN.append_attribute("categoryBits") = "0x0003";
+                            fixtureN.append_attribute("maskBits") = "0x0002";
+                            pugi::xml_node vertexNj = fixtureN.append_child("vertex");
+                            vertexNj.append_attribute("x") = -assetList[i].nodeRatio[j].x;
+                            vertexNj.append_attribute("y") = -assetList[i].nodeRatio[j].y;
+                        }
+//                        else
+//                        {
+//                            Vx.push_back(-assetList[i].nodeRatio[j].x);
+//                            Vy.push_back(-assetList[i].nodeRatio[j].y);
+//                        }
+
+                    }
+
+
+
+                    Vx.push_back(-assetList[i].nodeRatio[j].x);
+                    Vy.push_back(-assetList[i].nodeRatio[j].y);
+                }
+//                if(isInf8sup3 && j == assetList[i].nodeRatio.size()-1)
+//                {
+//                    Vx.push_back(-assetList[i].nodeRatio[j].x);
+//                    Vy.push_back(-assetList[i].nodeRatio[j].y);
+//                }
+            }
+            if(isInf8sup3)
+            {
+                Vx.push_back(-assetList[i].nodeRatio[assetList[i].nodeRatio.size()-1].x);
+                Vy.push_back(-assetList[i].nodeRatio[assetList[i].nodeRatio.size()-1].y);
+
+                fixtureN = fixturesN.append_child("fixture");
+                fixtureN.append_attribute("name") = i;
+                fixtureN.append_attribute("restitution") = "0";
+                fixtureN.append_attribute("friction") = "1";
+                fixtureN.append_attribute("isSensor") = "false";
+                fixtureN.append_attribute("shapeType") = "polygonShape";
+                fixtureN.append_attribute("categoryBits") = "0x0003";
+                fixtureN.append_attribute("maskBits") = "0x0002";
+                for(int k =0; k<Vx.size(); k++)
+                {
+
+                    pugi::xml_node vertexNj = fixtureN.append_child("vertex");
+                    vertexNj.append_attribute("x") = Vx[k];
+                    vertexNj.append_attribute("y") = Vy[k];
+                }
+
+
             }
             //*********end fixtures**********
 
@@ -1113,6 +1222,20 @@ void LevelDesign::saveLevel()
 
 
 void LevelDesign::saveAssets()
+{
+    const char *filters[] = {"*.asset"};
+    const char *fn = tinyfd_saveFileDialog("Save all assets as", "", 1, filters,"Asset Files");
+    for(int i=0; i< assetList.size(); i++)
+    {
+
+        std::stringstream ss;
+        ss<<fn<<i<<".asset";
+        assetList[i].exportToXML(ss.str());
+    }
+
+}
+
+void LevelDesign::saveProject()
 {
     const char *filters[] = {"*.asset"};
     const char *fn = tinyfd_saveFileDialog("Save all assets as", "", 1, filters,"Asset Files");

@@ -15,6 +15,8 @@
 #include "Asset.hpp"
 #include "Splitter.hpp"
 
+#define LOAD_IMAGE 100
+
 class LevelDesign
 {
 public:
@@ -59,8 +61,9 @@ public:
 
     /*TGUI*/
     tgui::Gui gui;
-    std::vector<std::string> listMenu1 = {"Add Image", "Commit", "Clear", "Switch Mode", "Level Editor"};
-    std::vector<std::string> listMenu2 = {"Import", "Export", "Save", "Reset All", "Asset Creator"};
+    std::vector<std::string> listMenu1 = {"Add Image",  "Commit", "Clear",  "Switch Mode",  "Level Editor"};
+    //
+    std::vector<std::string> listMenu2 = {"Import",     "Export", "Save",   "Reset All",    "Asset Creator"};
     /******/
 
 
@@ -71,7 +74,7 @@ public:
     /******EVENT HANDLER*******/
     void    tguiEventHandler();
     void    toggleAssetMode();
-    void    loadFiles();
+    void    loadFiles(int choice=3);
     void    zoomIN();
     void    zoomOUT();
     /******END EVENT HANDLER*******/
@@ -92,7 +95,7 @@ public:
 
     bool                assetIDExist(int id);
 
-    void                openProject(std::string filename);
+
 
     /******FEATURES*******/
     ///CMD
@@ -103,10 +106,15 @@ public:
     void                moveSelectedA(sf::Vector2f pos);
     void                duplicateSelectedA();
 
+
+    void                openProject(std::string filename);
+
+
     ///SAVE LEVEL
 
     void                saveLevel();
     void                saveAssets();
+    void                saveProject();
     void                saveAsset(Asset a);
     /******END FEATURES*******/
 
