@@ -6,7 +6,7 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world, float radius, std::vec
 {
     animList = animationList;
     maxLife = 100;
-    m_life = 50;
+    m_life = 10;
     desiredVel = 0;
     kind = Entity::Player;
     std::cout<< "creation*******";

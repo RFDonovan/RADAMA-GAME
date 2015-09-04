@@ -1,4 +1,5 @@
 #include<SFML/Graphics.hpp>
+#include <TGUI/TGUI.hpp>
 #include<Box2D/Box2D.h>
 #include<iostream>
 #include<functional>
@@ -108,8 +109,9 @@ public:
     std::map<std::string, SpriteMapping*>   spriteMap;
 
     bool rebuild = false;
+    bool GAME_OVER = false;
 
-
+    tgui::Gui gui;
 
 
     TextureHolder           mTextures;
@@ -183,6 +185,7 @@ public:
 
     void    updateView(sf::Vector2f view);
     void    processInput(sf::Event);
+    void    guiCallback();
 
     ///REMOVE
     void    sheduleRemove(float elapsedTime);

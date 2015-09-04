@@ -670,6 +670,8 @@ bool Entity::isDead()
 
 void Entity::takeItem(Item* item)
 {
+    if(isDead())
+        return;
     std::cout<< "+++++++++++++++++++++Item taken \n";
     if(item->dejaPris)
         return;

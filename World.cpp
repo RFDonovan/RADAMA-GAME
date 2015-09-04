@@ -30,14 +30,6 @@ World::World(sf::RenderWindow& window)
     ///BG_pause = sf::Sprite(*Textures.getTexture(TextureHolder::Pause));
     BG.scale(2.6f,2.6f);
     BG.setPosition(-WINDOW_W/3, -WINDOW_W/3);
-//BG.scale(WINDOW_W/800,WINDOW_H/800);
-//    BG_pause.scale(WINDOW_W/(*Textures.getTexture(TextureHolder::Pause)).getSize().x,WINDOW_H/(*Textures.getTexture(TextureHolder::Pause)).getSize().y);
-    ///BG_pause.setOrigin(BG_pause.getTexture()->getSize().x/2, BG_pause.getTexture()->getSize().y/2);
-    ///BG_pause.setPosition(WINDOW_W/2, WINDOW_H/2);
-//    BG_pause.setPosition(0.0f, 0.0f);
-//    BG_pause.getTexture()->getSize().x/2
-    ///BG_pause.scale(1.2f,1.2f);
-    //BG_pause.scale(.9f,.9f);
 
     p_world.SetContactListener(&CL_Instance);
     p_world.SetDestructionListener(&DL_Instance);
@@ -80,10 +72,38 @@ World::World(sf::RenderWindow& window)
 
     b2BodyDef bodyDef;
     m_groundBody = p_world.CreateBody(&bodyDef);///pour le jointmouse
+
+    /**TGUI STUFF*/
+    {
+        gui.setWindow(mWindow);
+        gui.setGlobalFont("fonts/DejaVuSans.ttf");
+
+        tgui::Button::Ptr btn(gui,"REPLAY");
+        btn->load("widgets/Black.conf");
+        btn->setTextSize(18);
+        btn->setSize(85, 30);
+//        btn->setPosition(100* i + 100, WINDOW_H - 50);
+        btn->setPosition(WINDOW_W/2 - (85/2),WINDOW_H/2-(30/2));
+        btn->setText("REPLAY");
+        btn->bindCallback(tgui::Button::LeftMouseClicked);
+        btn->setCallbackId(1);
+
+        tgui::Button::Ptr btnX(gui,"EXIT");
+        btnX->load("widgets/Black.conf");
+        btnX->setTextSize(18);
+        btnX->setSize(85, 30);
+//        btn->setPosition(100* i + 100, WINDOW_H - 50);
+        btnX->setPosition(WINDOW_W/2 - (85/2),WINDOW_H/2-(30/2)+50);
+        btnX->setText("EXIT");
+        btnX->bindCallback(tgui::Button::LeftMouseClicked);
+        btnX->setCallbackId(2);
+    }
 }
 
 void World::processInput(sf::Event e)
 {
+    if(GAME_OVER)
+        gui.handleEvent(e);
     pauseMenu pM;
 
     if(!paused) /// ******************************************************************>>>>PAUSE
@@ -271,6 +291,8 @@ void World::update()
 
     sf::Vector2f playerPosition(0.0f,0.0f);
 
+    if(ePlayer->m_life <= 0)
+        GAME_OVER = true;
 
     ePlayer->processLogic();
     mWorldView.move(playerPosition);
@@ -280,6 +302,23 @@ void World::update()
     statInfo.updateMana(ePlayer->m_mana);
     statInfo.updateProjectile(ePlayer->getProjectileCount());
 
+    guiCallback();
+
+}
+
+void World::guiCallback()
+{
+    tgui::Callback callback;
+        while (gui.pollCallback(callback))
+        {
+            if (callback.id == 1)
+            {
+                rebuildScene();
+            }
+
+            if (callback.id == 2)
+                mWindow.close();
+        }
 }
 
 void World::sticking()
@@ -443,6 +482,12 @@ void World::draw(sf::Time frameTime)
 
         }
         drawFX(frameTime, &shader);
+    }
+    if(GAME_OVER)
+    {
+        pauseLayer.setFillColor(sf::Color(0, 0, 0, 100));
+        mWindow.draw(pauseLayer);
+        gui.draw();
     }
 
 }
@@ -737,6 +782,8 @@ void World::rebuildScene()
     //p_world.
     ///CLEARING LISTS
     //WeaponList.clear();
+    GAME_OVER = false;
+
     LevelObjectList.clear();
     humans.clear();
     listOfDeletedHuman.clear();
