@@ -14,20 +14,14 @@ LevelDesign::LevelDesign()
     t.setFont(MyFont);
     t.setColor(sf::Color(0,0,255,100));
 
+    textureHolder.loadFromFile("PIN", "Resources/Images/pin.png");
+    pinSprite.setTexture(*textureHolder.getTexture("PIN"));
 }
 
 void LevelDesign::createGUI()
 {
     gui.setGlobalFont("fonts/DejaVuSans.ttf");
-
-
-    tgui::Label::Ptr labelMousePos(gui, "MousePos");
-    labelMousePos->setText("[;]");
-    labelMousePos->setPosition(WINDOW_W - 120, listMenu2.size()*50+100);
-    labelMousePos->setTextColor(sf::Color::Red);
-    labelMousePos->setTextSize(12);
-
-
+    /// BUTTONS
     for (int i=0; i< listMenu2.size(); i++)
     {
         tgui::Button::Ptr btn(gui,listMenu2[i]+"LM2");
@@ -55,6 +49,37 @@ void LevelDesign::createGUI()
         btn->setCallbackId(100+i);
 
     }
+
+    /// MOUSE POSITION
+    tgui::Label::Ptr labelMousePos(gui, "MousePos");
+    labelMousePos->setText("[;]");
+    labelMousePos->setPosition(WINDOW_W - 120, listMenu2.size()*50+100);
+    labelMousePos->setTextColor(sf::Color::Red);
+    labelMousePos->setTextSize(12);
+
+    /// ACTIVATE CHECKBOX
+    tgui::Checkbox::Ptr checkboxA(gui,"isActive");
+    checkboxA->load("widgets/Black.conf");
+    checkboxA->setText("Activate");
+    checkboxA->setTextColor(sf::Color::White);
+    checkboxA->setTextSize(12);
+    checkboxA->setSize(25,25);
+    checkboxA->setPosition(WINDOW_W - 120, (listMenu2.size()+1)*50+100);
+    checkboxA->bindCallback(tgui::Button::LeftMouseClicked);
+    checkboxA->setCallbackId(300);
+    checkboxA->hide();
+
+    /// PINNED CHECKBOX
+    tgui::Checkbox::Ptr checkboxP(gui,"isPinned");
+    checkboxP->load("widgets/Black.conf");
+    checkboxP->setText("Pin");
+    checkboxP->setTextColor(sf::Color::White);
+    checkboxP->setTextSize(12);
+    checkboxP->setSize(25,25);
+    checkboxP->setPosition(WINDOW_W - 120, (listMenu2.size()+2)*50+100);
+    checkboxP->bindCallback(tgui::Button::LeftMouseClicked);
+    checkboxP->setCallbackId(301);
+    checkboxP->hide();
 
 }
 
@@ -180,7 +205,38 @@ void LevelDesign::tguiEventHandler()
             }
         break;
 
+        /// ////////////////////////////////////
+        case 300://ACTIVATE BODY
+            {
+                tgui::Checkbox::Ptr c = gui.get("isActive");
+                if(!c->isChecked())
+                {
+                    deactiveAll();
+                }
+                else
+                {
+                    activeAll();
+                }
+
+            }
+        break;
+        case 301://PIN ASSET
+            {
+                tgui::Checkbox::Ptr c = gui.get("isPinned");
+                if(!c->isChecked())
+                {
+                    unpinAll();
+                }
+                else
+                {
+                    pinAll();
+                }
+            }
+        break;
+
         }
+
+
     }
 }
 void LevelDesign::toggleAssetMode()
@@ -196,6 +252,8 @@ void LevelDesign::toggleAssetMode()
         {
             gui.get(listMenu2[i]+"LM2")->hide();
         }
+        gui.get("isActive")->hide();
+        gui.get("isPinned")->hide();
     }
     else
     {
@@ -208,6 +266,8 @@ void LevelDesign::toggleAssetMode()
         {
             gui.get(listMenu2[i]+"LM2")->show();
         }
+        gui.get("isActive")->show();
+        gui.get("isPinned")->show();
     }
 }
 
@@ -492,6 +552,8 @@ void LevelDesign::openProject(std::string filename)
                 assetList[assetList.size()-1].setPosition(
                                                           sf::Vector2f(node.attribute("x").as_float(),node.attribute("y").as_float())
                                                           );
+                if(strcmp(node.attribute("isActive").value(), "") != 0)
+                    assetList[assetList.size()-1].isActive = node.attribute("isActive").as_bool();
             }
         }
     }
@@ -570,11 +632,44 @@ void LevelDesign::unselectAllA()
         assetList[i].selected = false;
     }
 }
+void LevelDesign::deactiveAll()
+{
+    for(int i=0; i < assetList.size(); i++)
+    {
+        if(assetList[i].selected == true)
+            assetList[i].isActive = false;
+    }
+}
+void LevelDesign::unpinAll()
+{
+    for(int i=0; i < assetList.size(); i++)
+    {
+        if(assetList[i].selected == true)
+            assetList[i].pinned = false;
+    }
+}
 void LevelDesign::selectAllA()
 {
     for(int i=0; i < assetList.size(); i++)
     {
         assetList[i].selected = true;
+    }
+}
+
+void LevelDesign::activeAll()
+{
+    for(int i=0; i < assetList.size(); i++)
+    {
+        if(assetList[i].selected == true)
+            assetList[i].isActive = true;
+    }
+}
+void LevelDesign::pinAll()
+{
+    for(int i=0; i < assetList.size(); i++)
+    {
+        if(assetList[i].selected == true)
+            assetList[i].pinned = true;
     }
 }
 
@@ -666,6 +761,42 @@ void LevelDesign::mouseInput(sf::Event e)
                                 break;
                         }
                     }
+                    if(tmpAsset!=nullptr)
+                    {
+                        if(tmpAsset->isActive)
+                        {
+                            tgui::Checkbox::Ptr c = gui.get("isActive");
+                            c->check();
+                        }
+
+                        else
+                        {
+                            tgui::Checkbox::Ptr c = gui.get("isActive");
+                            c->uncheck();
+                        }
+
+                        if(tmpAsset->isPinned())
+                        {
+                            tgui::Checkbox::Ptr c = gui.get("isPinned");
+                            c->check();
+                        }
+
+                        else
+                        {
+                            tgui::Checkbox::Ptr c = gui.get("isPinned");
+                            c->uncheck();
+                        }
+
+
+                    }
+                    else
+                    {
+                        tgui::Checkbox::Ptr c = gui.get("isActive");
+                        c->uncheck();
+                        tgui::Checkbox::Ptr c2 = gui.get("isPinned");
+                        c2->uncheck();
+                    }
+
                 }
                 else///--------AUTRES
                 {
@@ -1050,7 +1181,17 @@ void LevelDesign::renderAssets(sf::Time frameTime)
         for(int i=0; i < assetList.size(); i++)
         {
             if(assetList[i].zIndex == z)
+            {
                 assetList[i].render(mWindow);
+                if(assetList[i].pinned)
+                {
+                    pinSprite.setTexture(*textureHolder.getTexture("PIN"));
+                    pinSprite.setPosition(assetList[i].getPosition());
+                    mWindow.draw(pinSprite);
+                }
+
+            }
+
         }
     }
 }

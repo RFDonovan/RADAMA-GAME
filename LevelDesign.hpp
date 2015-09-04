@@ -50,6 +50,7 @@ public:
     std::vector<std::string>    filenameList;
 
 
+    sf::Sprite         pinSprite;
     sf::Sprite*         tmpSprite = nullptr;
     sf::CircleShape*    tmpNode = nullptr;
     Asset*              tmpAsset = nullptr;
@@ -100,8 +101,14 @@ public:
     /******FEATURES*******/
     ///CMD
     void                selectAsset(Asset* asset);
+
     void                unselectAllA();
     void                selectAllA();
+    void                pinAll();
+    void                unpinAll();
+    void                activeAll();
+    void                deactiveAll();
+
     void                getAssetsRatio();
     void                moveSelectedA(sf::Vector2f pos);
     void                duplicateSelectedA();

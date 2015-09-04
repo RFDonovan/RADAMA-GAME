@@ -31,6 +31,7 @@ public:
     bool isActive = true;
 
 
+
     int _id;
 
 public:
@@ -38,6 +39,7 @@ public:
             Asset(std::string filename);
             Asset(pugi::xml_node parent);
             ~Asset();
+    void    createImage();
     void    render(sf::RenderWindow& mWindow);
 
     void    setPosition(sf::Vector2f pos);

@@ -28,6 +28,7 @@ Asset::Asset(sf::Sprite image, std::vector<sf::CircleShape> nodeList,std::string
 
 Asset::Asset(std::string filename)
 {
+
     _id = AssetID++;
     pugi::xml_document          XMLDocument;
     if (!XMLDocument.load_file(filename.c_str()))
@@ -69,8 +70,8 @@ Asset::Asset(std::string filename)
         nodeRatio.push_back(aSprite.getPosition()-cShape.getPosition());
     }
 
-
 }
+
 
 Asset::Asset(pugi::xml_node parent)
 {
@@ -136,6 +137,7 @@ void  Asset::render(sf::RenderWindow& mWindow)
     aSprite.setTexture(*textureHolder.getTexture("Aname"));
     if(pinned)
     {
+
         aSprite.setColor(sf::Color(55,55,55,150));
     }
     else
@@ -143,6 +145,7 @@ void  Asset::render(sf::RenderWindow& mWindow)
         aSprite.setColor(sf::Color(255,255,255,250));
     }
     mWindow.draw(aSprite);
+
     for(int i=0; i < nodeList.size(); i++)
     {
         if((i+1) < nodeList.size())
@@ -251,6 +254,7 @@ void  Asset::addDupliNode(pugi::xml_node parent)
     assetN.append_attribute("x") = aSprite.getPosition().x;
     assetN.append_attribute("y") = aSprite.getPosition().y;
     assetN.append_attribute("z") = zIndex;
+    assetN.append_attribute("isActive") = isActive;
 }
 
 void  Asset::shrink()
