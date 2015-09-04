@@ -93,6 +93,10 @@ Asset::Asset(pugi::xml_node parent)
     aSprite.setScale(imageN.attribute("scaleX").as_float(),imageN.attribute("scaleY").as_float());
     aSprite.setPosition(imageN.attribute("x").as_float(),imageN.attribute("y").as_float());
     zIndex = imageN.attribute("z").as_int();
+    if(strcmp(imageN.attribute("isActive").value(), "") != 0)
+        isActive = imageN.attribute("isActive").as_bool();
+    else
+        isActive = true;
 
 ///LOAD NODES
     pugi::xml_node nodesN = parent.child("nodes");
@@ -211,6 +215,7 @@ void  Asset::addAssetNode(pugi::xml_node parent)
     std::stringstream ss;
     ss<<""<<_id;
     assetN.append_attribute("id") = ss.str().c_str();
+    assetN.append_attribute("isActive") = isActive;
 
     pugi::xml_node nodesN = assetN.append_child("nodes");
     pugi::xml_node imageN = assetN.append_child("image");

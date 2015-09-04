@@ -28,6 +28,7 @@ public:
     int zIndex = 0;
     bool deleted = false;
     bool selected = false;
+    bool isActive = true;
 
 
     int _id;

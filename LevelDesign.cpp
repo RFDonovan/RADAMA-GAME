@@ -662,7 +662,8 @@ void LevelDesign::mouseInput(sf::Event e)
                                 tmpAsset->selected = true;
 
                             getAssetsRatio();
-                            break;
+                            if(!assetList[i].isPinned())
+                                break;
                         }
                     }
                 }
@@ -1118,7 +1119,10 @@ void LevelDesign::saveLevel()
             bodyN.append_attribute("type") = "static";
             bodyN.append_attribute("x") = assetList[i].getPosition().x;
             bodyN.append_attribute("y") = -assetList[i].getPosition().y;
+            bodyN.append_attribute("isActive") = assetList[i].isActive;
+
             bodyN.append_attribute("image") = (assetList[i].name+ss.str()).c_str();
+
             //*********end body**********
 
             //*********fixtures**********
