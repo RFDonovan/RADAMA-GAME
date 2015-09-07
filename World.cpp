@@ -145,7 +145,10 @@ void World::processInput(sf::Event e)
     case sf::Event::MouseWheelMoved:
         {
             if(e.mouseWheel.delta>0)
+            {
                 mWorldView.zoom(0.9f);
+                mWorldView.setCenter(getMousePos());
+            }
             if(e.mouseWheel.delta<0)
                 mWorldView.zoom(1.1f);
 

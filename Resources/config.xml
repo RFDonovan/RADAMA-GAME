@@ -27,7 +27,7 @@
 		</items>
 		<weapons>
 			<weapon name="lefona" type="projectile" x="1000" y="400" damage="" file="Weapons/lefona.xml"/>
-			<weapon name="lefona1" type="projectile" x="900" y="200" damage="" file="Weapons/lefona.xml"/>
+			<weapon name="lefona1" type="projectile" x="200" y="200" damage="" file="Weapons/lefona.xml"/>
 			<!--weapon name="lefona2" type="projectile" x="200" y="200" damage="" file="Weapons/lefonaMiloko.xml"/-->
 		</weapons>
 		<enemies sprite1="humanSprite.xml" sprite="monster.xml">
