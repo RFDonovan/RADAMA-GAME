@@ -12,12 +12,14 @@ SpriteMapping::SpriteMapping(std::string filename)
     if (!XMLDocument0.load_file(filename.c_str()))
     {
         std::cout << "SpriteMapping::SpriteMapping -> error on loading "<<filename<< "\n";
+        exit(-1);
     }
     pugi::xml_node entities = XMLDocument0.child("Entities");
     for(pugi::xml_node node = entities.first_child(); node; node = node.next_sibling())
     {
-        int entityID = node.attribute("Id").as_int();
+        int entityID = node.attribute("id").as_int();
         std::string entityType = node.attribute("type").as_string();
+        std::cout << "SpriteMapping::SpriteMapping -> entityType"<<entityType<< "\n";
 
         for(pugi::xml_node node2 = node.first_child(); node2; node2 = node2.next_sibling())
         {

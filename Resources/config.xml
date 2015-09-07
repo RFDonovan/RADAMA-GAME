@@ -1,6 +1,6 @@
 <RADAMA>
 	<level name="" path="Resources/L1/" spriteList="">
-		<player type="rakakabe" jump="Resources/Animations/monsterJump.xml" shift="Resources/Animations/monsterShift.xml" atk="Resources/Animations/monsterAtk.xml" x="800" y="250" file="ePlayer.xml" />
+		<player type="human" x="800" y="250" file="ePlayer.xml" />
 		<items>
 			<item name="" type="" x="" y="" life="" mana="" icon="" />
 			<item name="null" type="null" x="7620" y="-428" radius="0" life="10" image="lifefire.png"/>
