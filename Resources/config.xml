@@ -26,13 +26,12 @@
 			<item name="null23" type="null" x="282" y="-285" radius="0" life="10" image="lifefire.png"/>
 		</items>
 		<weapons>
-			<weapon name="lefona" type="projectile" x="1000" y="400" damage="" file="Weapons/lefona.xml"/>
-			<weapon name="lefona1" type="projectile" x="200" y="200" damage="" file="Weapons/lefona.xml"/>
+			<weapon name="lefona" type="projectile" x="1600" y="100" damage="" file="Weapons/lefona.xml"/>
+			<weapon name="lefona1" type="projectile" x="200" y="400" damage="" file="Weapons/lefona.xml"/>
 			<!--weapon name="lefona2" type="projectile" x="200" y="200" damage="" file="Weapons/lefonaMiloko.xml"/-->
 		</weapons>
 		<enemies sprite1="humanSprite.xml" sprite="monster.xml">
-			<enemy name="1" type="rakakabe" x="900" y="200" finiteState="calm" facing="right" file="ePlayer.xml" visionRange="300" />
-			<enemy name="1" type="human" x="1600" y="200" finiteState="calm" facing="right" file="ePlayer.xml" visionRange="300" />
+			<enemy name="1" type="rakakabe" x="900" y="300" finiteState="calm" facing="right" file="ePlayer.xml" visionRange="300" />
 		</enemies>
 		<sceneries>
 			<scenery name="trano" x="" y="" />

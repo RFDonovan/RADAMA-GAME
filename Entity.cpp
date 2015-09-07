@@ -234,8 +234,8 @@ int Entity::getX()
 
 void Entity::setPosition(sf::Vector2f position)
 {
-    m_body->SetTransform(b2Vec2(position.x/RATIO,position.y/RATIO),m_body->GetAngle());
     m_head->SetTransform(b2Vec2(position.x/RATIO,position.y/RATIO),m_head->GetAngle());
+    m_body->SetTransform(b2Vec2(position.x/RATIO,position.y/RATIO),m_body->GetAngle());
     m_legs->SetTransform(b2Vec2(position.x/RATIO,position.y/RATIO),m_legs->GetAngle());
 }
 

@@ -52,6 +52,7 @@ public:
     void    addJumpSprite(std::map<std::string, Animation>* animationList);
     void    addShiftSprite(std::map<std::string, Animation>* animationList);
     void    addAtkSprite(std::map<std::string, Animation>* animationList);
+    void    addAnimations(std::map<std::string, Animation>* animationList);
     void    processLogic();
     void    processLogic(sf::RenderWindow& mWindow);
     void    render(sf::RenderWindow& mWindow,sf::Time frameTime, TextureHolder* Textures, sf::Shader* shader);

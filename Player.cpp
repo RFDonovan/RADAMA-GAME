@@ -43,6 +43,13 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world, float radius, std::vec
 
 }
 
+void Player::addAnimations(std::map<std::string, Animation>* animationList)
+{
+    addJumpSprite(animationList);
+    addShiftSprite(animationList);
+    addAtkSprite(animationList);
+}
+
 void Player::addJumpSprite(std::map<std::string, Animation>* animationList)
 {
     jumpRight = (*animationList)["jumpRight"];

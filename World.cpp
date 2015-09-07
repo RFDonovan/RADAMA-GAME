@@ -579,61 +579,11 @@ void World::buildScene(std::string CurrentDir)
 
 }
 
-void World::loadSprites(std::string listFile)
-{
-    pugi::xml_document XMLDoc;
-    if (!XMLDoc.load_file(listFile.c_str()))
-    {
-        std::cout << "World::loadSprites -> error on loading "<<listFile<< "\n";
-        return;
-    }
-    pugi::xml_node spritesNode = XMLDoc.child("RADAMA").child("spriteList");
-    for (pugi::xml_node node = spritesNode.first_child(); node ; node = node.next_sibling())
-        ///LOADING ALL SPRITES TO A HASHTABLE
-    {
-        SpriteMapping* ps_map = new SpriteMapping();
-        ps_map->loadXML(node.attribute("file").as_string());
-        spriteMap[node.attribute("name").as_string()] = ps_map;
-        ///LOADING JUMP SPRITES
-        if(strcmp(node.attribute("jump").as_string(), "") == 0)
-            continue;
-        std::stringstream ss;
-//        ss<<node.attribute("jump").as_string();
-        ss<<node.attribute("jump").as_string();//<<"jump";
-        SpriteMapping* ps_map2 = new SpriteMapping();
-        ps_map2->loadXML(node.attribute("jump").as_string());
-        spriteMap[ss.str()] = ps_map2;
-//        std::cout<<"World::loadSprite -> jumpSprite "<<ss.str()<<std::endl;
-//        exit(-1);
-        ///LOADING SHIFT SPRITES
-        if(strcmp(node.attribute("shift").as_string(), "") == 0)
-            continue;
-        std::stringstream ss2;
-        ss2<<node.attribute("shift").as_string();//<<"jump";
-        SpriteMapping* ps_map3 = new SpriteMapping();
-        ps_map3->loadXML(node.attribute("shift").as_string());
-        spriteMap[ss2.str()] = ps_map3;
-
-        ///LOADING ATK SPRITES
-        if(strcmp(node.attribute("atk").as_string(), "") == 0)
-            continue;
-        std::stringstream ss3;
-        ss3<<node.attribute("atk").as_string();//<<"atk";
-        SpriteMapping* ps_map4 = new SpriteMapping();
-        ps_map4->loadXML(node.attribute("atk").as_string());
-        spriteMap[ss3.str()] = ps_map4;
-
-
-//
-//        std::cout << "World::loadSprites -> loading "<<node.attribute("name").as_string() <<spriteMap[node.attribute("name").as_string()]<< ps_map<<">>>>>>>>>>>>**************\n";
-//        std::cout << "World::loadSprites -> jumploading "<<node.attribute("jump").as_string() <<spriteMap[node.attribute("jump").as_string()]<< ps_map2<<">>>>>>>>>>>>**************\n";
-//        std::cout << "World::loadSprites -> shiftloading "<<node.attribute("shift").as_string() <<spriteMap[node.attribute("shift").as_string()]<< ps_map3<<">>>>>>>>>>>>**************\n";
-    }
-    //exit(-1);
-}
 
 void World::loadInfo(std::string xmlCfg)
 {
+    AnimationDB  = new SpriteMapping("Resources/animationDB.xml");
+//    smList.push_back(*AnimationDB);
     pugi::xml_document XMLDoc;
     if (!XMLDoc.load_file(xmlCfg.c_str()))
     {
@@ -647,7 +597,7 @@ void World::loadInfo(std::string xmlCfg)
     std::string directory = ss.str();
 
     ///LOADING ALL ANIMATED SPRITES
-    loadSprites(directory+"spriteList.xml");
+    //loadSprites(directory+"spriteList.xml");
 
     ///LOADING GROUNDS
     xLoad = new XMLLoader(&p_world, &Textures);
@@ -683,11 +633,10 @@ void World::loadInfo(std::string xmlCfg)
         std::string Pfilename = ss3.str();
     std::vector<bodyData> bDListP = xLoad->loadXML(directory + Pfilename, directory);
     std::map<std::string, b2Joint*> jMap = xLoad->GetCurrentJointMap();
-    ePlayer = new Player(mWindow,&p_world, 1.f , &bDListP, &jMap, (spriteMap[playerNode.attribute("type").as_string()])->getAnimationList());
+    ePlayer = new Player(mWindow,&p_world, 1.f , &bDListP, &jMap, &AnimationDB->animationDB[playerNode.attribute("type").as_string()]);
 
-    //ePlayer->addJumpSprite((spriteMap["monsterJump"])->getAnimationList());
     std::cout << "World::loadInfo -> playerjump infojump "<<playerNode.attribute("jump").as_string() <<spriteMap[playerNode.attribute("jump").as_string()]<<">>>>>>>>>>>>**************\n";
-    //exit(-1);
+
 
 
     ePlayer->setPosition(sf::Vector2f(
@@ -695,10 +644,8 @@ void World::loadInfo(std::string xmlCfg)
                                     playerNode.attribute("y").as_float()
                                     )
                        );
-    ePlayer->addJumpSprite((spriteMap[playerNode.attribute("jump").as_string()])->getAnimationList());
-    ePlayer->addShiftSprite((spriteMap[playerNode.attribute("shift").as_string()])->getAnimationList());
-    ePlayer->addAtkSprite((spriteMap[playerNode.attribute("atk").as_string()])->getAnimationList());
-    ///---------------
+
+    ePlayer->addAnimations(&AnimationDB->animationDB[playerNode.attribute("type").as_string()]);
 
     ///LOADING OTHER ENTITIES
     std::cout << "World::loadInfo -> loading spritemap\n";
@@ -720,7 +667,7 @@ void World::loadInfo(std::string xmlCfg)
         Human* e = new Human(mWindow,&p_world, 1.f
                              , &bDListH
                              , &jMapH
-                             , (spriteMap[node.attribute("type").as_string()])->getAnimationList()
+                             , &AnimationDB->animationDB[node.attribute("type").as_string()]
                              );
         e->setPosition(sf::Vector2f(
                                     node.attribute("x").as_float(),
@@ -728,10 +675,8 @@ void World::loadInfo(std::string xmlCfg)
                                     )
                        );
         humans.push_back(e);
-        std::cout << "World::loadInfo -> "<<spriteMap[node.attribute("type").as_string()]<<std::endl;
     }
 
-    //exit(-1);
     ///--------------
 
     ///LOADING WEAPONS

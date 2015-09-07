@@ -108,6 +108,8 @@ public:
     std::vector<Item*>          itemList;
     std::map<std::string, SpriteMapping*>   spriteMap;
 
+    SpriteMapping *AnimationDB;
+
     bool rebuild = false;
     bool GAME_OVER = false;
 
@@ -170,8 +172,6 @@ public:
     void    loadTextures ();
     ///LOADING LEVEL
     void    loadInfo(std::string xmlCfg);
-    ///LOADING SPRITES
-    void    loadSprites(std::string listFile);
     ///BUILDING SCENE
     void    buildScene (std::string CurrentDir);
     void    rebuildScene ();

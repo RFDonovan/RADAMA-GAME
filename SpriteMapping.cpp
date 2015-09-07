@@ -1,8 +1,66 @@
 #include "SpriteMapping.hpp"
 
+AnList_t SpriteMapping::mAnimation;
+
 SpriteMapping::SpriteMapping()
 {
 
+}
+
+SpriteMapping::SpriteMapping(std::string filename)
+{
+    if (!XMLDocument0.load_file(filename.c_str()))
+    {
+        std::cout << "SpriteMapping::SpriteMapping -> error on loading "<<filename<< "\n";
+    }
+    pugi::xml_node entities = XMLDocument0.child("Entities");
+    for(pugi::xml_node node = entities.first_child(); node; node = node.next_sibling())
+    {
+        int entityID = node.attribute("Id").as_int();
+        std::string entityType = node.attribute("type").as_string();
+
+        for(pugi::xml_node node2 = node.first_child(); node2; node2 = node2.next_sibling())
+        {
+            std::cout << "SpriteMapping::SpriteMapping -> loading of "<<node2.attribute("path").as_string()<< "\n";
+            loadXML(
+                    node2.attribute("path").as_string()
+                    );
+        }
+        animationDB[entityType] = animationList;
+
+
+
+//        animationList.clear();
+
+    }
+}
+
+AnList_t SpriteMapping::createSpriteMapping(std::string filename)
+{
+    if (!XMLDocument0.load_file(filename.c_str()))
+    {
+        std::cout << "SpriteMapping::SpriteMapping -> error on loading "<<filename<< "\n";
+    }
+    pugi::xml_node entities = XMLDocument0.child("Entities");
+    for(pugi::xml_node node = entities.first_child(); node; node = node.next_sibling())
+    {
+        int entityID = node.attribute("Id").as_int();
+        std::string entityType = node.attribute("type").as_string();
+
+        for(pugi::xml_node node2 = node.first_child(); node2; node2 = node2.next_sibling())
+        {
+            std::cout << "SpriteMapping::SpriteMapping -> loading of "<<node2.attribute("path").as_string()<< "\n";
+            loadXML(
+                    node2.attribute("path").as_string()
+                    );
+        }
+        return animationList;
+
+
+
+//        animationList.clear();
+
+    }
 }
 
 void SpriteMapping::loadXML(std::string XMLFile)
@@ -15,15 +73,19 @@ void SpriteMapping::loadXML(std::string XMLFile)
     pugi::xml_node spritesNode = XMLDocument.child("SpriteMapping").child("Sprites");
     pugi::xml_node animationsNode = XMLDocument.child("SpriteMapping").child("Animations");
 
-    std::cout << "SpriteMapping::loadXML -> loading texture ...\n";
-    std::stringstream ss;
-    ss<<textureNode.attribute("Path").as_string();
-    std::cout << "SpriteMapping::loadXML -> loading texture ..."<<ss.str()<<"\n";
+//    std::cout << "SpriteMapping::loadXML -> loading texture ...\n";
+//    std::stringstream ss;
+//    ss<<textureNode.attribute("Path").as_string();
+//    std::cout << "SpriteMapping::loadXML -> loading texture ..."<<ss.str()<<"\n";
 
-    if ( !SpriteSheet.loadFromFile(ss.str()) )
-        std::cout << "SpriteMapping::loadXML -> loading texture ERROR!\n";
-    std::cout << "SpriteMapping::loadXML -> loading Sprites ...\n";
-    SpriteSheet.setSmooth(true);
+    textureName = textureNode.attribute("Path").as_string();
+//
+//    if ( !SpriteSheet.loadFromFile(ss.str()) )
+//        std::cout << "SpriteMapping::loadXML -> loading texture ERROR!\n";
+//    std::cout << "SpriteMapping::loadXML -> loading Sprites ...\n";
+//    SpriteSheet.setSmooth(true);
+
+    textureHolder.loadFromFile(textureName,textureName);
     for(pugi::xml_node node = spritesNode.first_child(); node; node = node.next_sibling())
         ///SPRITES
     {
@@ -62,7 +124,9 @@ void SpriteMapping::createAnimation(pugi::xml_node animationNode)
     ss<<animationNode.attribute("Name").as_string();
 
     Animation anim;
-    anim.setSpriteSheet(SpriteSheet);
+//    anim.setSpriteSheet(SpriteSheet);
+    anim.setSpriteSheet(TextureHolder::TextureMap[textureName]);
+
 
     pugi::xml_node framesNode = animationNode.child("Frames");
     ///-------BIDOUILLAGE POURQUE TOUS LES DECOUPES ONT LES MEMES TAILLE(MALGRE CE QUE GENERE SPRITEVORTEX
@@ -93,8 +157,10 @@ void SpriteMapping::createAnimation(pugi::xml_node animationNode)
                       );
     }
 
-    animationList[ss.str()]=anim;
+    vAnimation.push_back(anim);
+    animationList[ss.str()]=vAnimation[vAnimation.size()-1];
 
+    mAnimation[ss.str()]=vAnimation[vAnimation.size()-1];
 }
 
 std::map<std::string, Animation>* SpriteMapping::getAnimationList()
