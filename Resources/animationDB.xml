@@ -1,12 +1,14 @@
 <Entities>
 	<Entity id="1" type="rakakabe">
-		<Animation name="stop" path="Resources/Animations/monster.xml" />
+		<Animation name="stop" path="Resources/Animations/monsterStop.xml" />
+		<Animation name="walk" path="Resources/Animations/monster.xml" />
 		<Animation name="jump" path="Resources/Animations/monsterJump.xml" />
 		<Animation name="shift" path="Resources/Animations/monsterShift.xml" />
 		<Animation name="kick" path="Resources/Animations/monsterAtk.xml" />
 	</Entity>
 	<Entity id="2" type="human">
-		<Animation name="stop" path="Resources/Animations/humanSprite.xml" />
+		<Animation name="stop" path="Resources/Animations/monsterStop.xml" />
+		<Animation name="walk" path="Resources/Animations/humanSprite.xml" />
 		<Animation name="jump" path="Resources/Animations/monsterJump.xml" />
 		<Animation name="shift" path="Resources/Animations/monsterShift.xml" />
 		<Animation name="kick" path="Resources/Animations/monsterAtk.xml" />

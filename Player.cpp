@@ -45,6 +45,8 @@ Player::Player(sf::RenderWindow& mWindow, b2World* world, float radius, std::vec
 
 void Player::addAnimations(std::map<std::string, Animation>* animationList)
 {
+    stopRight = (*animationList)["stopRight"];
+    stopLeft = (*animationList)["stopLeft"];
     addJumpSprite(animationList);
     addShiftSprite(animationList);
     addAtkSprite(animationList);
@@ -162,8 +164,28 @@ void Player::render(sf::RenderWindow& mWindow, sf::Time frameTime, TextureHolder
     ///emplacement:
     //animatedSprite.setOrigin((BOXSIZE_W),(BOXSIZE_H/2));
     animatedSprite.setOrigin((animatedSprite.getAnimation()->getFrame(0).width/2),(BOXSIZE_H/2));
-    animatedSprite.setPosition(m_body->GetPosition().x * RATIO,
-                               m_body->GetPosition().y * RATIO);
+    animatedSprite.setPosition(
+                               m_body->GetPosition().x * RATIO,
+                               m_body->GetPosition().y * RATIO
+                               );
+    if(
+       currentAnimation == &stopLeft || currentAnimation == &stopRight
+       )
+    {
+        animatedSprite.setOrigin((animatedSprite.getAnimation()->getFrame(0).width/2),(animatedSprite.getAnimation()->getFrame(0).height));
+        animatedSprite.setScale(0.9f, 0.9f);
+        animatedSprite.setPosition(
+                               m_body->GetPosition().x * RATIO,
+//                               m_body->GetPosition().y * RATIO
+                               (m_legs->GetPosition().y)*RATIO + 18
+                               );
+    }
+    else
+    {
+        animatedSprite.setScale(1.f, 1.f);
+    }
+
+
     animatedSprite.setRotation(m_body->GetAngle() * 180/b2_pi);
 
     ///JUST SPRITE ANIMATION BLOCK

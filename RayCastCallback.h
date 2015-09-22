@@ -40,12 +40,12 @@ public:
 
                     std::cout<<"Player vu \n";
                     void* fixtureData = fixture->GetUserData();
-                    if(fixtureData)
-                    {
-                        std::cout<<(int)fixtureData<<"----------------*******-**-**-FIXTUREDATA \n";
-                        if((int)fixtureData >  10000)
-                            return fraction;  ///C EST UN ARME OU AUTRE CHOSES
-                    }
+//                    if(fixtureData)
+//                    {
+//                        std::cout<<(int)fixtureData<<"----------------*******-**-**-FIXTUREDATA \n";
+//                        if((int)fixtureData >  10000)
+//                            return fraction;  ///C EST UN ARME OU AUTRE CHOSES
+//                    }
                     m_hit = true;
                     m_point = point;
                     m_normal = normal;

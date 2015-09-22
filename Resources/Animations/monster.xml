@@ -166,11 +166,11 @@
       </Sprite>
    </Sprites>
    <Animations>
-      <Animation Name="stopRight" FrameRate="20" Loop="True" PingPong="False">
+      <!--Animation Name="stopRight" FrameRate="20" Loop="True" PingPong="False">
          <Frames>
             <Frame SpriteId="2" OriginX="25" OriginY="74,5" OffSetX="0" OffSetY="0" Duration="0,05" />
          </Frames>
-      </Animation>
+      </Animation-->
 	  <Animation Name="walkRight" FrameRate="20" Loop="True" PingPong="False">
          <Frames>
             <Frame SpriteId="0" OriginX="38,5" OriginY="74,5" OffSetX="0" OffSetY="0" Duration="0,05" />
@@ -199,10 +199,10 @@
             <Frame SpriteId="19" OriginX="37,5" OriginY="75" OffSetX="0" OffSetY="0" Duration="0,05" />
          </Frames>
       </Animation>
-	  <Animation Name="stopLeft" FrameRate="20" Loop="True" PingPong="False">
+	  <!--Animation Name="stopLeft" FrameRate="20" Loop="True" PingPong="False">
          <Frames>
             <Frame SpriteId="13" OriginX="27" OriginY="75" OffSetX="0" OffSetY="0" Duration="0,05" />
          </Frames>
-      </Animation>
+      </Animation-->
    </Animations>
 </SpriteMapping>
