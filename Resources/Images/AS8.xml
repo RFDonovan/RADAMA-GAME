@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Asset>
+	<nodes>
+		<node x="439" y="294" />
+		<node x="432" y="336" />
+		<node x="452" y="343" />
+		<node x="471" y="337" />
+		<node x="455" y="302" />
+		<node x="457" y="269" />
+		<node x="429" y="267" />
+		<node x="424" y="286" />
+	</nodes>
+	<image x="451" y="303" scaleX="3.49999762" scaleY="3.49999762" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\Images\os1.png" />
+</Asset>

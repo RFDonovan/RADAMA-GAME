@@ -1,0 +1,13 @@
+<box2d>
+  <images/>
+  <bodies>
+    <body name="body1" x="24" y="252" type="dynamic" bullet="true" image="null">
+      <fixtures/>
+    </body>
+  </bodies>
+  <joints/>
+  <metaData/>
+  <settings>
+    <setting isLocked="false"/>
+  </settings>
+</box2d>

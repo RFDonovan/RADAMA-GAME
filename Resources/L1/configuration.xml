@@ -1,0 +1,16 @@
+<RADAMA>
+	<level name="" path="">
+		<items>
+			<item name="" type="" x="" y="" life="" mana="" icon="" />
+		</items>
+		<weapons>
+			<weapon name="lefona" type="sticky" x="" y="" damage="" file=""/>
+		</weapons>
+		<enemies>
+			<enemy name="1" type="human" x="" y="" finiteState="calm" file="" />
+		</enemies>
+		<sceneries>
+			<scenery name="trano" x="" y="" />
+		</sceneries>
+	</level>
+</RADAMA>

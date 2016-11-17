@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Asset>
+	<nodes>
+		<node x="301.086548" y="74.266037" />
+		<node x="324.074829" y="95.5884933" />
+		<node x="350.734528" y="121.322037" />
+		<node x="369.315063" y="158.483093" />
+		<node x="413.795715" y="129.204681" />
+		<node x="450.956757" y="138.213425" />
+		<node x="493.74826" y="86.9762192" />
+		<node x="512.328796" y="74.0261536" />
+	</nodes>
+	<image x="374.382477" y="10.9649849" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\hazo2.png" />
+</Asset>

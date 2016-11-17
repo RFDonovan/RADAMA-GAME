@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<box2d>
+	<bodies>
+		<body name="0" type="static" x="1897.13184" y="-601.400635" image="1 (7).jpeg0">
+			<fixtures>
+				<fixture name="0" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66.1318359" y="-58.4006348" />
+					<vertex x="64.8681641" y="-57.4006348" />
+					<vertex x="64.8681641" y="57.5993652" />
+					<vertex x="-66.1318359" y="57.5993652" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="1" type="static" x="1138" y="-357.000031" image="1 (2).jpeg1">
+			<fixtures>
+				<fixture name="1" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-104" y="79.9999695" />
+					<vertex x="104" y="77.9999695" />
+					<vertex x="-13" y="112.999969" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="2" type="static" x="149" y="-484" image="1 (7).jpeg2">
+			<fixtures>
+				<fixture name="2" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66" y="-58" />
+					<vertex x="65" y="-57" />
+					<vertex x="65" y="58" />
+					<vertex x="-66" y="58" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="3" type="static" x="275" y="-485" image="1 (7).jpeg3">
+			<fixtures>
+				<fixture name="3" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66" y="-58" />
+					<vertex x="65" y="-57" />
+					<vertex x="65" y="58" />
+					<vertex x="-66" y="58" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="4" type="static" x="398" y="-485" image="1 (7).jpeg4">
+			<fixtures>
+				<fixture name="4" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66" y="-58" />
+					<vertex x="65" y="-57" />
+					<vertex x="65" y="58" />
+					<vertex x="-66" y="58" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="7" type="static" x="730" y="-484" image="1 (7).jpeg7">
+			<fixtures>
+				<fixture name="7" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66" y="-58" />
+					<vertex x="65" y="-57" />
+					<vertex x="65" y="58" />
+					<vertex x="-66" y="58" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="8" type="static" x="859" y="-484" image="1 (7).jpeg8">
+			<fixtures>
+				<fixture name="8" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66" y="-58" />
+					<vertex x="65" y="-57" />
+					<vertex x="65" y="58" />
+					<vertex x="-66" y="58" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="9" type="static" x="829" y="-369" image="1 (7).jpeg9">
+			<fixtures>
+				<fixture name="9" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66" y="-58" />
+					<vertex x="65" y="-57" />
+					<vertex x="65" y="58" />
+					<vertex x="-66" y="58" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="10" type="static" x="957" y="-369" image="1 (7).jpeg10">
+			<fixtures>
+				<fixture name="10" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66" y="-58" />
+					<vertex x="65" y="-57" />
+					<vertex x="65" y="58" />
+					<vertex x="-66" y="58" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="11" type="static" x="979" y="-482" image="1 (7).jpeg11">
+			<fixtures>
+				<fixture name="11" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66" y="-58" />
+					<vertex x="65" y="-57" />
+					<vertex x="65" y="58" />
+					<vertex x="-66" y="58" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="12" type="static" x="310" y="-357.000031" image="1 (2).jpeg12">
+			<fixtures>
+				<fixture name="12" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-104" y="79.9999695" />
+					<vertex x="104" y="77.9999695" />
+					<vertex x="-13" y="112.999969" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="14" type="static" x="546" y="-401.000031" image="1 (2).jpeg14">
+			<fixtures>
+				<fixture name="14" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-104" y="79.9999695" />
+					<vertex x="104" y="77.9999695" />
+					<vertex x="-13" y="112.999969" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="15" type="static" x="1112" y="-485.000031" image="1 (7).jpeg15">
+			<fixtures>
+				<fixture name="15" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66" y="-58.0000305" />
+					<vertex x="65" y="-57.0000305" />
+					<vertex x="65" y="57.9999695" />
+					<vertex x="-66" y="57.9999695" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="16" type="static" x="1243" y="-484.000031" image="1 (7).jpeg16">
+			<fixtures>
+				<fixture name="16" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66" y="-58.0000305" />
+					<vertex x="65" y="-57.0000305" />
+					<vertex x="65" y="57.9999695" />
+					<vertex x="-66" y="57.9999695" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="17" type="static" x="1372" y="-486.000031" image="1 (7).jpeg17">
+			<fixtures>
+				<fixture name="17" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66" y="-58.0000305" />
+					<vertex x="65" y="-57.0000305" />
+					<vertex x="65" y="57.9999695" />
+					<vertex x="-66" y="57.9999695" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="18" type="static" x="1508" y="-598" image="1 (7).jpeg18">
+			<fixtures>
+				<fixture name="18" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66" y="-58" />
+					<vertex x="65" y="-57" />
+					<vertex x="65" y="58" />
+					<vertex x="-66" y="58" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="19" type="static" x="1637" y="-600.000061" image="1 (7).jpeg19">
+			<fixtures>
+				<fixture name="19" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66" y="-58.000061" />
+					<vertex x="65" y="-57.000061" />
+					<vertex x="65" y="57.999939" />
+					<vertex x="-66" y="57.999939" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="20" type="static" x="1766" y="-600.000061" image="1 (7).jpeg20">
+			<fixtures>
+				<fixture name="20" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66" y="-58.000061" />
+					<vertex x="65" y="-57.000061" />
+					<vertex x="65" y="57.999939" />
+					<vertex x="-66" y="57.999939" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="5" type="static" x="509" y="-485" image="1 (7).jpeg5">
+			<fixtures>
+				<fixture name="5" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66" y="-58" />
+					<vertex x="65" y="-57" />
+					<vertex x="65" y="58" />
+					<vertex x="-66" y="58" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="6" type="static" x="609" y="-484" image="1 (7).jpeg6">
+			<fixtures>
+				<fixture name="6" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-66" y="-58" />
+					<vertex x="65" y="-57" />
+					<vertex x="65" y="58" />
+					<vertex x="-66" y="58" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="13" type="static" x="424" y="-354.000031" image="1 (2).jpeg13">
+			<fixtures>
+				<fixture name="13" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-104" y="79.9999695" />
+					<vertex x="104" y="77.9999695" />
+					<vertex x="-13" y="112.999969" />
+				</fixture>
+			</fixtures>
+		</body>
+	</bodies>
+	<images>
+		<image name="1 (7).jpeg0" path="1 (7).jpeg" x="1897.13184" y="-601.400635" scaleX="1" scaleY="1" />
+		<image name="1 (2).jpeg1" path="1 (2).jpeg" x="1138" y="-357.000031" scaleX="1" scaleY="1" />
+		<image name="1 (7).jpeg2" path="1 (7).jpeg" x="149" y="-484" scaleX="1" scaleY="1" />
+		<image name="1 (7).jpeg3" path="1 (7).jpeg" x="275" y="-485" scaleX="1" scaleY="1" />
+		<image name="1 (7).jpeg4" path="1 (7).jpeg" x="398" y="-485" scaleX="1" scaleY="1" />
+		<image name="1 (7).jpeg7" path="1 (7).jpeg" x="730" y="-484" scaleX="1" scaleY="1" />
+		<image name="1 (7).jpeg8" path="1 (7).jpeg" x="859" y="-484" scaleX="1" scaleY="1" />
+		<image name="1 (7).jpeg9" path="1 (7).jpeg" x="829" y="-369" scaleX="1" scaleY="1" />
+		<image name="1 (7).jpeg10" path="1 (7).jpeg" x="957" y="-369" scaleX="1" scaleY="1" />
+		<image name="1 (7).jpeg11" path="1 (7).jpeg" x="979" y="-482" scaleX="1" scaleY="1" />
+		<image name="1 (2).jpeg12" path="1 (2).jpeg" x="310" y="-357.000031" scaleX="1" scaleY="1" />
+		<image name="1 (2).jpeg14" path="1 (2).jpeg" x="546" y="-401.000031" scaleX="1" scaleY="1" />
+		<image name="1 (7).jpeg15" path="1 (7).jpeg" x="1112" y="-485.000031" scaleX="1" scaleY="1" />
+		<image name="1 (7).jpeg16" path="1 (7).jpeg" x="1243" y="-484.000031" scaleX="1" scaleY="1" />
+		<image name="1 (7).jpeg17" path="1 (7).jpeg" x="1372" y="-486.000031" scaleX="1" scaleY="1" />
+		<image name="1 (7).jpeg18" path="1 (7).jpeg" x="1508" y="-598" scaleX="1" scaleY="1" />
+		<image name="1 (7).jpeg19" path="1 (7).jpeg" x="1637" y="-600.000061" scaleX="1" scaleY="1" />
+		<image name="1 (7).jpeg20" path="1 (7).jpeg" x="1766" y="-600.000061" scaleX="1" scaleY="1" />
+		<image name="1 (7).jpeg5" path="1 (7).jpeg" x="509" y="-485" scaleX="1" scaleY="1" />
+		<image name="1 (7).jpeg6" path="1 (7).jpeg" x="609" y="-484" scaleX="1" scaleY="1" />
+		<image name="1 (2).jpeg13" path="1 (2).jpeg" x="424" y="-354.000031" scaleX="1" scaleY="1" />
+	</images>
+</box2d>

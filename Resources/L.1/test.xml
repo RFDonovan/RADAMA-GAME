@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<box2d>
+	<bodies>
+		<body name="0" type="static" x="404" y="-377" image="bulle.png">
+			<fixtures>
+				<fixture name="0" restitution="0" friction="0" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-125" y="94" />
+					<vertex x="-166" y="-3" />
+					<vertex x="-140" y="-74" />
+					<vertex x="-59" y="-145" />
+					<vertex x="46" y="-159" />
+					<vertex x="110" y="-107" />
+					<vertex x="147" y="-46" />
+					<vertex x="158" y="9" />
+					<vertex x="149" y="69" />
+					<vertex x="126" y="117" />
+					<vertex x="72" y="146" />
+					<vertex x="13" y="163" />
+					<vertex x="-64" y="161" />
+					<vertex x="-98" y="121" />
+				</fixture>
+			</fixtures>
+		</body>
+	</bodies>
+	<images>
+		<image name="bulle.png" path="bulle.png" x="404" y="-377" scaleX="1" scaleY="1" />
+	</images>
+</box2d>

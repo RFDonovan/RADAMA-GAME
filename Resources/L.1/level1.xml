@@ -1,0 +1,37 @@
+<box2d>
+  <images>
+    <image path="level1.png" name="level1.png" x="1285.3500000000006" y="-340" rotation="0" scaleX="1.01840532525681" scaleY="1.12" zDepth="0" pinned="false" atlas="null"/>
+  </images>
+  <bodies>
+    <body name="ground1" x="20" y="-570" type="static" bullet="false" image="level1.png">
+      <fixtures>
+        <fixture categoryBits="0x0002" maskBits="0x0001" name="300" shapeType="edgeShape" restitution="0" density="10" friction="1" closedPath="true">
+          <vertex x="-113" y="195"/>
+          <vertex x="-18" y="70"/>
+          <vertex x="261" y="64"/>
+          <vertex x="625" y="72"/>
+          <vertex x="911" y="71"/>
+          <vertex x="1082" y="66"/>
+          <vertex x="1229" y="72"/>
+          <vertex x="1413" y="71"/>
+          <vertex x="1774" y="98"/>
+          <vertex x="2176" y="96"/>
+          <vertex x="2622" y="97"/>
+          <vertex x="2621" y="-69"/>
+          <vertex x="-93" y="-67"/>
+          <vertex x="-115" y="183"/>
+        </fixture>
+      </fixtures>
+    </body>
+  </bodies>
+  <joints/>
+  <metaData>
+    <meta name="mana10" type="null" x="378" y="-407" mana="40" life="0" image="lifefire.png"/>
+    <meta name="item1" type="null" x="175" y="-409" life="20" image="lifefire.png"/>
+    <meta name="item3" type="null" x="631" y="-343" mana="10" life="10" image="lifefire.png"/>
+  </metaData>
+  
+  <settings>
+    <setting isLocked="true"/>
+  </settings>
+</box2d>

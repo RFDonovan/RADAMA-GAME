@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html class="" lang="en"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    
+    
+    <title>Source: HeatHazeShader · SFML/SFML Wiki · GitHub</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="https://github.com/opensearch.xml" title="GitHub">
+    <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+    <link rel="apple-touch-icon" sizes="57x57" href="https://github.com/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://github.com/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://github.com/apple-touch-icon-144.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://github.com/apple-touch-icon-144.png">
+    <meta property="fb:app_id" content="1401488693436528">
+
+      <meta content="@github" name="twitter:site"><meta content="summary" name="twitter:card"><meta content="SFML/SFML" name="twitter:title"><meta content="SFML - Simple and Fast Multimedia Library" name="twitter:description"><meta content="https://avatars1.githubusercontent.com/u/4226899?v=3&amp;s=400" name="twitter:image:src">
+      <meta content="GitHub" property="og:site_name"><meta content="object" property="og:type"><meta content="https://avatars1.githubusercontent.com/u/4226899?v=3&amp;s=400" property="og:image"><meta content="SFML/SFML" property="og:title"><meta content="https://github.com/SFML/SFML" property="og:url"><meta content="SFML - Simple and Fast Multimedia Library" property="og:description">
+      <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+    <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+    <link rel="assets" href="https://assets-cdn.github.com/">
+    
+    <meta name="pjax-timeout" content="1000">
+    
+
+    <meta name="msapplication-TileImage" content="/windows-tile.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="selected-link" value="repo_wiki" data-pjax-transient="">
+      <meta name="google-analytics" content="UA-3769691-2">
+
+    <meta content="collector.githubapp.com" name="octolytics-host"><meta content="collector-cdn.github.com" name="octolytics-script-host"><meta content="github" name="octolytics-app-id"><meta content="29BEEC1F:237F:11050E3:556FFC5A" name="octolytics-dimension-request_id">
+    
+    <meta content="Rails, view, wiki#show" name="analytics-event">
+    <meta class="js-ga-set" name="dimension1" content="Logged Out">
+    <meta class="js-ga-set" name="dimension2" content="Header v3">
+    <meta name="is-dotcom" content="true">
+      <meta name="hostname" content="github.com">
+    <meta name="user-login" content="">
+
+    
+    <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+
+    <meta content="authenticity_token" name="csrf-param">
+<meta content="b/0dT3NvFwCR/KivSeXnq1TpzLTaEDjMWxEc2pZ50J8+fCKt4bdugBK1zS3TYDtm6jjXdZDFBPe+onp8bzHWag==" name="csrf-token">
+
+    <link crossorigin="anonymous" href="Source%20%20HeatHazeShader%20%C2%B7%20SFML_SFML%20Wiki%20%C2%B7%20GitHub_files/index-6967b378b26829cc5a2ea2ad4209ff0af50f2a65057962219dc9dc.css" media="all" rel="stylesheet">
+    <link crossorigin="anonymous" href="Source%20%20HeatHazeShader%20%C2%B7%20SFML_SFML%20Wiki%20%C2%B7%20GitHub_files/index-73bfe123ff406f4bf8959a28667410beaac1485e71c92d4725a3d7.css" media="all" rel="stylesheet">
+    
+    
+
+
+    <meta http-equiv="x-pjax-version" content="757b6e0c99879924c3b1279e8dde640b">
+
+      
+  <meta name="description" content="SFML - Simple and Fast Multimedia Library">
+  <meta name="go-import" content="github.com/SFML/SFML git https://github.com/SFML/SFML.git">
+
+  <meta content="4226899" name="octolytics-dimension-user_id"><meta content="SFML" name="octolytics-dimension-user_login"><meta content="1524684" name="octolytics-dimension-repository_id"><meta content="SFML/SFML" name="octolytics-dimension-repository_nwo"><meta content="true" name="octolytics-dimension-repository_public"><meta content="false" name="octolytics-dimension-repository_is_fork"><meta content="1524684" name="octolytics-dimension-repository_network_root_id"><meta content="SFML/SFML" name="octolytics-dimension-repository_network_root_nwo">
+  <link href="https://github.com/SFML/SFML/commits/master.atom" rel="alternate" title="Recent Commits to SFML:master" type="application/atom+xml">
+
+  <script src="Source%20%20HeatHazeShader%20%C2%B7%20SFML_SFML%20Wiki%20%C2%B7%20GitHub_files/api.js" async="" type="text/javascript"></script></head>
+
+
+  <body class="logged_out  env-production windows vis-public">
+    <a href="#start-of-content" tabindex="1" class="accessibility-aid js-skip-to-content">Skip to content</a>
+    <div class="wrapper">
+      
+      
+      
+
+
+        
+        <div class="header header-logged-out" role="banner">
+  <div class="container clearfix">
+
+    <a class="header-logo-wordmark" href="https://github.com/" data-ga-click="(Logged out) Header, go to homepage, icon:logo-wordmark">
+      <span class="mega-octicon octicon-logo-github"></span>
+    </a>
+
+    <div class="header-actions" role="navigation">
+        <a class="btn btn-primary" href="https://github.com/join" data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">Sign up</a>
+      <a class="btn" href="https://github.com/login?return_to=%2FSFML%2FSFML%2Fwiki%2FSource%3A-HeatHazeShader" data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">Sign in</a>
+    </div>
+
+    <div class="site-search repo-scope js-site-search" role="search">
+      <form accept-charset="UTF-8" action="/SFML/SFML/search" class="js-site-search-form" data-global-search-url="/search" data-repo-search-url="/SFML/SFML/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" value="✓" type="hidden"></div>
+  <label class="js-chromeless-input-container form-control">
+    <div class="scope-badge">This repository</div>
+    <input class="js-site-search-focus js-site-search-field is-clearable chromeless-input" data-hotkey="s" name="q" placeholder="Search" data-global-scope-placeholder="Search GitHub" data-repo-scope-placeholder="Search" tabindex="1" autocapitalize="off" type="text">
+  </label>
+</form>
+    </div>
+
+      <ul class="header-nav left" role="navigation">
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://github.com/explore" data-ga-click="(Logged out) Header, go to explore, text:explore">Explore</a>
+          </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://github.com/features" data-ga-click="(Logged out) Header, go to features, text:features">Features</a>
+          </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://enterprise.github.com/" data-ga-click="(Logged out) Header, go to enterprise, text:enterprise">Enterprise</a>
+          </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://github.com/blog" data-ga-click="(Logged out) Header, go to blog, text:blog">Blog</a>
+          </li>
+      </ul>
+
+  </div>
+</div>
+
+
+
+      <div id="start-of-content" class="accessibility-aid"></div>
+          <div class="site" itemscope="" itemtype="http://schema.org/WebPage">
+    <div id="js-flash-container">
+      
+    </div>
+    <div class="pagehead repohead instapaper_ignore readability-menu">
+      <div class="container">
+
+        
+<ul class="pagehead-actions">
+
+  <li>
+      <a href="https://github.com/login?return_to=%2FSFML%2FSFML" class="btn btn-sm btn-with-count tooltipped tooltipped-n" aria-label="You must be signed in to watch a repository" rel="nofollow">
+    <span class="octicon octicon-eye"></span>
+    Watch
+  </a>
+  <a class="social-count" href="https://github.com/SFML/SFML/watchers">
+    271
+  </a>
+
+  </li>
+
+  <li>
+      <a href="https://github.com/login?return_to=%2FSFML%2FSFML" class="btn btn-sm btn-with-count tooltipped tooltipped-n" aria-label="You must be signed in to star a repository" rel="nofollow">
+    <span class="octicon octicon-star"></span>
+    Star
+  </a>
+
+    <a class="social-count js-social-count" href="https://github.com/SFML/SFML/stargazers">
+      2,138
+    </a>
+
+  </li>
+
+    <li>
+      <a href="https://github.com/login?return_to=%2FSFML%2FSFML" class="btn btn-sm btn-with-count tooltipped tooltipped-n" aria-label="You must be signed in to fork a repository" rel="nofollow">
+        <span class="octicon octicon-repo-forked"></span>
+        Fork
+      </a>
+      <a href="https://github.com/SFML/SFML/network" class="social-count">
+        460
+      </a>
+    </li>
+</ul>
+
+        <h1 itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" class="entry-title public">
+          <span class="mega-octicon octicon-repo"></span>
+          <span class="author"><a href="https://github.com/SFML" class="url fn" itemprop="url" rel="author"><span itemprop="title">SFML</span></a></span><!--
+       --><span class="path-divider">/</span><!--
+       --><strong><a href="https://github.com/SFML/SFML" data-pjax="#js-repo-pjax-container">SFML</a></strong>
+
+          <span class="page-context-loader">
+            <img alt="" src="Source%20%20HeatHazeShader%20%C2%B7%20SFML_SFML%20Wiki%20%C2%B7%20GitHub_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62.gif" height="16" width="16">
+          </span>
+
+        </h1>
+      </div><!-- /.container -->
+    </div><!-- /.repohead -->
+
+    <div class="container">
+      <div class="repository-with-sidebar repo-container new-discussion-timeline">
+        <div class="repository-sidebar clearfix">
+            
+<nav class="sunken-menu repo-nav js-repo-nav js-sidenav-container-pjax js-octicon-loaders" role="navigation" data-pjax="#js-repo-pjax-container" data-issue-count-url="/SFML/SFML/issues/counts">
+  <ul class="sunken-menu-group">
+    <li class="tooltipped tooltipped-w" aria-label="Code">
+      <a href="https://github.com/SFML/SFML" aria-label="Code" class="js-selected-navigation-item sunken-menu-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /SFML/SFML">
+        <span class="octicon octicon-code"></span> <span class="full-word">Code</span>
+        <img alt="" class="mini-loader" src="Source%20%20HeatHazeShader%20%C2%B7%20SFML_SFML%20Wiki%20%C2%B7%20GitHub_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62.gif" height="16" width="16">
+</a>    </li>
+
+      <li class="tooltipped tooltipped-w" aria-label="Issues">
+        <a href="https://github.com/SFML/SFML/issues" aria-label="Issues" class="js-selected-navigation-item sunken-menu-item" data-hotkey="g i" data-selected-links="repo_issues repo_labels repo_milestones /SFML/SFML/issues">
+          <span class="octicon octicon-issue-opened"></span> <span class="full-word">Issues</span>
+          <span class="js-issue-replace-counter"></span>
+          <img alt="" class="mini-loader" src="Source%20%20HeatHazeShader%20%C2%B7%20SFML_SFML%20Wiki%20%C2%B7%20GitHub_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62.gif" height="16" width="16">
+</a>      </li>
+
+    <li class="tooltipped tooltipped-w" aria-label="Pull requests">
+      <a href="https://github.com/SFML/SFML/pulls" aria-label="Pull requests" class="js-selected-navigation-item sunken-menu-item" data-hotkey="g p" data-selected-links="repo_pulls /SFML/SFML/pulls">
+          <span class="octicon octicon-git-pull-request"></span> <span class="full-word">Pull requests</span>
+          <span class="js-pull-replace-counter"></span>
+          <img alt="" class="mini-loader" src="Source%20%20HeatHazeShader%20%C2%B7%20SFML_SFML%20Wiki%20%C2%B7%20GitHub_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62.gif" height="16" width="16">
+</a>    </li>
+
+      <li class="tooltipped tooltipped-w" aria-label="Wiki">
+        <a href="https://github.com/SFML/SFML/wiki" aria-label="Wiki" class="selected js-selected-navigation-item sunken-menu-item" data-hotkey="g w" data-selected-links="repo_wiki /SFML/SFML/wiki">
+          <span class="octicon octicon-book"></span> <span class="full-word">Wiki</span>
+          <img alt="" class="mini-loader" src="Source%20%20HeatHazeShader%20%C2%B7%20SFML_SFML%20Wiki%20%C2%B7%20GitHub_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62.gif" height="16" width="16">
+</a>      </li>
+  </ul>
+  <div class="sunken-menu-separator"></div>
+  <ul class="sunken-menu-group">
+
+    <li class="tooltipped tooltipped-w" aria-label="Pulse">
+      <a href="https://github.com/SFML/SFML/pulse" aria-label="Pulse" class="js-selected-navigation-item sunken-menu-item" data-selected-links="pulse /SFML/SFML/pulse">
+        <span class="octicon octicon-pulse"></span> <span class="full-word">Pulse</span>
+        <img alt="" class="mini-loader" src="Source%20%20HeatHazeShader%20%C2%B7%20SFML_SFML%20Wiki%20%C2%B7%20GitHub_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62.gif" height="16" width="16">
+</a>    </li>
+
+    <li class="tooltipped tooltipped-w" aria-label="Graphs">
+      <a href="https://github.com/SFML/SFML/graphs" aria-label="Graphs" class="js-selected-navigation-item sunken-menu-item" data-selected-links="repo_graphs repo_contributors /SFML/SFML/graphs">
+        <span class="octicon octicon-graph"></span> <span class="full-word">Graphs</span>
+        <img alt="" class="mini-loader" src="Source%20%20HeatHazeShader%20%C2%B7%20SFML_SFML%20Wiki%20%C2%B7%20GitHub_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62.gif" height="16" width="16">
+</a>    </li>
+  </ul>
+
+
+</nav>
+
+              <div class="only-with-full-nav">
+                  
+<div class="js-clone-url clone-url open" data-protocol-type="http">
+  <h3><span class="text-emphasized">HTTPS</span> clone URL</h3>
+  <div class="input-group js-zeroclipboard-container">
+    <input class="input-mini input-monospace js-url-field js-zeroclipboard-target" value="https://github.com/SFML/SFML.git" readonly="readonly" type="text">
+    <span class="input-group-button">
+      <button aria-label="Copy to clipboard" class="js-zeroclipboard btn btn-sm zeroclipboard-button tooltipped tooltipped-s" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+    </span>
+  </div>
+</div>
+
+  
+<div class="js-clone-url clone-url " data-protocol-type="subversion">
+  <h3><span class="text-emphasized">Subversion</span> checkout URL</h3>
+  <div class="input-group js-zeroclipboard-container">
+    <input class="input-mini input-monospace js-url-field js-zeroclipboard-target" value="https://github.com/SFML/SFML" readonly="readonly" type="text">
+    <span class="input-group-button">
+      <button aria-label="Copy to clipboard" class="js-zeroclipboard btn btn-sm zeroclipboard-button tooltipped tooltipped-s" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+    </span>
+  </div>
+</div>
+
+
+
+<div class="clone-options">You can clone with
+  <form accept-charset="UTF-8" action="/users/set_protocol?protocol_selector=http&amp;protocol_type=clone" class="inline-form js-clone-selector-form " data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="PEdLXY/7OO0Xpt9PRZEfmetFXGV44eebWs4GRS4JbJge4jNQJrBYazb8gKjOYsxxfmVjCiKW0iClIXieg20M1w==" type="hidden"></div><button class="btn-link js-clone-selector" data-protocol="http" type="submit">HTTPS</button></form> or <form accept-charset="UTF-8" action="/users/set_protocol?protocol_selector=subversion&amp;protocol_type=clone" class="inline-form js-clone-selector-form " data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="mCdxJeO7ANGsHLqLEF2chamldXkWIXlRvgsF60XEYt8N9E+T1AjD6gWMLVXR6T2/VuJtz4T6uEFW8sfopmn61A==" type="hidden"></div><button class="btn-link js-clone-selector" data-protocol="subversion" type="submit">Subversion</button></form>.
+  <a href="https://help.github.com/articles/which-remote-url-should-i-use" class="help tooltipped tooltipped-n" aria-label="Get help on which URL is right for you.">
+    <span class="octicon octicon-question"></span>
+  </a>
+</div>
+
+
+  <a href="https://windows.github.com/" class="btn btn-sm sidebar-button" title="Save SFML/SFML to your computer and use it in GitHub Desktop." aria-label="Save SFML/SFML to your computer and use it in GitHub Desktop.">
+    <span class="octicon octicon-device-desktop"></span>
+    Clone in Desktop
+  </a>
+
+
+                <a href="https://github.com/SFML/SFML/archive/master.zip" class="btn btn-sm sidebar-button" aria-label="Download the contents of SFML/SFML as a zip file" title="Download the contents of SFML/SFML as a zip file" rel="nofollow">
+                  <span class="octicon octicon-cloud-download"></span>
+                  Download ZIP
+                </a>
+              </div>
+        </div><!-- /.repository-sidebar -->
+
+        <div id="js-repo-pjax-container" class="repository-content context-loader-container" data-pjax-container="">
+
+          
+
+<div id="wiki-wrapper" class="wiki-wrapper page">
+<div class="gh-header">
+  <div class="gh-header-show">
+    <h1 class="gh-header-title instapaper_title">Source: HeatHazeShader</h1>
+      <div class="gh-header-meta">
+        Mario Liebisch edited this page <time title="mercredi 30 juillet 2014 18:21:48" datetime="2014-07-30T15:21:48Z" is="relative-time">on Jul 30, 2014</time>
+        ·
+        <a href="https://github.com/SFML/SFML/wiki/Source:-HeatHazeShader/_history" class="history">
+          3 revisions
+        </a>
+      </div>
+  </div>
+</div>
+<div id="wiki-content">
+  <div class="wrap has-rightbar">
+
+  <div id="wiki-rightbar">
+    <div class="wiki-pages-box readability-sidebar boxed-group flush js-wiki-pages-box " role="navigation">
+      
+<h3 class="js-wiki-toggle-collapse wiki-auxiliary-content">
+  <span class="octicon octicon-triangle-down caret-expanded"></span>
+  <span class="octicon octicon-triangle-right caret-collapsed"></span>
+  Pages <span class="counter">83</span>
+</h3>
+<div class="boxed-group-inner wiki-auxiliary-content wiki-auxiliary-content-no-bg">
+    <div class="filter-bar">
+      <input id="wiki-pages-filter" class="filter-input js-filterable-field" placeholder="Find a Page…" tabindex="2" type="text">
+    </div>
+
+  <ul class="wiki-pages" data-filterable-for="wiki-pages-filter" data-filterable-type="substring">
+    <li>
+      <strong><a href="https://github.com/SFML/SFML/wiki" class="wiki-page-link">Home</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/SFML/SFML/wiki/Community-FAQ" class="wiki-page-link">Community FAQ</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/SFML/SFML/wiki/Project:-Groogy%27s-Development-Environment" class="wiki-page-link">Project: Groogy's Development Environment</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/SFML/SFML/wiki/Project:-sfeMovie" class="wiki-page-link">Project: sfeMovie</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/SFML/SFML/wiki/Project:-Thor" class="wiki-page-link">Project: Thor</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/SFML/SFML/wiki/Project:-Zoost-and-Zoom" class="wiki-page-link">Project: Zoost and Zoom</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/SFML/SFML/wiki/Projects" class="wiki-page-link">Projects</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/SFML/SFML/wiki/Rules" class="wiki-page-link">Rules</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-2D-Vector-Manipulation" class="wiki-page-link">Source: 2D Vector Manipulation</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Analog-Clock" class="wiki-page-link">Source: Analog Clock</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-AnimatedSprite" class="wiki-page-link">Source: AnimatedSprite</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Audio-Player" class="wiki-page-link">Source: Audio Player</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Basic-Game-Engine" class="wiki-page-link">Source: Basic Game Engine</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Bouncing-ball" class="wiki-page-link">Source: Bouncing ball</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Chronometer" class="wiki-page-link">Source: Chronometer</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Color-Gradient" class="wiki-page-link">Source: Color Gradient</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-cubic-bezier-curve" class="wiki-page-link">Source: cubic bezier curve</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-CurvedText" class="wiki-page-link">Source: CurvedText</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Draw-Rounded-Rectangle" class="wiki-page-link">Source: Draw Rounded Rectangle</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Drawable-Line-Shape" class="wiki-page-link">Source: Drawable Line Shape</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Fader" class="wiki-page-link">Source: Fader</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-FPS" class="wiki-page-link">Source: FPS</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-FrameClock" class="wiki-page-link">Source: FrameClock</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-GTK-integeration" class="wiki-page-link">Source: GTK integeration</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-GTK-SFMLWidget" class="wiki-page-link">Source: GTK SFMLWidget</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-HeatHazeShader" class="wiki-page-link">Source: HeatHazeShader</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-High-Performance-Sprite-Container" class="wiki-page-link">Source: High Performance Sprite Container</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-HSL-Color" class="wiki-page-link">Source: HSL Color</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Jukebox" class="wiki-page-link">Source: Jukebox</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-KeyValues" class="wiki-page-link">Source: KeyValues</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Letterbox-effect-using-a-view" class="wiki-page-link">Source: Letterbox effect using a view</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Line-segment-with-thickness" class="wiki-page-link">Source: Line segment with thickness</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-line-with-thickness" class="wiki-page-link">Source: line with thickness</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Load-Image-From-Resource" class="wiki-page-link">Source: Load Image From Resource</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Loading-Images-in-a-Thread" class="wiki-page-link">Source: Loading Images in a Thread</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Looping-Music" class="wiki-page-link">Source: Looping Music</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Masking-Alpha-Blending" class="wiki-page-link">Source: Masking Alpha Blending</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-MP3-Player" class="wiki-page-link">Source: MP3 Player</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Network-Chat-Example" class="wiki-page-link">Source: Network Chat Example</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Particle-System" class="wiki-page-link">Source: Particle System</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Particle-System-for-SFML-2" class="wiki-page-link">Source: Particle System for SFML 2</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-PhysicsFS-Input-Stream" class="wiki-page-link">Source: PhysicsFS Input Stream</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Round-Ended-Lines" class="wiki-page-link">Source: Round Ended Lines</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Ruby-Light-Manager" class="wiki-page-link">Source: Ruby Light Manager</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Settings-Parser" class="wiki-page-link">Source: Settings Parser</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-SFML-PhysFS" class="wiki-page-link">Source: SFML PhysFS</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-ShaderTileMap" class="wiki-page-link">Source: ShaderTileMap</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Simple-Collision-Detection" class="wiki-page-link">Source: Simple Collision Detection</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Simple-Collision-Detection-for-SFML-2" class="wiki-page-link">Source: Simple Collision Detection for SFML 2</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Simple-File-Logger-%28by-mateandmetal%29" class="wiki-page-link">Source: Simple File Logger (by mateandmetal)</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Smart-ResourceManager" class="wiki-page-link">Source: Smart ResourceManager</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Sprite-Animated" class="wiki-page-link">Source: Sprite Animated</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Sprite-Sheets" class="wiki-page-link">Source: Sprite Sheets</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-TileMap" class="wiki-page-link">Source: TileMap</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-TileMap-Render" class="wiki-page-link">Source: TileMap Render</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Verlet-Physic" class="wiki-page-link">Source: Verlet Physic</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-VertexVector" class="wiki-page-link">Source: VertexVector</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-wxScrolledSFMLWindow" class="wiki-page-link">Source: wxScrolledSFMLWindow</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Source:-Zoom-View-At-%28specified-pixel%29" class="wiki-page-link">Source: Zoom View At (specified pixel)</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Sources" class="wiki-page-link">Sources</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Style-Guide" class="wiki-page-link">Style Guide</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Basic-Game-Design" class="wiki-page-link">Tutorial: Basic Game Design</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Basic-Game-Engine" class="wiki-page-link">Tutorial: Basic Game Engine</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Build-your-SFML-project-with-CMake" class="wiki-page-link">Tutorial: Build your SFML project with CMake</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Building-SFML-for-Android" class="wiki-page-link">Tutorial: Building SFML for Android</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-CEGUI-and-SFML" class="wiki-page-link">Tutorial: CEGUI and SFML</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Change-Cursor" class="wiki-page-link">Tutorial: Change Cursor</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Compile-and-Link-SFML-with-Qt-Creator" class="wiki-page-link">Tutorial: Compile and Link SFML with Qt Creator</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Correctly-Display-Accents" class="wiki-page-link">Tutorial: Correctly Display Accents</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Create-and-Use-SetIcon" class="wiki-page-link">Tutorial: Create and Use SetIcon</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Drawable-Group" class="wiki-page-link">Tutorial: Drawable Group</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Dynamic-colorful-tile-based-lighting" class="wiki-page-link">Tutorial: Dynamic colorful tile based lighting</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Image-Manager" class="wiki-page-link">Tutorial: Image Manager</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Installing-SFML-dependencies" class="wiki-page-link">Tutorial: Installing SFML dependencies</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Link-SFML-with-Qt-Creator" class="wiki-page-link">Tutorial: Link SFML with Qt Creator</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Manage-different-Screens" class="wiki-page-link">Tutorial: Manage different Screens</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Manage-dynamic-key-binding" class="wiki-page-link">Tutorial: Manage dynamic key binding</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Object-Properties" class="wiki-page-link">Tutorial: Object Properties</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Play-Sine-Wave" class="wiki-page-link">Tutorial: Play Sine Wave</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Play-Sine-Wave-%28OCaml%29" class="wiki-page-link">Tutorial: Play Sine Wave (OCaml)</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-SFML.Net-on-OSX" class="wiki-page-link">Tutorial: SFML.Net on OSX</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorial:-Using-View" class="wiki-page-link">Tutorial: Using View</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/SFML/SFML/wiki/Tutorials" class="wiki-page-link">Tutorials</a></strong>
+    </li>
+    <li class="wiki-more-pages-link">
+      <a href="#" class="js-wiki-more-pages-link">
+        Show 68 more pages…
+      </a>
+    </li>
+  </ul>
+</div>
+
+    </div>
+
+
+    <div class="clone-url">
+      <h5>Clone this wiki locally</h5>
+      <div class="input-group js-zeroclipboard-container">
+        <input class="input-mini input-monospace js-url-field js-zeroclipboard-target" value="https://github.com/SFML/SFML.wiki.git" readonly="readonly" type="text">
+        <span class="input-group-button">
+          <button aria-label="Copy to clipboard" class="js-zeroclipboard btn btn-sm zeroclipboard-button tooltipped tooltipped-s" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+        </span>
+      </div>
+
+
+        <a href="https://windows.github.com/" class="btn btn-sm sidebar-button" title="Save this wiki to your computer and use it in GitHub Desktop." aria-label="Save this wiki to your computer and use it in GitHub Desktop.">
+          <span class="octicon octicon-device-desktop"></span>
+          Clone in Desktop
+        </a>
+    </div>
+  </div>
+
+  <div id="wiki-body" class="gollum-markdown-content instapaper_body">
+    <div class="markdown-body">
+      <p>This is a simple example implementation of a shader that produces a heat haze effect in SFML:</p>
+
+<p><img src="Source%20%20HeatHazeShader%20%C2%B7%20SFML_SFML%20Wiki%20%C2%B7%20GitHub_files/687474703a2f2f692e696d6775722e636f6d2f464f53636a4c382e676966.gif" alt="Example Output" data-canonical-src="http://i.imgur.com/FOScjL8.gif"></p>
+
+<p>If you don't want to generate the distortion map image using the code, you will have to do so with an external program.</p>
+
+<ul>
+<li>It has to contain coherent noise values in each channel</li>
+<li>It should contain values ranging from minimum to the maximum intensity</li>
+<li>It should be seamless along any axes you want to scroll by</li>
+</ul>
+
+<p>An example of such an image:</p>
+
+<p><img src="Source%20%20HeatHazeShader%20%C2%B7%20SFML_SFML%20Wiki%20%C2%B7%20GitHub_files/687474703a2f2f692e696d6775722e636f6d2f324f584c7743332e706e67.png" alt="Distortion Map" data-canonical-src="http://i.imgur.com/2OXLwC3.png"></p>
+
+<p>This image contains coherent noise data in all channels, but we will only be using the R and G channels in our shader.</p>
+
+<p>The set of shaders consist of a trivial passthrough vertex shader and a self-explanatory fragment shader.</p>
+
+<div class="highlight highlight-glsl"><pre><span class="pl-c">// heat_shader.vs</span>
+
+<span class="pl-k">#version</span> <span class="pl-c1">130</span>
+
+<span class="pl-c">// Simple passthrough vertex shader... Nothing fancy here.</span>
+<span class="pl-k">void</span> <span class="pl-en">main</span>()
+{
+    <span class="pl-c1">gl_Position</span> = <span class="pl-c1">gl_ProjectionMatrix</span> * <span class="pl-c1">gl_ModelViewMatrix</span> * <span class="pl-c1">gl_Vertex</span>;
+    <span class="pl-c1">gl_TexCoord</span>[<span class="pl-c1">0</span>] = <span class="pl-c1">gl_TextureMatrix</span>[<span class="pl-c1">0</span>] * <span class="pl-c1">gl_MultiTexCoord0</span>;
+    <span class="pl-c1">gl_FrontColor</span> = <span class="pl-c1">gl_Color</span>;
+}</pre></div>
+
+<div class="highlight highlight-glsl"><pre><span class="pl-c">// heat_shader.fs</span>
+
+<span class="pl-k">#version</span> <span class="pl-c1">130</span>
+
+<span class="pl-k">uniform</span> <span class="pl-k">sampler2D</span> currentTexture; <span class="pl-c">// Our render texture</span>
+<span class="pl-k">uniform</span> <span class="pl-k">sampler2D</span> distortionMapTexture; <span class="pl-c">// Our heat distortion map texture</span>
+
+<span class="pl-k">uniform</span> <span class="pl-k">float</span> time; <span class="pl-c">// Time used to scroll the distortion map</span>
+<span class="pl-k">uniform</span> <span class="pl-k">float</span> distortionFactor; <span class="pl-c">// Factor used to control severity of the effect</span>
+<span class="pl-k">uniform</span> <span class="pl-k">float</span> riseFactor; <span class="pl-c">// Factor used to control how fast air rises</span>
+
+<span class="pl-k">void</span> <span class="pl-en">main</span>()
+{
+    <span class="pl-k">vec2</span> distortionMapCoordinate = <span class="pl-c1">gl_TexCoord</span>[<span class="pl-c1">0</span>].<span class="pl-smi">st</span>;
+
+    <span class="pl-c">// We use the time value to scroll our distortion texture upwards</span>
+    <span class="pl-c">// Since we enabled texture repeating, OpenGL takes care of</span>
+    <span class="pl-c">// coordinates that lie outside of [0, 1] by discarding</span>
+    <span class="pl-c">// the integer part and keeping the fractional part</span>
+    <span class="pl-c">// Basically performing a "floating point modulo 1"</span>
+    <span class="pl-c">// 1.1 = 0.1, 2.4 = 0.4, 10.3 = 0.3 etc.</span>
+    distortionMapCoordinate.<span class="pl-smi">t</span> -= <span class="pl-c1">time</span> * riseFactor;
+
+    <span class="pl-k">vec4</span> distortionMapValue = <span class="pl-c1">texture2D</span>(distortionMapTexture, distortionMapCoordinate);
+
+    <span class="pl-c">// The values are normalized by OpenGL to lie in the range [0, 1]</span>
+    <span class="pl-c">// We want negative offsets too, so we subtract 0.5 and multiply by 2</span>
+    <span class="pl-c">// We end up with values in the range [-1, 1]</span>
+    <span class="pl-k">vec2</span> distortionPositionOffset = distortionMapValue.<span class="pl-smi">xy</span>;
+    distortionPositionOffset -= <span class="pl-c1">vec2</span>(<span class="pl-c1">0</span>.<span class="pl-c1">5f</span>, <span class="pl-c1">0</span>.<span class="pl-c1">5f</span>);
+    distortionPositionOffset *= <span class="pl-c1">2</span>.<span class="pl-smi">f</span>;
+
+    <span class="pl-c">// The factor scales the offset and thus controls the severity</span>
+    distortionPositionOffset *= distortionFactor;
+
+    <span class="pl-c">// The latter 2 channels of the texture are unused... be creative</span>
+    <span class="pl-k">vec2</span> distortionUnused = distortionMapValue.<span class="pl-smi">zw</span>;
+
+    <span class="pl-c">// Since we all know that hot air rises and cools,</span>
+    <span class="pl-c">// the effect loses its severity the higher up we get</span>
+    <span class="pl-c">// We use the t (a.k.a. y) texture coordinate of the original texture</span>
+    <span class="pl-c">// to tell us how "high up" we are and damp accordingly</span>
+    <span class="pl-c">// Remember, OpenGL 0 is at the bottom</span>
+    distortionPositionOffset *= (<span class="pl-c1">1</span>.<span class="pl-smi">f</span> - <span class="pl-c1">gl_TexCoord</span>[<span class="pl-c1">0</span>].<span class="pl-smi">t</span>);
+
+    <span class="pl-k">vec2</span> distortedTextureCoordinate = <span class="pl-c1">gl_TexCoord</span>[<span class="pl-c1">0</span>].<span class="pl-smi">st</span> + distortionPositionOffset;
+
+    <span class="pl-c1">gl_FragColor</span> = <span class="pl-c1">gl_Color</span> * <span class="pl-c1">texture2D</span>(currentTexture, distortedTextureCoordinate);
+}</pre></div>
+
+<p>If you want to generate the distortion image procedurally, you will need to get <a href="http://libnoise.sourceforge.net/">libnoise</a> and uncomment the marked code segment.</p>
+
+<div class="highlight highlight-cpp"><pre>#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>SFML/Graphics.hpp<span class="pl-pds">&gt;</span></span>
+
+<span class="pl-c">/*</span>
+<span class="pl-c">// You will need libnoise to generate the distortion image</span>
+<span class="pl-c">#include &lt;noise/noise.h&gt;</span>
+<span class="pl-c">#include &lt;noise/noiseutils.h&gt;</span>
+<span class="pl-c"></span>
+<span class="pl-c">void createDistortionMap()</span>
+<span class="pl-c">{</span>
+<span class="pl-c">    // Increasing the size of the image will enable finer detail</span>
+<span class="pl-c">    // This isn't always necessary for coarser distortions</span>
+<span class="pl-c">    // since OpenGL interpolates nicely for us anyway</span>
+<span class="pl-c">    // in the case where the object is larger than our image</span>
+<span class="pl-c">    int width = 256;</span>
+<span class="pl-c">    int height = 256;</span>
+<span class="pl-c"></span>
+<span class="pl-c">    module::Perlin perlin;</span>
+<span class="pl-c"></span>
+<span class="pl-c">    // Adjust these values according to your liking</span>
+<span class="pl-c">    perlin.SetOctaveCount(4);</span>
+<span class="pl-c">    perlin.SetFrequency(4.f / 1.f);</span>
+<span class="pl-c">    perlin.SetPersistence(1.f / 8.f);</span>
+<span class="pl-c"></span>
+<span class="pl-c">    // Obviously we only need the R and G channels,</span>
+<span class="pl-c">    // but you can use the B and A channels for other effects</span>
+<span class="pl-c">    utils::NoiseMap noise_map_r;</span>
+<span class="pl-c">    utils::NoiseMap noise_map_g;</span>
+<span class="pl-c">    utils::NoiseMap noise_map_b;</span>
+<span class="pl-c">    utils::NoiseMap noise_map_a;</span>
+<span class="pl-c"></span>
+<span class="pl-c">    utils::NoiseMapBuilderPlane plane_builder;</span>
+<span class="pl-c">    plane_builder.SetSourceModule(perlin);</span>
+<span class="pl-c">    plane_builder.SetBounds(0.0, 3.0, 0.0, 3.0);</span>
+<span class="pl-c">    plane_builder.SetDestSize(width, height);</span>
+<span class="pl-c"></span>
+<span class="pl-c">    // Enabling seamless is important for being able to scroll the texture</span>
+<span class="pl-c">    plane_builder.EnableSeamless(true);</span>
+<span class="pl-c"></span>
+<span class="pl-c">    perlin.SetSeed(2);</span>
+<span class="pl-c">    plane_builder.SetDestNoiseMap(noise_map_r);</span>
+<span class="pl-c">    plane_builder.Build();</span>
+<span class="pl-c"></span>
+<span class="pl-c">    perlin.SetSeed( 3 );</span>
+<span class="pl-c">    plane_builder.SetDestNoiseMap(noise_map_g);</span>
+<span class="pl-c">    plane_builder.Build();</span>
+<span class="pl-c"></span>
+<span class="pl-c">    perlin.SetSeed(5);</span>
+<span class="pl-c">    plane_builder.SetDestNoiseMap(noise_map_b);</span>
+<span class="pl-c">    plane_builder.Build();</span>
+<span class="pl-c"></span>
+<span class="pl-c">    perlin.SetSeed(7);</span>
+<span class="pl-c">    plane_builder.SetDestNoiseMap(noise_map_a);</span>
+<span class="pl-c">    plane_builder.Build();</span>
+<span class="pl-c"></span>
+<span class="pl-c">    sf::Image image;</span>
+<span class="pl-c">    image.create(width, height);</span>
+<span class="pl-c"></span>
+<span class="pl-c">    for (int x = 0; x &lt; width; ++x) {</span>
+<span class="pl-c">        for (int y = 0; y &lt; height; ++y) {</span>
+<span class="pl-c">            float normalized_r = (noise_map_r.GetValue(x, y) + 1.f) / 2.f;</span>
+<span class="pl-c">            float normalized_g = (noise_map_g.GetValue(x, y) + 1.f) / 2.f;</span>
+<span class="pl-c">            float normalized_b = (noise_map_b.GetValue(x, y) + 1.f) / 2.f;</span>
+<span class="pl-c">            float normalized_a = (noise_map_a.GetValue(x, y) + 1.f) / 2.f;</span>
+<span class="pl-c"></span>
+<span class="pl-c">            sf::Uint8 value_r = static_cast&lt;sf::Uint8&gt;(std::min(std::max(std::floor(normalized_r * 255.f), 0.f), 255.f));</span>
+<span class="pl-c">            sf::Uint8 value_g = static_cast&lt;sf::Uint8&gt;(std::min(std::max(std::floor(normalized_g * 255.f), 0.f), 255.f));</span>
+<span class="pl-c">            sf::Uint8 value_b = static_cast&lt;sf::Uint8&gt;(std::min(std::max(std::floor(normalized_b * 255.f), 0.f), 255.f));</span>
+<span class="pl-c">            sf::Uint8 value_a = static_cast&lt;sf::Uint8&gt;(std::min(std::max(std::floor(normalized_a * 255.f), 0.f), 255.f));</span>
+<span class="pl-c"></span>
+<span class="pl-c">            image.setPixel(x, y, sf::Color(value_r, value_g, value_b, value_a));</span>
+<span class="pl-c">        }</span>
+<span class="pl-c">    }</span>
+<span class="pl-c"></span>
+<span class="pl-c">    image.saveToFile("distortion_map.png");</span>
+<span class="pl-c">}</span>
+<span class="pl-c">*/</span>
+
+<span class="pl-k">int</span> <span class="pl-en">main</span>()
+{
+    <span class="pl-c">//createDistortionMap();</span>
+
+    sf::RenderWindow <span class="pl-smi">window</span>(<span class="pl-c1">sf::VideoMode</span>(<span class="pl-c1">600</span>, <span class="pl-c1">600</span>), <span class="pl-s"><span class="pl-pds">"</span>Heat<span class="pl-pds">"</span></span>);
+
+    sf::Texture objectTexture;
+
+    <span class="pl-k">if</span> (!objectTexture.<span class="pl-c1">loadFromFile</span>(<span class="pl-s"><span class="pl-pds">"</span>object.jpg<span class="pl-pds">"</span></span>))
+    {
+        <span class="pl-c1">sf::err</span>() &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Failed to load object texture, exiting...<span class="pl-pds">"</span></span> &lt;&lt; std::endl;
+        <span class="pl-k">return</span> -<span class="pl-c1">1</span>;
+    }
+
+    sf::Sprite object;
+    object.<span class="pl-c1">setTexture</span>(objectTexture);
+    object.<span class="pl-c1">setScale</span>(.<span class="pl-c1">5f</span>, .<span class="pl-c1">5f</span>);
+
+    sf::Texture distortionMap;
+
+    <span class="pl-c">// It is important to set repeated to true to enable scrolling upwards</span>
+    distortionMap.<span class="pl-c1">setRepeated</span>(<span class="pl-c1">true</span>);
+
+    <span class="pl-c">// Setting smooth to true lets us use small maps even on larger images</span>
+    distortionMap.<span class="pl-c1">setSmooth</span>(<span class="pl-c1">true</span>);
+
+    <span class="pl-k">if</span> (!distortionMap.<span class="pl-c1">loadFromFile</span>(<span class="pl-s"><span class="pl-pds">"</span>distortion_map.png<span class="pl-pds">"</span></span>))
+    {
+        <span class="pl-c1">sf::err</span>() &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Failed to load distortion map, exiting...<span class="pl-pds">"</span></span> &lt;&lt; std::endl;
+        <span class="pl-k">return</span> -<span class="pl-c1">1</span>;
+    }
+
+    sf::RenderTexture renderTexture;
+    renderTexture.<span class="pl-c1">create</span>(<span class="pl-c1">400</span>, <span class="pl-c1">300</span>);
+
+    sf::Sprite sprite;
+    sprite.<span class="pl-c1">setTexture</span>(renderTexture.<span class="pl-c1">getTexture</span>());
+    sprite.<span class="pl-c1">setPosition</span>(<span class="pl-c1">100</span>, <span class="pl-c1">150</span>);
+
+    sf::Shader shader;
+
+    <span class="pl-k">if</span> (!shader.<span class="pl-c1">loadFromFile</span>(<span class="pl-s"><span class="pl-pds">"</span>heat_shader.vs<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>heat_shader.fs<span class="pl-pds">"</span></span>))
+    {
+        <span class="pl-c1">sf::err</span>() &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Failed to load shader, exiting...<span class="pl-pds">"</span></span> &lt;&lt; std::endl;
+        <span class="pl-k">return</span> -<span class="pl-c1">1</span>;
+    }
+
+    shader.<span class="pl-c1">setParameter</span>(<span class="pl-s"><span class="pl-pds">"</span>currentTexture<span class="pl-pds">"</span></span>, sf::Shader::CurrentTexture);
+    shader.<span class="pl-c1">setParameter</span>(<span class="pl-s"><span class="pl-pds">"</span>distortionMapTexture<span class="pl-pds">"</span></span>, distortionMap);
+
+    <span class="pl-k">float</span> distortionFactor = .<span class="pl-c1">05f</span>;
+    <span class="pl-k">float</span> riseFactor = .<span class="pl-c1">2f</span>;
+
+    sf::Clock <span class="pl-c1">clock</span>;
+
+    <span class="pl-k">while</span> (<span class="pl-c1">true</span>)
+    {
+        sf::Event event;
+        <span class="pl-k">if</span> (window.<span class="pl-c1">pollEvent</span>(event)) {
+            <span class="pl-k">switch</span> (event.<span class="pl-smi">type</span>)
+            {
+                <span class="pl-k">case</span> sf::Event::Closed: <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+                <span class="pl-k">case</span> sf::Event::KeyPressed:
+                {
+                    <span class="pl-k">switch</span> (event.<span class="pl-smi">key</span>.<span class="pl-smi">code</span>)
+                    {
+                        <span class="pl-k">case</span> sf::Keyboard::Escape: <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+                        <span class="pl-k">case</span> sf::Keyboard::Add: distortionFactor *= <span class="pl-c1">2</span>.<span class="pl-smi">f</span>; <span class="pl-k">break</span>;
+                        <span class="pl-k">case</span> sf::Keyboard::Subtract: distortionFactor /= <span class="pl-c1">2</span>.<span class="pl-smi">f</span>; <span class="pl-k">break</span>;
+                        <span class="pl-k">case</span> sf::Keyboard::Multiply: riseFactor *= <span class="pl-c1">2</span>.<span class="pl-smi">f</span>; <span class="pl-k">break</span>;
+                        <span class="pl-k">case</span> sf::Keyboard::Divide: riseFactor /= <span class="pl-c1">2</span>.<span class="pl-smi">f</span>; <span class="pl-k">break</span>;
+                        <span class="pl-k">default</span>: <span class="pl-k">break</span>;
+                    }
+                    <span class="pl-k">break</span>;
+                }
+                <span class="pl-k">default</span>: <span class="pl-k">break</span>;
+            }
+        }
+
+        shader.<span class="pl-c1">setParameter</span>(<span class="pl-s"><span class="pl-pds">"</span>time<span class="pl-pds">"</span></span>, <span class="pl-c1">clock</span>.<span class="pl-c1">getElapsedTime</span>().<span class="pl-c1">asSeconds</span>());
+        shader.<span class="pl-c1">setParameter</span>(<span class="pl-s"><span class="pl-pds">"</span>distortionFactor<span class="pl-pds">"</span></span>, distortionFactor);
+        shader.<span class="pl-c1">setParameter</span>(<span class="pl-s"><span class="pl-pds">"</span>riseFactor<span class="pl-pds">"</span></span>, riseFactor);
+
+        renderTexture.<span class="pl-c1">clear</span>();
+        renderTexture.<span class="pl-c1">draw</span>(object);
+        renderTexture.<span class="pl-c1">display</span>();
+
+        window.<span class="pl-c1">clear</span>();
+        window.<span class="pl-c1">draw</span>(sprite, &amp;shader);
+        window.<span class="pl-c1">display</span>();
+    }
+}</pre></div>
+
+    </div>
+
+  </div>
+  </div>
+</div>
+</div>
+
+
+        </div>
+
+      </div><!-- /.repo-container -->
+      <div class="modal-backdrop"></div>
+    </div><!-- /.container -->
+  </div><!-- /.site -->
+
+
+    </div><!-- /.wrapper -->
+
+      <div class="container">
+  <div class="site-footer" role="contentinfo">
+    <ul class="site-footer-links right">
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+      <li><a href="https://developer.github.com/" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="https://training.github.com/" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="https://shop.github.com/" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+
+    </ul>
+
+    <a href="https://github.com/" aria-label="Homepage">
+      <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+</a>
+    <ul class="site-footer-links">
+      <li>© 2015 <span title="0.08836s from github-fe126-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact</a></li>
+    </ul>
+  </div>
+</div>
+
+
+    <div class="fullscreen-overlay js-fullscreen-overlay" id="fullscreen_overlay">
+  <div class="fullscreen-container js-suggester-container">
+    <div class="textarea-wrap">
+      <textarea name="fullscreen-contents" id="fullscreen-contents" class="fullscreen-contents js-fullscreen-contents" placeholder=""></textarea>
+      <div class="suggester-container">
+        <div class="suggester fullscreen-suggester js-suggester js-navigation-container"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fullscreen-sidebar">
+    <a href="#" class="exit-fullscreen js-exit-fullscreen tooltipped tooltipped-w" aria-label="Exit Zen Mode">
+      <span class="mega-octicon octicon-screen-normal"></span>
+    </a>
+    <a href="#" class="theme-switcher js-theme-switcher tooltipped tooltipped-w" aria-label="Switch themes">
+      <span class="octicon octicon-color-mode"></span>
+    </a>
+  </div>
+</div>
+
+
+
+    
+
+    <div id="ajax-error-message" class="flash flash-error">
+      <span class="octicon octicon-alert"></span>
+      <a href="#" class="octicon octicon-x flash-close js-ajax-error-dismiss" aria-label="Dismiss error"></a>
+      Something went wrong with that request. Please try again.
+    </div>
+
+
+      <script crossorigin="anonymous" src="Source%20%20HeatHazeShader%20%C2%B7%20SFML_SFML%20Wiki%20%C2%B7%20GitHub_files/frameworks-447ce66a36506ebddc8e84b4e32a77f6062f3d3482e77dd21a.js"></script>
+      <script async="async" crossorigin="anonymous" src="Source%20%20HeatHazeShader%20%C2%B7%20SFML_SFML%20Wiki%20%C2%B7%20GitHub_files/index-e0a0a0ac6b5b9183613ac069c059a153598eb0b54db80f16888a91b.js"></script>
+      
+        <script crossorigin="anonymous" src="Source%20%20HeatHazeShader%20%C2%B7%20SFML_SFML%20Wiki%20%C2%B7%20GitHub_files/index-fccc87a2d360373ddfd26311a48123dd9c3b2644c70402861b793ad.js"></script>
+
+  
+
+
+<div style="position: absolute; left: 0px; top: -9999px; width: 1px; height: 1px; z-index: 999999999;" class="global-zeroclipboard-container" id="global-zeroclipboard-html-bridge"><object id="global-zeroclipboard-flash-bridge" name="global-zeroclipboard-flash-bridge" type="application/x-shockwave-flash" data="Source%20%20HeatHazeShader%20%C2%B7%20SFML_SFML%20Wiki%20%C2%B7%20GitHub_files/ZeroClipboard.swf" height="100%" width="100%"><param name="allowScriptAccess" value="always"><param name="allowNetworking" value="all"><param name="menu" value="false"><param name="wmode" value="transparent"><param name="flashvars" value="trustedOrigins=github.com%2C%2F%2Fgithub.com%2Chttps%3A%2F%2Fgithub.com&amp;swfObjectId=global-zeroclipboard-flash-bridge"></object></div></body></html>

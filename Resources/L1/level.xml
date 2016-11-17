@@ -1,0 +1,1202 @@
+<?xml version="1.0"?>
+<box2d>
+	<bodies>
+		<body name="0" type="static" x="2347.15674" y="-613.714172" isActive="true" image="g6435.png0">
+			<fixtures>
+				<fixture name="0" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-19.1567383" y="30.2858276" />
+					<vertex x="-10.1567383" y="41.2858276" />
+					<vertex x="-2.15673828" y="29.2858276" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="1" type="static" x="-529.236938" y="-1251.06873" isActive="true" image="vato1.png1">
+			<fixtures>
+				<fixture name="1" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-49.7630615" y="16.9312744" />
+					<vertex x="51.2369385" y="16.9312744" />
+					<vertex x="55.2369385" y="30.9312744" />
+					<vertex x="43.2369385" y="40.9312744" />
+					<vertex x="-44.7630615" y="27.9312744" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="2" type="static" x="6714.95703" y="-594.651306" isActive="true" image="vatobe1.png2">
+			<fixtures>
+				<fixture name="2" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-78.9570312" y="296.348694" />
+					<vertex x="40.0429688" y="270.348694" />
+					<vertex x="39.0429688" y="214.348694" />
+					<vertex x="24.0429688" y="189.348694" />
+					<vertex x="105.042969" y="33.3486938" />
+					<vertex x="117.042969" y="-87.6513062" />
+					<vertex x="85.0429688" y="-105.651306" />
+					<vertex x="110.042969" y="-179.651306" />
+				</fixture>
+				<fixture name="2" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="110.042969" y="-179.651306" />
+					<vertex x="97.0429688" y="-235.651306" />
+					<vertex x="103.042969" y="-294.651306" />
+					<vertex x="45.0429688" y="-286.651306" />
+					<vertex x="-17.9570312" y="-229.651306" />
+					<vertex x="-118.957031" y="155.348694" />
+				</fixture>
+				<fixture name="2" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-78" y="296" />
+					<vertex x="110" y="-179" />
+					<vertex x="-118" y="155" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="3" type="static" x="-557.060791" y="-1536.4939" isActive="true" image="vato2.png3">
+			<fixtures>
+				<fixture name="3" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-17.939209" y="33.5061035" />
+					<vertex x="50.060791" y="32.5061035" />
+					<vertex x="19.060791" y="56.5061035" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="4" type="static" x="1534.14697" y="-545.447693" isActive="true" image="fas2.png4">
+			<fixtures>
+				<fixture name="4" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-157.146973" y="-10.4476929" />
+					<vertex x="139.853027" y="-10.4476929" />
+					<vertex x="153.853027" y="91.5523071" />
+					<vertex x="-155.146973" y="95.5523071" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="6" type="static" x="-515.13501" y="-1014.42365" isActive="true" image="vato1.png6">
+			<fixtures>
+				<fixture name="6" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-64.8649902" y="25.576355" />
+					<vertex x="67.1350098" y="24.576355" />
+					<vertex x="16.1350098" y="52.576355" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="7" type="static" x="211.852142" y="-582.348694" isActive="true" image="grd.png7">
+			<fixtures>
+				<fixture name="7" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198.147858" y="-20.3486938" />
+					<vertex x="177.147858" y="21.6513062" />
+					<vertex x="126.147858" y="11.6513062" />
+					<vertex x="71.1478577" y="47.6513062" />
+					<vertex x="-7.85214233" y="20.6513062" />
+					<vertex x="-40.8521423" y="28.6513062" />
+					<vertex x="-67.8521423" y="5.65130615" />
+					<vertex x="-122.852142" y="20.6513062" />
+				</fixture>
+				<fixture name="7" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-122.852142" y="20.6513062" />
+					<vertex x="-186.852142" y="14.6513062" />
+					<vertex x="-209.852142" y="-27.3486938" />
+					<vertex x="-237.852142" y="-52.3486938" />
+					<vertex x="237.147858" y="-53.3486938" />
+				</fixture>
+				<fixture name="7" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198" y="-20" />
+					<vertex x="-122" y="20" />
+					<vertex x="237" y="-53" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="8" type="static" x="-456.112793" y="113.112198" isActive="true" image="fas1.png8">
+			<fixtures>
+				<fixture name="8" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-138.887207" y="68.1121979" />
+					<vertex x="145.112793" y="68.1121979" />
+					<vertex x="125.112793" y="89.1121979" />
+					<vertex x="15.112793" y="101.112198" />
+					<vertex x="-51.887207" y="99.1121979" />
+					<vertex x="-73.887207" y="82.1121979" />
+					<vertex x="-138.887207" y="102.112198" />
+					<vertex x="-148.887207" y="82.1121979" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="9" type="static" x="-542.170654" y="-617.845459" isActive="true" image="hazo2.png9">
+			<fixtures>
+				<fixture name="9" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-86.8293457" y="85.154541" />
+					<vertex x="167.170654" y="86.154541" />
+					<vertex x="97.1706543" y="161.154541" />
+					<vertex x="49.1706543" y="152.154541" />
+					<vertex x="-6.8293457" y="181.154541" />
+					<vertex x="-64.8293457" y="102.154541" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="10" type="static" x="1000.80408" y="-33.9227829" isActive="true" image="g6455.png10">
+			<fixtures>
+				<fixture name="10" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-13.8040771" y="31.0772171" />
+					<vertex x="5.19592285" y="49.0772171" />
+					<vertex x="8.19592285" y="27.0772171" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="11" type="static" x="1046.73926" y="-51.7249565" isActive="true" image="g6565.png11">
+			<fixtures>
+				<fixture name="11" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-7.73925781" y="28.2750435" />
+					<vertex x="1.26074219" y="37.2750435" />
+					<vertex x="9.26074219" y="21.2750435" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="12" type="static" x="2211.68384" y="-605.151123" isActive="true" image="g6673.png12">
+			<fixtures>
+				<fixture name="12" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-16.6838379" y="41.848877" />
+					<vertex x="5.31616211" y="41.848877" />
+					<vertex x="-8.68383789" y="57.848877" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="13" type="static" x="5194.05225" y="-798.230286" isActive="true" image="fefy.png13">
+			<fixtures>
+				<fixture name="13" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-103.052246" y="64.7697144" />
+					<vertex x="103.947754" y="66.7697144" />
+					<vertex x="-2.05224609" y="96.7697144" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="14" type="static" x="-17.4549732" y="-353.33786" isActive="true" image="vatobe1.png14">
+			<fixtures>
+				<fixture name="14" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-78.9570312" y="296.348694" />
+					<vertex x="40.0429688" y="270.348694" />
+					<vertex x="39.0429688" y="214.348694" />
+					<vertex x="24.0429688" y="189.348694" />
+					<vertex x="105.042969" y="33.3486938" />
+					<vertex x="117.042969" y="-87.6513062" />
+					<vertex x="85.0429688" y="-105.651306" />
+					<vertex x="110.042969" y="-179.651306" />
+				</fixture>
+				<fixture name="14" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="110.042969" y="-179.651306" />
+					<vertex x="97.0429688" y="-235.651306" />
+					<vertex x="103.042969" y="-294.651306" />
+					<vertex x="45.0429688" y="-286.651306" />
+					<vertex x="-17.9570312" y="-229.651306" />
+					<vertex x="-118.957031" y="155.348694" />
+				</fixture>
+				<fixture name="14" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-78" y="296" />
+					<vertex x="110" y="-179" />
+					<vertex x="-118" y="155" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="15" type="static" x="570.219727" y="-582.348694" isActive="true" image="grd.png15">
+			<fixtures>
+				<fixture name="15" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198.147858" y="-20.3486938" />
+					<vertex x="177.147858" y="21.6513062" />
+					<vertex x="126.147858" y="11.6513062" />
+					<vertex x="71.1478577" y="47.6513062" />
+					<vertex x="-7.85214233" y="20.6513062" />
+					<vertex x="-40.8521423" y="28.6513062" />
+					<vertex x="-67.8521423" y="5.65130615" />
+					<vertex x="-122.852142" y="20.6513062" />
+				</fixture>
+				<fixture name="15" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-122.852142" y="20.6513062" />
+					<vertex x="-186.852142" y="14.6513062" />
+					<vertex x="-209.852142" y="-27.3486938" />
+					<vertex x="-237.852142" y="-52.3486938" />
+					<vertex x="237.147858" y="-53.3486938" />
+				</fixture>
+				<fixture name="15" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198" y="-20" />
+					<vertex x="-122" y="20" />
+					<vertex x="237" y="-53" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="16" type="static" x="-473.127197" y="-193.285004" isActive="true" image="fas2.png16">
+			<fixtures>
+				<fixture name="16" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-157.146973" y="-10.4476929" />
+					<vertex x="139.853027" y="-10.4476929" />
+					<vertex x="153.853027" y="91.5523071" />
+					<vertex x="-155.146973" y="95.5523071" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="17" type="static" x="1178.11536" y="-587.187988" isActive="true" image="fas1.png17">
+			<fixtures>
+				<fixture name="17" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-138.887207" y="68.1121979" />
+					<vertex x="145.112793" y="68.1121979" />
+					<vertex x="125.112793" y="89.1121979" />
+					<vertex x="15.112793" y="101.112198" />
+					<vertex x="-51.887207" y="99.1121979" />
+					<vertex x="-73.887207" y="82.1121979" />
+					<vertex x="-138.887207" y="102.112198" />
+					<vertex x="-148.887207" y="82.1121979" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="18" type="static" x="1272.02747" y="-696.740295" isActive="true" image="grd.png18">
+			<fixtures>
+				<fixture name="18" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198.147858" y="-20.3486938" />
+					<vertex x="177.147858" y="21.6513062" />
+					<vertex x="126.147858" y="11.6513062" />
+					<vertex x="71.1478577" y="47.6513062" />
+					<vertex x="-7.85214233" y="20.6513062" />
+					<vertex x="-40.8521423" y="28.6513062" />
+					<vertex x="-67.8521423" y="5.65130615" />
+					<vertex x="-122.852142" y="20.6513062" />
+				</fixture>
+				<fixture name="18" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-122.852142" y="20.6513062" />
+					<vertex x="-186.852142" y="14.6513062" />
+					<vertex x="-209.852142" y="-27.3486938" />
+					<vertex x="-237.852142" y="-52.3486938" />
+					<vertex x="237.147858" y="-53.3486938" />
+				</fixture>
+				<fixture name="18" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198" y="-20" />
+					<vertex x="-122" y="20" />
+					<vertex x="237" y="-53" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="19" type="static" x="1921.33386" y="-691.296875" isActive="true" image="grd.png19">
+			<fixtures>
+				<fixture name="19" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198.147858" y="-20.3486938" />
+					<vertex x="177.147858" y="21.6513062" />
+					<vertex x="126.147858" y="11.6513062" />
+					<vertex x="71.1478577" y="47.6513062" />
+					<vertex x="-7.85214233" y="20.6513062" />
+					<vertex x="-40.8521423" y="28.6513062" />
+					<vertex x="-67.8521423" y="5.65130615" />
+					<vertex x="-122.852142" y="20.6513062" />
+				</fixture>
+				<fixture name="19" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-122.852142" y="20.6513062" />
+					<vertex x="-186.852142" y="14.6513062" />
+					<vertex x="-209.852142" y="-27.3486938" />
+					<vertex x="-237.852142" y="-52.3486938" />
+					<vertex x="237.147858" y="-53.3486938" />
+				</fixture>
+				<fixture name="19" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198" y="-20" />
+					<vertex x="-122" y="20" />
+					<vertex x="237" y="-53" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="20" type="static" x="963.466858" y="-759.713867" isActive="true" image="vatobe1.png20">
+			<fixtures>
+				<fixture name="20" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-78.9570312" y="296.348694" />
+					<vertex x="40.0429688" y="270.348694" />
+					<vertex x="39.0429688" y="214.348694" />
+					<vertex x="24.0429688" y="189.348694" />
+					<vertex x="105.042969" y="33.3486938" />
+					<vertex x="117.042969" y="-87.6513062" />
+					<vertex x="85.0429688" y="-105.651306" />
+					<vertex x="110.042969" y="-179.651306" />
+				</fixture>
+				<fixture name="20" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="110.042969" y="-179.651306" />
+					<vertex x="97.0429688" y="-235.651306" />
+					<vertex x="103.042969" y="-294.651306" />
+					<vertex x="45.0429688" y="-286.651306" />
+					<vertex x="-17.9570312" y="-229.651306" />
+					<vertex x="-118.957031" y="155.348694" />
+				</fixture>
+				<fixture name="20" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-78" y="296" />
+					<vertex x="110" y="-179" />
+					<vertex x="-118" y="155" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="21" type="static" x="2928.63745" y="-609.054565" isActive="true" image="vato2.png21">
+			<fixtures>
+				<fixture name="21" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-17.939209" y="33.5061035" />
+					<vertex x="50.060791" y="32.5061035" />
+					<vertex x="19.060791" y="56.5061035" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="22" type="static" x="3016.80737" y="-630.269287" isActive="true" image="vato1.png22">
+			<fixtures>
+				<fixture name="22" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-49.7630615" y="16.9312744" />
+					<vertex x="51.2369385" y="16.9312744" />
+					<vertex x="55.2369385" y="30.9312744" />
+					<vertex x="43.2369385" y="40.9312744" />
+					<vertex x="-44.7630615" y="27.9312744" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="24" type="static" x="2591.48145" y="-694.399414" isActive="true" image="grd.png24">
+			<fixtures>
+				<fixture name="24" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198.147858" y="-20.3486938" />
+					<vertex x="177.147858" y="21.6513062" />
+					<vertex x="126.147858" y="11.6513062" />
+					<vertex x="71.1478577" y="47.6513062" />
+					<vertex x="-7.85214233" y="20.6513062" />
+					<vertex x="-40.8521423" y="28.6513062" />
+					<vertex x="-67.8521423" y="5.65130615" />
+					<vertex x="-122.852142" y="20.6513062" />
+				</fixture>
+				<fixture name="24" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-122.852142" y="20.6513062" />
+					<vertex x="-186.852142" y="14.6513062" />
+					<vertex x="-209.852142" y="-27.3486938" />
+					<vertex x="-237.852142" y="-52.3486938" />
+					<vertex x="237.147858" y="-53.3486938" />
+				</fixture>
+				<fixture name="24" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198" y="-20" />
+					<vertex x="-122" y="20" />
+					<vertex x="237" y="-53" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="25" type="static" x="692.584534" y="-123.427185" isActive="false" image="g6435.png25">
+			<fixtures>
+				<fixture name="25" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-19.1567383" y="30.2858276" />
+					<vertex x="-10.1567383" y="41.2858276" />
+					<vertex x="-2.15673828" y="29.2858276" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="26" type="static" x="1129.39893" y="-608.054199" isActive="false" image="g6435.png26">
+			<fixtures>
+				<fixture name="26" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-19.1567383" y="30.2858276" />
+					<vertex x="-10.1567383" y="41.2858276" />
+					<vertex x="-2.15673828" y="29.2858276" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="27" type="static" x="907.608093" y="-506.473267" isActive="false" image="g6435.png27">
+			<fixtures>
+				<fixture name="27" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-19.1567383" y="30.2858276" />
+					<vertex x="-10.1567383" y="41.2858276" />
+					<vertex x="-2.15673828" y="29.2858276" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="28" type="static" x="1550.84094" y="-503.338593" isActive="false" image="g6435.png28">
+			<fixtures>
+				<fixture name="28" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-19.1567383" y="30.2858276" />
+					<vertex x="-10.1567383" y="41.2858276" />
+					<vertex x="-2.15673828" y="29.2858276" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="29" type="static" x="1721.99573" y="-618.289185" isActive="false" image="g6435.png29">
+			<fixtures>
+				<fixture name="29" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-19.1567383" y="30.2858276" />
+					<vertex x="-10.1567383" y="41.2858276" />
+					<vertex x="-2.15673828" y="29.2858276" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="30" type="static" x="162.854858" y="-510.437378" isActive="false" image="g6435.png30">
+			<fixtures>
+				<fixture name="30" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-19.1567383" y="30.2858276" />
+					<vertex x="-10.1567383" y="41.2858276" />
+					<vertex x="-2.15673828" y="29.2858276" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="31" type="static" x="943.541077" y="-69.5745316" isActive="false" image="g6435.png31">
+			<fixtures>
+				<fixture name="31" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-19.1567383" y="30.2858276" />
+					<vertex x="-10.1567383" y="41.2858276" />
+					<vertex x="-2.15673828" y="29.2858276" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="32" type="static" x="1332.2063" y="-610.94989" isActive="false" image="g6673.png32">
+			<fixtures>
+				<fixture name="32" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-16.6838379" y="41.848877" />
+					<vertex x="5.31616211" y="41.848877" />
+					<vertex x="-8.68383789" y="57.848877" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="33" type="static" x="1712.02466" y="-600.318848" isActive="false" image="g6673.png33">
+			<fixtures>
+				<fixture name="33" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-16.6838379" y="41.848877" />
+					<vertex x="5.31616211" y="41.848877" />
+					<vertex x="-8.68383789" y="57.848877" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="34" type="static" x="3304.48975" y="-694.399414" isActive="true" image="grd.png34">
+			<fixtures>
+				<fixture name="34" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198.147858" y="-20.3486938" />
+					<vertex x="177.147858" y="21.6513062" />
+					<vertex x="126.147858" y="11.6513062" />
+					<vertex x="71.1478577" y="47.6513062" />
+					<vertex x="-7.85214233" y="20.6513062" />
+					<vertex x="-40.8521423" y="28.6513062" />
+					<vertex x="-67.8521423" y="5.65130615" />
+					<vertex x="-122.852142" y="20.6513062" />
+				</fixture>
+				<fixture name="34" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-122.852142" y="20.6513062" />
+					<vertex x="-186.852142" y="14.6513062" />
+					<vertex x="-209.852142" y="-27.3486938" />
+					<vertex x="-237.852142" y="-52.3486938" />
+					<vertex x="237.147858" y="-53.3486938" />
+				</fixture>
+				<fixture name="34" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198" y="-20" />
+					<vertex x="-122" y="20" />
+					<vertex x="237" y="-53" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="35" type="static" x="2200.96826" y="-555.111755" isActive="true" image="hazo2.png35">
+			<fixtures>
+				<fixture name="35" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-86.8293457" y="85.154541" />
+					<vertex x="167.170654" y="86.154541" />
+					<vertex x="97.1706543" y="161.154541" />
+					<vertex x="49.1706543" y="152.154541" />
+					<vertex x="-6.8293457" y="181.154541" />
+					<vertex x="-64.8293457" y="102.154541" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="36" type="static" x="4055.19727" y="-766.056335" isActive="true" image="hazo2.png36">
+			<fixtures>
+				<fixture name="36" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-86.8293457" y="85.154541" />
+					<vertex x="167.170654" y="86.154541" />
+					<vertex x="97.1706543" y="161.154541" />
+					<vertex x="49.1706543" y="152.154541" />
+					<vertex x="-6.8293457" y="181.154541" />
+					<vertex x="-64.8293457" y="102.154541" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="37" type="static" x="4049.76953" y="-823.67804" isActive="false" image="vato1.png37">
+			<fixtures>
+				<fixture name="37" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-49.7630615" y="16.9312744" />
+					<vertex x="51.2369385" y="16.9312744" />
+					<vertex x="55.2369385" y="30.9312744" />
+					<vertex x="43.2369385" y="40.9312744" />
+					<vertex x="-44.7630615" y="27.9312744" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="38" type="static" x="3784.86353" y="-903.989502" isActive="true" image="grd.png38">
+			<fixtures>
+				<fixture name="38" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198.147858" y="-20.3486938" />
+					<vertex x="177.147858" y="21.6513062" />
+					<vertex x="126.147858" y="11.6513062" />
+					<vertex x="71.1478577" y="47.6513062" />
+					<vertex x="-7.85214233" y="20.6513062" />
+					<vertex x="-40.8521423" y="28.6513062" />
+					<vertex x="-67.8521423" y="5.65130615" />
+					<vertex x="-122.852142" y="20.6513062" />
+				</fixture>
+				<fixture name="38" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-122.852142" y="20.6513062" />
+					<vertex x="-186.852142" y="14.6513062" />
+					<vertex x="-209.852142" y="-27.3486938" />
+					<vertex x="-237.852142" y="-52.3486938" />
+					<vertex x="237.147858" y="-53.3486938" />
+				</fixture>
+				<fixture name="38" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198" y="-20" />
+					<vertex x="-122" y="20" />
+					<vertex x="237" y="-53" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="39" type="static" x="5295.06543" y="-903.989502" isActive="true" image="grd.png39">
+			<fixtures>
+				<fixture name="39" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198.147858" y="-20.3486938" />
+					<vertex x="177.147858" y="21.6513062" />
+					<vertex x="126.147858" y="11.6513062" />
+					<vertex x="71.1478577" y="47.6513062" />
+					<vertex x="-7.85214233" y="20.6513062" />
+					<vertex x="-40.8521423" y="28.6513062" />
+					<vertex x="-67.8521423" y="5.65130615" />
+					<vertex x="-122.852142" y="20.6513062" />
+				</fixture>
+				<fixture name="39" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-122.852142" y="20.6513062" />
+					<vertex x="-186.852142" y="14.6513062" />
+					<vertex x="-209.852142" y="-27.3486938" />
+					<vertex x="-237.852142" y="-52.3486938" />
+					<vertex x="237.147858" y="-53.3486938" />
+				</fixture>
+				<fixture name="39" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198" y="-20" />
+					<vertex x="-122" y="20" />
+					<vertex x="237" y="-53" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="40" type="static" x="6558.87793" y="-904.409485" isActive="true" image="grd.png40">
+			<fixtures>
+				<fixture name="40" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198.147858" y="-20.3486938" />
+					<vertex x="177.147858" y="21.6513062" />
+					<vertex x="126.147858" y="11.6513062" />
+					<vertex x="71.1478577" y="47.6513062" />
+					<vertex x="-7.85214233" y="20.6513062" />
+					<vertex x="-40.8521423" y="28.6513062" />
+					<vertex x="-67.8521423" y="5.65130615" />
+					<vertex x="-122.852142" y="20.6513062" />
+				</fixture>
+				<fixture name="40" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-122.852142" y="20.6513062" />
+					<vertex x="-186.852142" y="14.6513062" />
+					<vertex x="-209.852142" y="-27.3486938" />
+					<vertex x="-237.852142" y="-52.3486938" />
+					<vertex x="237.147858" y="-53.3486938" />
+				</fixture>
+				<fixture name="40" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198" y="-20" />
+					<vertex x="-122" y="20" />
+					<vertex x="237" y="-53" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="41" type="static" x="5415.14404" y="-798.230286" isActive="false" image="fefy.png41">
+			<fixtures>
+				<fixture name="41" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-103.052246" y="64.7697144" />
+					<vertex x="103.947754" y="66.7697144" />
+					<vertex x="-2.05224609" y="96.7697144" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="42" type="static" x="5634.31348" y="-798.230286" isActive="false" image="fefy.png42">
+			<fixtures>
+				<fixture name="42" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-103.052246" y="64.7697144" />
+					<vertex x="103.947754" y="66.7697144" />
+					<vertex x="-2.05224609" y="96.7697144" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="43" type="static" x="5855.40527" y="-798.230286" isActive="false" image="fefy.png43">
+			<fixtures>
+				<fixture name="43" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-103.052246" y="64.7697144" />
+					<vertex x="103.947754" y="66.7697144" />
+					<vertex x="-2.05224609" y="96.7697144" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="44" type="static" x="4413.38623" y="-903.989502" isActive="true" image="grd.png44">
+			<fixtures>
+				<fixture name="44" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198.147858" y="-20.3486938" />
+					<vertex x="177.147858" y="21.6513062" />
+					<vertex x="126.147858" y="11.6513062" />
+					<vertex x="71.1478577" y="47.6513062" />
+					<vertex x="-7.85214233" y="20.6513062" />
+					<vertex x="-40.8521423" y="28.6513062" />
+					<vertex x="-67.8521423" y="5.65130615" />
+					<vertex x="-122.852142" y="20.6513062" />
+				</fixture>
+				<fixture name="44" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-122.852142" y="20.6513062" />
+					<vertex x="-186.852142" y="14.6513062" />
+					<vertex x="-209.852142" y="-27.3486938" />
+					<vertex x="-237.852142" y="-52.3486938" />
+					<vertex x="237.147858" y="-53.3486938" />
+				</fixture>
+				<fixture name="44" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198" y="-20" />
+					<vertex x="-122" y="20" />
+					<vertex x="237" y="-53" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="45" type="static" x="4851.7251" y="-903.989502" isActive="true" image="grd.png45">
+			<fixtures>
+				<fixture name="45" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198.147858" y="-20.3486938" />
+					<vertex x="177.147858" y="21.6513062" />
+					<vertex x="126.147858" y="11.6513062" />
+					<vertex x="71.1478577" y="47.6513062" />
+					<vertex x="-7.85214233" y="20.6513062" />
+					<vertex x="-40.8521423" y="28.6513062" />
+					<vertex x="-67.8521423" y="5.65130615" />
+					<vertex x="-122.852142" y="20.6513062" />
+				</fixture>
+				<fixture name="45" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-122.852142" y="20.6513062" />
+					<vertex x="-186.852142" y="14.6513062" />
+					<vertex x="-209.852142" y="-27.3486938" />
+					<vertex x="-237.852142" y="-52.3486938" />
+					<vertex x="237.147858" y="-53.3486938" />
+				</fixture>
+				<fixture name="45" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198" y="-20" />
+					<vertex x="-122" y="20" />
+					<vertex x="237" y="-53" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="46" type="static" x="4312.37305" y="-798.230286" isActive="false" image="fefy.png46">
+			<fixtures>
+				<fixture name="46" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-103.052246" y="64.7697144" />
+					<vertex x="103.947754" y="66.7697144" />
+					<vertex x="-2.05224609" y="96.7697144" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="47" type="static" x="4533.46484" y="-798.230286" isActive="false" image="fefy.png47">
+			<fixtures>
+				<fixture name="47" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-103.052246" y="64.7697144" />
+					<vertex x="103.947754" y="66.7697144" />
+					<vertex x="-2.05224609" y="96.7697144" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="48" type="static" x="4752.63428" y="-798.230286" isActive="false" image="fefy.png48">
+			<fixtures>
+				<fixture name="48" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-103.052246" y="64.7697144" />
+					<vertex x="103.947754" y="66.7697144" />
+					<vertex x="-2.05224609" y="96.7697144" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="49" type="static" x="4973.72607" y="-798.230286" isActive="false" image="fefy.png49">
+			<fixtures>
+				<fixture name="49" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-103.052246" y="64.7697144" />
+					<vertex x="103.947754" y="66.7697144" />
+					<vertex x="-2.05224609" y="96.7697144" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="50" type="static" x="6213.10205" y="-647.712158" isActive="true" image="grd.png50">
+			<fixtures>
+				<fixture name="50" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198.147858" y="-20.3486938" />
+					<vertex x="177.147858" y="21.6513062" />
+					<vertex x="126.147858" y="11.6513062" />
+					<vertex x="71.1478577" y="47.6513062" />
+					<vertex x="-7.85214233" y="20.6513062" />
+					<vertex x="-40.8521423" y="28.6513062" />
+					<vertex x="-67.8521423" y="5.65130615" />
+					<vertex x="-122.852142" y="20.6513062" />
+				</fixture>
+				<fixture name="50" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-122.852142" y="20.6513062" />
+					<vertex x="-186.852142" y="14.6513062" />
+					<vertex x="-209.852142" y="-27.3486938" />
+					<vertex x="-237.852142" y="-52.3486938" />
+					<vertex x="237.147858" y="-53.3486938" />
+				</fixture>
+				<fixture name="50" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198" y="-20" />
+					<vertex x="-122" y="20" />
+					<vertex x="237" y="-53" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="51" type="static" x="6507.47217" y="-828.041138" isActive="false" image="g6455.png51">
+			<fixtures>
+				<fixture name="51" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-13.8040771" y="31.0772171" />
+					<vertex x="5.19592285" y="49.0772171" />
+					<vertex x="8.19592285" y="27.0772171" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="52" type="static" x="6572.79004" y="-825.220276" isActive="false" image="g6455.png52">
+			<fixtures>
+				<fixture name="52" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-13.8040771" y="31.0772171" />
+					<vertex x="5.19592285" y="49.0772171" />
+					<vertex x="8.19592285" y="27.0772171" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="53" type="static" x="6745.51465" y="-826.392883" isActive="false" image="g6455.png53">
+			<fixtures>
+				<fixture name="53" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-13.8040771" y="31.0772171" />
+					<vertex x="5.19592285" y="49.0772171" />
+					<vertex x="8.19592285" y="27.0772171" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="54" type="static" x="6709.63232" y="-825.758057" isActive="false" image="g6455.png54">
+			<fixtures>
+				<fixture name="54" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-13.8040771" y="31.0772171" />
+					<vertex x="5.19592285" y="49.0772171" />
+					<vertex x="8.19592285" y="27.0772171" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="55" type="static" x="6433.99854" y="-829.003784" isActive="false" image="g6435.png55">
+			<fixtures>
+				<fixture name="55" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-19.1567383" y="30.2858276" />
+					<vertex x="-10.1567383" y="41.2858276" />
+					<vertex x="-2.15673828" y="29.2858276" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="56" type="static" x="6553.22754" y="-833.667419" isActive="false" image="g6435.png56">
+			<fixtures>
+				<fixture name="56" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-19.1567383" y="30.2858276" />
+					<vertex x="-10.1567383" y="41.2858276" />
+					<vertex x="-2.15673828" y="29.2858276" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="57" type="static" x="6720.7207" y="-827.705383" isActive="false" image="g6565.png57">
+			<fixtures>
+				<fixture name="57" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-7.73925781" y="28.2750435" />
+					<vertex x="1.26074219" y="37.2750435" />
+					<vertex x="9.26074219" y="21.2750435" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="58" type="static" x="6724.83496" y="-829.767761" isActive="false" image="g6565.png58">
+			<fixtures>
+				<fixture name="58" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-7.73925781" y="28.2750435" />
+					<vertex x="1.26074219" y="37.2750435" />
+					<vertex x="9.26074219" y="21.2750435" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="59" type="static" x="-293.553162" y="-378.018311" isActive="false" image="g6435.png59">
+			<fixtures>
+				<fixture name="59" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-19.1567383" y="30.2858276" />
+					<vertex x="-10.1567383" y="41.2858276" />
+					<vertex x="-2.15673828" y="29.2858276" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="60" type="static" x="6433.15723" y="-828.928162" isActive="false" image="g6565.png60">
+			<fixtures>
+				<fixture name="60" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-7.73925781" y="28.2750435" />
+					<vertex x="1.26074219" y="37.2750435" />
+					<vertex x="9.26074219" y="21.2750435" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="61" type="static" x="6559.26416" y="-827.69873" isActive="false" image="g6565.png61">
+			<fixtures>
+				<fixture name="61" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-7.73925781" y="28.2750435" />
+					<vertex x="1.26074219" y="37.2750435" />
+					<vertex x="9.26074219" y="21.2750435" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="62" type="static" x="5662.75928" y="-906.726929" isActive="true" image="grd.png62">
+			<fixtures>
+				<fixture name="62" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198.147858" y="-20.3486938" />
+					<vertex x="177.147858" y="21.6513062" />
+					<vertex x="126.147858" y="11.6513062" />
+					<vertex x="71.1478577" y="47.6513062" />
+					<vertex x="-7.85214233" y="20.6513062" />
+					<vertex x="-40.8521423" y="28.6513062" />
+					<vertex x="-67.8521423" y="5.65130615" />
+					<vertex x="-122.852142" y="20.6513062" />
+				</fixture>
+				<fixture name="62" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-122.852142" y="20.6513062" />
+					<vertex x="-186.852142" y="14.6513062" />
+					<vertex x="-209.852142" y="-27.3486938" />
+					<vertex x="-237.852142" y="-52.3486938" />
+					<vertex x="237.147858" y="-53.3486938" />
+				</fixture>
+				<fixture name="62" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198" y="-20" />
+					<vertex x="-122" y="20" />
+					<vertex x="237" y="-53" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="63" type="static" x="5498.32373" y="-834.241699" isActive="false" image="g6455.png63">
+			<fixtures>
+				<fixture name="63" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-13.8040771" y="31.0772171" />
+					<vertex x="5.19592285" y="49.0772171" />
+					<vertex x="8.19592285" y="27.0772171" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="64" type="static" x="5564.25635" y="-830.806152" isActive="false" image="g6455.png64">
+			<fixtures>
+				<fixture name="64" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-13.8040771" y="31.0772171" />
+					<vertex x="5.19592285" y="49.0772171" />
+					<vertex x="8.19592285" y="27.0772171" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="65" type="static" x="5809.51611" y="-830.134644" isActive="false" image="g6455.png65">
+			<fixtures>
+				<fixture name="65" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-13.8040771" y="31.0772171" />
+					<vertex x="5.19592285" y="49.0772171" />
+					<vertex x="8.19592285" y="27.0772171" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="66" type="static" x="5575.69873" y="-838.105713" isActive="false" image="g6455.png66">
+			<fixtures>
+				<fixture name="66" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-13.8040771" y="31.0772171" />
+					<vertex x="5.19592285" y="49.0772171" />
+					<vertex x="8.19592285" y="27.0772171" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="67" type="static" x="5469.72363" y="-832.130798" isActive="false" image="g6435.png67">
+			<fixtures>
+				<fixture name="67" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-19.1567383" y="30.2858276" />
+					<vertex x="-10.1567383" y="41.2858276" />
+					<vertex x="-2.15673828" y="29.2858276" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="68" type="static" x="5617.229" y="-837.40918" isActive="false" image="g6435.png68">
+			<fixtures>
+				<fixture name="68" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-19.1567383" y="30.2858276" />
+					<vertex x="-10.1567383" y="41.2858276" />
+					<vertex x="-2.15673828" y="29.2858276" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="69" type="static" x="5686.98389" y="-838.823547" isActive="false" image="g6565.png69">
+			<fixtures>
+				<fixture name="69" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-7.73925781" y="28.2750435" />
+					<vertex x="1.26074219" y="37.2750435" />
+					<vertex x="9.26074219" y="21.2750435" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="70" type="static" x="5788.83643" y="-833.509521" isActive="false" image="g6565.png70">
+			<fixtures>
+				<fixture name="70" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-7.73925781" y="28.2750435" />
+					<vertex x="1.26074219" y="37.2750435" />
+					<vertex x="9.26074219" y="21.2750435" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="71" type="static" x="5652.6792" y="-830.825806" isActive="false" image="g6565.png71">
+			<fixtures>
+				<fixture name="71" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-7.73925781" y="28.2750435" />
+					<vertex x="1.26074219" y="37.2750435" />
+					<vertex x="9.26074219" y="21.2750435" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="72" type="static" x="5724.07764" y="-830.825806" isActive="false" image="g6565.png72">
+			<fixtures>
+				<fixture name="72" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-7.73925781" y="28.2750435" />
+					<vertex x="1.26074219" y="37.2750435" />
+					<vertex x="9.26074219" y="21.2750435" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="73" type="static" x="6084.6123" y="-905.472473" isActive="true" image="grd.png73">
+			<fixtures>
+				<fixture name="73" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198.147858" y="-20.3486938" />
+					<vertex x="177.147858" y="21.6513062" />
+					<vertex x="126.147858" y="11.6513062" />
+					<vertex x="71.1478577" y="47.6513062" />
+					<vertex x="-7.85214233" y="20.6513062" />
+					<vertex x="-40.8521423" y="28.6513062" />
+					<vertex x="-67.8521423" y="5.65130615" />
+					<vertex x="-122.852142" y="20.6513062" />
+				</fixture>
+				<fixture name="73" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-122.852142" y="20.6513062" />
+					<vertex x="-186.852142" y="14.6513062" />
+					<vertex x="-209.852142" y="-27.3486938" />
+					<vertex x="-237.852142" y="-52.3486938" />
+					<vertex x="237.147858" y="-53.3486938" />
+				</fixture>
+				<fixture name="73" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="198" y="-20" />
+					<vertex x="-122" y="20" />
+					<vertex x="237" y="-53" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="74" type="static" x="5960.05664" y="-831.562988" isActive="false" image="g6455.png74">
+			<fixtures>
+				<fixture name="74" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-13.8040771" y="31.0772171" />
+					<vertex x="5.19592285" y="49.0772171" />
+					<vertex x="8.19592285" y="27.0772171" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="75" type="static" x="6025.98926" y="-828.12738" isActive="false" image="g6455.png75">
+			<fixtures>
+				<fixture name="75" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-13.8040771" y="31.0772171" />
+					<vertex x="5.19592285" y="49.0772171" />
+					<vertex x="8.19592285" y="27.0772171" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="76" type="static" x="6271.24902" y="-827.455872" isActive="false" image="g6455.png76">
+			<fixtures>
+				<fixture name="76" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-13.8040771" y="31.0772171" />
+					<vertex x="5.19592285" y="49.0772171" />
+					<vertex x="8.19592285" y="27.0772171" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="77" type="static" x="6037.43164" y="-835.426941" isActive="false" image="g6455.png77">
+			<fixtures>
+				<fixture name="77" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-13.8040771" y="31.0772171" />
+					<vertex x="5.19592285" y="49.0772171" />
+					<vertex x="8.19592285" y="27.0772171" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="78" type="static" x="5931.45654" y="-829.452087" isActive="false" image="g6435.png78">
+			<fixtures>
+				<fixture name="78" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-19.1567383" y="30.2858276" />
+					<vertex x="-10.1567383" y="41.2858276" />
+					<vertex x="-2.15673828" y="29.2858276" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="79" type="static" x="6078.96191" y="-834.730408" isActive="false" image="g6435.png79">
+			<fixtures>
+				<fixture name="79" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-19.1567383" y="30.2858276" />
+					<vertex x="-10.1567383" y="41.2858276" />
+					<vertex x="-2.15673828" y="29.2858276" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="80" type="static" x="6148.7168" y="-836.144836" isActive="false" image="g6565.png80">
+			<fixtures>
+				<fixture name="80" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-7.73925781" y="28.2750435" />
+					<vertex x="1.26074219" y="37.2750435" />
+					<vertex x="9.26074219" y="21.2750435" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="81" type="static" x="6250.56934" y="-830.83075" isActive="false" image="g6565.png81">
+			<fixtures>
+				<fixture name="81" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-7.73925781" y="28.2750435" />
+					<vertex x="1.26074219" y="37.2750435" />
+					<vertex x="9.26074219" y="21.2750435" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="82" type="static" x="6114.41211" y="-828.147034" isActive="false" image="g6565.png82">
+			<fixtures>
+				<fixture name="82" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-7.73925781" y="28.2750435" />
+					<vertex x="1.26074219" y="37.2750435" />
+					<vertex x="9.26074219" y="21.2750435" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="83" type="static" x="6185.81055" y="-828.147034" isActive="false" image="g6565.png83">
+			<fixtures>
+				<fixture name="83" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-7.73925781" y="28.2750435" />
+					<vertex x="1.26074219" y="37.2750435" />
+					<vertex x="9.26074219" y="21.2750435" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="84" type="static" x="3443.81689" y="-935.086792" isActive="true" image="vatobe1.png84">
+			<fixtures>
+				<fixture name="84" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-78.9570312" y="296.348694" />
+					<vertex x="40.0429688" y="270.348694" />
+					<vertex x="39.0429688" y="214.348694" />
+					<vertex x="24.0429688" y="189.348694" />
+					<vertex x="105.042969" y="33.3486938" />
+					<vertex x="117.042969" y="-87.6513062" />
+					<vertex x="85.0429688" y="-105.651306" />
+					<vertex x="110.042969" y="-179.651306" />
+				</fixture>
+				<fixture name="84" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="110.042969" y="-179.651306" />
+					<vertex x="97.0429688" y="-235.651306" />
+					<vertex x="103.042969" y="-294.651306" />
+					<vertex x="45.0429688" y="-286.651306" />
+					<vertex x="-17.9570312" y="-229.651306" />
+					<vertex x="-118.957031" y="155.348694" />
+				</fixture>
+				<fixture name="84" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-78" y="296" />
+					<vertex x="110" y="-179" />
+					<vertex x="-118" y="155" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="5" type="static" x="2940.80566" y="-534.971558" isActive="true" image="hazo1.png5">
+			<fixtures>
+				<fixture name="5" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-135.805664" y="107.028442" />
+					<vertex x="132.194336" y="106.028442" />
+					<vertex x="103.194336" y="123.028442" />
+					<vertex x="85.1943359" y="161.028442" />
+					<vertex x="4.19433594" y="138.028442" />
+					<vertex x="-9.80566406" y="165.028442" />
+					<vertex x="-112.805664" y="130.028442" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="23" type="static" x="851.195618" y="-420.803253" isActive="true" image="hazo1.png23">
+			<fixtures>
+				<fixture name="23" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-135.805664" y="107.028442" />
+					<vertex x="132.194336" y="106.028442" />
+					<vertex x="103.194336" y="123.028442" />
+					<vertex x="85.1943359" y="161.028442" />
+					<vertex x="4.19433594" y="138.028442" />
+					<vertex x="-9.80566406" y="165.028442" />
+					<vertex x="-112.805664" y="130.028442" />
+				</fixture>
+			</fixtures>
+		</body>
+	</bodies>
+	<images>
+		<image name="g6435.png0" path="g6435.png" x="2347.15674" y="-613.714172" scaleX="1" scaleY="1" />
+		<image name="vato1.png1" path="vato1.png" x="-529.236938" y="-1251.06873" scaleX="1" scaleY="1" />
+		<image name="vatobe1.png2" path="vatobe1.png" x="6714.95703" y="-594.651306" scaleX="1" scaleY="1" />
+		<image name="vato2.png3" path="vato2.png" x="-557.060791" y="-1536.4939" scaleX="1" scaleY="1" />
+		<image name="fas2.png4" path="fas2.png" x="1534.14697" y="-545.447693" scaleX="1" scaleY="1" />
+		<image name="vato1.png6" path="vato1.png" x="-515.13501" y="-1014.42365" scaleX="1" scaleY="1" />
+		<image name="grd.png7" path="grd.png" x="211.852142" y="-582.348694" scaleX="1" scaleY="1" />
+		<image name="fas1.png8" path="fas1.png" x="-456.112793" y="113.112198" scaleX="1" scaleY="1" />
+		<image name="hazo2.png9" path="hazo2.png" x="-542.170654" y="-617.845459" scaleX="1" scaleY="1" />
+		<image name="g6455.png10" path="g6455.png" x="1000.80408" y="-33.9227829" scaleX="1" scaleY="1" />
+		<image name="g6565.png11" path="g6565.png" x="1046.73926" y="-51.7249565" scaleX="1" scaleY="1" />
+		<image name="g6673.png12" path="g6673.png" x="2211.68384" y="-605.151123" scaleX="1" scaleY="1" />
+		<image name="fefy.png13" path="fefy.png" x="5194.05225" y="-798.230286" scaleX="1" scaleY="1" />
+		<image name="vatobe1.png14" path="vatobe1.png" x="-17.4549732" y="-353.33786" scaleX="1" scaleY="1" />
+		<image name="grd.png15" path="grd.png" x="570.219727" y="-582.348694" scaleX="1" scaleY="1" />
+		<image name="fas2.png16" path="fas2.png" x="-473.127197" y="-193.285004" scaleX="1" scaleY="1" />
+		<image name="fas1.png17" path="fas1.png" x="1178.11536" y="-587.187988" scaleX="1" scaleY="1" />
+		<image name="grd.png18" path="grd.png" x="1272.02747" y="-696.740295" scaleX="1" scaleY="1" />
+		<image name="grd.png19" path="grd.png" x="1921.33386" y="-691.296875" scaleX="1" scaleY="1" />
+		<image name="vatobe1.png20" path="vatobe1.png" x="963.466858" y="-759.713867" scaleX="1" scaleY="1" />
+		<image name="vato2.png21" path="vato2.png" x="2928.63745" y="-609.054565" scaleX="1" scaleY="1" />
+		<image name="vato1.png22" path="vato1.png" x="3016.80737" y="-630.269287" scaleX="1" scaleY="1" />
+		<image name="grd.png24" path="grd.png" x="2591.48145" y="-694.399414" scaleX="1" scaleY="1" />
+		<image name="g6435.png25" path="g6435.png" x="692.584534" y="-123.427185" scaleX="1" scaleY="1" />
+		<image name="g6435.png26" path="g6435.png" x="1129.39893" y="-608.054199" scaleX="1" scaleY="1" />
+		<image name="g6435.png27" path="g6435.png" x="907.608093" y="-506.473267" scaleX="1" scaleY="1" />
+		<image name="g6435.png28" path="g6435.png" x="1550.84094" y="-503.338593" scaleX="1" scaleY="1" />
+		<image name="g6435.png29" path="g6435.png" x="1721.99573" y="-618.289185" scaleX="1" scaleY="1" />
+		<image name="g6435.png30" path="g6435.png" x="162.854858" y="-510.437378" scaleX="1" scaleY="1" />
+		<image name="g6435.png31" path="g6435.png" x="943.541077" y="-69.5745316" scaleX="1" scaleY="1" />
+		<image name="g6673.png32" path="g6673.png" x="1332.2063" y="-610.94989" scaleX="1" scaleY="1" />
+		<image name="g6673.png33" path="g6673.png" x="1712.02466" y="-600.318848" scaleX="1" scaleY="1" />
+		<image name="grd.png34" path="grd.png" x="3304.48975" y="-694.399414" scaleX="1" scaleY="1" />
+		<image name="hazo2.png35" path="hazo2.png" x="2200.96826" y="-555.111755" scaleX="1" scaleY="1" />
+		<image name="hazo2.png36" path="hazo2.png" x="4055.19727" y="-766.056335" scaleX="1" scaleY="1" />
+		<image name="vato1.png37" path="vato1.png" x="4049.76953" y="-823.67804" scaleX="1" scaleY="1" />
+		<image name="grd.png38" path="grd.png" x="3784.86353" y="-903.989502" scaleX="1" scaleY="1" />
+		<image name="grd.png39" path="grd.png" x="5295.06543" y="-903.989502" scaleX="1" scaleY="1" />
+		<image name="grd.png40" path="grd.png" x="6558.87793" y="-904.409485" scaleX="1" scaleY="1" />
+		<image name="fefy.png41" path="fefy.png" x="5415.14404" y="-798.230286" scaleX="1" scaleY="1" />
+		<image name="fefy.png42" path="fefy.png" x="5634.31348" y="-798.230286" scaleX="1" scaleY="1" />
+		<image name="fefy.png43" path="fefy.png" x="5855.40527" y="-798.230286" scaleX="1" scaleY="1" />
+		<image name="grd.png44" path="grd.png" x="4413.38623" y="-903.989502" scaleX="1" scaleY="1" />
+		<image name="grd.png45" path="grd.png" x="4851.7251" y="-903.989502" scaleX="1" scaleY="1" />
+		<image name="fefy.png46" path="fefy.png" x="4312.37305" y="-798.230286" scaleX="1" scaleY="1" />
+		<image name="fefy.png47" path="fefy.png" x="4533.46484" y="-798.230286" scaleX="1" scaleY="1" />
+		<image name="fefy.png48" path="fefy.png" x="4752.63428" y="-798.230286" scaleX="1" scaleY="1" />
+		<image name="fefy.png49" path="fefy.png" x="4973.72607" y="-798.230286" scaleX="1" scaleY="1" />
+		<image name="grd.png50" path="grd.png" x="6213.10205" y="-647.712158" scaleX="1" scaleY="1" />
+		<image name="g6455.png51" path="g6455.png" x="6507.47217" y="-828.041138" scaleX="1" scaleY="1" />
+		<image name="g6455.png52" path="g6455.png" x="6572.79004" y="-825.220276" scaleX="1" scaleY="1" />
+		<image name="g6455.png53" path="g6455.png" x="6745.51465" y="-826.392883" scaleX="1" scaleY="1" />
+		<image name="g6455.png54" path="g6455.png" x="6709.63232" y="-825.758057" scaleX="1" scaleY="1" />
+		<image name="g6435.png55" path="g6435.png" x="6433.99854" y="-829.003784" scaleX="1" scaleY="1" />
+		<image name="g6435.png56" path="g6435.png" x="6553.22754" y="-833.667419" scaleX="1" scaleY="1" />
+		<image name="g6565.png57" path="g6565.png" x="6720.7207" y="-827.705383" scaleX="1" scaleY="1" />
+		<image name="g6565.png58" path="g6565.png" x="6724.83496" y="-829.767761" scaleX="1" scaleY="1" />
+		<image name="g6435.png59" path="g6435.png" x="-293.553162" y="-378.018311" scaleX="1" scaleY="1" />
+		<image name="g6565.png60" path="g6565.png" x="6433.15723" y="-828.928162" scaleX="1" scaleY="1" />
+		<image name="g6565.png61" path="g6565.png" x="6559.26416" y="-827.69873" scaleX="1" scaleY="1" />
+		<image name="grd.png62" path="grd.png" x="5662.75928" y="-906.726929" scaleX="1" scaleY="1" />
+		<image name="g6455.png63" path="g6455.png" x="5498.32373" y="-834.241699" scaleX="1" scaleY="1" />
+		<image name="g6455.png64" path="g6455.png" x="5564.25635" y="-830.806152" scaleX="1" scaleY="1" />
+		<image name="g6455.png65" path="g6455.png" x="5809.51611" y="-830.134644" scaleX="1" scaleY="1" />
+		<image name="g6455.png66" path="g6455.png" x="5575.69873" y="-838.105713" scaleX="1" scaleY="1" />
+		<image name="g6435.png67" path="g6435.png" x="5469.72363" y="-832.130798" scaleX="1" scaleY="1" />
+		<image name="g6435.png68" path="g6435.png" x="5617.229" y="-837.40918" scaleX="1" scaleY="1" />
+		<image name="g6565.png69" path="g6565.png" x="5686.98389" y="-838.823547" scaleX="1" scaleY="1" />
+		<image name="g6565.png70" path="g6565.png" x="5788.83643" y="-833.509521" scaleX="1" scaleY="1" />
+		<image name="g6565.png71" path="g6565.png" x="5652.6792" y="-830.825806" scaleX="1" scaleY="1" />
+		<image name="g6565.png72" path="g6565.png" x="5724.07764" y="-830.825806" scaleX="1" scaleY="1" />
+		<image name="grd.png73" path="grd.png" x="6084.6123" y="-905.472473" scaleX="1" scaleY="1" />
+		<image name="g6455.png74" path="g6455.png" x="5960.05664" y="-831.562988" scaleX="1" scaleY="1" />
+		<image name="g6455.png75" path="g6455.png" x="6025.98926" y="-828.12738" scaleX="1" scaleY="1" />
+		<image name="g6455.png76" path="g6455.png" x="6271.24902" y="-827.455872" scaleX="1" scaleY="1" />
+		<image name="g6455.png77" path="g6455.png" x="6037.43164" y="-835.426941" scaleX="1" scaleY="1" />
+		<image name="g6435.png78" path="g6435.png" x="5931.45654" y="-829.452087" scaleX="1" scaleY="1" />
+		<image name="g6435.png79" path="g6435.png" x="6078.96191" y="-834.730408" scaleX="1" scaleY="1" />
+		<image name="g6565.png80" path="g6565.png" x="6148.7168" y="-836.144836" scaleX="1" scaleY="1" />
+		<image name="g6565.png81" path="g6565.png" x="6250.56934" y="-830.83075" scaleX="1" scaleY="1" />
+		<image name="g6565.png82" path="g6565.png" x="6114.41211" y="-828.147034" scaleX="1" scaleY="1" />
+		<image name="g6565.png83" path="g6565.png" x="6185.81055" y="-828.147034" scaleX="1" scaleY="1" />
+		<image name="vatobe1.png84" path="vatobe1.png" x="3443.81689" y="-935.086792" scaleX="1" scaleY="1" />
+		<image name="hazo1.png5" path="hazo1.png" x="2940.80566" y="-534.971558" scaleX="1" scaleY="1" />
+		<image name="hazo1.png23" path="hazo1.png" x="851.195618" y="-420.803253" scaleX="1" scaleY="1" />
+	</images>
+</box2d>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<box2d>
+	<bodies>
+		<body name="m_body" x="150.053329" y="-244.155609" type="dynamic" bullet="false" fixedRotation="true" image="bbulle.png">
+			<fixtures>
+				<fixture categoryBits="0x0003" maskBits="0x0002" name="basFixture" restitution="0" density="10" friction="0" isSensor="true" shapeType="polygonShape">
+					<vertex x="-4.25" y="72" />
+					<vertex x="4.25" y="74" />
+					<vertex x="4.25" y="76" />
+					<vertex x="-4.25" y="76" />
+				</fixture>
+				<fixture categoryBits="0x0003" maskBits="0x0002" name="2" restitution="0" density="10" friction="0" isSensor="false" shapeType="polygonShape">
+					<vertex x="-18" y="-37.5" />
+					<vertex x="18" y="-37.5" />
+					<vertex x="18" y="37.5" />
+					<vertex x="-18" y="37.5" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="m_head" x="150.053223" y="-188.659424" type="dynamic" bullet="false" fixedRotation="true" image="null">
+			<fixtures>
+				<fixture categoryBits="0x0003" maskBits="0x0002" name="1" restitution="0" density="10" friction="1" isSensor="false" shapeType="circleShape" circleRadius="18" />
+			</fixtures>
+		</body>
+		<body name="m_legs" x="150.053329" y="-299.65564" type="dynamic" bullet="false" fixedRotation="true" image="null">
+			<fixtures>
+				<fixture categoryBits="0x0003" maskBits="0x0003" name="1" restitution="0" density="10" friction="1" isSensor="false" shapeType="circleShape" circleRadius="18" />
+			</fixtures>
+		</body>
+		<body name="m_sensorL" x="150.053329" y="-299.65564" type="dynamic" bullet="false" fixedRotation="true" image="null">
+			<fixtures>
+				<fixture categoryBits="0x0003" maskBits="0x0003" name="1" restitution="0" density="10" friction="1" isSensor="true" shapeType="circleShape" circleRadius="5" />
+			</fixtures>
+		</body>
+		<body name="m_sensorR" x="150.053329" y="-299.65564" type="dynamic" bullet="false" fixedRotation="true" image="null">
+			<fixtures>
+				<fixture categoryBits="0x0003" maskBits="0x0003" name="1" restitution="0" density="10" friction="1" isSensor="true" shapeType="circleShape" circleRadius="5" />
+			</fixtures>
+		</body>
+	</bodies>
+	<joints>
+		<joint name="legJoint" bodyA="m_body" bodyB="m_legs" collideConnected="false" Ax="" Ay="" Bx="" By="-55" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
+		<joint name="headJoint" bodyA="m_body" bodyB="m_head" collideConnected="false" Ax="" Ay="" Bx="" By="55" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
+		<joint name="sensJoint1" bodyA="m_body" bodyB="m_sensorL" collideConnected="false" Ax="" Ay="" Bx="50" By="50" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
+		<joint name="sensJoint2" bodyA="m_body" bodyB="m_sensorR" collideConnected="false" Ax="" Ay="" Bx="-51" By="50" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
+	</joints>
+	<images>
+		<image path="circle.png" name="circle.png" x="150.053329" y="-299.65564" rotation="0" scaleX="1" scaleY="1" zDepth="0" pinned="false" atlas="09"/>
+		<image path="bulle.png" name="bulle.png" x="150.053329" y="-244.155609" rotation="0" scaleX="0.6" scaleY="0.55" zDepth="0" pinned="false" atlas="09"/>
+	</images>
+</box2d>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Asset>
+	<nodes>
+		<node x="320" y="279" />
+		<node x="334" y="357" />
+		<node x="390" y="392" />
+		<node x="498" y="350" />
+		<node x="495" y="263" />
+		<node x="411" y="216" />
+		<node x="308" y="258" />
+	</nodes>
+	<image x="404" y="308" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\Images\shiftPower.png" />
+</Asset>

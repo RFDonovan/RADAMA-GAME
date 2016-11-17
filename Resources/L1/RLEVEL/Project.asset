@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<Assets>
+	<Asset id="1" isActive="true">
+		<nodes>
+			<node x="2328" y="644" />
+			<node x="2337" y="655" />
+			<node x="2345" y="643" />
+		</nodes>
+		<image x="2347.15674" y="613.714172" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\g6435.png" />
+	</Asset>
+	<Asset id="5" isActive="true">
+		<nodes>
+			<node x="-579" y="1268" />
+			<node x="-478" y="1268" />
+			<node x="-474" y="1282" />
+			<node x="-486" y="1292" />
+			<node x="-574" y="1279" />
+		</nodes>
+		<image x="-529.236938" y="1251.06873" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\vato1.png" />
+	</Asset>
+	<Asset id="9" isActive="true">
+		<nodes>
+			<node x="3437" y="873" />
+			<node x="3556" y="847" />
+			<node x="3555" y="791" />
+			<node x="3540" y="766" />
+			<node x="3621" y="610" />
+			<node x="3633" y="489" />
+			<node x="3601" y="471" />
+			<node x="3626" y="397" />
+			<node x="3613" y="341" />
+			<node x="3619" y="282" />
+			<node x="3561" y="290" />
+			<node x="3498" y="347" />
+			<node x="3397" y="732" />
+		</nodes>
+		<image x="3515.20825" y="576.543335" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\vatobe1.png" />
+	</Asset>
+	<Asset id="10" isActive="true">
+		<nodes>
+			<node x="-575" y="1570" />
+			<node x="-507" y="1569" />
+			<node x="-538" y="1593" />
+		</nodes>
+		<image x="-557.060791" y="1536.4939" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\vato2.png" />
+	</Asset>
+	<Asset id="12" isActive="true">
+		<nodes>
+			<node x="1377" y="535" />
+			<node x="1674" y="535" />
+			<node x="1688" y="637" />
+			<node x="1379" y="641" />
+		</nodes>
+		<image x="1534.14697" y="545.447693" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\fas2.png" />
+	</Asset>
+	<Asset id="15" isActive="true">
+		<nodes>
+			<node x="2805" y="642" />
+			<node x="3073" y="641" />
+			<node x="3044" y="658" />
+			<node x="3026" y="696" />
+			<node x="2945" y="673" />
+			<node x="2931" y="700" />
+			<node x="2828" y="665" />
+		</nodes>
+		<image x="2940.80566" y="534.971558" z="1" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\hazo1.png" />
+	</Asset>
+	<Asset id="16" isActive="true">
+		<nodes>
+			<node x="2114" y="641" />
+			<node x="2368" y="642" />
+			<node x="2298" y="717" />
+			<node x="2250" y="708" />
+			<node x="2194" y="737" />
+			<node x="2136" y="658" />
+		</nodes>
+		<image x="2200.96826" y="555.111755" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\hazo2.png" />
+	</Asset>
+	<Asset id="17" isActive="true">
+		<nodes>
+			<node x="-580" y="1040" />
+			<node x="-448" y="1039" />
+			<node x="-499" y="1067" />
+		</nodes>
+		<image x="-515.13501" y="1014.42365" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\vato1.png" />
+	</Asset>
+	<Asset id="14" isActive="true">
+		<nodes>
+			<node x="410" y="562" />
+			<node x="389" y="604" />
+			<node x="338" y="594" />
+			<node x="283" y="630" />
+			<node x="204" y="603" />
+			<node x="171" y="611" />
+			<node x="144" y="588" />
+			<node x="89" y="603" />
+			<node x="25" y="597" />
+			<node x="2" y="555" />
+			<node x="-26" y="530" />
+			<node x="449" y="529" />
+		</nodes>
+		<image x="211.852142" y="582.348694" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\grd.png" />
+	</Asset>
+	<Asset id="18" isActive="true">
+		<nodes>
+			<node x="-595" y="-45" />
+			<node x="-311" y="-45" />
+			<node x="-331" y="-24" />
+			<node x="-441" y="-12" />
+			<node x="-508" y="-14" />
+			<node x="-530" y="-31" />
+			<node x="-595" y="-11" />
+			<node x="-605" y="-31" />
+		</nodes>
+		<image x="-456.112793" y="-113.112198" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\fas1.png" />
+	</Asset>
+	<Asset id="0" isActive="false">
+		<nodes>
+			<node x="745.869385" y="74.3298035" />
+			<node x="764.273743" y="92.7341003" />
+			<node x="767.779297" y="69.9478149" />
+		</nodes>
+		<image x="759.015381" y="42.7795105" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\g6455.png" />
+	</Asset>
+	<Asset id="2" isActive="false">
+		<nodes>
+			<node x="709.182312" y="235.382263" />
+			<node x="717.946289" y="244.14624" />
+			<node x="725.833862" y="228.371094" />
+		</nodes>
+		<image x="716.193481" y="206.461182" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\g6565.png" />
+	</Asset>
+	<Asset id="3" isActive="false">
+		<nodes>
+			<node x="2195.03223" y="647.21814" />
+			<node x="2217.8186" y="647.21814" />
+			<node x="2203.79639" y="663.86969" />
+		</nodes>
+		<image x="2211.68384" y="605.151123" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\g6673.png" />
+	</Asset>
+</Assets>
+<Copies>
+	<Copy from="14" x="3304.48975" y="694.399414" z="0" isActive="true" />
+	<Copy from="9" x="-17.4549732" y="353.33786" z="0" isActive="true" />
+	<Copy from="14" x="570.219727" y="582.348694" z="0" isActive="true" />
+	<Copy from="12" x="-473.127197" y="193.285004" z="0" isActive="true" />
+	<Copy from="18" x="1178.11536" y="587.187988" z="0" isActive="true" />
+	<Copy from="14" x="1272.02747" y="696.740295" z="0" isActive="true" />
+	<Copy from="16" x="-542.170654" y="617.845459" z="0" isActive="true" />
+	<Copy from="14" x="1921.33386" y="691.296875" z="0" isActive="true" />
+	<Copy from="9" x="963.466858" y="759.713867" z="0" isActive="true" />
+	<Copy from="10" x="2928.63745" y="609.054565" z="0" isActive="true" />
+	<Copy from="5" x="3016.80737" y="630.269287" z="0" isActive="true" />
+	<Copy from="15" x="851.195618" y="420.803253" z="1" isActive="true" />
+	<Copy from="14" x="2591.48145" y="694.399414" z="0" isActive="true" />
+	<Copy from="1" x="-303.221191" y="386.074951" z="0" isActive="false" />
+	<Copy from="1" x="1129.39893" y="608.054199" z="0" isActive="false" />
+	<Copy from="1" x="907.608093" y="506.473267" z="0" isActive="false" />
+	<Copy from="1" x="1550.84094" y="503.338593" z="0" isActive="false" />
+	<Copy from="1" x="1721.99573" y="618.289185" z="0" isActive="false" />
+	<Copy from="1" x="162.854858" y="510.437378" z="0" isActive="false" />
+	<Copy from="1" x="883.315308" y="70.4602051" z="0" isActive="false" />
+	<Copy from="3" x="1332.2063" y="610.94989" z="0" isActive="false" />
+	<Copy from="3" x="1712.02466" y="600.318848" z="0" isActive="false" />
+</Copies>

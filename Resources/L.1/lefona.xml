@@ -1,0 +1,25 @@
+<!-->
+    BOUNDARY =          0x0001,
+    FRIENDLY_SHIP =     0x0002,
+    ENEMY_SHIP =        0x0004,
+    FRIENDLY_AIRCRAFT = 0x0008,
+    ENEMY_AIRCRAFT =    0x0010,
+<!-->
+<box2d>
+  <images>
+	<image path="lefona.png" name="lefona.png" x="300" y="325" rotation="0" scaleX="1.3" scaleY="1" zDepth="0" pinned="false" body="lefona" atlas="null"/>
+  </images>
+  <bodies>
+	<body name="lefona" x="300" y="325" type="dynamic" bullet="true" image="lefona.png">
+      <fixtures>
+        <fixture name="21" shapeType="rectangleShape" restitution="0" density="1" friction="1" width="100" height="2" isSensor="false" categoryBits="0x0003" maskBits="0x0003">
+        </fixture>
+      </fixtures>
+    </body>
+  </bodies>
+  <joints/>
+  <metaData/>
+  <settings>
+    <setting isLocked="true"/>
+  </settings>
+</box2d>

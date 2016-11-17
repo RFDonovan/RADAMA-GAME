@@ -1,0 +1,13 @@
+<Entities>
+	<Entity id="1" type="human">
+		<Animation name="stopLeft" path="" />
+		<Animation name="stopRight" path="" />
+		<Animation name="jumpLeft" path="" />
+		<Animation name="jumpRight" path="" />
+		<Animation name="shiftLeft" path="" />
+		<Animation name="shiftRight" path="" />
+		<Animation name="kickLeft" path="" />
+		<Animation name="kickRight" path="" />
+		
+	</Entity>
+</Entities>

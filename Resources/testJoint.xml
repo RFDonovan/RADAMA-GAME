@@ -1,0 +1,32 @@
+<box2d>
+  <images/>
+  <bodies>
+    <body name="circleBody" x="144" y="274" type="dynamic" bullet="false" image="null">
+      <fixtures>
+        <fixture name="100" shapeType="circleShape" restitution="1" density="1" friction="1" circleX="1" circleY="2" circleRadius="27.202941017470888" isSensor="false"/>
+      </fixtures>
+    </body>
+    <body name="rectBody" x="69" y="279" type="dynamic" bullet="false" image="null">
+      <fixtures>
+        <fixture name="41" shapeType="polygonShape" restitution="1" density="1" friction="1" isSensor="false">
+          <vertex x="-25" y="17"/>
+          <vertex x="-25" y="-21"/>
+          <vertex x="24" y="17"/>
+        </fixture>
+        <fixture name="42" shapeType="polygonShape" restitution="1" density="1" friction="1" isSensor="false">
+          <vertex x="24" y="-21"/>
+          <vertex x="24" y="17"/>
+          <vertex x="-25" y="-21"/>
+        </fixture>
+      </fixtures>
+    </body>
+  </bodies>
+  <joints>
+    <joint name="WeldJoint" type="WeldJoint" collideConnected="false" x="118" y="320" bodyA="circleBody" bodyB="rectBody"/>
+    <joint name="revJoint" x="160" y="218" collideConnected="false" bodyA="circleBody" bodyB="rectBody" enableMotor="false" motorSpeed="1" maxMotorTorque="1" type="RevoluteJoint" lowerAngle="-360" upperAngle="360" enableLimit="false"/>
+  </joints>
+  <metaData/>
+  <settings>
+    <setting isLocked="true"/>
+  </settings>
+</box2d>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Asset>
+	<nodes>
+		<node x="360.58783" y="34.6129265" />
+		<node x="360.193726" y="51.5606155" />
+		<node x="408.277863" y="51.9547501" />
+		<node x="409.460266" y="34.218792" />
+	</nodes>
+	<image x="374.382477" y="10.9649849" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\vato2.png" />
+</Asset>

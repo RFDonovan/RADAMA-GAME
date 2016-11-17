@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<box2d>
+	<bodies>
+		<body name="0" type="static" x="1241" y="-460" image="test">
+			<fixtures>
+				<fixture name="0" restitution="0" friction="0" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-1220" y="120" />
+					<vertex x="-199" y="112" />
+					<vertex x="-199" y="216" />
+					<vertex x="-1220" y="197" />
+				</fixture>
+			</fixtures>
+		</body>
+	</bodies>
+	<images>
+		<image name="test" path="level12.png" x="1241" y="-460" scaleX="1" scaleY="1" />
+	</images>
+</box2d>

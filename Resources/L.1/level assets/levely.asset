@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<Assets>
+	<Asset id="0">
+		<nodes>
+			<node x="1831" y="543" />
+			<node x="1962" y="544" />
+			<node x="1962" y="659" />
+			<node x="1831" y="659" />
+		</nodes>
+		<image x="1897.13184" y="601.400635" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="1">
+		<nodes>
+			<node x="1034" y="437" />
+			<node x="1242" y="435" />
+			<node x="1125" y="470" />
+		</nodes>
+		<image x="1138" y="357.000031" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (2).jpeg" />
+	</Asset>
+	<Asset id="2">
+		<nodes>
+			<node x="83" y="426" />
+			<node x="214" y="427" />
+			<node x="214" y="542" />
+			<node x="83" y="542" />
+		</nodes>
+		<image x="149" y="484" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="3">
+		<nodes>
+			<node x="209" y="427" />
+			<node x="340" y="428" />
+			<node x="340" y="543" />
+			<node x="209" y="543" />
+		</nodes>
+		<image x="275" y="485" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="4">
+		<nodes>
+			<node x="332" y="427" />
+			<node x="463" y="428" />
+			<node x="463" y="543" />
+			<node x="332" y="543" />
+		</nodes>
+		<image x="398" y="485" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="5">
+		<nodes>
+			<node x="443" y="427" />
+			<node x="574" y="428" />
+			<node x="574" y="543" />
+			<node x="443" y="543" />
+		</nodes>
+		<image x="509" y="485" z="1" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="6">
+		<nodes>
+			<node x="543" y="426" />
+			<node x="674" y="427" />
+			<node x="674" y="542" />
+			<node x="543" y="542" />
+		</nodes>
+		<image x="609" y="484" z="1" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="7">
+		<nodes>
+			<node x="664" y="426" />
+			<node x="795" y="427" />
+			<node x="795" y="542" />
+			<node x="664" y="542" />
+		</nodes>
+		<image x="730" y="484" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="8">
+		<nodes>
+			<node x="793" y="426" />
+			<node x="924" y="427" />
+			<node x="924" y="542" />
+			<node x="793" y="542" />
+		</nodes>
+		<image x="859" y="484" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="9">
+		<nodes>
+			<node x="763" y="311" />
+			<node x="894" y="312" />
+			<node x="894" y="427" />
+			<node x="763" y="427" />
+		</nodes>
+		<image x="829" y="369" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="10">
+		<nodes>
+			<node x="891" y="311" />
+			<node x="1022" y="312" />
+			<node x="1022" y="427" />
+			<node x="891" y="427" />
+		</nodes>
+		<image x="957" y="369" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="11">
+		<nodes>
+			<node x="913" y="424" />
+			<node x="1044" y="425" />
+			<node x="1044" y="540" />
+			<node x="913" y="540" />
+		</nodes>
+		<image x="979" y="482" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="12">
+		<nodes>
+			<node x="206" y="437" />
+			<node x="414" y="435" />
+			<node x="297" y="470" />
+		</nodes>
+		<image x="310" y="357.000031" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (2).jpeg" />
+	</Asset>
+	<Asset id="13">
+		<nodes>
+			<node x="320" y="434" />
+			<node x="528" y="432" />
+			<node x="411" y="467" />
+		</nodes>
+		<image x="424" y="354.000031" z="1" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (2).jpeg" />
+	</Asset>
+	<Asset id="14">
+		<nodes>
+			<node x="442" y="481" />
+			<node x="650" y="479" />
+			<node x="533" y="514" />
+		</nodes>
+		<image x="546" y="401.000031" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (2).jpeg" />
+	</Asset>
+	<Asset id="15">
+		<nodes>
+			<node x="1046" y="427" />
+			<node x="1177" y="428" />
+			<node x="1177" y="543" />
+			<node x="1046" y="543" />
+		</nodes>
+		<image x="1112" y="485.000031" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="16">
+		<nodes>
+			<node x="1177" y="426" />
+			<node x="1308" y="427" />
+			<node x="1308" y="542" />
+			<node x="1177" y="542" />
+		</nodes>
+		<image x="1243" y="484.000031" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="17">
+		<nodes>
+			<node x="1306" y="428" />
+			<node x="1437" y="429" />
+			<node x="1437" y="544" />
+			<node x="1306" y="544" />
+		</nodes>
+		<image x="1372" y="486.000031" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="18">
+		<nodes>
+			<node x="1442" y="540" />
+			<node x="1573" y="541" />
+			<node x="1573" y="656" />
+			<node x="1442" y="656" />
+		</nodes>
+		<image x="1508" y="598" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="19">
+		<nodes>
+			<node x="1571" y="542" />
+			<node x="1702" y="543" />
+			<node x="1702" y="658" />
+			<node x="1571" y="658" />
+		</nodes>
+		<image x="1637" y="600.000061" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="20">
+		<nodes>
+			<node x="1700" y="542" />
+			<node x="1831" y="543" />
+			<node x="1831" y="658" />
+			<node x="1700" y="658" />
+		</nodes>
+		<image x="1766" y="600.000061" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+</Assets>
+<Copies />

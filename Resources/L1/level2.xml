@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<box2d>
+	<bodies>
+		
+		<body name="8" type="static" x="374.382477" y="-10.9649849" image="vatobe1.png8">
+			<fixtures>
+				<fixture name="8" restitution="0" friction="1" isSensor="false" shapeType="polygonShape" categoryBits="0x0003" maskBits="0x0002">
+					<vertex x="-14.5472412" y="-172.142639" />
+					<vertex x="-88.6776733" y="119.166351" />
+					<vertex x="-61.0984802" y="221.603348" />
+					<vertex x="31.882782" y="201.903915" />
+					<vertex x="28.7308655" y="156.989243" />
+					<vertex x="21.6390686" y="138.077789" />
+					<vertex x="76.7974548" y="25.3970947" />
+					<vertex x="87.0411377" y="-64.4322662" />
+					<vertex x="61.8258972" y="-78.61586" />
+					<vertex x="81.5252991" y="-134.56221" />
+					<vertex x="70.4936218" y="-176.324982" />
+					<vertex x="77.5854187" y="-219.663727" />
+					<vertex x="33.4587097" y="-216.51181" />
+				</fixture>
+			</fixtures>
+		</body>
+	</bodies>
+	<images>
+		<image name="grd.png0" path="grd.png" x="384.917206" y="-248.603699" scaleX="1" scaleY="1" />
+		<image name="fas1.png1" path="fas1.png" x="363.801056" y="50.5332756" scaleX="1" scaleY="1" />
+		<image name="fas2.png2" path="fas2.png" x="362.721771" y="-9.29916763" scaleX="1" scaleY="1" />
+		<image name="fefy.png3" path="fefy.png" x="374.382477" y="-10.9649849" scaleX="1" scaleY="1" />
+		<image name="hazo1.png4" path="hazo1.png" x="374.382477" y="-10.9649849" scaleX="1" scaleY="1" />
+		<image name="hazo2.png5" path="hazo2.png" x="374.382477" y="-10.9649849" scaleX="1" scaleY="1" />
+		<image name="vato1.png6" path="vato1.png" x="374.382477" y="-10.9649849" scaleX="1" scaleY="1" />
+		<image name="vato2.png7" path="vato2.png" x="374.382477" y="-10.9649849" scaleX="1" scaleY="1" />
+		<image name="vatobe1.png8" path="vatobe1.png" x="374.382477" y="-10.9649849" scaleX="1" scaleY="1" />
+	</images>
+</box2d>

@@ -1,0 +1,23 @@
+<box2d>
+  <images>
+    <image path="lefona1.png" name="lefona1.png" x="337.65000000000003" y="325" rotation="224.955740921932545" scaleX="0.3596875462703421" scaleY="0.3604737221775721" zDepth="0" pinned="false" body="lefonaMiloko" atlas="null"/>
+  </images>
+  <bodies>
+    <body name="lefonaMiloko" x="330" y="322" type="dynamic" bullet="true" image="lefona1.png">
+      <fixtures>
+        <fixture name="21" shapeType="polygonShape" restitution="0" density="1" friction="1" isSensor="false" categoryBits="0x0002" maskBits="0x0003">
+          <vertex x="-114" y="2"/>
+          <vertex x="-113" y="-5"/>
+		  <vertex x="143" y="-1"/>
+          <vertex x="143" y="6"/>
+        </fixture>
+      </fixtures>
+    </body>
+	
+  </bodies>
+  <joints/>
+  <metaData/>
+  <settings>
+    <setting isLocked="true"/>
+  </settings>
+</box2d>

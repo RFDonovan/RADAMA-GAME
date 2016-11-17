@@ -1,0 +1,24 @@
+diff a/World.cpp b/World.cpp	(rejected hunks)
+@@ -151,22 +151,6 @@
+ 
+ }
+ 
+-void World::update()
+-{
+-    //*
+-
+-    if(paused)/// ******************************************************************>>>>PAUSE
+-        return;
+-
+-    sf::Vector2f playerPosition(0.0f,0.0f);
+-
+-
+-    ePlayer->processLogic();
+-    mWorldView.move(playerPosition);
+-    adaptViewToPlayer();
+-
+-
+-}
+ void World::sticking()
+ {
+     for (int i = 0; i < pList.size(); i++)

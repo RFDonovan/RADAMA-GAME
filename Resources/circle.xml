@@ -1,0 +1,15 @@
+<box2d>
+  <images/>
+  <bodies>
+    <body name="body2" x="129" y="115" type="dynamic" bullet="false" image="null">
+      <fixtures>
+        <fixture name="110" shapeType="circleShape" restitution="1" density="1" friction="1" circleX="-3" circleY="9" circleRadius="75.7429864739964" isSensor="false"/>
+      </fixtures>
+    </body>
+  </bodies>
+  <joints/>
+  <metaData/>
+  <settings>
+    <setting isLocked="false"/>
+  </settings>
+</box2d>

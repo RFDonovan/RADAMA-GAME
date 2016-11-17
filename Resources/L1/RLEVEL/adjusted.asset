@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<Assets>
+	<Asset id="5">
+		<nodes>
+			<node x="939.704346" y="393.707581" />
+			<node x="1040.70435" y="393.707581" />
+			<node x="1044.70435" y="407.707581" />
+			<node x="1032.70435" y="417.707581" />
+			<node x="944.704346" y="404.707581" />
+		</nodes>
+		<image x="989.440918" y="375.787659" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\vato1.png" />
+	</Asset>
+	<Asset id="9">
+		<nodes>
+			<node x="46.5294189" y="41.6986694" />
+			<node x="165.09549" y="15.8458862" />
+			<node x="164.204041" y="-41.2084351" />
+			<node x="149.94043" y="-66.1697388" />
+			<node x="230.173126" y="-222.177734" />
+			<node x="242.653748" y="-343.418213" />
+			<node x="210.560669" y="-361.247711" />
+			<node x="235.521973" y="-435.240082" />
+			<node x="222.149841" y="-491.402954" />
+			<node x="228.390167" y="-550.240234" />
+			<node x="170.444336" y="-542.21698" />
+			<node x="107.149658" y="-485.162628" />
+			<node x="6.41308594" y="-100.937225" />
+		</nodes>
+		<image x="124.105835" y="-256.417603" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\vatobe1.png" />
+	</Asset>
+	<Asset id="10">
+		<nodes>
+			<node x="272.319611" y="-53.4067001" />
+			<node x="340.225464" y="-54.2131844" />
+			<node x="309.642609" y="-30.4235916" />
+		</nodes>
+		<image x="290.897217" y="-86.5369873" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\vato2.png" />
+	</Asset>
+	<Asset id="12">
+		<nodes>
+			<node x="698.446289" y="-142.953613" />
+			<node x="995.591431" y="-142.435028" />
+			<node x="1009.07446" y="-40.7938232" />
+			<node x="700.002075" y="-36.6452026" />
+		</nodes>
+		<image x="854.101074" y="-131.859924" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\fas2.png" />
+	</Asset>
+	<Asset id="14">
+		<nodes>
+			<node x="605.368103" y="514.00354" />
+			<node x="584.801147" y="556.165771" />
+			<node x="533.383789" y="546.910645" />
+			<node x="478.367188" y="582.902771" />
+			<node x="399.819885" y="555.170715" />
+			<node x="366.277313" y="563.878357" />
+			<node x="339.540283" y="540.226379" />
+			<node x="284.009521" y="555.65155" />
+			<node x="220.251984" y="549.481506" />
+			<node x="197.114166" y="507.833435" />
+			<node x="168.870071" y="482.021088" />
+			<node x="644.773315" y="481.419647" />
+		</nodes>
+		<image x="406.660004" y="533.892456" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\grd.png" />
+	</Asset>
+	<Asset id="15">
+		<nodes>
+			<node x="514.136169" y="387.241028" />
+			<node x="782.985107" y="386.89856" />
+			<node x="753.740234" y="403.522522" />
+			<node x="735.028931" y="441.242371" />
+			<node x="654.540039" y="418.372864" />
+			<node x="640.283691" y="445.103455" />
+			<node x="537.816406" y="410.056671" />
+		</nodes>
+		<image x="649.119385" y="279.777527" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\hazo1.png" />
+	</Asset>
+	<Asset id="16">
+		<nodes>
+			<node x="754.9823" y="395.486816" />
+			<node x="1008.36188" y="396.3414" />
+			<node x="938.714539" y="471.543396" />
+			<node x="890.431396" y="462.143127" />
+			<node x="834.88446" y="491.625732" />
+			<node x="776.773804" y="412.578186" />
+		</nodes>
+		<image x="839.352295" y="307.921143" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\hazo2.png" />
+	</Asset>
+	<Asset id="17">
+		<nodes>
+			<node x="924.204712" y="402.589722" />
+			<node x="1056.63855" y="401.910553" />
+			<node x="1005.70251" y="429.416046" />
+		</nodes>
+		<image x="989.440918" y="375.787659" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\vato1.png" />
+	</Asset>
+	<Asset id="18">
+		<nodes>
+			<node x="58.1522522" y="156.568939" />
+			<node x="342.877319" y="156.262436" />
+			<node x="322.326019" y="177.175323" />
+			<node x="212.287994" y="189.951263" />
+			<node x="145.523315" y="187.890656" />
+			<node x="123.268433" y="170.581268" />
+			<node x="58.1522522" y="190.363373" />
+			<node x="48.2612" y="170.169159" />
+		</nodes>
+		<image x="196.9552" y="88.7041931" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\RLEVEL\fas1.png" />
+	</Asset>
+</Assets>
+<Copies />

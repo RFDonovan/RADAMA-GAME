@@ -1,0 +1,17 @@
+<box2d>
+  <images>
+    <image path="circle.png" name="circle.png" x="83" y="-208" rotation="0" scaleX="0.05" scaleY="0.05" zDepth="0" pinned="false" body="vato" atlas="null"/>
+  </images>
+  <bodies>
+    <body name="vato" x="83" y="-209" type="dynamic" bullet="false" image="circle.png">
+      <fixtures>
+        <fixture name="10" shapeType="circleShape" restitution="0" density="1" friction="1" circleX="0" circleY="-1" circleRadius="7.810249675906654" isSensor="false"/>
+      </fixtures>
+    </body>
+  </bodies>
+  <joints/>
+  <metaData/>
+  <settings>
+    <setting isLocked="true"/>
+  </settings>
+</box2d>

@@ -1,0 +1,62 @@
+<box2d>
+  <images>
+    <image path="rock2.png" name="rock2.png" x="1542.8000000000004" y="-593.2999999999984" rotation="0" scaleX="1.7520217032427075" scaleY="2.277336227960034" zDepth="15" pinned="true" body="body3" atlas="null"/>
+  </images>
+  <bodies>
+    <body name="rockBody" x="531" y="-191" type="dynamic" bullet="false" image="ball.png">
+      <fixtures>
+        <fixture name="420" shapeType="circleShape" restitution="1" density="1" friction="1" circleX="7" circleY="2" circleRadius="109.40292500660117" isSensor="false"/>
+      </fixtures>
+    </body>
+    <body name="body3" x="1496" y="-528" type="dynamic" bullet="false" image="rock2.png">
+      <fixtures>
+        <fixture name="680" shapeType="edgeShape" restitution="1" density="1" friction="1" closedPath="false">
+          <vertex x="-297" y="-257"/>
+          <vertex x="-331" y="-113"/>
+          <vertex x="-331" y="-64"/>
+          <vertex x="-283" y="50"/>
+          <vertex x="-338" y="168"/>
+          <vertex x="-299" y="256"/>
+          <vertex x="-235" y="282"/>
+          <vertex x="-184" y="277"/>
+          <vertex x="-176" y="264"/>
+          <vertex x="-159" y="254"/>
+          <vertex x="-159" y="239"/>
+          <vertex x="-137" y="231"/>
+          <vertex x="-114" y="220"/>
+          <vertex x="-96" y="221"/>
+          <vertex x="-24" y="244"/>
+          <vertex x="170" y="258"/>
+          <vertex x="253" y="249"/>
+          <vertex x="222" y="32"/>
+          <vertex x="259" y="-117"/>
+          <vertex x="247" y="-205"/>
+          <vertex x="-282" y="-273"/>
+        </fixture>
+      </fixtures>
+    </body>
+    <body name="body1" x="415" y="-604" type="static" bullet="false" image="monde.png">
+      <fixtures>
+        <fixture name="280" shapeType="edgeShape" restitution="1" density="1" friction="1" closedPath="false">
+          <vertex x="458" y="-16"/>
+          <vertex x="-2" y="-62"/>
+          <vertex x="-416" y="-76"/>
+          <vertex x="-414" y="84"/>
+          <vertex x="-320" y="88"/>
+          <vertex x="-163" y="83"/>
+          <vertex x="68" y="77"/>
+          <vertex x="137" y="78"/>
+          <vertex x="292" y="91"/>
+          <vertex x="444" y="88"/>
+          <vertex x="477" y="21"/>
+          <vertex x="460" y="-15"/>
+        </fixture>
+      </fixtures>
+    </body>
+  </bodies>
+  <joints/>
+  <metaData/>
+  <settings>
+    <setting isLocked="true"/>
+  </settings>
+</box2d>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Asset>
+	<nodes>
+		<node x="12" y="406" />
+		<node x="1015" y="417" />
+		<node x="1015" y="454" />
+		<node x="8" y="443" />
+	</nodes>
+	<image x="66" y="425" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\Images\reload.png" />
+</Asset>

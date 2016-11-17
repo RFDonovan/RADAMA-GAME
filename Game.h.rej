@@ -1,0 +1,9 @@
+diff a/Game.h b/Game.h	(rejected hunks)
+@@ -22,7 +22,6 @@
+     void run ();
+     //void processInput ();
+     void processInput();
+-    void update ();
+     void render (sf::Time frameTime);
+ };
+ 

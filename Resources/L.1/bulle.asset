@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Asset>
+	<nodes>
+		<node x="279" y="471" />
+		<node x="238" y="374" />
+		<node x="264" y="303" />
+		<node x="345" y="232" />
+		<node x="450" y="218" />
+		<node x="514" y="270" />
+		<node x="551" y="331" />
+		<node x="562" y="386" />
+		<node x="553" y="446" />
+		<node x="530" y="494" />
+		<node x="476" y="523" />
+		<node x="417" y="540" />
+		<node x="340" y="538" />
+		<node x="306" y="498" />
+	</nodes>
+	<image x="404" y="377" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\bulle.png" />
+</Asset>

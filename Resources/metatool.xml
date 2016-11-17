@@ -1,0 +1,13 @@
+<box2d>
+  <images/>
+  <bodies/>
+  <joints/>
+  <metaData>
+    <meta name="item2" type="null" x="378" y="-407" radius="0" timer="0" delimiter="null"/>
+    <meta name="item1" type="null" x="175" y="-409" radius="0" timer="0" delimiter="null"/>
+    <meta name="item3" type="null" x="631" y="-343" radius="0" timer="0" delimiter="null"/>
+  </metaData>
+  <settings>
+    <setting isLocked="false"/>
+  </settings>
+</box2d>

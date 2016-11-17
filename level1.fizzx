@@ -1,0 +1,66 @@
+<box2d>
+  <images>
+    <image path="file://C:\DATA F\DEV\DEV\RADAMA_prototype\ground.png" name="ground.png" x="395.7500000000001" y="-511.25" rotation="0" scaleX="2.7221814570855254" scaleY="3.11111599423061" zDepth="1" pinned="false" body="body1" atlas="null"/>
+    <image path="file://C:\DATA F\DEV\DEV\RADAMA_prototype\capture.jpg" name="capture.jpg" x="401" y="-300" rotation="0" scaleX="1" scaleY="1" zDepth="2" pinned="true" atlas="null"/>
+  </images>
+  <bodies>
+    <body name="g2" x="1325" y="-618" type="static" bullet="false" image="null">
+      <fixtures>
+        <fixture name="430" shapeType="edgeShape" restitution="0" density="1" friction="1" closedPath="true">
+          <vertex x="-252" y="104"/>
+          <vertex x="-162" y="84"/>
+          <vertex x="-83" y="102"/>
+          <vertex x="20" y="77"/>
+          <vertex x="126" y="77"/>
+          <vertex x="126" y="135"/>
+          <vertex x="221" y="134"/>
+          <vertex x="224" y="76"/>
+          <vertex x="302" y="112"/>
+          <vertex x="414" y="96"/>
+          <vertex x="441" y="15"/>
+          <vertex x="288" y="-66"/>
+          <vertex x="-278" y="-45"/>
+          <vertex x="-232" y="36"/>
+          <vertex x="-287" y="33"/>
+          <vertex x="-261" y="96"/>
+        </fixture>
+      </fixtures>
+    </body>
+    <body name="plateform" x="771" y="-400" type="static" bullet="false" image="null">
+      <fixtures>
+        <fixture name="600" shapeType="edgeShape" restitution="0" density="1" friction="1" closedPath="false">
+          <vertex x="-61" y="11"/>
+          <vertex x="58" y="15"/>
+          <vertex x="33" y="-21"/>
+          <vertex x="-26" y="-21"/>
+          <vertex x="-61" y="12"/>
+        </fixture>
+      </fixtures>
+    </body>
+    <body name="body1" x="382" y="-653" type="static" bullet="false" image="ground.png">
+      <fixtures>
+        <fixture name="140" shapeType="edgeShape" restitution="0" density="1" friction="1" closedPath="true">
+          <vertex x="-381.75" y="135.14999999999998"/>
+          <vertex x="-259.75" y="138.14999999999998"/>
+          <vertex x="-196.75" y="95.14999999999998"/>
+          <vertex x="-65.75" y="109.14999999999998"/>
+          <vertex x="0.25" y="101.14999999999998"/>
+          <vertex x="124.25" y="122.14999999999998"/>
+          <vertex x="226.25" y="103.14999999999998"/>
+          <vertex x="349.25" y="92.14999999999998"/>
+          <vertex x="376.25" y="139.14999999999998"/>
+          <vertex x="421.25" y="122.14999999999998"/>
+          <vertex x="426.25" y="90.14999999999998"/>
+          <vertex x="379.25" y="-27.850000000000023"/>
+          <vertex x="398.25" y="-81.85000000000002"/>
+          <vertex x="-380.75" y="-76.85000000000002"/>
+        </fixture>
+      </fixtures>
+    </body>
+  </bodies>
+  <joints/>
+  <metaData/>
+  <settings>
+    <setting isLocked="true"/>
+  </settings>
+</box2d>

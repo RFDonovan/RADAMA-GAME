@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<box2d>
+	<bodies>
+		<body name="m_body" x="150.053329" y="444.155609" type="dynamic" bullet="false" fixedRotation="true" image="null">
+			<fixtures>
+				<fixture name="basFixture" restitution="0" density="10" friction="0" isSensor="true" shapeType="polygonShape">
+					<vertex x="-4.25" y="72" />
+					<vertex x="4.25" y="74" />
+					<vertex x="4.25" y="76" />
+					<vertex x="-4.25" y="76" />
+				</fixture>
+				<fixture name="2" restitution="0" density="10" friction="0" isSensor="false" shapeType="polygonShape">
+					<vertex x="-18" y="-37.5" />
+					<vertex x="18" y="-37.5" />
+					<vertex x="18" y="37.5" />
+					<vertex x="-18" y="37.5" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="m_head" x="150.053223" y="388.659424" type="dynamic" bullet="false" fixedRotation="true" image="null">
+			<fixtures>
+				<fixture name="1" restitution="0" density="10" friction="1" isSensor="false" shapeType="circleShape" circleRadius="18" />
+			</fixtures>
+		</body>
+		<body name="m_legs" x="150.053329" y="499.65564" type="dynamic" bullet="false" fixedRotation="true" image="null">
+			<fixtures>
+				<fixture name="1" restitution="0" density="10" friction="1" isSensor="false" shapeType="circleShape" circleRadius="18" />
+			</fixtures>
+		</body>
+	</bodies>
+	<joints>
+		<joint name="legJoint" bodyA="m_body" bodyB="m_legs" collideConnected="false" Ax="" Ay="" Bx="" By="-55" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
+		<joint name="headJoint" bodyA="m_body" bodyB="m_head" collideConnected="false" Ax="" Ay="" Bx="" By="55" type="RevoluteJoint" enableLimit="true" enableMotor="false" />
+	</joints>
+	<images />
+</box2d>

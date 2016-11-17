@@ -1,0 +1,37 @@
+<box2d>
+  <images>
+    <image path="ball.png" name="ball.png" x="256" y="285" rotation="0" scaleX="1" scaleY="1" zDepth="5" pinned="false" body="body3" atlas="null"/>
+    <image path="ball.png" name="ball2.png" x="162" y="183" rotation="0" scaleX="1" scaleY="1" zDepth="6" pinned="false" atlas="null"/>
+  </images>
+  <bodies>
+    <body name="body3" x="162" y="185" type="dynamic" bullet="false" image="null">
+      <fixtures>
+        <fixture name="131" shapeType="polygonShape" restitution="1" density="1" friction="1" isSensor="false">
+          <vertex x="-86" y="62"/>
+          <vertex x="-86" y="-63"/>
+          <vertex x="94" y="62"/>
+        </fixture>
+        <fixture name="132" shapeType="polygonShape" restitution="1" density="1" friction="1" isSensor="false">
+          <vertex x="94" y="-63"/>
+          <vertex x="94" y="62"/>
+          <vertex x="-86" y="-63"/>
+        </fixture>
+        <fixture name="191" shapeType="polygonShape" restitution="0" density="1" friction="1" isSensor="false">
+          <vertex x="-3" y="149"/>
+          <vertex x="-3" y="24"/>
+          <vertex x="169" y="149"/>
+        </fixture>
+        <fixture name="192" shapeType="polygonShape" restitution="0" density="1" friction="1" isSensor="false">
+          <vertex x="169" y="24"/>
+          <vertex x="169" y="149"/>
+          <vertex x="-3" y="24"/>
+        </fixture>
+      </fixtures>
+    </body>
+  </bodies>
+  <joints/>
+  <metaData/>
+  <settings>
+    <setting isLocked="false"/>
+  </settings>
+</box2d>

@@ -1,0 +1,93 @@
+<box2d>
+  <images>
+    <image path="g3915-4.png" name="g3915-4.png" x="2305.0499999999947" y="-7.75" rotation="0" scaleX="2" scaleY="3" zDepth="0" pinned="false" body="body1" atlas="null"/>
+    <image path="wr_monster.png" name="wr_monster.png" x="597" y="-433" rotation="0" scaleX="1" scaleY="1" zDepth="1" pinned="false" atlas="null"/>
+  </images>
+  <bodies>
+    <body name="body6" x="341" y="76" type="static" bullet="false" image="null">
+      <fixtures/>
+    </body>
+    <body name="body1" x="-22" y="-42.650000000000006" type="static" bullet="false" image="g3915-4.png">
+      <fixtures>
+        <fixture categoryBits="0x0002" maskBits="0x0001" name="1140" shapeType="edgeShape" restitution="0" density="1" friction="1" closedPath="false">
+          <vertex x="59" y="595.65"/>
+          <vertex x="55" y="-475.35"/>
+          <vertex x="105" y="-971.35"/>
+          <vertex x="387" y="-980.35"/>
+          <vertex x="498" y="-999.35"/>
+          <vertex x="-251" y="-1066.35"/>
+          <vertex x="47" y="592.65"/>
+        </fixture>
+      </fixtures>
+    </body>
+    <body name="body5" x="4311" y="142" type="static" bullet="false" image="null">
+      <fixtures/>
+    </body>
+    <body name="body7" x="1473" y="747" type="static" bullet="false" image="null">
+      <fixtures>
+        <fixture categoryBits="0x0002" maskBits="0x0001" name="1690" shapeType="edgeShape" restitution="0" density="1" friction="1" closedPath="false">
+          <vertex x="-238" y="208"/>
+          <vertex x="434" y="466"/>
+          <vertex x="427" y="-484"/>
+          <vertex x="9" y="-494"/>
+          <vertex x="-29" y="263"/>
+          <vertex x="-238" y="193"/>
+        </fixture>
+      </fixtures>
+    </body>
+    <body name="body2" x="432" y="-438" type="static" bullet="false" image="null">
+      <fixtures>
+        <fixture categoryBits="0x0002" maskBits="0x0001" name="1310" shapeType="edgeShape" restitution="0" density="1" friction="1" closedPath="false">
+          <vertex x="-73" y="-631"/>
+          <vertex x="-12" y="11"/>
+          <vertex x="663" y="16"/>
+          <vertex x="653" y="-149"/>
+          <vertex x="845" y="-169"/>
+          <vertex x="879" y="-390"/>
+          <vertex x="1116" y="-426"/>
+          <vertex x="1042" y="-603"/>
+          <vertex x="1295" y="-600"/>
+          <vertex x="1337" y="-1062"/>
+          <vertex x="-55" y="-639"/>
+        </fixture>
+      </fixtures>
+    </body>
+    <body name="body4" x="3028" y="-649" type="static" bullet="false" image="null">
+      <fixtures>
+        <fixture categoryBits="0x0002" maskBits="0x0001" name="1500" shapeType="edgeShape" restitution="0" density="1" friction="1" closedPath="false">
+          <vertex x="115" y="-501"/>
+          <vertex x="75" y="-217"/>
+          <vertex x="-3" y="-58"/>
+          <vertex x="-16" y="9"/>
+          <vertex x="1327" y="20"/>
+          <vertex x="1485" y="103"/>
+          <vertex x="1412" y="862"/>
+          <vertex x="1276" y="766"/>
+          <vertex x="1123" y="957"/>
+          <vertex x="1213" y="1242"/>
+          <vertex x="1453" y="1126"/>
+          <vertex x="1540" y="119"/>
+          <vertex x="1371" y="-117"/>
+          <vertex x="122" y="-508"/>
+        </fixture>
+      </fixtures>
+    </body>
+    <body name="body3" x="1897" y="-875" type="static" bullet="false" image="null">
+      <fixtures>
+        <fixture categoryBits="0x0002" maskBits="0x0001" name="1430" shapeType="edgeShape" restitution="0" density="1" friction="1" closedPath="false">
+          <vertex x="-5" y="-543"/>
+          <vertex x="-15" y="13"/>
+          <vertex x="928" y="16"/>
+          <vertex x="1019" y="-216"/>
+          <vertex x="951" y="-537"/>
+          <vertex x="10" y="-543"/>
+        </fixture>
+      </fixtures>
+    </body>
+  </bodies>
+  <joints/>
+  <metaData/>
+  <settings>
+    <setting isLocked="true"/>
+  </settings>
+</box2d>

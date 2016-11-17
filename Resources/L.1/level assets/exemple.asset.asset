@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Assets>
+	<Asset id="4">
+		<nodes>
+			<node x="1406.24084" y="369.234863" />
+			<node x="1537.24084" y="370.234863" />
+			<node x="1537.24084" y="485.234863" />
+			<node x="1406.24084" y="485.234863" />
+		</nodes>
+		<image x="1472.37268" y="427.635498" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (7).jpeg" />
+	</Asset>
+	<Asset id="5">
+		<nodes>
+			<node x="787.832764" y="461.134064" />
+			<node x="995.832764" y="459.134064" />
+			<node x="878.832764" y="494.134064" />
+		</nodes>
+		<image x="891.832764" y="381.134094" z="0" scaleX="1" scaleY="1" path="C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\L1\level assets\1 (2).jpeg" />
+	</Asset>
+</Assets>
+<Copies>
+	<Copy from="4" x="1139.323" y="417.981873" z="0" />
+	<Copy from="5" x="558.78302" y="371.480469" z="0" />
+</Copies>

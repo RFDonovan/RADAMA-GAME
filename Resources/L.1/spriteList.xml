@@ -1,0 +1,6 @@
+<RADAMA>
+	<spriteList>
+		<sprite name="rakakabe" file="Resources/Animations/monster.xml" jump="Resources/Animations/monsterJump.xml" atk="Resources/Animations/monsterAtk.xml" shift="Resources/Animations/monsterShift.xml"/>
+		<sprite name="human" file="humanSprite.xml" />
+	</spriteList>
+</RADAMA>

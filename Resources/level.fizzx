@@ -1,0 +1,39 @@
+<box2d>
+  <images>
+    <image path="file://C:\DATA F\DEV\DEV\RADAMA_prototype\capture.jpg" name="capture.jpg" x="402" y="-302" rotation="0" scaleX="1" scaleY="1" zDepth="0" pinned="true" atlas="null"/>
+    <image path="file://C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\monde.png" name="monde.png" x="529.15" y="-330.79999999999995" rotation="0.9246177695690656" scaleX="0.7591078952262978" scaleY="0.8855582686083381" zDepth="15" pinned="false" body="body1" atlas="null"/>
+    <image path="file://C:\DATA F\DEV\DEV\RADAMA_prototype\Resources\ball.png" name="ball.png" x="532" y="-193" rotation="0" scaleX="1" scaleY="1" zDepth="17" pinned="false" body="rockBody" atlas="null"/>
+  </images>
+  <bodies>
+    <body name="body1" x="415" y="-604" type="static" bullet="false" image="monde.png">
+      <fixtures>
+        <fixture name="60" shapeType="edgeShape" restitution="1" density="1" friction="1" closedPath="false">
+          <vertex x="458" y="-16"/>
+          <vertex x="-2" y="-62"/>
+          <vertex x="-416" y="-76"/>
+          <vertex x="-414" y="84"/>
+          <vertex x="-320" y="88"/>
+          <vertex x="-163" y="83"/>
+          <vertex x="68" y="77"/>
+          <vertex x="137" y="78"/>
+          <vertex x="292" y="91"/>
+          <vertex x="444" y="88"/>
+          <vertex x="477" y="21"/>
+          <vertex x="460" y="-15"/>
+        </fixture>
+      </fixtures>
+    </body>
+    <body name="rockBody" x="531" y="-191" type="dynamic" bullet="false" image="ball.png">
+      <fixtures>
+        <fixture name="230" shapeType="circleShape" restitution="1" density="1" friction="1" circleX="7" circleY="2" circleRadius="109.40292500660117" isSensor="false"/>
+      </fixtures>
+    </body>
+  </bodies>
+  <joints/>
+  <metaData>
+    <meta name="null" type="null" x="5" y="-358" radius="0" timer="0" delimiter="null"/>
+  </metaData>
+  <settings>
+    <setting isLocked="true"/>
+  </settings>
+</box2d>

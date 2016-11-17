@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<box2d>
+	<bodies>
+		<body name="body1" x="95" y="-666" type="static" bullet="false" fixedRotation="true"  image="circle.png">
+		  <fixtures>
+			<fixture  categoryBits="1" maskBits="1" name="20" shapeType="edgeShape" restitution="0.1" density="10" friction="1" closedPath="false">
+			  <vertex x="4" y="4"/>
+			  <vertex x="2" y="564"/>
+			  <vertex x="829" y="565"/>
+			  <vertex x="831" y="-2"/>
+			  <vertex x="6" y="3"/>
+			</fixture>
+		  </fixtures>
+		</body>
+		<body name="hand" x="500" y="-400" type="dynamic" bullet="false" fixedRotation="false" image="hand.png">
+			<fixtures>
+				<fixture categoryBits="1" maskBits="1"  name="1" restitution="0.1" density="5" friction="1" isSensor="false" shapeType="circleShape" circleRadius="60" />
+			</fixtures>
+		</body>
+		<body name="os1" x="200" y="-244.155609" type="dynamic" bullet="false" fixedRotation="false" image="os">
+			<fixtures>
+				<fixture categoryBits="1" maskBits="1"  name="1" restitution="0.1" density="5" friction="1" isSensor="false" shapeType="circleShape" circleRadius="30" />
+			</fixtures>
+		</body>
+		<body name="os2" x="201" y="-244.155609" type="dynamic" bullet="false" fixedRotation="false" image="os1">
+			<fixtures>
+				<fixture categoryBits="1" maskBits="1" name="2" restitution="0.1" density="5" friction="0" isSensor="false" shapeType="polygonShape">
+					<vertex x="-15" y="-30.5" />
+					<vertex x="15" y="-30.5" />
+					<vertex x="15" y="30.5" />
+					<vertex x="-15" y="30.5" />
+				</fixture>
+			</fixtures>
+		</body>
+		
+		<body name="os3" x="201" y="-244.155609" type="dynamic" bullet="false" fixedRotation="false" image="os2">
+			<fixtures>
+				<fixture categoryBits="1" maskBits="1" name="2" restitution="0.1" density="5" friction="0" isSensor="false" shapeType="polygonShape">
+					<vertex x="-15" y="-30.5" />
+					<vertex x="15" y="-30.5" />
+					<vertex x="15" y="30.5" />
+					<vertex x="-15" y="30.5" />
+				</fixture>
+			</fixtures>
+		</body>
+		<body name="reload" x="400" y="-300" type="dynamic" bullet="false" fixedRotation="false" image="os3">
+			<fixtures>
+				<fixture categoryBits="1" maskBits="1"  name="1" restitution="0.1" density="5" friction="1" isSensor="false" shapeType="circleShape" circleRadius="30" />
+			</fixtures>
+		</body>
+		
+		
+		
+		
+		<body name="sampy" x="390" y="-408" type="dynamic" bullet="false" image="sampy.png">
+		  <fixtures>
+			<fixture name="611" shapeType="polygonShape" restitution="1" density="1" friction="1" isSensor="false">
+			  <vertex x="-61" y="35"/>
+			  <vertex x="-61" y="-36"/>
+			  <vertex x="57" y="35"/>
+			</fixture>
+			<fixture name="612" shapeType="polygonShape" restitution="1" density="1" friction="1" isSensor="false">
+			  <vertex x="57" y="-36"/>
+			  <vertex x="57" y="35"/>
+			  <vertex x="-61" y="-36"/>
+			</fixture>
+		  </fixtures>
+		</body>
+		<body name="quit" x="180" y="-633" type="dynamic" bullet="false" fixedRotation="true" image="quit.png">
+		  <fixtures>
+			<fixture name="271" shapeType="polygonShape" restitution="1" density="1" friction="1" isSensor="false">
+			  <vertex x="-60" y="17"/>
+			  <vertex x="-60" y="-19"/>
+			  <vertex x="64" y="17"/>
+			</fixture>
+			<fixture name="272" shapeType="polygonShape" restitution="1" density="1" friction="1" isSensor="false">
+			  <vertex x="64" y="-19"/>
+			  <vertex x="64" y="17"/>
+			  <vertex x="-60" y="-19"/>
+			</fixture>
+		  </fixtures>
+		</body>
+		<body name="reload" x="295" y="-173" type="dynamic" bullet="false" fixedRotation="true" image="reload.png">
+		  <fixtures>
+			<fixture name="141" shapeType="polygonShape" restitution="1" density="1" friction="1" isSensor="false">
+			  <vertex x="-53" y="16"/>
+			  <vertex x="-53" y="-18"/>
+			  <vertex x="50" y="16"/>
+			</fixture>
+			<fixture name="142" shapeType="polygonShape" restitution="1" density="1" friction="1" isSensor="false">
+			  <vertex x="50" y="-18"/>
+			  <vertex x="50" y="16"/>
+			  <vertex x="-53" y="-18"/>
+			</fixture>
+		  </fixtures>
+		</body>
+		<body name="resume" x="756" y="-392" type="dynamic" bullet="false" fixedRotation="true" image="resume.png">
+		  <fixtures>
+			<fixture name="211" shapeType="polygonShape" restitution="1" density="1" friction="1" isSensor="false">
+			  <vertex x="-107" y="32"/>
+			  <vertex x="-107" y="-28"/>
+			  <vertex x="110" y="32"/>
+			</fixture>
+			<fixture name="212" shapeType="polygonShape" restitution="1" density="1" friction="1" isSensor="false">
+			  <vertex x="110" y="-28"/>
+			  <vertex x="110" y="32"/>
+			  <vertex x="-107" y="-28"/>
+			</fixture>
+		  </fixtures>
+		</body>
+	</bodies>
+	
+	<images>
+		
+		<image path="Resources/Images/circle.png" name="fire.png" x="95" y="-666" rotation="0" scaleX="0.6" scaleY="0.55" zDepth="0" pinned="false" atlas="09"/>
+		<image path="Resources/Images/hand.png" name="hand.png" x="500" y="-400" rotation="0" scaleX="0.3" scaleY="0.3" zDepth="0" pinned="false" atlas="09"/>
+		
+		<image name="os" path="Resources/Images/os.png" x="200" y="-244.155609" rotation="0" scaleX="1" scaleY="1" zDepth="0" pinned="false" atlas="09"/>
+		<image name="os1" path="Resources/Images/os1.png" x="200" y="-244.155609" rotation="0" scaleX="1" scaleY="1" zDepth="0" pinned="false" atlas="09"/>
+		<image path="Resources/Images/sampy.png" name="sampy.png" x="307" y="-372" rotation="0" scaleX="1" scaleY="1" zDepth="10" pinned="false" body="sampy" atlas="null"/>
+		<image name="os2" path="Resources/Images/os1.png" x="201" y="-244.155609" rotation="0" scaleX="1.2" scaleY="1.3" zDepth="0" pinned="false" atlas="09"/>
+		<image name="os3" path="Resources/Images/os1.png" x="400" y="-300" rotation="0" scaleX="2" scaleY="2" zDepth="0" pinned="false" atlas="09"/>
+		<image path="Resources/Images/quit.png" name="quit.png" x="177" y="-632" rotation="0" scaleX="1" scaleY="1" zDepth="7" pinned="false" body="quit" atlas="null"/>
+		<image path="Resources/Images/resume.png" name="resume.png" x="741" y="-390" rotation="0" scaleX="1" scaleY="1" zDepth="8" pinned="false" body="resume" atlas="null"/>
+		<image path="Resources/Images/reload.png" name="reload.png" x="291" y="-175" rotation="0" scaleX="1" scaleY="1" zDepth="9" pinned="false" body="reload" atlas="null"/>
+		
+	
+	</images>
+</box2d>
